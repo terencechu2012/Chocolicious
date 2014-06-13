@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20140612080144) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+  change_column :clubs, :clubid, :string
 
   create_table "clubusers", force: true do |t|
     t.string   "userid"
@@ -53,5 +54,6 @@ ActiveRecord::Schema.define(version: 20140612080144) do
     t.datetime "updated_at"
     t.string   "nric"
   end
+  change_column :users, :userid, :string
 
 end
