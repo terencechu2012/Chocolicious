@@ -1,0 +1,21 @@
+<table border=1>
+	<tr>
+		<th>Amount</th>
+		<th>Category</th>
+		<th>Created</th>
+		<th>Updated</th>
+		<th>Status</th>
+		<th>Supporting Doc</th>
+	</tr>
+	<%@claims.each do |c|%>
+	<tr>
+		<td><%=c.amount%></td>
+		<td><%=c.category%></td>
+		<td><%=c.created_at%></td>
+		<td><%=c.updated_at%></td>
+		<td><%=c.status%></td>
+		<td><a href="<%=c.supportdoc.url%>">Download</td>
+	</tr>
+	<%end%>
+
+</table>

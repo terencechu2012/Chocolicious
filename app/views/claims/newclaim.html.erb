@@ -1,0 +1,47 @@
+<style type="text/css">
+	table.tableizer-table {
+	border: 1px solid #CCC; font-family: Arial, Helvetica, sans-serif
+	font-size: 12px;
+} 
+.tableizer-table td {
+	padding: 4px;
+	margin: 3px;
+	border: 1px solid #ccc;
+}
+.tableizer-table th {
+	background-color: #104E8B; 
+	color: #FFF;
+	font-weight: bold;
+}
+</style><table class="tableizer-table">
+<tr class="tableizer-firstrow"><th>S/n</th><th>Categories</th><th>Explanation</th></tr>
+ <tr><td>1</td><td>Assets maintenance and repair</td><td>Equipment with life-span of >1 year.</td></tr>
+ <tr><td>2</td><td>Assets purchases: <=$100</td><td>Equipment with life-span of >1 year with cost <=$100</td></tr>
+ <tr><td>3</td><td>Assets purchases: 100<X<500</td><td>Equipment with life-span of >1 year with cost $100 < X < $500</td></tr>
+ <tr><td>4</td><td>Assets purchases: >500</td><td>Equipment with life-span of >1 year with cost >$500</td></tr>
+ <tr><td>5</td><td>Attire</td><td>Attire used for competitive purposes or authorized by the SMUSA Finance Secretary</td></tr>
+ <tr><td>6</td><td>Coaching fees</td><td>Fees to trainers/ coaches</td></tr>
+ <tr><td>7</td><td>Facilities booking/clubs' membership payment to organisation</td><td>Fees to rent training facilities or venue</td></tr>
+ <tr><td>8</td><td>Gifts/prizes/awards</td><td>Gifts, prizes, awards, tokens of appreciation etc</td></tr>
+ <tr><td>9</td><td>Publicity</td><td>General costs of marketing materials etc</td></tr>
+ <tr><td>10</td><td>Stationery</td><td>Stationery material for club's administrative purposes</td></tr>
+ <tr><td>11</td><td>Food and Beverages</td><td>Welfare events such as BBQ, food gathering, for members of clubs only.</td></tr>
+ <tr><td>12</td><td>Transport</td><td>Fees for transportation</td></tr>
+ <tr><td>13</td><td>Miscellaneous</td><td>Any misc. expenses that do not fall into the above cateogories. Egs include stationary etc. </td></tr>
+</table>
+
+<%= form_for @new_claim, :url => { :action => "add" }, :method => :POST  do |f|  %>
+<%= f.hidden_field(:userid, :value => session[:userid])%>
+<%= f.hidden_field(:clubid, :value => session[:club])%>
+Enter amount: <%= f.number_field(:amount, :step => 'any') %><br>
+<%a = Array(1..13)%>
+<%= f.hidden_field(:status, :value => 'unsubmitted')%>
+Select category: 
+<%=f.select(:category, options_for_select(a))%><br>
+Upload supporting doc:
+<%=f.file_field(:supportdoc)%>
+
+
+
+<%= f.submit("Save", :class=>"btn")%>
+<%end%>

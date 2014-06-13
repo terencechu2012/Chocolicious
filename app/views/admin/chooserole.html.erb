@@ -1,0 +1,9 @@
+Select club:
+<%= form_tag("/admin/chooseroleProcess/", :method => "post") do %>
+<%= select_tag(:club, options_from_collection_for_select(@userarray, "clubid", "clubid"))%><br>
+Select role:
+<!-- to make role dependent on club selected -->
+<%= select_tag(:role, options_from_collection_for_select(@userarray, "role", "role"))%><br>
+<%= submit_tag("Login", :class=>"btn")%>
+<%end%>
+
