@@ -1,21 +1,238 @@
-<table border=1>
+<%role = session[:role]%>
+
+<%if role == 'normal' || role == 'smusasec' || role == 'cbdmc'%>
+
+<h2>My claims:</h2>
+
+<table class="table table-bordered">
 	<tr>
+		<th>Claim By</th>
+		<th>Club</th>
 		<th>Amount</th>
 		<th>Category</th>
 		<th>Created</th>
 		<th>Updated</th>
 		<th>Status</th>
 		<th>Supporting Doc</th>
+		<th>Edit</th>
+		<th>Submit</th>
 	</tr>
-	<%@claims.each do |c|%>
+	<%@normalclaims.each do |c|%>
+	<%status = c.status%>
 	<tr>
-		<td><%=c.amount%></td>
-		<td><%=c.category%></td>
-		<td><%=c.created_at%></td>
-		<td><%=c.updated_at%></td>
-		<td><%=c.status%></td>
-		<td><a href="<%=c.supportdoc.url%>">Download</td>
+		<td><%= c.userid%></td>
+		<td><%= c.clubid%></td>
+		<td><%= c.amount%></td>
+		<td><%= c.category%></td>
+		<td><%= c.created_at%></td>
+		<td><%= c.updated_at%></td>
+		<td><%= c.status%></td>
+		<td><a href="<%= c.supportdoc.url%>">Download</td>
+		<%if status == 0%>
+		<td><a href="/claims/editclaim?id=<%=c.id%>">Edit</td>
+		<td><a href="/claims/submitclaim?id=<%=c.id%>">Submit</td>
+		<%end%>
 	</tr>
 	<%end%>
 
 </table>
+
+<%elsif role == 'clubfinsec'%>
+
+<h2>My club claims:</h2>
+<table class="table table-bordered">
+	<tr>
+		<th>Claim By</th>
+		<th>Club</th>
+		<th>Amount</th>
+		<th>Category</th>
+		<th>Created</th>
+		<th>Updated</th>
+		<th>Status</th>
+		<th>Supporting Doc</th>
+		<th>Edit</th>
+		<th>Submit</th>
+	</tr>
+	<%@normalclaims.each do |c|%>
+	<tr>
+		<td><%= c.userid%></td>
+		<td><%= c.clubid%></td>
+		<td><%= c.amount%></td>
+		<td><%= c.category%></td>
+		<td><%= c.created_at%></td>
+		<td><%= c.updated_at%></td>
+		<td><%= c.status%></td>
+		<td><a href="<%= c.supportdoc.url%>">Download</td>
+		<td><a href="/claims/editclaim?id=<%=c.id%>">Edit</td>
+		<td><a href="/claims/submitclaim?id=<%=c.id%>">Submit</td>
+	</tr>
+	<%end%>
+
+</table>
+<%elsif role == 'cbdfinsec'%>
+<h2>Claims for CBD clubs:</h2>
+
+<table class="table table-bordered">
+	<tr>
+		<th>Claim By</th>
+		<th>Club</th>
+		<th>Amount</th>
+		<th>Category</th>
+		<th>Created</th>
+		<th>Updated</th>
+		<th>Status</th>
+		<th>Supporting Doc</th>
+		<th>Edit</th>
+		<th>Submit</th>
+	</tr>
+	<%@normalclaims.each do |c|%>
+	<tr>
+		<td><%= c.userid%></td>
+		<td><%= c.clubid%></td>
+		<td><%= c.amount%></td>
+		<td><%= c.category%></td>
+		<td><%= c.created_at%></td>
+		<td><%= c.updated_at%></td>
+		<td><%= c.status%></td>
+		<td><a href="<%= c.supportdoc.url%>">Download</td>
+		<td><a href="/claims/editclaim?id=<%=c.id%>">Edit</td>
+		<td><a href="/claims/submitclaim?id=<%=c.id%>">Submit</td>
+	</tr>
+	<%end%>
+
+</table>
+
+<h2>Claims for CBD MC:</h2>
+
+<table class="table table-bordered">
+	<tr>
+		<th>Claim By</th>
+		<th>Club</th>
+		<th>Amount</th>
+		<th>Category</th>
+		<th>Created</th>
+		<th>Updated</th>
+		<th>Status</th>
+		<th>Supporting Doc</th>
+		<th>Edit</th>
+		<th>Submit</th>
+	</tr>
+	<%@cbdmcclaims.each do |c|%>
+	<tr>
+		<td><%= c.userid%></td>
+		<td><%= c.clubid%></td>
+		<td><%= c.amount%></td>
+		<td><%= c.category%></td>
+		<td><%= c.created_at%></td>
+		<td><%= c.updated_at%></td>
+		<td><%= c.status%></td>
+		<td><a href="<%= c.supportdoc.url%>">Download</td>
+		<td><a href="/claims/editclaim?id=<%=c.id%>">Edit</td>
+		<td><a href="/claims/submitclaim?id=<%=c.id%>">Submit</td>
+	</tr>
+	<%end%>
+
+</table>
+
+<%elsif role == 'clubpres'%>
+
+<h2>My club claims:</h2>
+
+<table class="table table-bordered">
+	<tr>
+		<th>Claim By</th>
+		<th>Club</th>
+		<th>Amount</th>
+		<th>Category</th>
+		<th>Created</th>
+		<th>Updated</th>
+		<th>Status</th>
+		<th>Supporting Doc</th>
+		<th>Edit</th>
+		<th>Submit</th>
+	</tr>
+	<%@claims.each do |c|%>
+	<tr>
+		<td><%= c.userid%></td>
+		<td><%= c.clubid%></td>
+		<td><%= c.amount%></td>
+		<td><%= c.category%></td>
+		<td><%= c.created_at%></td>
+		<td><%= c.updated_at%></td>
+		<td><%= c.status%></td>
+		<td><a href="<%= c.supportdoc.url%>">Download</td>
+		<td><a href="/claims/editclaim?id=<%=c.id%>">Edit</td>
+		<td><a href="/claims/submitclaim?id=<%=c.id%>">Submit</td>
+	</tr>
+	<%end%>
+
+</table>
+
+<%elsif role == 'smusafinsec'%>
+
+<h2>Claims by CBD MC:</h2>
+
+<table class="table table-bordered">
+	<tr>
+		<th>Claim By</th>
+		<th>Club</th>
+		<th>Amount</th>
+		<th>Category</th>
+		<th>Created</th>
+		<th>Updated</th>
+		<th>Status</th>
+		<th>Supporting Doc</th>
+		<th>Edit</th>
+		<th>Submit</th>
+	</tr>
+	<%@cbdmcclaims.each do |c|%>
+	<tr>
+		<td><%= c.userid%></td>
+		<td><%= c.clubid%></td>
+		<td><%= c.amount%></td>
+		<td><%= c.category%></td>
+		<td><%= c.created_at%></td>
+		<td><%= c.updated_at%></td>
+		<td><%= c.status%></td>
+		<td><a href="<%= c.supportdoc.url%>">Download</td>
+		<td><a href="/claims/editclaim?id=<%=c.id%>">Edit</td>
+		<td><a href="/claims/submitclaim?id=<%=c.id%>">Submit</td>
+	</tr>
+	<%end%>
+
+</table>
+
+<h2>Claims by SMUSA Secretaries:</h2>
+
+<table class="table table-bordered">
+	<tr>
+		<th>Claim By</th>
+		<th>Club</th>
+		<th>Amount</th>
+		<th>Category</th>
+		<th>Created</th>
+		<th>Updated</th>
+		<th>Status</th>
+		<th>Supporting Doc</th>
+		<th>Edit</th>
+		<th>Submit</th>
+	</tr>
+	<%@smusasecclaims.each do |c|%>
+	<tr>
+		<td><%= c.userid%></td>
+		<td><%= c.clubid%></td>
+		<td><%= c.amount%></td>
+		<td><%= c.category%></td>
+		<td><%= c.created_at%></td>
+		<td><%= c.updated_at%></td>
+		<td><%= c.status%></td>
+		<td><a href="<%= c.supportdoc.url%>">Download</td>
+		<td><a href="/claims/editclaim?id=<%=c.id%>">Edit</td>
+		<td><a href="/claims/submitclaim?id=<%=c.id%>">Submit</td>
+	</tr>
+	<%end%>
+
+</table>
+
+<%end%>
+

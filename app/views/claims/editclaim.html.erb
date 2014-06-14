@@ -1,2 +1,11 @@
-<h1>Claims#editclaim</h1>
-<p>Find me in app/views/claims/editclaim.html.erb</p>
+<%= form_for @claim, :url => { :action => "edit" }, :method => :POST, :html => { :multipart => true }  do |f|  %>
+<%= f.hidden_field(:id, :value => @claim.id)%>
+Enter amount: <%= f.number_field(:amount, :step => 'any') %><br>
+<%a = Array(1..13)%>
+
+Select category: 
+<%=f.select(:category, options_for_select(a))%><br>
+Upload supporting doc:
+<%=f.file_field(:supportdoc)%>
+<%= f.submit("Save", :class=>"btn")%>
+<%end%>

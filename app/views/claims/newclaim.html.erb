@@ -1,20 +1,35 @@
-<style type="text/css">
-	table.tableizer-table {
-	border: 1px solid #CCC; font-family: Arial, Helvetica, sans-serif
-	font-size: 12px;
-} 
-.tableizer-table td {
-	padding: 4px;
-	margin: 3px;
-	border: 1px solid #ccc;
-}
-.tableizer-table th {
-	background-color: #104E8B; 
-	color: #FFF;
-	font-weight: bold;
-}
-</style><table class="tableizer-table">
-<tr class="tableizer-firstrow"><th>S/n</th><th>Categories</th><th>Explanation</th></tr>
+
+<%role = session[:role]%>
+<%= form_for @new_claim, :url => { :action => "add" }, :method => :POST, :html => { :multipart => true }  do |f|  %>
+<%= f.hidden_field(:userid, :value => session[:userid])%>
+<%= f.hidden_field(:clubid, :value => session[:club])%>
+Enter amount: <%= f.number_field(:amount, :step => 'any') %><br>
+<%a = Array(1..13)%>
+
+<%if role == 'normal'%>
+<%= f.hidden_field(:status, :value => 0)%>
+<%elsif role == 'cbdmc'%>
+<%= f.hidden_field(:status, :value => 6)%>
+<%elsif role == 'smusasec'%>
+<%= f.hidden_field(:status, :value => 12)%>
+<%end%>
+
+
+Select category: 
+<%=f.select(:category, options_for_select(a))%><br>
+Upload supporting doc:
+<%=f.file_field(:supportdoc)%>
+
+
+
+<%= f.submit("Save", :class=>"btn")%>
+<%end%>
+
+
+
+Refer to the table below for category guide:<br>
+<table class="table table-bordered table-condensed">
+<tr><th>S/n</th><th>Categories</th><th>Explanation</th></tr>
  <tr><td>1</td><td>Assets maintenance and repair</td><td>Equipment with life-span of >1 year.</td></tr>
  <tr><td>2</td><td>Assets purchases: <=$100</td><td>Equipment with life-span of >1 year with cost <=$100</td></tr>
  <tr><td>3</td><td>Assets purchases: 100<X<500</td><td>Equipment with life-span of >1 year with cost $100 < X < $500</td></tr>
@@ -29,19 +44,3 @@
  <tr><td>12</td><td>Transport</td><td>Fees for transportation</td></tr>
  <tr><td>13</td><td>Miscellaneous</td><td>Any misc. expenses that do not fall into the above cateogories. Egs include stationary etc. </td></tr>
 </table>
-
-<%= form_for @new_claim, :url => { :action => "add" }, :method => :POST  do |f|  %>
-<%= f.hidden_field(:userid, :value => session[:userid])%>
-<%= f.hidden_field(:clubid, :value => session[:club])%>
-Enter amount: <%= f.number_field(:amount, :step => 'any') %><br>
-<%a = Array(1..13)%>
-<%= f.hidden_field(:status, :value => 'unsubmitted')%>
-Select category: 
-<%=f.select(:category, options_for_select(a))%><br>
-Upload supporting doc:
-<%=f.file_field(:supportdoc)%>
-
-
-
-<%= f.submit("Save", :class=>"btn")%>
-<%end%>

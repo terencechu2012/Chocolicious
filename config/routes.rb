@@ -50,6 +50,10 @@ Rails.application.routes.draw do
   get 'admin/logout'
   
   post 'claims/add'
+  
+  post 'claims/edit'
+  
+  get 'claims/submitclaim'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
