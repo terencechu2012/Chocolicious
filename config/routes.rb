@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  devise_for :users, :controllers => {:confirmations => 'confirmations', :registrations => "registrations"}
+  devise_scope :user do
+      patch "/confirm" => "confirmations#confirm"
+          root 'devise/sessions#new'
+    end
+  
+  
+  get 'admin/setUserId'
   get 'chief/changereserveslimit'
 
   get 'chief/transferfunds'
@@ -44,6 +52,8 @@ Rails.application.routes.draw do
   get 'admin/viewrequests'
   
   post 'admin/loginProcess'
+  
+  get 'admin/loginProcess'
   
   post 'admin/chooseroleProcess'
   

@@ -7,6 +7,8 @@ gem 'rails', '4.1.1'
 gem "paperclip", "~> 3.5.3"
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
+gem 'devise'
+gem 'formtastic'
 gem 'mysql2'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'

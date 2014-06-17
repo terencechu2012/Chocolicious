@@ -7,12 +7,16 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-	<a href='/admin/logout'>Logout</a>
+	
 	<br>
 	<%if !session[:role].nil?%>
 	You are logged in as:
 	<%=session[:userid]%>,<%=session[:club]%>,<%=session[:role]%>
 	<%end%>
+	
+	 <p class="notice"><%= notice %></p>
+       <p class="alert"><%= alert %></p>
+       <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
 <%= yield %>
 
 </body>
