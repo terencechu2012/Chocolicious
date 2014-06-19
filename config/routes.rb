@@ -5,7 +5,9 @@ Rails.application.routes.draw do
           root 'devise/sessions#new'
     end
   
-  
+  post 'admin/add'
+  post 'admin/requestClub'
+  post 'admin/delete'
   get 'admin/setUserId'
   get 'chief/changereserveslimit'
 

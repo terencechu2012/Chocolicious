@@ -1,5 +1,41 @@
 class AdminController < ApplicationController
   def register
+    @userList=Clubusers.where(clubid:session[:club])
+    @users=User.all
+    @allClubs = Club.all
+    @allRequests = Request.all
+
+    @clubs = Request.joins("INNER JOIN clubs on clubs.clubid = requests.clubid").where(:userid => session[:userid])
+  end
+
+  def requestClub
+    Request.create(:userid => session[:userid], :clubid => params[:cName])
+    redirect_to :action => 'register'
+  end
+
+  def delete
+    if params[:toDelete] != nil
+      params[:toDelete].each do |userid|
+        d = Clubusers.find_by_userid_and_clubid(userid,session[:club])
+        d.delete
+      end
+    end
+    redirect_to :action => 'register'
+  end
+
+  def add
+
+    @userCount=Clubusers.where("clubid = ? AND userid = ?", session[:club], params[:userid]).count
+    if @userCount==0
+      user=User.where("userid = ?", params[:userid])
+      cu = Clubusers.new
+      cu.userid = params[:userid]
+      cu.clubid = session[:club]
+      cu.role = params[:role]
+    cu.save
+
+    end
+    redirect_to :action => 'register'
   end
 
   def login
@@ -27,7 +63,7 @@ class AdminController < ApplicationController
       user = current_user.email
       location = user.index('@')
       temp = user.slice(0,location)
-      
+
       p 'HERE!!!'
       userrec = User.find_by_email(user)
       p userrec
@@ -35,8 +71,12 @@ class AdminController < ApplicationController
     end
     user = current_user.userid
     userarray = Clubusers.where(userid:user)
+    p userarray.size
     if userarray.size == 0
       #redirect to useless page
+      session[:userid]=user
+      session[:role] = nil
+      session[:club] = nil
       redirect_to :action => 'register'
     elsif userarray.size > 1
       session[:userid]=user
