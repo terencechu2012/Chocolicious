@@ -3,8 +3,9 @@ class AdminController < ApplicationController
     @userList=Clubusers.where(clubid:session[:club])
     @users=User.all
     @allClubs = Club.all
-    @allRequests = Request.all
-
+    @cbds = Club.where(clubtype: 'cbd')
+    @clubRequests = Request.where(clubid:session[:club])
+    @cbdList = Clubusers.where(role:'cbdfinsec')
     @clubs = Request.joins("INNER JOIN clubs on clubs.clubid = requests.clubid").where(:userid => session[:userid])
   end
 
@@ -16,26 +17,49 @@ class AdminController < ApplicationController
   def delete
     if params[:toDelete] != nil
       params[:toDelete].each do |userid|
-        d = Clubusers.find_by_userid_and_clubid(userid,session[:club])
+        d = Clubusers.find_by_userid_and_clubid(userid,params[:club])
         d.delete
       end
     end
     redirect_to :action => 'register'
   end
 
+  def notifications
+    if params[:newRegister] != nil && params[:choice] == "Add"
+      params[:newRegister].each do |userid|
+        @userCount=Clubusers.where("clubid = ? AND userid = ?", session[:club], userid).count
+        if @userCount==0
+          Clubusers.create(:userid => userid, :clubid => session[:club], :role => "normal")
+          Request.find_by_userid_and_clubid(userid, session[:club]).delete
+        else
+          Request.find_by_userid_and_clubid(userid, session[:club]).delete
+          flash[:error]="Member already exists"        
+        end
+      end
+    elsif params[:newRegister] != nil && params[:choice] == "Reject"
+      params[:newRegister].each do |userid|
+        Request.find_by_userid_and_clubid(userid, session[:club]).delete
+      end
+    end
+
+    redirect_to :action => 'register'
+  end
+
   def add
-
-    @userCount=Clubusers.where("clubid = ? AND userid = ?", session[:club], params[:userid]).count
+    @userCount=Clubusers.where("clubid = ? AND userid = ? AND role = ?", session[:club], params[:userid], params[:role]).count
     if @userCount==0
-      user=User.where("userid = ?", params[:userid])
-      cu = Clubusers.new
-      cu.userid = params[:userid]
-      cu.clubid = session[:club]
-      cu.role = params[:role]
-    cu.save
-
+      Clubusers.create(:userid => params[:userid], :clubid => params[:club], :role => params[:role])
     end
     redirect_to :action => 'register'
+  end
+
+  def addLeader
+    c = Club.find_by_clubid(params[:club])
+    if params[:role] == 'cbdfinsec' || params[:role] == 'clubfinsec'
+      c.update_attribute(:finsecid, params[:userid])
+
+    end
+    add
   end
 
   def login

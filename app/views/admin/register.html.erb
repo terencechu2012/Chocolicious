@@ -1,8 +1,7 @@
-<% if session[:role]=="clubfinsec"%>
-<h2>Registered Users</h2>
+<% if session[:role]=="clubfinsec"%> <h2>Registered Users</h2>
 
 <%= form_tag("/admin/delete/", :method => "post") do %>
-<table class = "table table-bordered table-condensed", id='sf'>
+<table class = "table table-bordered table-condensed">
 	<tr>
 		<th>Name</th>
 		<th>Role</th>
@@ -15,6 +14,31 @@
 		<td><%= user.role %></td>
 		<td> <%if session[:userid]!=user.userid%><%= check_box_tag("toDelete[]",user.userid)%>
 		<%else%><font color=red><i>You are not able to delete yourself</i><%end%> </td>
+		<%= hidden_field_tag(:club, session[:club])%>
+	</tr>
+	<%end%>
+	<%end%>
+</table>
+
+<h2>User requests</h2>
+<% if flash[:error] %>
+<font color="red"><%= flash[:error]%></font>
+<%end%>
+<%= form_tag("/admin/notifications/", :method => "post") do %>
+<table class = "table table-bordered table-condensed">
+	<tr>
+		<th>Name</th>
+		<th>Requested Date</th>
+		<th><%= select_tag(:choice, "<option>Add</option><option>Reject</option>".html_safe) %>
+		<br />
+		<%= submit_tag("Go!", :class=>"btn") %></th>
+	</tr>
+
+	<% @clubRequests.each do |user| %>
+	<tr>
+		<td><%= user.userid %></td>
+		<td><%= user.created_at %></td>
+		<td> <%= check_box_tag("newRegister[]", user.userid)%> </td>
 	</tr>
 	<%end%>
 	<%end%>
@@ -26,7 +50,9 @@ Search: <%= text_field_tag(:userid) %><%= submit_tag("Search", :class=>"btn") %>
 </form> -->
 <%= form_tag("/admin/add/", :method => "post") do %>
 Search for:<%= select_tag(:userid, options_from_collection_for_select(@users, "userid", "userid"))%>
-Role:<%= select_tag(:role, "<option>normal</option><option>clubfinsec</option><option>president</option>".html_safe) %><%= submit_tag("Add", :class=>"btn") %>
+Role:<%= select_tag(:role, "<option>normal</option><option>clubfinsec</option><option>president</option>".html_safe) %>
+<%= hidden_field_tag(:club, session[:club])%>
+<%= submit_tag("Add", :class=>"btn") %>
 <%end%>
 <% elsif session[:role].nil? %>
 <p>
@@ -41,21 +67,55 @@ Role:<%= select_tag(:role, "<option>normal</option><option>clubfinsec</option><o
 
 <%end%>
 
-
-
 <p>
 	You have requested to join membership in the following club(s):
 </p>
-<p>User ID: <%=session[:userid]%></p>
+<p>
+	User ID: <%= session[:userid]%>
+</p>
 <table>
-	
+
 	<th>Club name</th>
-		<% @clubs.each do |name|
-		clubtable = Club.find_by(clubid:name.clubid)%>
-		<tr><td><%= clubtable.clubname %></td></tr>
-		<%end%>
-		
-	
+	<% @clubs.each do |name|
+	clubtable = Club.find_by(clubid:name.clubid)%>
+	<tr>
+		<td><%= clubtable.clubname %></td>
+	</tr>
+	<%end%>
+
 </table>
+
+<%elsif session[:role]=='smusafinsec'%>
+
+<h2>CBDs and their Fin Secs</h2>
+
+<%= form_tag("/admin/delete/", :method => "post") do %>
+<table class = "table table-bordered table-condensed">
+	<tr>
+		<th>Name</th>
+		<th>Role</th>
+		<th>Club</th>
+		<th><%= submit_tag("Delete", :class=>"btn") %></th>
+	</tr>
+
+	<% @cbdList.each do |user| %>
+	<tr>
+		<td><%= user.userid %></td>
+		<td><%= user.role %></td>
+		<td><%= user.clubid%></td>
+		<td> <%if session[:userid]!=user.userid%><%= check_box_tag("toDelete[]",user.userid)%>
+		<%else%><font color=red><i>You are not able to delete yourself</i><%end%> </td>
+		<%= hidden_field_tag(:club, user.clubid)%>
+	</tr>
+	<%end%>
+	<%end%>
+</table>
+<h2>Add CBD Fin Sec</h2>
+<%= form_tag("/admin/addLeader/", :method => "post") do %>
+Search for user:<%= select_tag(:userid, options_from_collection_for_select(@users, "userid", "userid"))%>
+Search for cbd:<%= select_tag(:club, options_from_collection_for_select(@cbds, "clubid", "clubname"))%>
+<%= hidden_field_tag(:role,'cbdfinsec')%>
+<%= submit_tag("Add", :class=>"btn") %>
+<%end%>
 <%end%>
 
