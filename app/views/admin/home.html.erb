@@ -1,5 +1,8 @@
 <h1>Admin#home</h1>
+<%role = session[:role]%>
+<%if role == 'normal' || role == 'cbdmc'|| role == 'smusasec'%> 
 <a href='../claims/newclaim'>New Claim
+<%end%>
 <a href='../claims/viewclaim'>View Claims
 <a href='../admin/register'>Manage User Registrations
 
