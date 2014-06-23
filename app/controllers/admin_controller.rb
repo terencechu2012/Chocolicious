@@ -3,15 +3,30 @@ class AdminController < ApplicationController
     @userList=Clubusers.where(clubid:session[:club])
     @users=User.all
     @allClubs = Club.all
+    @clubsUnderCbd = Club.where(clubtype: session[:club])
     @cbds = Club.where(clubtype: 'cbd')
     @clubRequests = Request.where(clubid:session[:club])
     @cbdList = Clubusers.where(role:'cbdfinsec')
+    @clubFinSecList = Clubusers.where(['clubid in (select clubid from clubs where clubtype = ?) AND role = ?', session[:club], 'clubfinsec'])
     @clubs = Request.joins("INNER JOIN clubs on clubs.clubid = requests.clubid").where(:userid => session[:userid])
+    
   end
 
   def requestClub
-    Request.create(:userid => session[:userid], :clubid => params[:cName])
-    redirect_to :action => 'register'
+    if params[:cName] == ""
+      flash[:error] = "Problem with request!"
+      redirect_to :action => 'register'
+    else
+      begin
+        Request.create(:userid => session[:userid], :clubid => params[:cName])
+
+      rescue
+        flash[:error] = "Problem with request!"
+
+      end
+      redirect_to :action => 'register'
+    end
+
   end
 
   def delete
@@ -24,6 +39,13 @@ class AdminController < ApplicationController
     redirect_to :action => 'register'
   end
 
+  def deleteRequest
+    r = Request.find_by_id(params[:id])
+    r.delete
+    redirect_to :action => 'register'
+   
+  end
+
   def notifications
     if params[:newRegister] != nil && params[:choice] == "Add"
       params[:newRegister].each do |userid|
@@ -33,7 +55,7 @@ class AdminController < ApplicationController
           Request.find_by_userid_and_clubid(userid, session[:club]).delete
         else
           Request.find_by_userid_and_clubid(userid, session[:club]).delete
-          flash[:error]="Member already exists"        
+          flash[:error]="Member already exists"
         end
       end
     elsif params[:newRegister] != nil && params[:choice] == "Reject"
@@ -48,7 +70,12 @@ class AdminController < ApplicationController
   def add
     @userCount=Clubusers.where("clubid = ? AND userid = ? AND role = ?", session[:club], params[:userid], params[:role]).count
     if @userCount==0
-      Clubusers.create(:userid => params[:userid], :clubid => params[:club], :role => params[:role])
+      begin
+        Clubusers.create(:userid => params[:userid], :clubid => params[:club], :role => params[:role])
+      rescue
+        flash[:error] = "Problem with request!"
+      end
+      
     end
     redirect_to :action => 'register'
   end

@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   end
 
   post 'admin/add'
-
+  get 'admin/deleteRequest'
   post 'admin/notifications'
 
   post 'admin/addLeader'

@@ -28,7 +28,7 @@
 		<td><%= c.updated_at%></td>
 		<td><%= c.status%></td>
 		<td><a href="<%= c.supportdoc.url%>">Download</td>
-		<%if status == 0%>
+		<%if status == 0 || status == 12%>
 		<td><a href="/claims/editclaim?id=<%=c.id%>">Edit</td>
 		<td><a href="/claims/submitclaim?id=<%=c.id%>">Submit</td>
 		<%end%>
@@ -54,6 +54,7 @@
 		<th>Submit</th>
 	</tr>
 	<%@normalclaims.each do |c|%>
+	<%status = c.status%>
 	<tr>
 		<td><%= c.userid%></td>
 		<td><%= c.clubid%></td>
@@ -63,8 +64,10 @@
 		<td><%= c.updated_at%></td>
 		<td><%= c.status%></td>
 		<td><a href="<%= c.supportdoc.url%>">Download</td>
+		<%if status == 1%>
 		<td><a href="/claims/editclaim?id=<%=c.id%>">Edit</td>
 		<td><a href="/claims/submitclaim?id=<%=c.id%>">Submit</td>
+		<%end%>
 	</tr>
 	<%end%>
 
@@ -86,6 +89,7 @@
 		<th>Submit</th>
 	</tr>
 	<%@normalclaims.each do |c|%>
+	<%status = c.status%>
 	<tr>
 		<td><%= c.userid%></td>
 		<td><%= c.clubid%></td>
@@ -95,6 +99,7 @@
 		<td><%= c.updated_at%></td>
 		<td><%= c.status%></td>
 		<td><a href="<%= c.supportdoc.url%>">Download</td>
+		
 		<td><a href="/claims/editclaim?id=<%=c.id%>">Edit</td>
 		<td><a href="/claims/submitclaim?id=<%=c.id%>">Submit</td>
 	</tr>
@@ -118,6 +123,7 @@
 		<th>Submit</th>
 	</tr>
 	<%@cbdmcclaims.each do |c|%>
+	<%status = c.status%>
 	<tr>
 		<td><%= c.userid%></td>
 		<td><%= c.clubid%></td>
@@ -127,14 +133,16 @@
 		<td><%= c.updated_at%></td>
 		<td><%= c.status%></td>
 		<td><a href="<%= c.supportdoc.url%>">Download</td>
+		<%if status == 7%>
 		<td><a href="/claims/editclaim?id=<%=c.id%>">Edit</td>
 		<td><a href="/claims/submitclaim?id=<%=c.id%>">Submit</td>
+		<%end%>
 	</tr>
 	<%end%>
 
 </table>
 
-<%elsif role == 'clubpres'%>
+<%elsif role == 'president'%>
 
 <h2>My club claims:</h2>
 
@@ -152,6 +160,7 @@
 		<th>Submit</th>
 	</tr>
 	<%@claims.each do |c|%>
+	<%status = c.status%>
 	<tr>
 		<td><%= c.userid%></td>
 		<td><%= c.clubid%></td>
@@ -161,8 +170,10 @@
 		<td><%= c.updated_at%></td>
 		<td><%= c.status%></td>
 		<td><a href="<%= c.supportdoc.url%>">Download</td>
+		<%if status == 2%>
 		<td><a href="/claims/editclaim?id=<%=c.id%>">Edit</td>
 		<td><a href="/claims/submitclaim?id=<%=c.id%>">Submit</td>
+		<%end%>
 	</tr>
 	<%end%>
 
@@ -186,6 +197,7 @@
 		<th>Submit</th>
 	</tr>
 	<%@cbdmcclaims.each do |c|%>
+	<%status = c.status%>
 	<tr>
 		<td><%= c.userid%></td>
 		<td><%= c.clubid%></td>
@@ -218,6 +230,7 @@
 		<th>Submit</th>
 	</tr>
 	<%@smusasecclaims.each do |c|%>
+	<%status = c.status%>
 	<tr>
 		<td><%= c.userid%></td>
 		<td><%= c.clubid%></td>

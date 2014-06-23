@@ -18,7 +18,7 @@ class ClaimsController < ApplicationController
     elsif role == 'cbdfinsec'
       @normalclaims = Claim.where(['clubid in (select clubid from clubs where clubtype = ?) and status > 2 and status < 6', session[:club]])
       @cbdmcclaims = Claim.where(clubid:session[:club], status: 7..11)
-    elsif role == 'clubpres'
+    elsif role == 'president'
       @normalclaims = Claim.where(clubid:session[:club], status: 2..5)
       @cbdmcclaims = Claim.where(clubid:session[:club], status: 8..11)
       @claims = @normalclaims + @cbdmcclaims

@@ -2,7 +2,10 @@
 <%role = session[:role]%>
 <%if role == 'normal' || role == 'cbdmc'|| role == 'smusasec'%> 
 <a href='../claims/newclaim'>New Claim
+<a href='../admin/register'>Register for a club
 <%end%>
 <a href='../claims/viewclaim'>View Claims
+<%if role != 'normal' && role != 'cbdmc'&& role != 'smusasec'%> 
 <a href='../admin/register'>Manage User Registrations
+<%end%>
 
