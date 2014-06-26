@@ -31,8 +31,12 @@ class ClaimsController < ApplicationController
   end
   
   def add
-    Claim.create(claim_params)
-    redirect_to :controller => 'admin', :action => 'home'
+    begin
+      Claim.create(claim_params)
+    rescue
+      flash[:error] = 'There was a problem adding your claim. Have you attached a supporting document?'
+    end
+    redirect_to :action => 'viewclaim'
   end
   def claim_params
     params.require(:claim).permit!
@@ -49,7 +53,7 @@ class ClaimsController < ApplicationController
     newstatus = c.status + 1
    
     c.update_attribute(:status, newstatus)
-    redirect_to :action => 'viewclaim'
+    
   end
  
 end

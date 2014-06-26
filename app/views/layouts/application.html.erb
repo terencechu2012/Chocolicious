@@ -1,25 +1,108 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>CHOCOLICIOUS</title>
-  <%= favicon_link_tag(source='/favicon.ico?1')%> ​
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-  
-</head>
-<body>
-	<div class="container">
-	<br>
-	<%if !session[:role].nil?%>
-	You are logged in as:
-	<%=session[:userid]%>,<%=session[:club]%>,<%=session[:role]%>
-	<%end%>
-	
-	 <p class="notice"><%= notice %></p>
-       <p class="alert"><%= alert %></p>
-       <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
-<%= yield %>
-</div>
-</body>
+	<head>
+		<title>CHOCOLICIOUS</title>
+		<%= favicon_link_tag(source='/favicon.ico?1')%> ​
+		<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+		<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+		<%= csrf_meta_tags %>
+		<% role = session[:role]%>
+		<style type="text/css">
+			body {
+				padding-top: 30px;
+			}
+		</style>
+	</head>
+	<body>
+
+		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<div class="navbar-inner">
+
+						<ul class="nav navbar-nav">
+							<%if role == 'normal' || role == 'cbdmc' || role == 'smusasec'%>
+							<li>
+								<a href="/claims/newclaim">New Claim</a>
+							</li>
+							<%end%>
+							<%if !role.nil?%>
+							<li>
+								<a href="/claims/viewclaim">View Claims</a>
+							</li>
+							<%end%>
+
+							<%if role == 'normal'%>
+							<li>
+								<a href="/admin/register">Register for Club</a>
+							</li>
+							<%end%>
+							<%if role == 'clubfinsec' || role == 'cbdfinsec'%>
+							<li>
+								<a href="/admin/register">Manage User Registrations</a>
+							</li>
+							<%end%>
+
+							<%if role == 'clubfinsec'%>
+
+							<li>
+								<a href="#">Request Withdrawal/Change Limit</a>
+							</li>
+							<%end%>
+
+							<%if role == 'clubfinsec' || role == 'president'%>
+							<li>
+								<a href="#">View Account</a>
+							</li>
+							<%end%>
+
+							<%if role == 'smusafinsec'%>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Manage Registrations <b class="caret"></b></a>
+								<ul class="dropdown-menu">
+									<li>
+										<a href="/admin/register">Users</a>
+									</li>
+									<li>
+										<a href="#">Clubs</a>
+									</li>
+
+								</ul>
+							</li>
+							<%end%>
+
+						</ul>
+						<!-- More nav bar links to be added later -->
+						<ul class="nav navbar-nav navbar-right">
+							<li>
+								<%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+							</li>
+							<li>
+								<%= link_to "Back", :back %>
+							</li>
+
+						</ul>
+					</div>
+				</div>
+			</div>
+		</nav>
+
+		<div class="container">
+
+			<p class="notice">
+				<%= notice %>
+			</p>
+			<p class="alert">
+				<%= alert %>
+			</p>
+			<br>
+			<%if !session[:role].nil?%>
+			You are logged in as:
+			<%= session[:userid]%>,<%= session[:club]%>,<%= session[:role]%>
+			<%end%>
+
+			<%= yield %>
+		</div>
+
+	</body>
 </html>

@@ -1,5 +1,7 @@
 <%role = session[:role]%>
-
+<% if flash[:error] %>
+<font color="red"><%= flash[:error]%></font>
+<%end%>
 <%if role == 'normal' || role == 'smusasec' || role == 'cbdmc'%>
 
 <h2>My claims:</h2>
