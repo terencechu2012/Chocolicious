@@ -49,6 +49,28 @@ ActiveRecord::Schema.define(version: 20140701091410) do
   add_index "clubusers", ["userid", "clubid", "role"], name: "userid", unique: true, using: :btree
   add_index "clubusers", ["userid"], name: "fk_2_idx", using: :btree
 
+  create_table "expenditure_accounts", force: true do |t|
+    t.string   "clubid"
+    t.decimal  "Category1Balance",     precision: 10, scale: 2
+    t.decimal  "Category2Balance",     precision: 10, scale: 2
+    t.decimal  "Category3Balance",     precision: 10, scale: 2
+    t.decimal  "Category4Balance",     precision: 10, scale: 2
+    t.decimal  "Category5Balance",     precision: 10, scale: 2
+    t.decimal  "Category6Balance",     precision: 10, scale: 2
+    t.decimal  "Category7Balance",     precision: 10, scale: 2
+    t.decimal  "Category8Balance",     precision: 10, scale: 2
+    t.decimal  "Category9Balance",     precision: 10, scale: 2
+    t.decimal  "Category10Balance",    precision: 10, scale: 2
+    t.decimal  "Category11Balance",    precision: 10, scale: 2
+    t.decimal  "Category12Balance",    precision: 10, scale: 2
+    t.decimal  "Category13Balance",    precision: 10, scale: 2
+    t.decimal  "MiscellaneousBalance", precision: 10, scale: 2
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "expenditure_accounts", ["clubid"], name: "EA_fk", using: :btree
+
   create_table "requests", force: true do |t|
     t.string   "userid"
     t.string   "clubid"
@@ -57,6 +79,16 @@ ActiveRecord::Schema.define(version: 20140701091410) do
   end
 
   add_index "requests", ["userid", "clubid"], name: "userid", unique: true, using: :btree
+
+  create_table "reserve_accounts", force: true do |t|
+    t.string   "clubid"
+    t.decimal  "balance",    precision: 10, scale: 2
+    t.decimal  "limit",      precision: 10, scale: 2
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "reserve_accounts", ["clubid"], name: "RA_fk", using: :btree
 
   create_table "users", primary_key: "userid", force: true do |t|
     t.string   "passwordhash"

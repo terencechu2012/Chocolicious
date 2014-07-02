@@ -1,0 +1,79 @@
+<% if session[:role]=="smusafinsec" || session[:role]=='cbdfinsec'%>
+<h1>View CBd Reserve Accounts</h1>
+<% if session[:role]=="smusafinsec" %>
+<table class = "table table-bordered table-condensed">
+	<tr>
+		<th>Overall Budget</th>
+		<% @CBD.each do|x| %>
+		<th><%= x.clubid%></th>
+		<%end%>
+	</tr>
+	<tr>
+		<td><%= @totalBdgt%></td>
+		<% @budgetArr.each do|x| %>
+		<td><%= x%></td>
+		<%end%>
+	</tr>
+</table>
+
+<p>
+	<hr /><h2>Help:</h2>
+	Select a CBd to display the expenditure account of that CBd and the expenditure accounts of the clubs that fall under it.
+	If none is selected, <b>ONLY the CBds</b> will be displayed.<br />The table on top will display the CBd account, and the 
+	lower table will display the affliated clubs (if any).
+</p>
+<br />
+<%= form_tag("/accounts/viewcbdaccountsreserve/", :method => "get") do %>
+<b>Select CBD:</b><%= select_tag(:choice, options_from_collection_for_select(@CBD, "clubid", "clubid"), prompt:"Select CBd")%>
+<%= submit_tag("Go!", :class=>"btn") %></th>
+<%end%>
+
+<%end%>
+<table class = "table table-bordered table-condensed">
+	<tr>
+		<th>CBd</th>
+		<th>Balance</th>
+		<th>Limit</th>
+		
+		<th>Options</th>
+	</tr>
+	<% @choiceofCBD.each do|x| %>
+	<tr>
+
+		<td><%= x.clubid%></td>
+		<td><%= x.balance%></td>
+		<td><%= x.limit%></td>
+		
+		<td> <%= form_tag("/accounts/editaccountreserve", :method => "get") do %>
+		<%= hidden_field_tag(:id, x.clubid) %>
+		<%= hidden_field_tag(:destination, "viewcbdaccountsreserve") %>
+		<%= submit_tag("Edit", :class=>"btn") %>
+		<% end %> </td>
+	</tr>
+	<%end%>
+</table>
+<hr />
+<table class = "table table-bordered table-condensed">
+	<tr>
+		<th>Club</th>
+		<th>Balancec</th>
+		<th>Limit</th>
+		
+		<th>Options</th>
+	</tr>
+	<% @clubArr.each do|x| %>
+	<tr>
+
+		<td><%= x.clubid%></td>
+		<td><%= x.balance%></td>
+		<td><%= x.limit%></td>
+		
+		<td> <%= form_tag("/accounts/editaccountreserve", :method => "get") do %>
+		<%= hidden_field_tag(:id, x.clubid) %>
+		<%= hidden_field_tag(:destination, "viewcbdaccountsreserve") %>
+		<%= submit_tag("Edit", :class=>"btn") %>
+		<% end %> </td>
+	</tr>
+	<%end%>
+</table>
+<%end%>

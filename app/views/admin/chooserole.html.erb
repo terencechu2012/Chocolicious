@@ -1,9 +1,16 @@
 Select club:
-<%= form_tag("/admin/chooseroleProcess/", :method => "post") do %>
-<%= select_tag(:club, options_from_collection_for_select(@userarray, "clubid", "clubid"))%><br>
+<%= form_tag("/admin/chooserole/", :method => "post") do %>
+<%= select_tag(:club, options_from_collection_for_select(@userarray, "clubid", "clubid"), :prompt => 'Choose Club', :onchange => "this.form.submit();")%><br>
+<%end%>
+
+<%if !@userarray2.nil?%>
 Select role:
 <!-- to make role dependent on club selected -->
-<%= select_tag(:role, options_from_collection_for_select(@userarray, "role", "role"))%><br>
+
+<%= form_tag("/admin/chooseroleProcess/", :method => "post") do %>
+<%= select_tag(:role, options_from_collection_for_select(@userarray2, "role", "role"))%><br>
+<%= hidden_field_tag(:club, @club)%>
 <%= submit_tag("Login", :class=>"btn")%>
+<%end%>
 <%end%>
 

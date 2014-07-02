@@ -1,0 +1,15 @@
+<h1>Edit Balances in <%=@club.clubid%></h1>
+<%=form_for @club, :url => { :action => "updatereserve" } do |f|%>
+<table>
+	<tr>
+		<th align="right">Balance: </th><td><%= f.text_field(:balance) %></td>
+	</tr>
+	<tr>
+		<th align="right">Limit: </th><td><%= f.text_field(:limit) %></td>
+	</tr>
+	
+</table>
+<%= f.hidden_field(:clubid, :value=>@club.clubid)%>
+
+<%= submit_tag("Update Record", :class=>"btn") %></th>
+<%end%>

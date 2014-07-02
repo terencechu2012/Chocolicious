@@ -1,4 +1,5 @@
-<% if session[:role]=="clubfinsec"%> <h1>View <%= session[:club]%> Expenditure Account</h1>
+<% if session[:role]=="clubfinsec" || session[:role]=='president'%> <h1>View <%= session[:club]%> Expenditure Account</h1>
+
 <table class = "table table-bordered table-condensed">
 	<tr>
 		<th>Club</th>
@@ -16,7 +17,7 @@
 		<th>Cat 12</th>
 		<th>Cat 13</th>
 		<th>Misc</th>
-		<th>Options</th>
+		
 	</tr>
 
 	<tr>
@@ -36,12 +37,22 @@
 		<td><%= @club.Category12Balance%></td>
 		<td><%= @club.Category13Balance%></td>
 		<td><%= @club.MiscellaneousBalance%></td>
-		<td> <%= form_tag("/accounts/editaccount", :method => "get") do %>
-		<%= hidden_field_tag(:id, @club.clubid) %>
-		<%= hidden_field_tag(:destination, "viewaccount") %>
-		<%= submit_tag("Edit", :class=>"btn") %>
-		<% end %> </td>
+		
 	</tr>
 
 </table>
+<%if !@reserve.nil?%>
+<h2>Reserve Account</h2>
+<table class = "table table-bordered table-condensed">
+	<tr>
+		<th>Balance</th>
+		<th>Limit</th>
+	</tr>
+	<tr>
+		<td><%=@reserve.balance%></td>
+		<td><%=@reserve.limit%></td>
+	</tr>
+	
+</table>
+<%end%>
 <%end%>

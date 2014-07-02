@@ -1,0 +1,6 @@
+<%=form_for @new, :url => { :action => "add" } do |f|%>
+<%=f.select(:clubid, options_from_collection_for_select(@cbds, 'clubid', 'clubid'))%>
+<%=f.number_field(:balance)%>
+<%=f.number_field(:limit)%>
+<%= f.submit("Save", :class=>"btn")%>
+<%end%>

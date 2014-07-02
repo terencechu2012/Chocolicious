@@ -36,12 +36,22 @@ Rails.application.routes.draw do
   get 'accounts/viewaccount'
 
   get 'accounts/viewcbdaccounts'
+  
+  get 'accounts/viewcbdaccountsreserve'
+  
+  get 'accounts/forconvenience'
+  
+  post 'accounts/add'
 
   get 'accounts/viewallaccounts'
 
   get 'accounts/deposit'
   
   get 'accounts/editaccount'
+  
+  get 'accounts/editaccountreserve'
+  
+  patch 'accounts/updatereserve'
 
   get 'accounts/fundstransfer'
   
@@ -59,6 +69,8 @@ Rails.application.routes.draw do
   get 'admin/login'
 
   get 'admin/chooserole'
+  
+  post 'admin/chooserole'
 
   get 'admin/home'
 

@@ -141,7 +141,13 @@ class AdminController < ApplicationController
   end
 
   def chooserole
-    @userarray = Clubusers.where(userid:session[:userid])
+    # @userarray = Clubusers.where(userid:session[:userid])
+    @userarray = Clubusers.find_by_sql(["select distinct clubid from clubusers where userid = ?", session[:userid]])
+    club = params[:club]
+    if !club.nil?
+      @userarray2 = Clubusers.where(userid:session[:userid], clubid:club)
+      @club = club
+    end
   end
 
   def chooseroleProcess

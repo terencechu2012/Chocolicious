@@ -52,7 +52,7 @@
 
 							<%if role == 'clubfinsec' || role == 'president'%>
 							<li>
-								<a href="#">View Account</a>
+								<a href="/accounts/viewaccount">View Account</a>
 							</li>
 							<%end%>
 
@@ -65,6 +65,35 @@
 									</li>
 									<li>
 										<a href="#">Clubs</a>
+									</li>
+
+								</ul>
+							</li>
+
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">View Accounts <b class="caret"></b></a>
+								<ul class="dropdown-menu">
+									<li>
+										<a href="/accounts/viewcbdaccounts">Expenditure</a>
+									</li>
+									<li>
+										<a href="/accounts/viewcbdaccountsreserve">Reserve</a>
+									</li>
+
+								</ul>
+							</li>
+
+							<%end%>
+							
+							<%if role == 'cbdfinsec'%>
+								<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">View Accounts <b class="caret"></b></a>
+								<ul class="dropdown-menu">
+									<li>
+										<a href="/accounts/viewcbdaccounts">Expenditure</a>
+									</li>
+									<li>
+										<a href="/accounts/viewcbdaccountsreserve">Reserve</a>
 									</li>
 
 								</ul>
