@@ -42,6 +42,16 @@
 <%elsif role == 'clubfinsec'%>
 
 <h2>My club claims:</h2>
+<%= form_tag("/claims/viewclaim", :method => "post") do %>
+<select name="status">
+	<option value="all"> All</option>
+        <option value="unsubmitted"> Unsubmitted</option>
+        <option value="submitted"> Submitted</option>
+        <option value="rejected">Rejected</option>
+ </select>
+<%= submit_tag("View") %>
+<%end%>
+
 <table class="table table-bordered">
 	<tr>
 		<th>Claim By</th>
@@ -54,6 +64,9 @@
 		<th>Supporting Doc</th>
 		<th>Edit</th>
 		<th>Submit</th>
+		<%if @hideremarks%>
+		<th>Remarks</th>
+		<%end%>
 	</tr>
 	<%@normalclaims.each do |c|%>
 	<%status = c.status%>
@@ -69,6 +82,9 @@
 		<%if status == 1%>
 		<td><a href="/claims/editclaim?id=<%=c.id%>">Edit</td>
 		<td><a href="/claims/submitclaim?id=<%=c.id%>">Submit</td>
+			<%if @hideremarks%>
+				<td><%= c.remarks%></td>
+			<%end%>
 		<%end%>
 	</tr>
 	<%end%>
@@ -76,6 +92,7 @@
 </table>
 <%elsif role == 'cbdfinsec'%>
 <h2>Claims for CBD clubs:</h2>
+<!-- cbdfinsec can approve/ reject claims submitted by clubs, cbdfinsec does not need to edit -->
 
 <table class="table table-bordered">
 	<tr>
@@ -87,8 +104,7 @@
 		<th>Updated</th>
 		<th>Status</th>
 		<th>Supporting Doc</th>
-		<th>Edit</th>
-		<th>Submit</th>
+		<th>Action</th>
 	</tr>
 	<%@normalclaims.each do |c|%>
 	<%status = c.status%>
@@ -102,12 +118,12 @@
 		<td><%= c.status%></td>
 		<td><a href="<%= c.supportdoc.url%>">Download</td>
 		
-		<td><a href="/claims/editclaim?id=<%=c.id%>">Edit</td>
-		<td><a href="/claims/submitclaim?id=<%=c.id%>">Submit</td>
+		<td><a href="#">Endorse</td>
+		<td><a href="/claims/addremark?id=<%=c.id%>">Reject</td>
 	</tr>
 	<%end%>
-
 </table>
+
 
 <h2>Claims for CBD MC:</h2>
 
@@ -158,10 +174,13 @@
 		<th>Updated</th>
 		<th>Status</th>
 		<th>Supporting Doc</th>
-		<th>Edit</th>
-		<th>Submit</th>
+		<th>Action</th>
 	</tr>
+	
+	
 	<%@claims.each do |c|%>
+
+
 	<%status = c.status%>
 	<tr>
 		<td><%= c.userid%></td>
@@ -173,8 +192,8 @@
 		<td><%= c.status%></td>
 		<td><a href="<%= c.supportdoc.url%>">Download</td>
 		<%if status == 2%>
-		<td><a href="/claims/editclaim?id=<%=c.id%>">Edit</td>
-		<td><a href="/claims/submitclaim?id=<%=c.id%>">Submit</td>
+		<td><a href="#", onclick="pres(<%=c.id%>)">Acknowledge</a></td>
+		<p id ="pres"> </p>
 		<%end%>
 	</tr>
 	<%end%>
@@ -195,8 +214,8 @@
 		<th>Updated</th>
 		<th>Status</th>
 		<th>Supporting Doc</th>
-		<th>Edit</th>
-		<th>Submit</th>
+		<th>Action</th>
+		
 	</tr>
 	<%@cbdmcclaims.each do |c|%>
 	<%status = c.status%>
@@ -209,8 +228,9 @@
 		<td><%= c.updated_at%></td>
 		<td><%= c.status%></td>
 		<td><a href="<%= c.supportdoc.url%>">Download</td>
-		<td><a href="/claims/editclaim?id=<%=c.id%>">Edit</td>
-		<td><a href="/claims/submitclaim?id=<%=c.id%>">Submit</td>
+		<td><a href="#">Endorse</td>
+		<td><a href="/claims/addremark?id=<%=c.id%>">Reject</td>
+		<td><a href="#">Print</td>
 	</tr>
 	<%end%>
 
@@ -228,8 +248,8 @@
 		<th>Updated</th>
 		<th>Status</th>
 		<th>Supporting Doc</th>
-		<th>Edit</th>
-		<th>Submit</th>
+		<th>Action</th>
+		
 	</tr>
 	<%@smusasecclaims.each do |c|%>
 	<%status = c.status%>
@@ -242,8 +262,9 @@
 		<td><%= c.updated_at%></td>
 		<td><%= c.status%></td>
 		<td><a href="<%= c.supportdoc.url%>">Download</td>
-		<td><a href="/claims/editclaim?id=<%=c.id%>">Edit</td>
-		<td><a href="/claims/submitclaim?id=<%=c.id%>">Submit</td>
+		<td><a href="#">Endorse</td>
+		<td><a href="/claims/addremark?id=<%=c.id%>">Reject</td>
+			<td><a href="#">Print</td>
 	</tr>
 	<%end%>
 
@@ -251,3 +272,13 @@
 
 <%end%>
 
+<%=javascript_tag do%>
+ 
+function pres(a){
+	var x;
+	if (confirm("You have acknowleged the claim!")==true){
+		window.location = "/claims/submitclaim?id="+a;
+	}
+	document.getElementById("pres").innerHTML = x;
+}
+<%end%>

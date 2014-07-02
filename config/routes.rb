@@ -52,6 +52,7 @@ Rails.application.routes.draw do
   get 'claims/editclaim'
 
   get 'claims/viewclaim'
+  post 'claims/viewclaim'
 
   get 'admin/register'
 
@@ -78,6 +79,11 @@ Rails.application.routes.draw do
   post 'claims/edit'
 
   get 'claims/submitclaim'
+  
+  get 'claims/addremark'
+  post 'claims/addremark'
+  
+  post 'claims/confirmrejectclaim'
 
 # The priority is based upon order of creation: first created -> highest priority.
 # See how all your routes lay out with "rake routes".

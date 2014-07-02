@@ -1,0 +1,11 @@
+<%= form_for @rejectclaim, :url => { :action => "confirmrejectclaim" }, :method => :POST  do |f|  %>
+<%= f.hidden_field(:id, :value => @rejectclaim.id)%>
+<div>
+	<b>You are rejecting claim submmited by <u><%= @rejectclaim.userid %></u> from <u><%= @rejectclaim.clubid %></u> with amount <u><%= @rejectclaim.amount %></u>.</b>
+</div>
+<div>
+	Please add remark for the rejection:
+</div>
+<%= f.text_area :remarks, size: "100 x 5" %><br>
+<%= f.submit("Confirm")%>
+<%end%>

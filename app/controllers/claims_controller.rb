@@ -1,4 +1,9 @@
 class ClaimsController < ApplicationController
+  
+  def addremark
+    @rejectclaim = Claim.find_by_id(params[:id])
+  end
+  
   def newclaim
     @new_claim = Claim.new
   end
@@ -13,7 +18,16 @@ class ClaimsController < ApplicationController
       @normalclaims = Claim.where(userid:session[:userid], clubid:session[:club])
        
     elsif role == 'clubfinsec'
-      @normalclaims = Claim.where(:clubid => session[:club], :status => 1..5)
+      if params[:status].nil? || params[:status] == 'all'
+        @normalclaims = Claim.where(:clubid => session[:club], :status => 1..5)
+      elsif params[:status]=='unsubmitted'
+        @normalclaims = Claim.where(:clubid => session[:club], :status => 1, :remarks => nil)
+      elsif params[:status]=='submitted'
+        @normalclaims = Claim.where(:clubid => session[:club], :status => 2..5, :remarks => nil)
+      elsif params[:status]=='rejected'
+        @normalclaims = Claim.where(:clubid => session[:club], :status => 1).where.not(:remarks => nil)
+        @hideremarks = true
+      end
       
     elsif role == 'cbdfinsec'
       @normalclaims = Claim.where(['clubid in (select clubid from clubs where clubtype = ?) and status > 2 and status < 6', session[:club]])
@@ -42,6 +56,7 @@ class ClaimsController < ApplicationController
     params.require(:claim).permit!
   end
   
+  
   def edit
     c = Claim.find_by_id(params[:claim][:id])
     c.update_attributes(claim_params)
@@ -53,7 +68,15 @@ class ClaimsController < ApplicationController
     newstatus = c.status + 1
    
     c.update_attribute(:status, newstatus)
-    
+    redirect_to :action => 'viewclaim'
   end
- 
+  
+  def confirmrejectclaim
+    c = Claim.find_by_id(params[:claim][:id])
+
+    c.update_attribute(:remarks, params[:claim][:remarks])
+    c.update_attribute(:status, 1)
+    redirect_to :action => 'viewclaim'
+  end
+  
 end

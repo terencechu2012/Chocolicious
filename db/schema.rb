@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140619064452) do
+ActiveRecord::Schema.define(version: 20140701091410) do
 
   create_table "claims", force: true do |t|
     t.string   "userid"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20140619064452) do
     t.string   "supportdoc_content_type"
     t.integer  "supportdoc_file_size"
     t.datetime "supportdoc_updated_at"
+    t.string   "remarks"
   end
 
   create_table "clubs", primary_key: "clubid", force: true do |t|
@@ -45,6 +46,7 @@ ActiveRecord::Schema.define(version: 20140619064452) do
   end
 
   add_index "clubusers", ["clubid"], name: "fk_1_idx", using: :btree
+  add_index "clubusers", ["userid", "clubid", "role"], name: "userid", unique: true, using: :btree
   add_index "clubusers", ["userid"], name: "fk_2_idx", using: :btree
 
   create_table "requests", force: true do |t|
@@ -53,6 +55,8 @@ ActiveRecord::Schema.define(version: 20140619064452) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "requests", ["userid", "clubid"], name: "userid", unique: true, using: :btree
 
   create_table "users", primary_key: "userid", force: true do |t|
     t.string   "passwordhash"
