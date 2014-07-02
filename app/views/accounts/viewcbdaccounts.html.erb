@@ -1,2 +1,120 @@
-<h1>Accounts#viewcbdaccounts</h1>
-<p>Find me in app/views/accounts/viewcbdaccounts.html.erb</p>
+<% if session[:role]=="smusafinsec"%>
+<h1>View CBd Expenditure Accounts</h1>
+<table class = "table table-bordered table-condensed">
+	<tr>
+		<th>Overall Budget</th>
+		<% @CBD.each do|x| %>
+		<th><%= x.clubid%></th>
+		<%end%>
+	</tr>
+	<tr>
+		<td><%= @totalBdgt%></td>
+		<% @budgetArr.each do|x| %>
+		<td><%= x%></td>
+		<%end%>
+	</tr>
+</table>
+<p>
+	<hr /><h2>Help:</h2>
+	Select a CBd to display the expenditure account of that CBd and the expenditure accounts of the clubs that fall under it.
+	If none is selected, <b>ONLY the CBds</b> will be displayed.<br />The table on top will display the CBd account, and the 
+	lower table will display the affliated clubs (if any).
+</p>
+<br />
+<%= form_tag("/accounts/viewcbdaccounts/", :method => "get") do %>
+<b>Select CBD:</b><%= select_tag(:choice, options_from_collection_for_select(@CBD, "clubid", "clubid"), prompt:"Select CBd")%>
+<%= submit_tag("Go!", :class=>"btn") %></th>
+<%end%>
+
+<table class = "table table-bordered table-condensed">
+	<tr>
+		<th>CBd</th>
+		<th>Cat 1</th>
+		<th>Cat 2</th>
+		<th>Cat 3</th>
+		<th>Cat 4</th>
+		<th>Cat 5</th>
+		<th>Cat 6</th>
+		<th>Cat 7</th>
+		<th>Cat 8</th>
+		<th>Cat 9</th>
+		<th>Cat 10</th>
+		<th>Cat 11</th>
+		<th>Cat 12</th>
+		<th>Cat 13</th>
+		<th>Misc</th>
+		<th>Options</th>
+	</tr>
+	<% @choiceofCBD.each do|x| %>
+	<tr>
+
+		<td><%= x.clubid%></td>
+		<td><%= x.Category1Balance%></td>
+		<td><%= x.Category2Balance%></td>
+		<td><%= x.Category3Balance%></td>
+		<td><%= x.Category4Balance%></td>
+		<td><%= x.Category5Balance%></td>
+		<td><%= x.Category6Balance%></td>
+		<td><%= x.Category7Balance%></td>
+		<td><%= x.Category8Balance%></td>
+		<td><%= x.Category9Balance%></td>
+		<td><%= x.Category10Balance%></td>
+		<td><%= x.Category11Balance%></td>
+		<td><%= x.Category12Balance%></td>
+		<td><%= x.Category13Balance%></td>
+		<td><%= x.MiscellaneousBalance%></td>
+		<td> <%= form_tag("/accounts/editaccount", :method => "get") do %>
+		<%= hidden_field_tag(:id, x.clubid) %>
+		<%= hidden_field_tag(:destination, "viewcbdaccounts") %>
+		<%= submit_tag("Edit", :class=>"btn") %>
+		<% end %> </td>
+	</tr>
+	<%end%>
+</table>
+<hr />
+<table class = "table table-bordered table-condensed">
+	<tr>
+		<th>Club</th>
+		<th>Cat 1</th>
+		<th>Cat 2</th>
+		<th>Cat 3</th>
+		<th>Cat 4</th>
+		<th>Cat 5</th>
+		<th>Cat 6</th>
+		<th>Cat 7</th>
+		<th>Cat 8</th>
+		<th>Cat 9</th>
+		<th>Cat 10</th>
+		<th>Cat 11</th>
+		<th>Cat 12</th>
+		<th>Cat 13</th>
+		<th>Misc</th>
+		<th>Options</th>
+	</tr>
+	<% @clubArr.each do|x| %>
+	<tr>
+
+		<td><%= x.clubid%></td>
+		<td><%= x.Category1Balance%></td>
+		<td><%= x.Category2Balance%></td>
+		<td><%= x.Category3Balance%></td>
+		<td><%= x.Category4Balance%></td>
+		<td><%= x.Category5Balance%></td>
+		<td><%= x.Category6Balance%></td>
+		<td><%= x.Category7Balance%></td>
+		<td><%= x.Category8Balance%></td>
+		<td><%= x.Category9Balance%></td>
+		<td><%= x.Category10Balance%></td>
+		<td><%= x.Category11Balance%></td>
+		<td><%= x.Category12Balance%></td>
+		<td><%= x.Category13Balance%></td>
+		<td><%= x.MiscellaneousBalance%></td>
+		<td> <%= form_tag("/accounts/editaccount", :method => "get") do %>
+		<%= hidden_field_tag(:id, x.clubid) %>
+		<%= hidden_field_tag(:destination, "viewcbdaccounts") %>
+		<%= submit_tag("Edit", :class=>"btn") %>
+		<% end %> </td>
+	</tr>
+	<%end%>
+</table>
+<%end%>

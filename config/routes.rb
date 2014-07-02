@@ -40,8 +40,12 @@ Rails.application.routes.draw do
   get 'accounts/viewallaccounts'
 
   get 'accounts/deposit'
+  
+  get 'accounts/editaccount'
 
   get 'accounts/fundstransfer'
+  
+  post 'accounts/update'
 
   get 'claims/newclaim'
 

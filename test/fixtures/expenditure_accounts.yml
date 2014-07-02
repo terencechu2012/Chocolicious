@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  clubid: MyString
+  Category1Balance: 9.99
+  CategoryBalance: 9.99
+  Category3Balance: 9.99
+  Category4Balance: 9.99
+  Category5Balance: 9.99
+  Category6Balance: 9.99
+  Category7Balance: 9.99
+  Category8Balance: 9.99
+  Category9Balance: 9.99
+  Category10Balance: 9.99
+  Category11Balance: 9.99
+  Category12Balance: 9.99
+  Category13Balance: 9.99
+  MiscellaneousBalance: 9.99
+
+two:
+  clubid: MyString
+  Category1Balance: 9.99
+  CategoryBalance: 9.99
+  Category3Balance: 9.99
+  Category4Balance: 9.99
+  Category5Balance: 9.99
+  Category6Balance: 9.99
+  Category7Balance: 9.99
+  Category8Balance: 9.99
+  Category9Balance: 9.99
+  Category10Balance: 9.99
+  Category11Balance: 9.99
+  Category12Balance: 9.99
+  Category13Balance: 9.99
+  MiscellaneousBalance: 9.99
