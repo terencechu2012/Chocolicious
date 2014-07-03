@@ -2,6 +2,7 @@ class ClaimsController < ApplicationController
   
   def addremark
     @rejectclaim = Claim.find_by_id(params[:id])
+    @status = params[:status]
   end
   
   def newclaim
@@ -45,9 +46,9 @@ class ClaimsController < ApplicationController
   end
   
   def add
-    begin
-      Claim.create(claim_params)
-    rescue
+    
+    test = Claim.create(claim_params).valid?
+    if !test
       flash[:error] = 'There was a problem adding your claim. Have you attached a supporting document?'
     end
     redirect_to :action => 'viewclaim'
@@ -70,12 +71,23 @@ class ClaimsController < ApplicationController
     c.update_attribute(:status, newstatus)
     redirect_to :action => 'viewclaim'
   end
-  
+  def resubmitclaim
+    c = Claim.find_by_id(params[:id])
+    if c.status == 12
+      newstatus = c.status + 1
+    else
+      newstatus = c.status + 2
+    end
+   
+    c.update_attribute(:status, newstatus)
+    c.update_attribute(:remarks, nil)
+    redirect_to :action => 'viewclaim'
+  end
   def confirmrejectclaim
     c = Claim.find_by_id(params[:claim][:id])
 
     c.update_attribute(:remarks, params[:claim][:remarks])
-    c.update_attribute(:status, 1)
+    c.update_attribute(:status, params[:claim][:status])
     redirect_to :action => 'viewclaim'
   end
   

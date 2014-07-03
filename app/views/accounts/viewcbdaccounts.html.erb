@@ -24,7 +24,7 @@
 	lower table will display the affliated clubs (if any).
 </p>
 <br />
-<%= form_tag("/accounts/viewcbdaccounts/", :method => "get") do %>
+<%= form_tag("/accounts/viewcbdaccounts/", :method => "post") do %>
 <b>Select CBD:</b><%= select_tag(:choice, options_from_collection_for_select(@CBD, "clubid", "clubid"), prompt:"Select CBd")%>
 <%= submit_tag("Go!", :class=>"btn") %></th>
 <%end%>

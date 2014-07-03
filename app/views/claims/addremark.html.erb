@@ -6,6 +6,7 @@
 <div>
 	Please add remark for the rejection:
 </div>
+<%= f.hidden_field(:status, :value => @status)%>
 <%= f.text_area :remarks, size: "100 x 5" %><br>
 <%= f.submit("Confirm")%>
 <%end%>

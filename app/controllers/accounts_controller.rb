@@ -24,6 +24,8 @@ class AccountsController < ApplicationController
         @clubArr = ExpenditureAccount.where(['clubid in (select clubid from clubs where clubtype = ?)', params[:choice]])
         @choiceofCBD = ExpenditureAccount.where(clubid:params[:choice])
         # @clubArr = @clubArr
+      else
+        @choiceofCBD = []
       end
     end
     if session[:role]=='cbdfinsec'
@@ -55,6 +57,8 @@ class AccountsController < ApplicationController
         @clubArr = ReserveAccount.where(['clubid in (select clubid from clubs where clubtype = ?)', params[:choice]])
         @choiceofCBD = ReserveAccount.where(clubid:params[:choice])
         # @clubArr = @clubArr
+      else
+        @choiceofCBD = []
       end
     end
     if session[:role]=='cbdfinsec'

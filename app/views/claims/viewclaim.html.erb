@@ -1,4 +1,4 @@
-<%role = session[:role]%>
+<br><%role = session[:role]%>
 <% if flash[:error] %>
 <font color="red"><%= flash[:error]%></font>
 <%end%>
@@ -21,7 +21,11 @@
 	</tr>
 	<%@normalclaims.each do |c|%>
 	<%status = c.status%>
+	<%if c.remarks.nil?%>
 	<tr>
+	<%else%>
+	<tr class = 'warning'>
+	<%end%>
 		<td><%= c.userid%></td>
 		<td><%= c.clubid%></td>
 		<td><%= c.amount%></td>
@@ -30,7 +34,7 @@
 		<td><%= c.updated_at%></td>
 		<td><%= c.status%></td>
 		<td><a href="<%= c.supportdoc.url%>">Download</td>
-		<%if status == 0 || status == 12%>
+		<%if status == 0 || status == 12 || status == 6%>
 		<td><a href="/claims/editclaim?id=<%=c.id%>">Edit</td>
 		<td><a href="/claims/submitclaim?id=<%=c.id%>">Submit</td>
 		<%end%>
@@ -62,15 +66,18 @@
 		<th>Updated</th>
 		<th>Status</th>
 		<th>Supporting Doc</th>
-		<th>Edit</th>
-		<th>Submit</th>
-		<%if @hideremarks%>
+		<th>Action</th>
+		<!-- <%if @hideremarks%>
 		<th>Remarks</th>
-		<%end%>
+		<%end%> -->
 	</tr>
 	<%@normalclaims.each do |c|%>
 	<%status = c.status%>
+	<%if c.remarks.nil?%>
 	<tr>
+	<%else%>
+	<tr class = 'warning'>
+	<%end%>
 		<td><%= c.userid%></td>
 		<td><%= c.clubid%></td>
 		<td><%= c.amount%></td>
@@ -81,10 +88,16 @@
 		<td><a href="<%= c.supportdoc.url%>">Download</td>
 		<%if status == 1%>
 		<td><a href="/claims/editclaim?id=<%=c.id%>">Edit</td>
+		<%if c.remarks.nil?%>
 		<td><a href="/claims/submitclaim?id=<%=c.id%>">Submit</td>
-			<%if @hideremarks%>
+		<%else%>
+		<td><a href="/claims/resubmitclaim?id=<%=c.id%>">ReSubmit</td>
+		<td><a href="#", onclick="viewremark('<%=c.remarks%>')">View Remarks</a></td>
+		
+		<%end%>
+			<!-- <%if @hideremarks%>
 				<td><%= c.remarks%></td>
-			<%end%>
+			<%end%> -->
 		<%end%>
 	</tr>
 	<%end%>
@@ -119,7 +132,8 @@
 		<td><a href="<%= c.supportdoc.url%>">Download</td>
 		
 		<td><a href="#">Endorse</td>
-		<td><a href="/claims/addremark?id=<%=c.id%>">Reject</td>
+		<td><a href="/claims/addremark?id=<%=c.id%>&status=1">Reject</td>
+			<td><a href="#">Claim complete</td>
 	</tr>
 	<%end%>
 </table>
@@ -137,12 +151,16 @@
 		<th>Updated</th>
 		<th>Status</th>
 		<th>Supporting Doc</th>
-		<th>Edit</th>
-		<th>Submit</th>
+		<th>Action</th>
+		
 	</tr>
 	<%@cbdmcclaims.each do |c|%>
 	<%status = c.status%>
+	<%if c.remarks.nil?%>
 	<tr>
+	<%else%>
+	<tr class = 'warning'>
+	<%end%>
 		<td><%= c.userid%></td>
 		<td><%= c.clubid%></td>
 		<td><%= c.amount%></td>
@@ -153,7 +171,12 @@
 		<td><a href="<%= c.supportdoc.url%>">Download</td>
 		<%if status == 7%>
 		<td><a href="/claims/editclaim?id=<%=c.id%>">Edit</td>
+		<%if c.remarks.nil?%>
 		<td><a href="/claims/submitclaim?id=<%=c.id%>">Submit</td>
+		<%else%>
+		<td><a href="/claims/resubmitclaim?id=<%=c.id%>">ReSubmit</td>
+		<td><a href="#", onclick="viewremark('<%=c.remarks%>')">View Remarks</a></td>
+		<%end%>
 		<%end%>
 	</tr>
 	<%end%>
@@ -191,7 +214,7 @@
 		<td><%= c.updated_at%></td>
 		<td><%= c.status%></td>
 		<td><a href="<%= c.supportdoc.url%>">Download</td>
-		<%if status == 2%>
+		<%if status == 2 || status == 8%>
 		<td><a href="#", onclick="pres(<%=c.id%>)">Acknowledge</a></td>
 		<p id ="pres"> </p>
 		<%end%>
@@ -229,8 +252,8 @@
 		<td><%= c.status%></td>
 		<td><a href="<%= c.supportdoc.url%>">Download</td>
 		<td><a href="#">Endorse</td>
-		<td><a href="/claims/addremark?id=<%=c.id%>">Reject</td>
-		<td><a href="#">Print</td>
+		<td><a href="/claims/addremark?id=<%=c.id%>&status=7">Reject</td>
+		<td><a href="#">Claim complete</td>
 	</tr>
 	<%end%>
 
@@ -263,7 +286,7 @@
 		<td><%= c.status%></td>
 		<td><a href="<%= c.supportdoc.url%>">Download</td>
 		<td><a href="#">Endorse</td>
-		<td><a href="/claims/addremark?id=<%=c.id%>">Reject</td>
+		<td><a href="/claims/addremark?id=<%=c.id%>&status=12">Reject</td>
 			<td><a href="#">Print</td>
 	</tr>
 	<%end%>
@@ -281,4 +304,13 @@ function pres(a){
 	}
 	document.getElementById("pres").innerHTML = x;
 }
+function viewremark(a){
+	
+		alert(a);
+	
+}
+
 <%end%>
+<script>
+	
+</script>

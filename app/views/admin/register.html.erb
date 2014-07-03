@@ -14,7 +14,7 @@
 	<tr>
 		<td><%= user.userid %></td>
 		<td><%= user.role %></td>
-		<td> <%if session[:userid]!=user.userid%><%= check_box_tag("toDelete[]",user.userid)%>
+		<td> <%if session[:userid]!=user.userid%><%= check_box_tag("toDelete[]",user.userid+","+user.clubid)%>
 		<%else%><font color=red><i>You are not able to delete yourself</i><%end%> </td>
 		<%= hidden_field_tag(:club, session[:club])%>
 	</tr>
@@ -74,7 +74,7 @@ Role:<%= select_tag(:role, "<option>normal</option><option>clubfinsec</option><o
 		<td><%= user.userid %></td>
 		<td><%= user.role %></td>
 		<td><%= user.clubid%></td>
-		<td> <%if session[:userid]!=user.userid%><%= check_box_tag("toDelete[]",user.userid)%>
+		<td> <%if session[:userid]!=user.userid%><%= check_box_tag("toDelete[]",user.userid+","+user.clubid)%>
 		<%else%><font color=red><i>You are not able to delete yourself</i><%end%> </td>
 		<%= hidden_field_tag(:club, user.clubid)%>
 	</tr>
@@ -93,6 +93,41 @@ Search for cbd:<%= select_tag(:club, options_from_collection_for_select(@cbds, "
 <%= submit_tag("Add", :class=>"btn") %>
 <%end%>
 
+<h2>Smusa Secretaries</h2>
+
+<%= form_tag("/admin/delete/", :method => "post") do %>
+<table class = "table table-bordered table-condensed">
+	<tr>
+		<th>Name</th>
+		<th>Department</th>
+		<th><%= submit_tag("Delete", :class=>"btn") %></th>
+	</tr>
+
+	<% @smusasecList.each do |user| %>
+	<tr>
+		<td><%= user.userid %></td>
+		<td><%=user.clubid%></td>
+		<td> <%if session[:userid]!=user.userid%><%= check_box_tag("toDelete[]",user.userid+","+user.clubid)%>
+		<%else%><font color=red><i>You are not able to delete yourself</i><%end%> </td>
+		<%= hidden_field_tag(:club, user.clubid)%>
+	</tr>
+
+	<%end%>
+</table>
+<%end%>
+
+
+<h2>Add Smusa Sec</h2>
+
+<%= form_tag("/admin/add/", :method => "post") do %>
+<!-- Select tags to make dropdownlist with search -->
+Search for user:<%= select_tag(:userid, options_from_collection_for_select(@users, "userid", "userid"))%>
+Search for department:<%= select_tag(:club, options_from_collection_for_select(@departments, "clubid", "clubname"))%>
+<%= hidden_field_tag(:role,'smusasec')%>
+<%= submit_tag("Add", :class=>"btn") %>
+<%end%>
+
+
 <%elsif session[:role]=='cbdfinsec'%>
 <h2>Clubs and their Fin Secs</h2>
 
@@ -110,7 +145,7 @@ Search for cbd:<%= select_tag(:club, options_from_collection_for_select(@cbds, "
 		<td><%= user.userid %></td>
 		<td><%= user.role %></td>
 		<td><%= user.clubid%></td>
-		<td> <%if session[:userid]!=user.userid%><%= check_box_tag("toDelete[]",user.userid)%>
+		<td> <%if session[:userid]!=user.userid%><%= check_box_tag("toDelete[]",user.userid+","+user.clubid)%>
 		<%else%><font color=red><i>You are not able to delete yourself</i><%end%> </td>
 		<%= hidden_field_tag(:club, user.clubid)%>
 	</tr>
@@ -126,6 +161,39 @@ Search for cbd:<%= select_tag(:club, options_from_collection_for_select(@cbds, "
 Search for user:<%= select_tag(:userid, options_from_collection_for_select(@users, "userid", "userid"))%>
 Search for club:<%= select_tag(:club, options_from_collection_for_select(@clubsUnderCbd, "clubid", "clubname"))%>
 <%= hidden_field_tag(:role,'clubfinsec')%>
+<%= submit_tag("Add", :class=>"btn") %>
+<%end%>
+
+<h2>CBD MC Members</h2>
+
+<%= form_tag("/admin/delete/", :method => "post") do %>
+<table class = "table table-bordered table-condensed">
+	<tr>
+		<th>Name</th>
+		
+		<th><%= submit_tag("Delete", :class=>"btn") %></th>
+	</tr>
+
+	<% @cbdmcList.each do |user| %>
+	<tr>
+		<td><%= user.userid %></td>
+		
+		<td> <%if session[:userid]!=user.userid%><%= check_box_tag("toDelete[]",user.userid+","+user.clubid)%>
+		<%else%><font color=red><i>You are not able to delete yourself</i><%end%> </td>
+		<%= hidden_field_tag(:club, user.clubid)%>
+	</tr>
+
+	<%end%>
+</table>
+<%end%>
+
+<h2>Add CBD MC Member</h2>
+
+<%= form_tag("/admin/add/", :method => "post") do %>
+<!-- Select tags to make dropdownlist with search -->
+Search for user:<%= select_tag(:userid, options_from_collection_for_select(@users, "userid", "userid"))%>
+<%= hidden_field_tag(:club, session[:club])%>
+<%= hidden_field_tag(:role,'cbdmc')%>
 <%= submit_tag("Add", :class=>"btn") %>
 <%end%>
 

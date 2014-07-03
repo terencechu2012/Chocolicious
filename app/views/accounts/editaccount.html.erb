@@ -2,46 +2,46 @@
 <%= form_tag("/accounts/update/", :method => "post") do %>
 <table>
 	<tr>
-		<th align="right">Categoy 1 Balance: </th><td><%= text_field_tag(:cat1, @clubexpAcc.Category1Balance) %></td>
+		<th align="right">Categoy 1 Balance: </th><td><%= number_field_tag(:cat1, @clubexpAcc.Category1Balance, :step => 0.01) %></td>
 	</tr>
 	<tr>
-		<th align="right">Categoy 2 Balance: </th><td><%= text_field_tag(:cat2, @clubexpAcc.Category2Balance) %></td>
+		<th align="right">Categoy 2 Balance: </th><td><%= number_field_tag(:cat2, @clubexpAcc.Category2Balance, :step => 0.01) %></td>
 	</tr>
 	<tr>
-		<th align="right">Categoy 3 Balance: </th><td><%= text_field_tag(:cat3, @clubexpAcc.Category3Balance) %></td>
+		<th align="right">Categoy 3 Balance: </th><td><%= number_field_tag(:cat3, @clubexpAcc.Category3Balance, :step => 0.01) %></td>
 	</tr>
 	<tr>
-		<th align="right">Categoy 4 Balance: </th><td><%= text_field_tag(:cat4, @clubexpAcc.Category4Balance) %></td>
+		<th align="right">Categoy 4 Balance: </th><td><%= number_field_tag(:cat4, @clubexpAcc.Category4Balance, :step => 0.01) %></td>
 	</tr>
 	<tr>
-		<th align="right">Categoy 5 Balance: </th><td><%= text_field_tag(:cat5, @clubexpAcc.Category5Balance) %></td>
+		<th align="right">Categoy 5 Balance: </th><td><%= number_field_tag(:cat5, @clubexpAcc.Category5Balance, :step => 0.01) %></td>
 	</tr>
 	<tr>
-		<th align="right">Categoy 6 Balance: </th><td><%= text_field_tag(:cat6, @clubexpAcc.Category6Balance) %></td>
+		<th align="right">Categoy 6 Balance: </th><td><%= number_field_tag(:cat6, @clubexpAcc.Category6Balance, :step => 0.01) %></td>
 	</tr>
 	<tr>
-		<th align="right">Categoy 7 Balance: </th><td><%= text_field_tag(:cat7, @clubexpAcc.Category7Balance) %></td>
+		<th align="right">Categoy 7 Balance: </th><td><%= number_field_tag(:cat7, @clubexpAcc.Category7Balance, :step => 0.01) %></td>
 	</tr>
 	<tr>
-		<th align="right">Categoy 8 Balance: </th><td><%= text_field_tag(:cat8, @clubexpAcc.Category8Balance) %></td>
+		<th align="right">Categoy 8 Balance: </th><td><%= number_field_tag(:cat8, @clubexpAcc.Category8Balance, :step => 0.01) %></td>
 	</tr>
 	<tr>
-		<th align="right">Categoy 9 Balance: </th><td><%= text_field_tag(:cat9, @clubexpAcc.Category9Balance) %></td>
+		<th align="right">Categoy 9 Balance: </th><td><%= number_field_tag(:cat9, @clubexpAcc.Category9Balance, :step => 0.01) %></td>
 	</tr>
 	<tr>
-		<th align="right">Categoy 10 Balance: </th><td><%= text_field_tag(:cat10, @clubexpAcc.Category10Balance) %></td>
+		<th align="right">Categoy 10 Balance: </th><td><%= number_field_tag(:cat10, @clubexpAcc.Category10Balance, :step => 0.01) %></td>
 	</tr>
 	<tr>
-		<th align="right">Categoy 11 Balance: </th><td><%= text_field_tag(:cat11, @clubexpAcc.Category11Balance) %></td>
+		<th align="right">Categoy 11 Balance: </th><td><%= number_field_tag(:cat11, @clubexpAcc.Category11Balance, :step => 0.01) %></td>
 	</tr>
 	<tr>
-		<th align="right">Categoy 12 Balance: </th><td><%= text_field_tag(:cat12, @clubexpAcc.Category12Balance) %></td>
+		<th align="right">Categoy 12 Balance: </th><td><%= number_field_tag(:cat12, @clubexpAcc.Category12Balance, :step => 0.01) %></td>
 	</tr>
 	<tr>
-		<th align="right">Categoy 13 Balance: </th><td><%= text_field_tag(:cat13, @clubexpAcc.Category13Balance) %></td>
+		<th align="right">Categoy 13 Balance: </th><td><%= number_field_tag(:cat13, @clubexpAcc.Category13Balance, :step => 0.01) %></td>
 	</tr>
 	<tr>
-		<th align="right">Miscellaneous Balance: </th><td><%= text_field_tag(:misc, @clubexpAcc.MiscellaneousBalance) %></td>
+		<th align="right">Miscellaneous Balance: </th><td><%= number_field_tag(:misc, @clubexpAcc.MiscellaneousBalance, :step => 0.01) %></td>
 	</tr>
 </table>
 <%= hidden_field_tag(:id, @clubexpAcc.clubid)%>

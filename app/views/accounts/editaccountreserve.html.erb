@@ -2,10 +2,10 @@
 <%=form_for @club, :url => { :action => "updatereserve" } do |f|%>
 <table>
 	<tr>
-		<th align="right">Balance: </th><td><%= f.text_field(:balance) %></td>
+		<th align="right">Balance: </th><td><%= f.number_field(:balance, :step => 0.01) %></td>
 	</tr>
 	<tr>
-		<th align="right">Limit: </th><td><%= f.text_field(:limit) %></td>
+		<th align="right">Limit: </th><td><%= f.number_field(:limit, :step => 0.01) %></td>
 	</tr>
 	
 </table>

@@ -1,15 +1,17 @@
 class AdminController < ApplicationController
   def register
     @userList=Clubusers.where(clubid:session[:club])
-    @users=User.all
-    @allClubs = Club.all
+    @users=User.where.not(userid: session[:userid])
+    @allClubs = Club.where("clubtype != 'cbd' and clubtype <> 'smusa' and clubtype != 'infinite'")
     @clubsUnderCbd = Club.where(clubtype: session[:club])
     @cbds = Club.where(clubtype: 'cbd')
     @clubRequests = Request.where(clubid:session[:club])
     @cbdList = Clubusers.where(role:'cbdfinsec')
     @clubFinSecList = Clubusers.where(['clubid in (select clubid from clubs where clubtype = ?) AND role = ?', session[:club], 'clubfinsec'])
     @clubs = Request.joins("INNER JOIN clubs on clubs.clubid = requests.clubid").where(:userid => session[:userid])
-    
+    @cbdmcList = Clubusers.where(clubid:session[:club], role: 'cbdmc')
+    @smusasecList = Clubusers.where(role: 'smusasec')
+    @departments = Club.where(clubtype: 'smusa')
   end
 
   def requestClub
@@ -31,9 +33,11 @@ class AdminController < ApplicationController
 
   def delete
     if params[:toDelete] != nil
-      params[:toDelete].each do |userid|
-        d = Clubusers.find_by_userid_and_clubid(userid,params[:club])
+      params[:toDelete].each do |x|
+        y = x.split(",")
+        d = Clubusers.find_by_userid_and_clubid(y[0],y[1])
         d.delete
+        
       end
     end
     redirect_to :action => 'register'

@@ -37,7 +37,11 @@ Rails.application.routes.draw do
 
   get 'accounts/viewcbdaccounts'
   
+  post 'accounts/viewcbdaccounts'
+  
   get 'accounts/viewcbdaccountsreserve'
+  
+  post 'accounts/viewcbdaccountsreserve'
   
   get 'accounts/forconvenience'
   
