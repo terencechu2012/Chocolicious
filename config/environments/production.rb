@@ -9,10 +9,23 @@ Rails.application.configure do
   # and those relying on copy on write to perform better.
   # Rake tasks automatically ignore this option for performance.
   config.eager_load = true
+  config.action_mailer.default_url_options = { host: 'smuais-terencechu.rhcloud.com' }
 
   # Full error reports are disabled and caching is turned on.
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
+  
+  config.action_mailer.raise_delivery_errors = false
+   config.action_mailer.delivery_method = :smtp
+
+config.action_mailer.smtp_settings = {
+address: "smtp.gmail.com",
+port: 587,
+authentication: "plain",
+:openssl_verify_mode  => 'none',
+user_name: 'smuais2012@gmail.com',
+password: '2012smuais'
+}
 
   # Enable Rack::Cache to put a simple HTTP cache in front of your application
   # Add `rack-cache` to your Gemfile before enabling this.
