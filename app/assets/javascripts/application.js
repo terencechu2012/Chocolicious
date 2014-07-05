@@ -9,9 +9,15 @@
 //
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
-//
+//= require_self
+//= require jquery.min.js
+//= require moment.min
+//= require jquery-1.10.2.min
 //= require jquery
 //= require jquery_ujs
-//= require bootstrap
+
+//= require bootstrap.min
+//= require fullcalendar
+//= require jquery.dataTables
 
 //= require_tree .
