@@ -1,0 +1,53 @@
+<h2>Register a new club</h2>
+<%=form_for @newclub, :url => { :action => "addclub" } do |f|%>
+<%
+a = []
+@cbds.each do |c|
+	a<<c.clubid
+end
+b = ['cbd', 'smusa']
+a = a + b
+%>
+<table>
+	<tr>
+		<td><%=f.text_field(:clubid)%></td><td>Club ID</td>
+	</tr>
+	<!-- <tr>
+		<td><%=f.select(:finsecid, options_from_collection_for_select(@users, 'userid', 'userid'), :include_blank => true)%></td><td>Finance Secretary ID(Optional)</td>
+	</tr>
+	<tr>
+		<td><%=f.select(:presidentid, options_from_collection_for_select(@users, 'userid', 'userid'), :include_blank => true)%></td><td>President ID(Optional)</td>
+	</tr> -->
+	<tr>
+		<td><%=f.select(:clubtype, options_for_select(a))%></td><td>Club type</td>
+	</tr>
+	<tr>
+		<td><%=f.text_field(:clubname)%></td><td>Club name</td>
+	</tr>
+	
+</table>
+<%= f.submit("Add Club", :class=>"btn")%>
+<%end%>
+
+<h2>All clubs</h2>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>Club ID</th>
+			<th>Club Type</th>
+			<th>Club Name</th>
+			<th>Change Club Name</th>
+			<th>Delete Club</th>
+		</tr>
+	</thead>
+	<%@clubs.each do |c|%>
+	<tr>
+		<td><%=c.clubid%></td>
+		<td><%=c.clubtype%></td>
+		<td><%=c.clubname%></td>
+		<td><a href='/admin/changeclubname?clubid=<%= c.clubid%>'>Change</td>
+		<td><%= button_to "Delete", '/admin/deleteclub?clubid='+c.clubid, data: { confirm: "WARNING:\nAre you sure you want to delete the club and all its associated accounts? All information related to this club will be deleted including claims, club requests and user roles. Changes from this point are irreversible." } %></td>
+	</tr>
+	<%end%>
+</table>

@@ -175,4 +175,46 @@ class AdminController < ApplicationController
 
   def viewrequests
   end
+  
+  def registerclub
+    @newclub = Club.new
+    @users=User.where.not(userid: session[:userid])
+    @cbds = Club.where(clubtype: 'cbd')
+    @clubs = Club.all
+  end
+  
+  def addclub
+    Club.create(club_params)
+    ExpenditureAccount.create(:clubid => params[:club][:clubid])
+    if params[:club][:clubtype] != 'smusa'
+      ReserveAccount.create(:clubid => params[:club][:clubid], :limit => 20000, :balance => 0)
+    end
+    redirect_to :back
+  end
+  
+  def club_params
+    params.require(:club).permit!
+  end
+  
+  def deleteclub
+    clubid = params[:clubid]
+    Claim.delete_all(clubid: clubid)
+    Clubusers.delete_all(clubid: clubid)
+    Request.delete_all(clubid: clubid)
+    ReserveAccount.delete_all(clubid: clubid)
+    ExpenditureAccount.delete_all(clubid: clubid)
+    c = Club.find_by_clubid(clubid)
+   
+    c.delete
+    
+    # e = ExpenditureAccount.find_by_clubid(clubid)
+    # r = ReserveAccount.find_by_clubid(clubid)
+    # if !e.nil?
+      # e.delete
+    # end
+    # if !r.nil?
+      # r.delete
+    # end
+    redirect_to :back
+  end
 end

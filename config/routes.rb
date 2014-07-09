@@ -4,7 +4,8 @@ Rails.application.routes.draw do
     patch "/confirm" => "confirmations#confirm"
     root 'devise/sessions#new'
   end
-
+  post 'admin/addclub'
+  get 'admin/registerclub'
   post 'admin/add'
   get 'admin/deleteRequest'
   post 'admin/notifications'
@@ -12,6 +13,8 @@ Rails.application.routes.draw do
   post 'admin/addLeader'
 
   post 'admin/requestClub'
+  
+  post 'admin/deleteclub'
 
   post 'admin/delete'
 
