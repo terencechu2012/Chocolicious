@@ -1,0 +1,98 @@
+<%role = session[:role]%>
+<%if role == 'smusafinsec' || role == 'cbdfinsec'%>
+
+
+<h2>Manage breakdown for <%=@b.event%></h2>
+<h3>Expenses</h3>
+<table class='table table-bordered'>
+	<tr>
+		<th>Item</th>
+		<th>Request SAC</th>
+		<th>Request Reserves</th>
+		<th>Unit Cost</th>
+		<th>Quantity</th>
+		<th>Justification</th>
+		<th>Quotation</th>
+		<th>Delete</th>
+	</tr>
+	<%@expenditures.each do |e|%>
+		<tr>
+			<td><%=e.item%></td>
+			<td><%=e.requestsac%></td>
+			<td><%=e.requestreserves%></td>
+			<td><%=e.unitcost%></td>
+			<td><%=e.quantity%></td>
+			<td><%=e.justification%></td>
+			<td><%=e.quotation%></td>
+			<td><a href='/budgets/deleteexpenditure?id=<%=e.id%>'>Delete</a></td>
+		</tr>
+	<%end%>
+</table>
+<h3>Add expenditure</h3>
+<%=form_for @newexpenditure, :url => {:action => 'addexpenditure'} do |f|%>
+<table class='table table-bordered'>
+	<tr>
+		<th>Item</th>
+		<th>Request SAC</th>
+		<%if session[:role] != 'smusasec'%>
+		<th>Request Reserves</th>
+		<%end%>
+		<th>Unit Cost</th>
+		<th>Quantity</th>
+		<th>Justification</th>
+		<th>Quotation</th>
+	</tr>
+	<tr>
+		<td><%=f.text_field :item%></td>
+		<td><%=f.number_field :requestsac, :step => 0.01%></td>
+		<%if session[:role] != 'smusasec'%>
+		<td><%=f.number_field :requestreserves, :step => 0.01%></td>
+		<%end%>
+		<td><%=f.number_field :unitcost, :step => 0.01%></td>
+		<td><%=f.number_field :quantity%></td>
+		<td><%=f.text_field :justification%></td>
+		<td><%=f.text_field :quotation%></td>
+	</tr>
+</table>
+<%=f.hidden_field :budget_id, :value => @id%>
+<%=f.submit "Add item", :class => 'btn'%>
+<%end%>
+
+<h3>Income</h3>
+<table class='table table-bordered'>
+	<tr>
+		<th>Item</th>
+		<th>Income</th>
+		<th>Breakdown of income</th>
+		<th>Delete</th>
+	</tr>
+	<%@incomes.each do |i|%>
+		<tr>
+			<td><%=i.item%></td>
+			<td><%=i.income%></td>
+			<td><%=i.incomebreakdown%></td>
+			<td><a href='/budgets/deleteincome?id=<%=i.id%>'>Delete</a></td>
+		</tr>
+	<%end%>
+</table>
+<h3>Add income</h3>
+<%=form_for @newincome, :url => {:action => 'addincome'} do |f| %>
+<table class='table table-bordered'>
+	<tr>
+		<th>Item</th>
+		<th>Income</th>
+		<th>Breakdown of income</th>
+	</tr>
+	<tr>
+		<td><%=f.text_field :item%></td>
+		<td><%=f.number_field :income, :step => 0.01%></td>
+		<td><%=f.text_field :incomebreakdown%></td>
+	</tr>
+</table>
+<%=f.hidden_field :budget_id, :value => @id%>
+<%=f.submit "Add item", :class => 'btn'%>
+<%end%>
+
+<a href='/budgets/reviewmain'>Back to main</a>
+
+<%end%>

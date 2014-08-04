@@ -9,7 +9,8 @@ Rails.application.routes.draw do
   post 'admin/add'
   get 'admin/deleteRequest'
   post 'admin/notifications'
-
+  get 'admin/setnric'
+  post 'admin/setnric2'
   post 'admin/addLeader'
 
   post 'admin/requestClub'
@@ -62,6 +63,8 @@ Rails.application.routes.draw do
 
   get 'accounts/fundstransfer'
   
+  patch 'accounts/editjustification'
+  
   post 'accounts/update'
 
   get 'claims/newclaim'
@@ -70,6 +73,7 @@ Rails.application.routes.draw do
 
   get 'claims/viewclaim'
   post 'claims/viewclaim'
+  
 
   get 'admin/register'
 
@@ -98,12 +102,32 @@ Rails.application.routes.draw do
   post 'claims/edit'
 
   get 'claims/submitclaim'
-  
+  get 'claims/resubmitclaim'
   get 'claims/addremark'
   post 'claims/addremark'
+  get 'claims/endorseclub'
+  get 'claims/endorsecbdmc'
+  get 'claims/endorsesmusasec'
   
   post 'claims/confirmrejectclaim'
-
+  get 'budgets/control'
+  get 'budgets/disallow'
+  post 'budgets/allow'
+  get 'budgets/index'
+  get 'budgets/main'
+  get 'budgets/reviewmain'
+  post 'budgets/additem'
+  get 'budgets/delete'
+  get 'budgets/managebreakdown'
+  get 'budgets/reviewmanagebreakdown'
+  post 'budgets/addexpenditure'
+  get 'budgets/deleteexpenditure'
+  get 'budgets/show'
+  get 'budgets/viewbreakdown'
+  post 'budgets/addincome'
+  get 'budgets/deleteincome'
+  get 'budgets/fullsummary'
+ 
 # The priority is based upon order of creation: first created -> highest priority.
 # See how all your routes lay out with "rake routes".
 

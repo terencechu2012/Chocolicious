@@ -51,7 +51,17 @@ Search: <%= text_field_tag(:userid) %><%= submit_tag("Search", :class=>"btn") %>
 </form> -->
 <%= form_tag("/admin/add/", :method => "post") do %>
 Search for:<%= select_tag(:userid, options_from_collection_for_select(@users, "userid", "userid"))%>
-Role:<%= select_tag(:role, "<option>normal</option><option>clubfinsec</option><option>president</option>".html_safe) %>
+<%= hidden_field_tag(:role, "normal") %>
+<%= hidden_field_tag(:club, session[:club])%>
+<%= submit_tag("Add", :class=>"btn") %>
+<%end%>
+
+<h2>Add President</h2>
+<%= form_tag("/admin/addLeader/", :method => "post") do %>
+<!-- Select tags to make dropdownlist with search -->
+Search for user:<%= select_tag(:userid, options_from_collection_for_select(@users, "userid", "userid"))%>
+
+<%= hidden_field_tag(:role,'president')%>
 <%= hidden_field_tag(:club, session[:club])%>
 <%= submit_tag("Add", :class=>"btn") %>
 <%end%>
@@ -170,14 +180,14 @@ Search for club:<%= select_tag(:club, options_from_collection_for_select(@clubsU
 <table class = "table table-bordered table-condensed">
 	<tr>
 		<th>Name</th>
-		
+		<th>Role</th>
 		<th><%= submit_tag("Delete", :class=>"btn") %></th>
 	</tr>
 
 	<% @cbdmcList.each do |user| %>
 	<tr>
 		<td><%= user.userid %></td>
-		
+		<td><%= user.role %></td>
 		<td> <%if session[:userid]!=user.userid%><%= check_box_tag("toDelete[]",user.userid+","+user.clubid)%>
 		<%else%><font color=red><i>You are not able to delete yourself</i><%end%> </td>
 		<%= hidden_field_tag(:club, user.clubid)%>
@@ -197,6 +207,14 @@ Search for user:<%= select_tag(:userid, options_from_collection_for_select(@user
 <%= submit_tag("Add", :class=>"btn") %>
 <%end%>
 
+<h2>Add CBD President</h2>
+<%= form_tag("/admin/addLeader/", :method => "post") do %>
+<!-- Select tags to make dropdownlist with search -->
+Search for user:<%= select_tag(:userid, options_from_collection_for_select(@users, "userid", "userid"))%>
+<%= hidden_field_tag(:club, session[:club])%>
+<%= hidden_field_tag(:role,'president')%>
+<%= submit_tag("Add", :class=>"btn") %>
+<%end%>
 <% elsif session[:role].nil? %>
 <p>
 	You do not have a club yet.

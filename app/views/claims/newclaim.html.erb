@@ -1,5 +1,8 @@
 
 <%role = session[:role]%>
+<%if current_user.nric.nil? || current_user.nric.empty?%>
+<p>Please set your user details before making a claim!</p>
+<%else%>
 <%= form_for @new_claim, :url => { :action => "add" }, :method => :POST, :html => { :multipart => true }  do |f|  %>
 <%= f.hidden_field(:userid, :value => session[:userid])%>
 <%= f.hidden_field(:clubid, :value => session[:club])%>
@@ -20,7 +23,7 @@ Select category:
 Upload supporting doc:
 <%=f.file_field(:supportdoc)%>
 
-
+<%=f.hidden_field :nric, :value => current_user.nric%>
 <!-- If no file attached, to display error -->
 <%= f.submit("Save", :class=>"btn")%>
 <%end%>
@@ -44,3 +47,4 @@ Refer to the table below for category guide:<br>
  <tr><td>12</td><td>Transport</td><td>Fees for transportation</td></tr>
  <tr><td>13</td><td>Miscellaneous</td><td>Any misc. expenses that do not fall into the above cateogories. Egs include stationary etc. </td></tr>
 </table>
+<%end%>

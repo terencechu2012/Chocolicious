@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  budget_id: 
+  item: MyString
+  income: 9.99
+  incomebreakdown: MyString
+
+two:
+  budget_id: 
+  item: MyString
+  income: 9.99
+  incomebreakdown: MyString

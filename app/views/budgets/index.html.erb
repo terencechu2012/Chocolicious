@@ -1,0 +1,14 @@
+<%role = session[:role]%>
+<%if role == 'clubfinsec' || role == 'president' || role == 'smusasec' || role == 'cbdfinsec'%>
+<h2>Budget</h2>
+
+<%if @control.open%>
+<h3>Budget for <%=@control.year%> semester <%=@control.semester%> is open for editing</h3>
+<a href='/budgets/main'>Go to edit</a>
+<%end%>
+
+<h2>Past budgets</h2>
+<%@past.each do |p|%>
+<a href='/budgets/show?year=<%=p.year%>&semester=<%=p.semester%>'><%=p.year%> semester <%=p.semester%></a><br>
+<%end%>
+<%end%>

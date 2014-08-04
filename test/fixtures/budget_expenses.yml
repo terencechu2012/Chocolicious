@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  budget_id: 
+  item: MyString
+  requestsac: 9.99
+  requestreserves: 9.99
+  unitcost: 9.99
+  quantity: 1
+  justification: MyString
+  quotation: MyString
+
+two:
+  budget_id: 
+  item: MyString
+  requestsac: 9.99
+  requestreserves: 9.99
+  unitcost: 9.99
+  quantity: 1
+  justification: MyString
+  quotation: MyString

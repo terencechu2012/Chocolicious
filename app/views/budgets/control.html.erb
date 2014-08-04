@@ -1,0 +1,32 @@
+<%if session[:role] == 'smusafinsec'%>
+<h2>Control panel</h2>
+<%
+year = Date.today.year
+a = []
+for i in year-1..year+1
+	a << 'AY'+i.to_s+'-'+(i+1).to_s
+end
+%>
+<table class='table table-bordered'>
+	<tr>
+		<th>Allow editing?</th><th>Academic year</th><th>Semester</th>
+	</tr>
+	<tr>
+		<%if !@control.open%>
+		<%=form_tag '/budgets/allow', :method => 'post' do%>
+		<td><%=submit_tag 'Allow', :class => 'btn'%></td>
+		
+		<td><%=select_tag :year, options_for_select(a)%></td>
+		<td><%=select_tag :semester, options_for_select([1,2])%></td>
+		<%end%>
+		<%else%>
+		<td><a href='/budgets/disallow'>Disallow</a></td>
+		<td><%=@control.year%></td>
+		<td><%=@control.semester%></td>
+		<%end%>
+		
+		
+	</tr>
+</table>
+
+<%end%>

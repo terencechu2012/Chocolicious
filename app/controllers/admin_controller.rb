@@ -9,7 +9,7 @@ class AdminController < ApplicationController
     @cbdList = Clubusers.where(role:'cbdfinsec')
     @clubFinSecList = Clubusers.where(['clubid in (select clubid from clubs where clubtype = ?) AND role = ?', session[:club], 'clubfinsec'])
     @clubs = Request.joins("INNER JOIN clubs on clubs.clubid = requests.clubid").where(:userid => session[:userid])
-    @cbdmcList = Clubusers.where(clubid:session[:club], role: 'cbdmc')
+    @cbdmcList = Clubusers.where(clubid:session[:club])
     @smusasecList = Clubusers.where(role: 'smusasec')
     @departments = Club.where(clubtype: 'smusa')
   end
@@ -88,7 +88,8 @@ class AdminController < ApplicationController
     c = Club.find_by_clubid(params[:club])
     if params[:role] == 'cbdfinsec' || params[:role] == 'clubfinsec'
       c.update_attribute(:finsecid, params[:userid])
-
+    elsif params[:role] == 'president'
+      c.update_attribute(:presidentid, params[:userid])
     end
     add
   end
@@ -216,5 +217,16 @@ class AdminController < ApplicationController
       # r.delete
     # end
     redirect_to :back
+  end
+  
+  def setnric
+    @user = current_user
+  end
+  def setnric2
+    current_user.update(user_params)
+    redirect_to :back
+  end
+  def user_params
+    params.require(:user).permit!
   end
 end

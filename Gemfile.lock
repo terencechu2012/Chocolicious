@@ -29,6 +29,7 @@ GEM
       tzinfo (~> 1.1)
     arel (5.0.1.20140414130214)
     bcrypt (3.1.7)
+    bcrypt (3.1.7-x86-mingw32)
     builder (3.2.2)
     climate_control (0.0.3)
       activesupport (>= 3.0)
@@ -73,7 +74,12 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.3)
       mime-types
+    pdf-core (0.2.5)
     polyglot (0.3.5)
+    prawn (1.2.1)
+      pdf-core (~> 0.2.5)
+      ttfunk (~> 1.2.0)
+    prawn-table (0.1.0)
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -119,6 +125,7 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
+    ttfunk (1.2.0)
     turbolinks (2.2.2)
       coffee-rails
     tzinfo (1.2.1)
@@ -143,6 +150,8 @@ DEPENDENCIES
   jquery-rails
   mysql2
   paperclip (~> 3.5.3)
+  prawn
+  prawn-table
   rails (= 4.1.1)
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)

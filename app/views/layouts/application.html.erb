@@ -21,6 +21,19 @@
 					<div class="navbar-inner">
 
 						<ul class="nav navbar-nav">
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Manage My Details <b class="caret"></b></a>
+								<ul class="dropdown-menu">
+									<li>
+										<a href="/users/edit">Change password</a>
+									</li>
+									<li>
+										<a href="/admin/setnric">Set NRIC</a>
+									</li>
+
+								</ul>
+							</li>
+
 							<%if role == 'normal' || role == 'cbdmc' || role == 'smusasec'%>
 							<li>
 								<a href="/claims/newclaim">New Claim</a>
@@ -50,9 +63,14 @@
 							</li>
 							<%end%>
 
-							<%if role == 'clubfinsec' || role == 'president'%>
+							<%if role == 'clubfinsec' || role == 'president' || role == 'smusasec'%>
 							<li>
 								<a href="/accounts/viewaccount">View Account</a>
+								
+							</li>
+							<li>
+								<a href="/budgets/index">Budget</a>
+								
 							</li>
 							<%end%>
 
@@ -82,11 +100,23 @@
 
 								</ul>
 							</li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Budget <b class="caret"></b></a>
+								<ul class="dropdown-menu">
+									<li>
+										<a href="/budgets/control">Control Panel</a>
+									</li>
+									<li>
+										<a href="/budgets/fullsummary">View budgets</a>
+									</li>
+
+								</ul>
+							</li>
 
 							<%end%>
-							
+
 							<%if role == 'cbdfinsec'%>
-								<li class="dropdown">
+							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">View Accounts <b class="caret"></b></a>
 								<ul class="dropdown-menu">
 									<li>
@@ -94,6 +124,18 @@
 									</li>
 									<li>
 										<a href="/accounts/viewcbdaccountsreserve">Reserve</a>
+									</li>
+
+								</ul>
+							</li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Budget <b class="caret"></b></a>
+								<ul class="dropdown-menu">
+									<li>
+										<a href="/budgets/index">Budget</a>
+									</li>
+									<li>
+										<a href="/budgets/fullsummary">View budgets</a>
 									</li>
 
 								</ul>

@@ -11,6 +11,8 @@ gem 'devise'
 gem 'bcrypt'
 gem 'formtastic'
 gem 'mysql2'
+gem 'prawn'
+gem 'prawn-table'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets

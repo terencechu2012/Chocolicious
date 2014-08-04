@@ -1,0 +1,75 @@
+<%role = session[:role]%>
+<%if role == 'smusafinsec' || role == 'cbdfinsec'%>
+
+
+<h2>Term budget proposal summary</h2>
+<table class='table table-bordered'>
+	<tr>
+		<th>Event</th>
+		<th>Start date</th>
+		<th>End date</th>
+		<th>Estimated no. of participants</th>
+		<th>Category of expense</th>
+		<th>Request from SAC</th>
+		<th>Request from reserves</th>
+		<th>Projected Income</th>
+		<th>Explanations</th>
+		<th>Attachments</th>
+		<th>Manage breakdown</th>
+		<th>Delete</th>
+	</tr>
+	<%if !@budgets.nil?%>
+	<%@budgets.each do |b| %>
+	<tr>
+		<td><%=b.event%></td>
+		<td><%=b.startdate%></td>
+		<td><%=b.enddate%></td>
+		<td><%=b.estnopar%></td>
+		<td><%=b.category%></td>
+		<td><%=b.requestsac%></td>
+		<td><%=b.requestreserves%></td>
+		<td><%=b.projectedincome%></td>
+		<td><a href="#", onclick="viewremark('<%=b.explanation%>')">View Explanation</a></td>
+		<td><a href='<%=b.poster.url%>'>Download</a></td>
+		<td><a href='/budgets/reviewmanagebreakdown?id=<%=b.id%>'>Manage</a></td>
+		<td><a href='/budgets/delete?id=<%=b.id%>'>Delete</a></td>
+	</tr>
+	<%end%>
+	<%end%>
+</table>
+<h2>New Item</h2>
+<%=form_tag '/budgets/additem', :method => 'post', :multipart => true do%>
+<table class='table table-bordered'>
+	<tr>
+		<th>Event</th>
+		<th>Start date</th>
+		<th>End date</th>
+		<th>Estimated no. of participants</th>
+		<th>Category of expense</th>
+		<th>Explanations</th>
+		<th>Attachments</th>
+		
+	</tr>
+	<tr>
+		<td><%=text_field_tag :event%></td>
+		<td><%=date_field_tag :startdate%></td>
+		<td><%=date_field_tag :enddate%></td>
+		<td><%=number_field_tag :estnopar%></td>
+		<td><%=select_tag 'categories[]', options_for_select(Array(1..13)), :multiple => true%></td>
+		<td><%=text_field_tag :explanations%></td>
+		<td><%=file_field_tag :poster %></td>
+	</tr>
+</table>
+<%=submit_tag 'Add', :class => 'btn'%>
+<%end%>
+
+
+
+<%end%>
+<script>
+	function viewremark(a){
+	
+		alert(a);
+	
+}
+</script>

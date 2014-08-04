@@ -1,8 +1,9 @@
-<% if session[:role]=="clubfinsec" || session[:role]=='president'%> <h1>View <%= session[:club]%> Expenditure Account</h1>
+<% if session[:role]=="clubfinsec" || session[:role]=='president' || session[:role] == 'smusasec'%> <h1>View <%= session[:club]%> Expenditure Account</h1>
 
 <table class = "table table-bordered table-condensed">
 	<tr>
 		<th>Club</th>
+		<th>Total</th>
 		<th>Cat 1</th>
 		<th>Cat 2</th>
 		<th>Cat 3</th>
@@ -21,8 +22,10 @@
 	</tr>
 
 	<tr>
-
+		<%x = @club%>
+		<%total = x.Category1Balance + x.Category2Balance + x.Category3Balance + x.Category4Balance + x.Category5Balance + x.Category6Balance + x.Category7Balance + x.Category8Balance + x.Category9Balance + x.Category10Balance + x.Category11Balance + x.Category12Balance + x.Category13Balance + x.MiscellaneousBalance%>
 		<td><%= @club.clubid%></td>
+		<td><%=total%></td>
 		<td><%= @club.Category1Balance%></td>
 		<td><%= @club.Category2Balance%></td>
 		<td><%= @club.Category3Balance%></td>
@@ -47,12 +50,29 @@
 	<tr>
 		<th>Balance</th>
 		<th>Limit</th>
+		
 	</tr>
 	<tr>
 		<td><%=@reserve.balance%></td>
 		<td><%=@reserve.limit%></td>
+		
 	</tr>
 	
 </table>
 <%end%>
+<h3>Edit justification</h3>
+<%=form_for @reserve, :url => {:action => 'editjustification'} do |f|%>
+<%=f.text_area :justification%>
+<%=f.hidden_field :clubid, :value => @reserve.clubid%>
+<%=f.submit 'Submit', :class => 'btn'%>
 <%end%>
+<%end%>
+
+
+<script>
+	function viewremark(a){
+	
+		alert(a);
+	
+}
+</script>

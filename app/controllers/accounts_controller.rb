@@ -145,6 +145,12 @@ class AccountsController < ApplicationController
     redirect_to :action => 'viewcbdaccountsreserve'
   end
   
+  def editjustification
+    r = ReserveAccount.find_by_clubid(params[:reserve_account][:clubid])
+    r.update_attributes(reserve_params)
+    redirect_to :action => 'viewaccount'
+  end
+  
   
   #to throw away
   def forconvenience

@@ -8,6 +8,7 @@
 
 <table class="table table-bordered">
 	<tr>
+		<th>Claim ID</th>
 		<th>Claim By</th>
 		<th>Club</th>
 		<th>Amount</th>
@@ -26,6 +27,7 @@
 	<%else%>
 	<tr class = 'warning'>
 	<%end%>
+		<td><%=c.id%></td>
 		<td><%= c.userid%></td>
 		<td><%= c.clubid%></td>
 		<td><%= c.amount%></td>
@@ -36,7 +38,12 @@
 		<td><a href="<%= c.supportdoc.url%>">Download</td>
 		<%if status == 0 || status == 12 || status == 6%>
 		<td><a href="/claims/editclaim?id=<%=c.id%>">Edit</td>
+		<%if c.remarks.nil?%>
 		<td><a href="/claims/submitclaim?id=<%=c.id%>">Submit</td>
+		<%else%>
+		<td><a href="/claims/resubmitclaim?id=<%=c.id%>">ReSubmit</td>
+		<td><a href="#", onclick="viewremark('<%=c.remarks%>')">View Remarks</a></td>
+		<%end%>
 		<%end%>
 	</tr>
 	<%end%>
@@ -58,6 +65,7 @@
 
 <table class="table table-bordered">
 	<tr>
+		<th>Claim ID</th>
 		<th>Claim By</th>
 		<th>Club</th>
 		<th>Amount</th>
@@ -78,6 +86,7 @@
 	<%else%>
 	<tr class = 'warning'>
 	<%end%>
+		<td><%=c.id%></td>
 		<td><%= c.userid%></td>
 		<td><%= c.clubid%></td>
 		<td><%= c.amount%></td>
@@ -109,6 +118,7 @@
 
 <table class="table table-bordered">
 	<tr>
+		<th>Claim ID</th>
 		<th>Claim By</th>
 		<th>Club</th>
 		<th>Amount</th>
@@ -122,6 +132,7 @@
 	<%@normalclaims.each do |c|%>
 	<%status = c.status%>
 	<tr>
+		<td><%=c.id%></td>
 		<td><%= c.userid%></td>
 		<td><%= c.clubid%></td>
 		<td><%= c.amount%></td>
@@ -130,10 +141,17 @@
 		<td><%= c.updated_at%></td>
 		<td><%= c.status%></td>
 		<td><a href="<%= c.supportdoc.url%>">Download</td>
-		
-		<td><a href="#">Endorse</td>
+		<%if status == 3%>
+		<td><a href="/claims/endorseclub?id=<%=c.id%>">Endorse</td>
 		<td><a href="/claims/addremark?id=<%=c.id%>&status=1">Reject</td>
-			<td><a href="#">Claim complete</td>
+		<%elsif status == 4%>
+		<td><a href="/claims/endorseclub?id=<%=c.id%>">Endorsed. View form</td>
+		<td><a href="/claims/addremark?id=<%=c.id%>&status=1">Reject</td>
+		<td><a href="/claims/submitclaim?id=<%=c.id%>">Claim complete</td>
+		<%elsif status == 5%>
+		<td>Claim completed</td>
+		<%end%>
+		
 	</tr>
 	<%end%>
 </table>
@@ -143,6 +161,7 @@
 
 <table class="table table-bordered">
 	<tr>
+		<th>Claim ID</th>
 		<th>Claim By</th>
 		<th>Club</th>
 		<th>Amount</th>
@@ -161,6 +180,7 @@
 	<%else%>
 	<tr class = 'warning'>
 	<%end%>
+		<td><%=c.id%></td>
 		<td><%= c.userid%></td>
 		<td><%= c.clubid%></td>
 		<td><%= c.amount%></td>
@@ -189,6 +209,7 @@
 
 <table class="table table-bordered">
 	<tr>
+		<th>Claim ID</th>
 		<th>Claim By</th>
 		<th>Club</th>
 		<th>Amount</th>
@@ -206,6 +227,7 @@
 
 	<%status = c.status%>
 	<tr>
+		<td><%=c.id%></td>
 		<td><%= c.userid%></td>
 		<td><%= c.clubid%></td>
 		<td><%= c.amount%></td>
@@ -229,6 +251,7 @@
 
 <table class="table table-bordered">
 	<tr>
+		<th>Claim ID</th>
 		<th>Claim By</th>
 		<th>Club</th>
 		<th>Amount</th>
@@ -243,6 +266,7 @@
 	<%@cbdmcclaims.each do |c|%>
 	<%status = c.status%>
 	<tr>
+		<td><%=c.id%></td>
 		<td><%= c.userid%></td>
 		<td><%= c.clubid%></td>
 		<td><%= c.amount%></td>
@@ -251,9 +275,17 @@
 		<td><%= c.updated_at%></td>
 		<td><%= c.status%></td>
 		<td><a href="<%= c.supportdoc.url%>">Download</td>
-		<td><a href="#">Endorse</td>
+		<%if status == 9%>
+		<td><a href="/claims/endorsecbdmc?id=<%=c.id%>">Endorse</td>
 		<td><a href="/claims/addremark?id=<%=c.id%>&status=7">Reject</td>
-		<td><a href="#">Claim complete</td>
+		<%elsif status == 10%>
+		<td><a href="/claims/endorsecbdmc?id=<%=c.id%>">Endorsed. View form</td>
+		<td><a href="/claims/addremark?id=<%=c.id%>&status=7">Reject</td>
+		<td><a href="/claims/submitclaim?id=<%=c.id%>">Claim complete</td>
+		<%elsif status == 11%>
+		<td>Claim complete</td>
+		<%end%>
+		
 	</tr>
 	<%end%>
 
@@ -263,6 +295,7 @@
 
 <table class="table table-bordered">
 	<tr>
+		<th>Claim ID</th>
 		<th>Claim By</th>
 		<th>Club</th>
 		<th>Amount</th>
@@ -277,6 +310,7 @@
 	<%@smusasecclaims.each do |c|%>
 	<%status = c.status%>
 	<tr>
+		<td><%=c.id%></td>
 		<td><%= c.userid%></td>
 		<td><%= c.clubid%></td>
 		<td><%= c.amount%></td>
@@ -285,9 +319,17 @@
 		<td><%= c.updated_at%></td>
 		<td><%= c.status%></td>
 		<td><a href="<%= c.supportdoc.url%>">Download</td>
-		<td><a href="#">Endorse</td>
+		<%if status == 13%>
+		<td><a href="/claims/endorsesmusasec?id=<%=c.id%>">Endorse</td>
 		<td><a href="/claims/addremark?id=<%=c.id%>&status=12">Reject</td>
-			<td><a href="#">Print</td>
+		<%elsif status == 14%>
+		<td><a href="/claims/endorsesmusasec?id=<%=c.id%>">Endorsed. View form</td>
+		<td><a href="/claims/addremark?id=<%=c.id%>&status=12">Reject</td>
+		<td><a href="/claims/submitclaim?id=<%=c.id%>">Claim complete</td>
+		<%elsif status == 15%>
+		<td>Claim complete</td>
+		<%end%>
+			
 	</tr>
 	<%end%>
 

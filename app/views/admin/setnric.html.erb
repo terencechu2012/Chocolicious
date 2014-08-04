@@ -1,0 +1,10 @@
+<h2>Set NRIC</h2>
+<%= form_for @user, :url => { :action => "setnric2" }, :method => :POST  do |f|%>
+Enter your NRIC:
+<%=f.text_field :nric%><br />
+Enter your full name:
+<%=f.text_field :fullname%><br />
+Enter your contact number:
+<%=f.text_field :contactno%><br />
+<%= f.submit("Save", :class=>"btn")%>
+<%end%>

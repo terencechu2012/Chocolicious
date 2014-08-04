@@ -1,0 +1,43 @@
+<h2>View breakdown for <%=@b.event%></h2>
+<h3>Expenses</h3>
+<table class='table table-bordered'>
+	<tr>
+		<th>Item</th>
+		<th>Request SAC</th>
+		<th>Request Reserves</th>
+		<th>Unit Cost</th>
+		<th>Quantity</th>
+		<th>Justification</th>
+		<th>Quotation</th>
+		<!-- <th>Delete</th> -->
+	</tr>
+	<%@expenditures.each do |e|%>
+		<tr>
+			<td><%=e.item%></td>
+			<td><%=e.requestsac%></td>
+			<td><%=e.requestreserves%></td>
+			<td><%=e.unitcost%></td>
+			<td><%=e.quantity%></td>
+			<td><%=e.justification%></td>
+			<td><%=e.quotation%></td>
+			
+		</tr>
+	<%end%>
+</table>
+<h3>Income</h3>
+<table class='table table-bordered'>
+	<tr>
+		<th>Item</th>
+		<th>Income</th>
+		<th>Breakdown of income</th>
+	
+	</tr>
+	<%@incomes.each do |i|%>
+		<tr>
+			<td><%=i.item%></td>
+			<td><%=i.income%></td>
+			<td><%=i.incomebreakdown%></td>
+
+		</tr>
+	<%end%>
+</table>

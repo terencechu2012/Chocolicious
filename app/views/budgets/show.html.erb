@@ -1,0 +1,42 @@
+<h2>Term budget proposal summary</h2>
+<table class='table table-bordered'>
+	<tr>
+		<th>Event</th>
+		<th>Start date</th>
+		<th>End date</th>
+		<th>Estimated no. of participants</th>
+		<th>Category of expense</th>
+		<th>Request from SAC</th>
+		<th>Request from reserves</th>
+		<th>Projected Income</th>
+		<th>Explanations</th>
+		<th>Attachments</th>
+		<th>View breakdown</th>
+		<!-- <th>Delete</th> -->
+	</tr>
+	<%@budgets.each do |b|%>
+	<tr>
+		<td><%=b.event%></td>
+		<td><%=b.startdate%></td>
+		<td><%=b.enddate%></td>
+		<td><%=b.estnopar%></td>
+		<td><%=b.category%></td>
+		<td><%=b.requestsac%></td>
+		<td><%=b.requestreserves%></td>
+		<td><%=b.projectedincome%></td>
+		<td><a href="#", onclick="viewremark('<%=b.explanation%>')">View Explanation</a></td>
+		<td><a href='<%=b.poster.url%>'>Download</a></td>
+		<td><a href='/budgets/viewbreakdown?id=<%=b.id%>'>View</a></td>
+		
+	</tr>
+	<%end%>
+</table>
+
+
+<script>
+	function viewremark(a){
+	
+		alert(a);
+	
+}
+</script>

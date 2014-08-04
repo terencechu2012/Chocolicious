@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  clubid: MyString
+  year: 1
+  semester: 1
+  event: MyString
+  startdate: 2014-08-02
+  enddate: 2014-08-02
+  estnopar: 1
+  category: MyString
+  requestsac: 9.99
+  requestreserves: 9.99
+  projectedincome: 9.99
+
+two:
+  clubid: MyString
+  year: 1
+  semester: 1
+  event: MyString
+  startdate: 2014-08-02
+  enddate: 2014-08-02
+  estnopar: 1
+  category: MyString
+  requestsac: 9.99
+  requestreserves: 9.99
+  projectedincome: 9.99

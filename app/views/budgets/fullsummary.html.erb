@@ -1,0 +1,57 @@
+<h2>Budget</h2>
+
+<%@past.each do |p|%>
+<a href='/budgets/fullsummary?year=<%=p.year%>&semester=<%=p.semester%>'><%=p.year%> semester <%=p.semester%></a><br>
+<%end%>
+
+<%if @test%>
+<p>Total request from SAC: <%=@totalsac%></p>
+<p>Total request from reserves: <%=@totalreserves%></p>
+<h3>Total by CBD</h3>
+<table class='table table-bordered'>
+	<tr>
+		<th>CBD</th><th>Total Request from SAC</th><th>Total Request from Reserves</th>
+	</tr>
+	<%@cbdtotal.each do |c|%>
+		<tr>
+			<td><a href='#<%=c["name"]%>'><%=c["name"]%></a></td>
+			<td><%=c["totalsac"]%></td>
+			<td><%=c["totalreserves"]%></td>
+		</tr>
+	<%end%>
+</table>
+<%if session[:role] == 'smusafinsec'%>
+<h3>SMUSA Departments</h3>
+<table class='table table-bordered'>
+	<tr>
+		<th>Department</th><th>Total Request from SAC</th>
+	</tr>
+	<%@departmenttotal.each do |c|%>
+		<tr>
+			<td><a href='/budgets/reviewmain?clubid=<%=c["name"]%>&year=<%=@year%>&semester=<%=@semester%>'><%=c["name"]%></a></td>
+			<td><%=c["totalsac"]%></td>
+			
+		</tr>
+	<%end%>
+</table>
+<%end%>
+
+<%@superhash.each do |key, value|%>
+<h3><a id=<%=key%>><%=key%></a></h3>
+<table class='table table-bordered'>
+	<tr>
+		<th>Club</th><th>Total Request from SAC</th><th>Total Request from Reserves</th><th>Reserves Amount</th><th>Justification</th>
+	</tr>
+	<%value.each do |c|%>
+		<tr>
+			<td><a href='/budgets/reviewmain?clubid=<%=c[0]%>&year=<%=@year%>&semester=<%=@semester%>'><%=c[0]%></a></td>
+			<td><%=c[1]%></td>
+			<td><%=c[2]%></td>
+			<td><%=c[3]%></td>
+			<td><%=c[4]%></td>
+		</tr>
+	<%end%>
+</table>
+<%end%>
+
+<%end%>
