@@ -12,7 +12,9 @@
         }
     </style>
     <%= csrf_meta_tags %>
-    <% role = session[:role]%>
+    <% role = session[:role]
+       role ||= ''
+    %>
   </head>
   <body class="contrast-sea-blue without-footer">
     <header>
@@ -69,9 +71,7 @@
                         </li>
                         <li class='divider'></li>
                         <li>
-                          <%= link_to destroy_user_session_path, :method => :delete do %>
-                          <i class='icon-signout'></i> Sign out
-                          <% end %>
+                          <%= link_to raw("<i class='icon-signout'></i> Sign out"), destroy_user_session_path, :method => :delete %>
                         </li>
                     </ul>
                 </li>
@@ -95,21 +95,21 @@
                     </li>
 
                     <li class=''>
-                        <a href='myclubs.html'>
+                        <a href='/admin/register'>
                             <i class='icon-flag'></i>
                             <span>My Clubs</span>
                         </a>
                     </li>
 
                     <li class=''>
-                        <a href='myclaim.html'>
+                        <a href='/claims/viewclaim'>
                             <i class='icon-file-alt'></i>
                             <span>My Claims</span>
                         </a>
                     </li>
                     
                     <li class=''>
-                        <a href='newclaim.html'>
+                        <a href='/claims/newclaim'>
                             <i class='icon-plus-sign'></i>
                             <span>New Claim</span>
                         </a>
@@ -131,16 +131,23 @@
                             </li>
 
                             <li class=''>
-                                <a href='clubmembers.html'>
+                                <a href='/admin/register'>
                                     <i class='icon-group'></i>
                                     <span>Club Members</span>
                                 </a>
                             </li>
 
                             <li class=''>
-                                <a href='clubaccount.html'>
+                                <a href='/accounts/viewaccount'>
                                     <i class='icon-dollar'></i>
                                     <span>Club Account</span>
+                                </a>
+                            </li>
+                          
+                          <li class=''>
+                                <a href='/budgets/index'>
+                                    <i class='icon-btc'></i>
+                                    <span>Club Budget</span>
                                 </a>
                             </li>
                         </ul>
@@ -156,31 +163,43 @@
                         </a>
                         <ul class="nav nav-stacked in" style="display: block;">
                             <li class="">
-                                <a href="#">
+                                <a href="/admin/registerclub">
                                     <i class="icon-flag-checkered"></i>
                                     <span>Manage Clubs</span>
                                 </a>
                             </li>
                             <li class="">
-                                <a href="#">
+                                <a href="/admin/register">
                                     <i class="icon-group"></i>
                                     <span>Manage User Roles</span>
                                 </a>
                             </li>
 
                             <li class="">
-                                <a href="#">
+                                <a href="/accounts/viewcbdaccounts">
                                     <i class="icon-dollar"></i>
                                     <span>Manage Club Accounts</span>
                                 </a>
                             </li>
 
                             <li class="">
-                                <a href="#">
+                                <a href="/accounts/viewcbdaccountsreserve">
                                     <i class="icon-money"></i>
                                     <span>Manage Reserve Accounts</span>
                                 </a>
                             </li>
+                          <li class="">
+                                <a href="/budgets/control">
+                                    <i class="icon-gear"></i>
+                                    <span>Budget Control Panal</span>
+                                </a>
+                            </li>
+                          <li class="">
+                                <a href="/budgets/fullsummary">
+                                    <i class="icon-list-alt"></i>
+                                    <span>Budget Summary</span>
+                                </a>
+                            </li>                          
                         </ul>
                     </li>
                     <%end%>
@@ -190,7 +209,18 @@
         </nav>
 
         <section id='content'>
-            <%= yield %>
+        <p class="notice">
+        <%= notice %>
+      </p>
+      <p class="alert">
+        <%= alert %>
+      </p>
+      <br>
+      <%if !session[:role].nil?%>
+      You are logged in as:
+      <%= session[:userid]%>,<%= session[:club]%>,<%= session[:role]%>
+      <%end%>
+          
         </section>
     </div>
 
