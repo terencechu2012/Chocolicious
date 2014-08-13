@@ -10,14 +10,24 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //= require_self
-//= require jquery.min.js
-//= require moment.min
-//= require jquery-1.10.2.min
-//= require jquery
-//= require jquery_ujs
 
-//= require bootstrap.min
+//
+//= require flatty/jquery/jquery.min
+//= require flatty/jquery/jquery.mobile.custom.min
+//= require flatty/jquery/jquery-migrate.min
+//= require flatty/jquery/jquery-ui.min
+//= require flatty/plugins/jquery_ui_touch_punch/jquery.ui.touch-punch.min
+//= require flatty/bootstrap/bootstrap.min
+//= require flatty/plugins/modernizr/modernizr.min
+//= require flatty/plugins/retina/retina
+//= require flatty/theme
+//= require flatty/plugins/validate/jquery.validate.min
+//= require flatty/plugins/validate/additional-methods
+
+//= require moment.min
+
 //= require fullcalendar
 //= require jquery.dataTables
 
-//= require_tree .
+//= require select-club.js
+

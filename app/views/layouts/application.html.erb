@@ -1,179 +1,262 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>CHOCOLICIOUS</title>
-		<%= favicon_link_tag(source='/favicon.ico?1')%> ​
-		<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-		<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-		<%= csrf_meta_tags %>
-		<% role = session[:role]%>
-		<style type="text/css">
-			body {
-				padding-top: 30px;
-			}
-		</style>
-	</head>
-	<body>
+  <head>
+    <title>SMUSA AIS</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <%= favicon_link_tag(source='/favicon.ico')%>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <style>
+        header .navbar {
+            padding-right: 0 !important;
+        }
+    </style>
+    <%= csrf_meta_tags %>
+    <% role = session[:role]%>
+  </head>
+  <body class="contrast-sea-blue without-footer">
+    <header>
+        <nav class='navbar navbar-default'>
+            <a class='navbar-brand hidden-xs' href='#'>
+                SMUSA AIS
+            </a>
+            <a class='toggle-nav btn pull-left' href='#'>
+                <i class='icon-reorder'></i>
+            </a>
 
-		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<div class="navbar-inner">
+            <ul class='nav'>
 
-						<ul class="nav navbar-nav">
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Manage My Details <b class="caret"></b></a>
-								<ul class="dropdown-menu">
-									<li>
-										<a href="/users/edit">Change password</a>
-									</li>
-									<li>
-										<a href="/admin/setnric">Set NRIC</a>
-									</li>
+                <li id="select-club-menu" class="dropdown medium dark user-menu">
+                    <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
+                        <i class='icon-eye-open'></i>
+                        <span class="user-name">View As</span>
+                        <b class='caret'></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class=''>
+                            <a href='#'><%= session[:club]%></a>
+                        </li>
+                        <li class=''>
+                            <a href='#'>Ambassadorial Team</a>
+                        </li>
+                        <li class=''>
+                            <a href='#'>Wushu</a>
+                        </li>
+                        <li class=''>
+                            <a href='#'>SMU Caretalyst</a>
+                        </li>
+                        <li class=''>
+                            <a href='#'>SMUX Trekking</a>
+                        </li>
+                        <li class=''>
+                            <a href='#'>Film Society</a>
+                        </li>
+                        <li class=''>
+                            <a href='#'>Pool</a>
+                        </li>
+                        <li class=''>
+                            <a href='#'>Netball</a>
+                        </li>
+                    </ul>
 
-								</ul>
-							</li>
+                </li>
 
-							<%if role == 'normal' || role == 'cbdmc' || role == 'smusasec'%>
-							<li>
-								<a href="/claims/newclaim">New Claim</a>
-							</li>
-							<%end%>
-							<%if !role.nil?%>
-							<li>
-								<a href="/claims/viewclaim">View Claims</a>
-							</li>
-							<%end%>
+                <li class='dropdown medium only-icon widget'>
+                    <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
+                        <i class='icon-rss'></i>
+                        <div class='label'>5</div>
+                    </a>
+                    <ul class='dropdown-menu'>
+                        <li>
+                            <a href='#'>
+                                <div class='widget-body'>
+                                    <div class='pull-left icon'>
+                                        <i class='icon-user text-success'></i>
+                                    </div>
+                                    <div class='pull-left text'>
+                                        John Doe signed up
+                                        <small class='text-muted'>just now</small>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class='divider'></li>
+                        <li>
+                            <a href='#'>
+                                <div class='widget-body'>
+                                    <div class='pull-left icon'>
+                                        <i class='icon-user text-success'></i>
+                                    </div>
+                                    <div class='pull-left text'>
+                                        Jane Doe signed up
+                                        <small class='text-muted'>last week</small>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class='divider'></li>
+                        <li>
+                            <a href='#'>
+                                <div class='widget-body'>
+                                    <div class='pull-left icon'>
+                                        <i class='icon-inbox text-error'></i>
+                                    </div>
+                                    <div class='pull-left text'>
+                                        New Order #001
+                                        <small class='text-muted'>1 year ago</small>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class='widget-footer'>
+                            <a href='#'>All notifications</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class='dropdown dark user-menu'>
+                    <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
+                        <img width="23" height="23" alt="" src="" />
+                        <span class='user-name'><%= session[:userid]%></span>
+                        <b class='caret'></b>
+                    </a>
+                    <ul class='dropdown-menu'>
+                        <li>
+                            <a href='/users/edit'>
+                                <i class='icon-user'></i>
+                                Change Password
+                            </a>
+                        </li>
+                        <li>
+                            <a href='/admin/setnric'>
+                                <i class='icon-cog'></i>
+                                Profile
+                            </a>
+                        </li>
+                        <li class='divider'></li>
+                        <li>
+                          <%= link_to "<i class='icon-signout'></i> Sign out", destroy_user_session_path, :method => :delete %>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
 
-							<%if role == 'normal'%>
-							<li>
-								<a href="/admin/register">Register for Club</a>
-							</li>
-							<%end%>
-							<%if role == 'clubfinsec' || role == 'cbdfinsec'%>
-							<li>
-								<a href="/admin/register">Manage User Registrations</a>
-							</li>
-							<%end%>
+        </nav>
+    </header>
 
-							<%if role == 'clubfinsec'%>
 
-							<li>
-								<a href="#">Request Withdrawal/Change Limit</a>
-							</li>
-							<%end%>
+    <div id='wrapper'>
+        <div id='main-nav-bg'></div>
 
-							<%if role == 'clubfinsec' || role == 'president' || role == 'smusasec'%>
-							<li>
-								<a href="/accounts/viewaccount">View Account</a>
-								
-							</li>
-							<li>
-								<a href="/budgets/index">Budget</a>
-								
-							</li>
-							<%end%>
+        <nav id='main-nav'>
+            <div class='navigation'>
+                <ul class='nav nav-stacked'>
+                    <li class=''>
+                        <a href='dashboard.html'>
+                            <i class='icon-dashboard'></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
 
-							<%if role == 'smusafinsec'%>
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Manage Registrations <b class="caret"></b></a>
-								<ul class="dropdown-menu">
-									<li>
-										<a href="/admin/register">Users</a>
-									</li>
-									<li>
-										<a href="/admin/registerclub">Clubs</a>
-									</li>
+                    <li class=''>
+                        <a href='myclubs.html'>
+                            <i class='icon-flag'></i>
+                            <span>My Clubs</span>
+                        </a>
+                    </li>
 
-								</ul>
-							</li>
+                    <li class=''>
+                        <a href='myclaim.html'>
+                            <i class='icon-file-alt'></i>
+                            <span>My Claims</span>
+                        </a>
+                    </li>
+                    
+                    <li class=''>
+                        <a href='newclaim.html'>
+                            <i class='icon-plus-sign'></i>
+                            <span>New Claim</span>
+                        </a>
+                    </li>
 
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">View Accounts <b class="caret"></b></a>
-								<ul class="dropdown-menu">
-									<li>
-										<a href="/accounts/viewcbdaccounts">Expenditure</a>
-									</li>
-									<li>
-										<a href="/accounts/viewcbdaccountsreserve">Reserve</a>
-									</li>
+                    <%if role.include? 'clubfinsec'%>
+                    <li>
+                        <a class="dropdown-collapse in" href="#">
+                            <i class="icon-circle-blank"></i>
+                            <span style="font-weight:bold;">CLUB SECTION</span>
+                            <i class="icon-angle-down angle-down"></i>
+                        </a>
+                        <ul class="nav nav-stacked in" style="display: block;">
+                            <li class=''>
+                                <a href='clubclaims.html'>
+                                    <i class='icon-copy'></i>
+                                    <span>Club Claims</span>
+                                </a>
+                            </li>
 
-								</ul>
-							</li>
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Budget <b class="caret"></b></a>
-								<ul class="dropdown-menu">
-									<li>
-										<a href="/budgets/control">Control Panel</a>
-									</li>
-									<li>
-										<a href="/budgets/fullsummary">View budgets</a>
-									</li>
+                            <li class=''>
+                                <a href='clubmembers.html'>
+                                    <i class='icon-group'></i>
+                                    <span>Club Members</span>
+                                </a>
+                            </li>
 
-								</ul>
-							</li>
+                            <li class=''>
+                                <a href='clubaccount.html'>
+                                    <i class='icon-dollar'></i>
+                                    <span>Club Account</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <%end%>
 
-							<%end%>
+                    <%if role.include? 'smusafinsec'%>
+                    <li>
+                        <a class="dropdown-collapse in" href="#">
+                            <i class="icon-circle-blank"></i>
+                            <span style="font-weight:bold;">SMUSA SECTION</span>
+                            <i class="icon-angle-down angle-down"></i>
+                        </a>
+                        <ul class="nav nav-stacked in" style="display: block;">
+                            <li class="">
+                                <a href="#">
+                                    <i class="icon-flag-checkered"></i>
+                                    <span>Manage Clubs</span>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="#">
+                                    <i class="icon-group"></i>
+                                    <span>Manage User Roles</span>
+                                </a>
+                            </li>
 
-							<%if role == 'cbdfinsec'%>
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">View Accounts <b class="caret"></b></a>
-								<ul class="dropdown-menu">
-									<li>
-										<a href="/accounts/viewcbdaccounts">Expenditure</a>
-									</li>
-									<li>
-										<a href="/accounts/viewcbdaccountsreserve">Reserve</a>
-									</li>
+                            <li class="">
+                                <a href="#">
+                                    <i class="icon-dollar"></i>
+                                    <span>Manage Club Accounts</span>
+                                </a>
+                            </li>
 
-								</ul>
-							</li>
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Budget <b class="caret"></b></a>
-								<ul class="dropdown-menu">
-									<li>
-										<a href="/budgets/index">Budget</a>
-									</li>
-									<li>
-										<a href="/budgets/fullsummary">View budgets</a>
-									</li>
+                            <li class="">
+                                <a href="#">
+                                    <i class="icon-money"></i>
+                                    <span>Manage Reserve Accounts</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <%end%>
 
-								</ul>
-							</li>
-							<%end%>
+                </ul>
+            </div>
+        </nav>
 
-						</ul>
-						<!-- More nav bar links to be added later -->
-						<ul class="nav navbar-nav navbar-right">
-							<li>
-								<%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
-							</li>
-							<li>
-								<%= link_to "Back", :back %>
-							</li>
+        <section id='content'>
+            <%= yield %>
+        </section>
+    </div>
 
-						</ul>
-					</div>
-				</div>
-			</div>
-		</nav>
+</body>
 
-		<div class="container">
-
-			<p class="notice">
-				<%= notice %>
-			</p>
-			<p class="alert">
-				<%= alert %>
-			</p>
-			<br>
-			<%if !session[:role].nil?%>
-			You are logged in as:
-			<%= session[:userid]%>,<%= session[:club]%>,<%= session[:role]%>
-			<%end%>
-
-			<%= yield %>
-		</div>
-
-	</body>
 </html>
