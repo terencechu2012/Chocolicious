@@ -33,86 +33,21 @@
                         <b class='caret'></b>
                     </a>
                     <ul class="dropdown-menu">
-                        <li class=''>
-                            <a href='#'><%= session[:club]%></a>
+                      <% clubids = Clubusers.find_by_sql(["select distinct clubid from clubusers where userid = ?", session[:userid]])
+                         session_clubid = session[:club]
+                      %>
+                      <% clubids.each do |item|
+                         css_class = ""
+                         css_class = "selected" if item.clubid.upcase.eql?(session_clubid.upcase)
+                      %>
+                        <li class='<%= css_class %>'>
+                            <a href='#'><%= item.clubid.upcase %></a>
                         </li>
-                        <li class=''>
-                            <a href='#'>Ambassadorial Team</a>
-                        </li>
-                        <li class=''>
-                            <a href='#'>Wushu</a>
-                        </li>
-                        <li class=''>
-                            <a href='#'>SMU Caretalyst</a>
-                        </li>
-                        <li class=''>
-                            <a href='#'>SMUX Trekking</a>
-                        </li>
-                        <li class=''>
-                            <a href='#'>Film Society</a>
-                        </li>
-                        <li class=''>
-                            <a href='#'>Pool</a>
-                        </li>
-                        <li class=''>
-                            <a href='#'>Netball</a>
-                        </li>
+                      <% end %>
                     </ul>
 
                 </li>
-
-                <li class='dropdown medium only-icon widget'>
-                    <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
-                        <i class='icon-rss'></i>
-                        <div class='label'>5</div>
-                    </a>
-                    <ul class='dropdown-menu'>
-                        <li>
-                            <a href='#'>
-                                <div class='widget-body'>
-                                    <div class='pull-left icon'>
-                                        <i class='icon-user text-success'></i>
-                                    </div>
-                                    <div class='pull-left text'>
-                                        John Doe signed up
-                                        <small class='text-muted'>just now</small>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class='divider'></li>
-                        <li>
-                            <a href='#'>
-                                <div class='widget-body'>
-                                    <div class='pull-left icon'>
-                                        <i class='icon-user text-success'></i>
-                                    </div>
-                                    <div class='pull-left text'>
-                                        Jane Doe signed up
-                                        <small class='text-muted'>last week</small>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class='divider'></li>
-                        <li>
-                            <a href='#'>
-                                <div class='widget-body'>
-                                    <div class='pull-left icon'>
-                                        <i class='icon-inbox text-error'></i>
-                                    </div>
-                                    <div class='pull-left text'>
-                                        New Order #001
-                                        <small class='text-muted'>1 year ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class='widget-footer'>
-                            <a href='#'>All notifications</a>
-                        </li>
-                    </ul>
-                </li>
+                
                 <li class='dropdown dark user-menu'>
                     <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
                         <img width="23" height="23" alt="" src="" />
@@ -134,7 +69,9 @@
                         </li>
                         <li class='divider'></li>
                         <li>
-                          <%= link_to "<i class='icon-signout'></i> Sign out", destroy_user_session_path, :method => :delete %>
+                          <%= link_to destroy_user_session_path, :method => :delete do %>
+                          <i class='icon-signout'></i> Sign out
+                          <% end %>
                         </li>
                     </ul>
                 </li>

@@ -49,6 +49,6 @@
 
         listFilter($("#select-club-menu ul"));
 
-        $("#select-club-menu ul").find('li').first().click();
+        $("#select-club-menu ul").find('li.selected').click();
     });
 }(jQuery));
