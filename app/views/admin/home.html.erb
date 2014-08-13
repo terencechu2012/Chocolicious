@@ -8,16 +8,27 @@
 <a href='../admin/register'>Manage User Registrations
 <%end%> -->
 
-<div class='container'>
-  <div class='row' id='content-wrapper'>
-    <div class='col-xs-12'>
 
-<%if !session[:role].nil? %>
-You are logged in as: <%= session[:userid]%>
-<br />Current Club: <%= session[:club]%>
-<br />Your club roles: <%= session[:role]%>
-<%end%>
-      
-    </div>
-  </div>
+<div class='row'>
+                            <div class='col-sm-12'>
+                                <div class='page-header'>
+                                    <h1 class='pull-left'>
+                      <i class='icon-dashboard'></i>
+                      <span>Dashboard</span>
+                    </h1>
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+<div class='row'>
+<div class='col-sm-12'>                         
+  <%if !session[:role].nil? %>
+  <p>You are logged in as: <code><%= session[:userid]%></code></p>
+  <p>Selected Club: <code><%= session[:club].upcase %></code></p>
+  <p>Your club roles: <code><%= session[:role].gsub(',', ', ') %></code></p>
+  <%end%>               
 </div>
+</div>
+
+      

@@ -88,7 +88,7 @@
             <div class='navigation'>
                 <ul class='nav nav-stacked'>
                     <li class=''>
-                        <a href='dashboard.html'>
+                        <a href='<%= admin_home_path %>'>
                             <i class='icon-dashboard'></i>
                             <span>Dashboard</span>
                         </a>
@@ -213,20 +213,18 @@
           <div class='container'>
   <div class='row' id='content-wrapper'>
     <div class='col-xs-12'>
-<p class="notice">
-        <%= notice %>
-      </p>
-      <p class="alert">
-        <%= alert %>
-      </p>
+      <% if !notice.nil? && !notice.empty? %>
+      <span class="alert alert-info"><%= notice %></span>
+      <% end %>
+      <% if !alert.nil? && !alert.empty? %>
+      <span class="alert alert-warning"><%= alert %></span>
+      <% end %>
       
+      <%= yield %>
       
     </div>
   </div>
 </div>
-          
-          <%= yield %>
-          
         </section>
     </div>
 
