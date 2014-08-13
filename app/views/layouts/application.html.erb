@@ -209,17 +209,22 @@
         </nav>
 
         <section id='content'>
-        <p class="notice">
+          
+          <div class='container'>
+  <div class='row' id='content-wrapper'>
+    <div class='col-xs-12'>
+<p class="notice">
         <%= notice %>
       </p>
       <p class="alert">
         <%= alert %>
       </p>
-      <br>
-      <%if !session[:role].nil?%>
-      You are logged in as:
-      <%= session[:userid]%>,<%= session[:club]%>,<%= session[:role]%>
-      <%end%>
+      
+      
+    </div>
+  </div>
+</div>
+          
           
         </section>
     </div>
