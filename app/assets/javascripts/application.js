@@ -25,6 +25,7 @@
 //= require flatty/plugins/validate/additional-methods
 
 //= require moment.min
+//= require jquery_ujs
 
 //= require fullcalendar
 //= require jquery.dataTables
