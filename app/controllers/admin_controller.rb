@@ -170,6 +170,18 @@ class AdminController < ApplicationController
     session[:club]=params[:club]
     redirect_to :action => 'home'
   end
+  
+  def selectClub
+    clubid = params[:selected_club_id]
+    session[:club] = clubid
+    @userarray2 = Clubusers.where(userid:session[:userid], clubid:clubid)
+      roles = []
+      @userarray2.each { |clubuser|
+        roles << clubuser.role
+      }
+      session[:role] = roles.join(',')
+    redirect_to :action => 'home'
+  end
 
   def logout
     session[:userid] = nil

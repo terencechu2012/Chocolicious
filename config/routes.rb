@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get 'admin/setnric'
   post 'admin/setnric2'
   post 'admin/addLeader'
+  get 'admin/selectClub'
 
   post 'admin/requestClub'
   

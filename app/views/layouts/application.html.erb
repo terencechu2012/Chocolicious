@@ -43,7 +43,7 @@
                          css_class = "selected" if item.clubid.upcase.eql?(session_clubid.upcase)
                       %>
                         <li class='<%= css_class %>'>
-                            <a href='#'><%= item.clubid.upcase %></a>
+                          <%= link_to item.clubid.upcase, {:controller => "admin", :action => "selectClub", :selected_club_id => item.clubid.downcase} %>
                         </li>
                       <% end %>
                     </ul>
