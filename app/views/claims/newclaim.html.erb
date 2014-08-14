@@ -9,11 +9,11 @@
 Enter amount: <%= f.number_field(:amount, :step => 0.01) %><br>
 <%a = Array(1..13)%>
 
-<%if role == 'normal'%>
+<%if role.include? 'normal'%>
 <%= f.hidden_field(:status, :value => 0)%>
-<%elsif role == 'cbdmc'%>
+<%elsif role.include? 'cbdmc'%>
 <%= f.hidden_field(:status, :value => 6)%>
-<%elsif role == 'smusasec'%>
+<%elsif role.include? 'smusasec'%>
 <%= f.hidden_field(:status, :value => 12)%>
 <%end%>
 

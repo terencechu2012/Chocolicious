@@ -1,5 +1,5 @@
 <%role = session[:role]%>
-<%if role == 'clubfinsec' || role == 'president' || role == 'smusasec' || role == 'cbdfinsec'%>
+<%if role.include? 'clubfinsec' || role.include? 'president' || role.include? 'smusasec' || role.include? 'cbdfinsec'%>
 
 <%if @check%>
 <h2>Manage breakdown for <%=@b.event%></h2>

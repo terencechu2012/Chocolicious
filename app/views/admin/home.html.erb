@@ -1,5 +1,5 @@
 <!-- <%role = session[:role]%>
-<%if role == 'normal' || role == 'cbdmc'|| role == 'smusasec'%> 
+<%if role.include? 'normal' || role.include? 'cbdmc'|| role.include? 'smusasec'%> 
 <a href='../claims/newclaim'>New Claim
 <a href='../admin/register'>Register for a club
 <%end%>

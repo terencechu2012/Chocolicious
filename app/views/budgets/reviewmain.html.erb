@@ -1,5 +1,5 @@
 <%role = session[:role]%>
-<%if role == 'smusafinsec' || role == 'cbdfinsec'%>
+<%if role.include? 'smusafinsec' || role.include? 'cbdfinsec'%>
 
 
 <h2>Term budget proposal summary</h2>
