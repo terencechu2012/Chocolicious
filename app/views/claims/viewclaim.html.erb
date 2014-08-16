@@ -1,12 +1,38 @@
-<br><%role = session[:role]%>
 <% if flash[:error] %>
 <font color="red"><%= flash[:error]%></font>
 <%end%>
-<%if role == 'normal' || role == 'smusasec' || role == 'cbdmc'%>
 
-<h2>My claims:</h2>
+<div class='row'>
+                            <div class='col-sm-12'>
+                                <div class='page-header'>
+                                    <h1 class='pull-left'>
+                      <i class='icon-file-alt'></i>
+                      <span>My Claims</span>
+                    </h1>
+                                    
+                                </div>
+                            </div>
+                        </div>
 
-<table class="table table-bordered">
+<div class='row'>
+
+                            <div class="col-sm-12">
+                                <div class="box bordered-box blue-border">
+                                    <div class="box-header blue-background">
+                                        <div class="title">My Claims</div>
+                                        <div class="actions">
+                                            <a class="btn box-remove btn-xs btn-link" href="#"><i class="icon-remove"></i>
+                        </a>
+
+                                            <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
+                        </a>
+                                        </div>
+                                    </div>
+                                    <div class="box-content box-no-padding">
+                                        <div class="responsive-table">
+                                            <div class="scrollable-area">
+                                                
+                                              <table class="table table-striped" style="margin-bottom:0;">
 	<tr>
 		<th>Claim ID</th>
 		<th>Claim By</th>
@@ -20,7 +46,7 @@
 		<th>Edit</th>
 		<th>Submit</th>
 	</tr>
-	<%@normalclaims.each do |c|%>
+	<% @normalclaims.each do |c|%>
 	<%status = c.status%>
 	<%if c.remarks.nil?%>
 	<tr>
@@ -35,14 +61,14 @@
 		<td><%= c.created_at%></td>
 		<td><%= c.updated_at%></td>
 		<td><%= c.status%></td>
-		<td><a href="<%= c.supportdoc.url%>">Download</td>
+		<td><a href="<%= c.supportdoc.url%>" class="btn btn-sm btn-primary">Download</td>
 		<%if status == 0 || status == 12 || status == 6%>
-		<td><a href="/claims/editclaim?id=<%=c.id%>">Edit</td>
+		<td><a href="/claims/editclaim?id=<%=c.id%>&own=true" class="btn btn-sm btn-primary">Edit</td>
 		<%if c.remarks.nil?%>
-		<td><a href="/claims/submitclaim?id=<%=c.id%>">Submit</td>
+		<td><a href="/claims/submitclaim?id=<%=c.id%>" class="btn btn-sm btn-primary">Submit</td>
 		<%else%>
-		<td><a href="/claims/resubmitclaim?id=<%=c.id%>">ReSubmit</td>
-		<td><a href="#", onclick="viewremark('<%=c.remarks%>')">View Remarks</a></td>
+		<td><a href="/claims/resubmitclaim?id=<%=c.id%>" class="btn btn-sm btn-primary">ReSubmit</td>
+		<td><a href="#", onclick="viewremark('<%=c.remarks%>')" class="btn btn-sm btn-primary">View Remarks</a></td>
 		<%end%>
 		<%end%>
 	</tr>
@@ -50,292 +76,14 @@
 
 </table>
 
-<%elsif role == 'clubfinsec'%>
-
-<h2>My club claims:</h2>
-<%= form_tag("/claims/viewclaim", :method => "post") do %>
-<select name="status">
-	<option value="all"> All</option>
-        <option value="unsubmitted"> Unsubmitted</option>
-        <option value="submitted"> Submitted</option>
-        <option value="rejected">Rejected</option>
- </select>
-<%= submit_tag("View") %>
-<%end%>
-
-<table class="table table-bordered">
-	<tr>
-		<th>Claim ID</th>
-		<th>Claim By</th>
-		<th>Club</th>
-		<th>Amount</th>
-		<th>Category</th>
-		<th>Created</th>
-		<th>Updated</th>
-		<th>Status</th>
-		<th>Supporting Doc</th>
-		<th>Action</th>
-		<!-- <%if @hideremarks%>
-		<th>Remarks</th>
-		<%end%> -->
-	</tr>
-	<%@normalclaims.each do |c|%>
-	<%status = c.status%>
-	<%if c.remarks.nil?%>
-	<tr>
-	<%else%>
-	<tr class = 'warning'>
-	<%end%>
-		<td><%=c.id%></td>
-		<td><%= c.userid%></td>
-		<td><%= c.clubid%></td>
-		<td><%= c.amount%></td>
-		<td><%= c.category%></td>
-		<td><%= c.created_at%></td>
-		<td><%= c.updated_at%></td>
-		<td><%= c.status%></td>
-		<td><a href="<%= c.supportdoc.url%>">Download</td>
-		<%if status == 1%>
-		<td><a href="/claims/editclaim?id=<%=c.id%>">Edit</td>
-		<%if c.remarks.nil?%>
-		<td><a href="/claims/submitclaim?id=<%=c.id%>">Submit</td>
-		<%else%>
-		<td><a href="/claims/resubmitclaim?id=<%=c.id%>">ReSubmit</td>
-		<td><a href="#", onclick="viewremark('<%=c.remarks%>')">View Remarks</a></td>
-		
-		<%end%>
-			<!-- <%if @hideremarks%>
-				<td><%= c.remarks%></td>
-			<%end%> -->
-		<%end%>
-	</tr>
-	<%end%>
-
-</table>
-<%elsif role == 'cbdfinsec'%>
-<h2>Claims for CBD clubs:</h2>
-<!-- cbdfinsec can approve/ reject claims submitted by clubs, cbdfinsec does not need to edit -->
-
-<table class="table table-bordered">
-	<tr>
-		<th>Claim ID</th>
-		<th>Claim By</th>
-		<th>Club</th>
-		<th>Amount</th>
-		<th>Category</th>
-		<th>Created</th>
-		<th>Updated</th>
-		<th>Status</th>
-		<th>Supporting Doc</th>
-		<th>Action</th>
-	</tr>
-	<%@normalclaims.each do |c|%>
-	<%status = c.status%>
-	<tr>
-		<td><%=c.id%></td>
-		<td><%= c.userid%></td>
-		<td><%= c.clubid%></td>
-		<td><%= c.amount%></td>
-		<td><%= c.category%></td>
-		<td><%= c.created_at%></td>
-		<td><%= c.updated_at%></td>
-		<td><%= c.status%></td>
-		<td><a href="<%= c.supportdoc.url%>">Download</td>
-		<%if status == 3%>
-		<td><a href="/claims/endorseclub?id=<%=c.id%>">Endorse</td>
-		<td><a href="/claims/addremark?id=<%=c.id%>&status=1">Reject</td>
-		<%elsif status == 4%>
-		<td><a href="/claims/endorseclub?id=<%=c.id%>">Endorsed. View form</td>
-		<td><a href="/claims/addremark?id=<%=c.id%>&status=1">Reject</td>
-		<td><a href="/claims/submitclaim?id=<%=c.id%>">Claim complete</td>
-		<%elsif status == 5%>
-		<td>Claim completed</td>
-		<%end%>
-		
-	</tr>
-	<%end%>
-</table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
 
-<h2>Claims for CBD MC:</h2>
-
-<table class="table table-bordered">
-	<tr>
-		<th>Claim ID</th>
-		<th>Claim By</th>
-		<th>Club</th>
-		<th>Amount</th>
-		<th>Category</th>
-		<th>Created</th>
-		<th>Updated</th>
-		<th>Status</th>
-		<th>Supporting Doc</th>
-		<th>Action</th>
-		
-	</tr>
-	<%@cbdmcclaims.each do |c|%>
-	<%status = c.status%>
-	<%if c.remarks.nil?%>
-	<tr>
-	<%else%>
-	<tr class = 'warning'>
-	<%end%>
-		<td><%=c.id%></td>
-		<td><%= c.userid%></td>
-		<td><%= c.clubid%></td>
-		<td><%= c.amount%></td>
-		<td><%= c.category%></td>
-		<td><%= c.created_at%></td>
-		<td><%= c.updated_at%></td>
-		<td><%= c.status%></td>
-		<td><a href="<%= c.supportdoc.url%>">Download</td>
-		<%if status == 7%>
-		<td><a href="/claims/editclaim?id=<%=c.id%>">Edit</td>
-		<%if c.remarks.nil?%>
-		<td><a href="/claims/submitclaim?id=<%=c.id%>">Submit</td>
-		<%else%>
-		<td><a href="/claims/resubmitclaim?id=<%=c.id%>">ReSubmit</td>
-		<td><a href="#", onclick="viewremark('<%=c.remarks%>')">View Remarks</a></td>
-		<%end%>
-		<%end%>
-	</tr>
-	<%end%>
-
-</table>
-
-<%elsif role == 'president'%>
-
-<h2>My club claims:</h2>
-
-<table class="table table-bordered">
-	<tr>
-		<th>Claim ID</th>
-		<th>Claim By</th>
-		<th>Club</th>
-		<th>Amount</th>
-		<th>Category</th>
-		<th>Created</th>
-		<th>Updated</th>
-		<th>Status</th>
-		<th>Supporting Doc</th>
-		<th>Action</th>
-	</tr>
-	
-	
-	<%@claims.each do |c|%>
-
-
-	<%status = c.status%>
-	<tr>
-		<td><%=c.id%></td>
-		<td><%= c.userid%></td>
-		<td><%= c.clubid%></td>
-		<td><%= c.amount%></td>
-		<td><%= c.category%></td>
-		<td><%= c.created_at%></td>
-		<td><%= c.updated_at%></td>
-		<td><%= c.status%></td>
-		<td><a href="<%= c.supportdoc.url%>">Download</td>
-		<%if status == 2 || status == 8%>
-		<td><a href="#", onclick="pres(<%=c.id%>)">Acknowledge</a></td>
-		<p id ="pres"> </p>
-		<%end%>
-	</tr>
-	<%end%>
-
-</table>
-
-<%elsif role == 'smusafinsec'%>
-
-<h2>Claims by CBD MC:</h2>
-
-<table class="table table-bordered">
-	<tr>
-		<th>Claim ID</th>
-		<th>Claim By</th>
-		<th>Club</th>
-		<th>Amount</th>
-		<th>Category</th>
-		<th>Created</th>
-		<th>Updated</th>
-		<th>Status</th>
-		<th>Supporting Doc</th>
-		<th>Action</th>
-		
-	</tr>
-	<%@cbdmcclaims.each do |c|%>
-	<%status = c.status%>
-	<tr>
-		<td><%=c.id%></td>
-		<td><%= c.userid%></td>
-		<td><%= c.clubid%></td>
-		<td><%= c.amount%></td>
-		<td><%= c.category%></td>
-		<td><%= c.created_at%></td>
-		<td><%= c.updated_at%></td>
-		<td><%= c.status%></td>
-		<td><a href="<%= c.supportdoc.url%>">Download</td>
-		<%if status == 9%>
-		<td><a href="/claims/endorsecbdmc?id=<%=c.id%>">Endorse</td>
-		<td><a href="/claims/addremark?id=<%=c.id%>&status=7">Reject</td>
-		<%elsif status == 10%>
-		<td><a href="/claims/endorsecbdmc?id=<%=c.id%>">Endorsed. View form</td>
-		<td><a href="/claims/addremark?id=<%=c.id%>&status=7">Reject</td>
-		<td><a href="/claims/submitclaim?id=<%=c.id%>">Claim complete</td>
-		<%elsif status == 11%>
-		<td>Claim complete</td>
-		<%end%>
-		
-	</tr>
-	<%end%>
-
-</table>
-
-<h2>Claims by SMUSA Secretaries:</h2>
-
-<table class="table table-bordered">
-	<tr>
-		<th>Claim ID</th>
-		<th>Claim By</th>
-		<th>Club</th>
-		<th>Amount</th>
-		<th>Category</th>
-		<th>Created</th>
-		<th>Updated</th>
-		<th>Status</th>
-		<th>Supporting Doc</th>
-		<th>Action</th>
-		
-	</tr>
-	<%@smusasecclaims.each do |c|%>
-	<%status = c.status%>
-	<tr>
-		<td><%=c.id%></td>
-		<td><%= c.userid%></td>
-		<td><%= c.clubid%></td>
-		<td><%= c.amount%></td>
-		<td><%= c.category%></td>
-		<td><%= c.created_at%></td>
-		<td><%= c.updated_at%></td>
-		<td><%= c.status%></td>
-		<td><a href="<%= c.supportdoc.url%>">Download</td>
-		<%if status == 13%>
-		<td><a href="/claims/endorsesmusasec?id=<%=c.id%>">Endorse</td>
-		<td><a href="/claims/addremark?id=<%=c.id%>&status=12">Reject</td>
-		<%elsif status == 14%>
-		<td><a href="/claims/endorsesmusasec?id=<%=c.id%>">Endorsed. View form</td>
-		<td><a href="/claims/addremark?id=<%=c.id%>&status=12">Reject</td>
-		<td><a href="/claims/submitclaim?id=<%=c.id%>">Claim complete</td>
-		<%elsif status == 15%>
-		<td>Claim complete</td>
-		<%end%>
-			
-	</tr>
-	<%end%>
-
-</table>
-
-<%end%>
+                        </div>
 
 <%=javascript_tag do%>
  
@@ -351,8 +99,4 @@ function viewremark(a){
 		alert(a);
 	
 }
-
 <%end%>
-<script>
-	
-</script>

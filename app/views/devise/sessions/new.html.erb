@@ -1,17 +1,92 @@
-<h2>Sign in</h2>
+<!DOCTYPE html>
+<html>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, autofocus: true %></div>
+<head>
+    <title>SMUSA AIS</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <%= favicon_link_tag(source='/favicon.ico')%>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
 
-  <div><%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %></div>
+    <style>
+        .img-circular {
+            width: 150px;
+            height: 150px;
+            background-image: url(<%= image_path 'smusa-logo-transparent.png' %>);
+            background-color: #f0f0f0;
+            display: block;
+            margin: 0em auto;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            -webkit-border-radius: 99em;
+            -moz-border-radius: 99em;
+            border-radius: 99em;
+            border: 0px solid rgb(1, 99, 172);
+            box-shadow: 0px 3px 1px 10px rgba(5, 78, 128, 0.87);
+        }
+    </style>
 
-  <% if devise_mapping.rememberable? -%>
-    <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
-  <% end -%>
+</head>
 
-  <div><%= f.submit "Sign in" %></div>
-<% end %>
+<body class="contrast-background contrast-sea-blue login">
 
-<%= render "devise/shared/links" %>
+    <!-- your content goes here -->
+    <div class='middle-container'>
+        <div class='middle-row'>
+            <div class='middle-wrapper'>
+                <div class='login-container-header'>
+                    <div class='container'>
+                        <div class='row'>
+                            <div class='col-sm-12'>
+                                <div class='text-center'>
+                                    <div class="img-circular">
+                                    </div>
+                                    <h1 class="" style="color: #fff; font-size:32px">Accounting Information System</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class='login-container'>
+                    <div class='container'>
+                        <div class='row'>
+                            <div class='col-sm-4 col-sm-offset-4'>
+                                <h1 class='text-center title'>Sign in</h1>
+                                <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+                                    <div class='form-group'>
+                                        <div class='controls with-icon-over-input'>
+                                          <%= f.email_field :email, autofocus: true, :placeholder => 'E-mail', :class => 'form-control', 'data-rule-required' => 'true' %>
+                                            <i class='icon-user text-muted'></i>
+                                        </div>
+                                    </div>
+                                    <div class='form-group'>
+                                        <div class='controls with-icon-over-input'>
+                                          <%= f.password_field :password, autocomplete: "off", :placeholder => 'Password', :class => 'form-control', 'data-rule-required' => 'true' %>
+                                            <i class='icon-lock text-muted'></i>
+                                        </div>
+                                    </div>
+                                        <% if devise_mapping.rememberable? -%>
+    <div class="checkbox"><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
+                                      <% end -%>
+                                     <%= f.submit "Sign in", :class => 'btn btn-block btn-lg btn-success' %>
+                                <% end %>
+                                <div class='text-center'>
+                                    <hr class='hr-normal'>
+                                    <%= render "devise/shared/links" %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

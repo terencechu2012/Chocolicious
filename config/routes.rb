@@ -12,7 +12,8 @@ Rails.application.routes.draw do
   get 'admin/setnric'
   post 'admin/setnric2'
   post 'admin/addLeader'
-
+  get 'admin/selectClub'
+  get 'claims/clubclaims'
   post 'admin/requestClub'
   
   post 'admin/deleteclub'
@@ -100,7 +101,7 @@ Rails.application.routes.draw do
   post 'claims/add'
 
   post 'claims/edit'
-
+  post 'claims/editown'
   get 'claims/submitclaim'
   get 'claims/resubmitclaim'
   get 'claims/addremark'

@@ -1,11 +1,24 @@
-<h1>Admin#home</h1>
-<!-- <%role = session[:role]%>
-<%if role == 'normal' || role == 'cbdmc'|| role == 'smusasec'%> 
-<a href='../claims/newclaim'>New Claim
-<a href='../admin/register'>Register for a club
-<%end%>
-<a href='../claims/viewclaim'>View Claims
-<%if role != 'normal' && role != 'cbdmc'&& role != 'smusasec'%> 
-<a href='../admin/register'>Manage User Registrations
-<%end%> -->
+
+
+<div class='row'>
+                            <div class='col-sm-12'>
+                                <div class='page-header'>
+                                    <h1 class='pull-left'>
+                      <i class='icon-dashboard'></i>
+                      <span>Dashboard</span>
+                    </h1>
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+<div class='row'>
+<div class='col-sm-12'>                         
+  <%if !session[:role].nil? %>
+  <p>You are logged in as: <code><%= session[:userid]%></code></p>
+  <p>Selected Club: <code><%= session[:club].upcase %></code></p>
+  <p>Your club roles: <code><%= session[:role].gsub(',', ', ') %></code></p>
+  <%end%>               
+</div>
+</div>
 

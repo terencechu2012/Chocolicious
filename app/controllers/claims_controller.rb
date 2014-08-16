@@ -10,37 +10,27 @@ class ClaimsController < ApplicationController
 
   def editclaim
     @claim = Claim.find_by_id(params[:id])
+    @own = params[:own]
   end
 
   def viewclaim
-    role = session[:role]
-    if role == 'normal' || role == 'smusasec' || role == 'cbdmc'
       @normalclaims = Claim.where(userid:session[:userid], clubid:session[:club])
-
-    elsif role == 'clubfinsec'
-      if params[:status].nil? || params[:status] == 'all'
-        @normalclaims = Claim.where(:clubid => session[:club], :status => 1..5)
-      elsif params[:status]=='unsubmitted'
-        @normalclaims = Claim.where(:clubid => session[:club], :status => 1, :remarks => nil)
-      elsif params[:status]=='submitted'
-        @normalclaims = Claim.where(:clubid => session[:club], :status => 2..5, :remarks => nil)
-      elsif params[:status]=='rejected'
-        @normalclaims = Claim.where(:clubid => session[:club], :status => 1).where.not(:remarks => nil)
-        @hideremarks = true
-      end
-
-    elsif role == 'cbdfinsec'
+  end
+  def clubclaims
+    role = session[:role]
+    if role.include? 'clubfinsec'
+      @normalclaims = Claim.where(:clubid => session[:club], :status => 1..5)
+    elsif role.include? 'cbdfinsec'
       @normalclaims = Claim.where(['clubid in (select clubid from clubs where clubtype = ?) and status > 2 and status < 6', session[:club]])
       @cbdmcclaims = Claim.where(clubid:session[:club], status: 7..11)
-    elsif role == 'president'
+    elsif role.include? 'president'
       @normalclaims = Claim.where(clubid:session[:club], status: 2..5)
       @cbdmcclaims = Claim.where(clubid:session[:club], status: 8..11)
       @claims = @normalclaims + @cbdmcclaims
-    elsif role == 'smusafinsec'
+    elsif role.include? 'smusafinsec'
       @cbdmcclaims = Claim.where(status: 9..11)
       @smusasecclaims = Claim.where(status: 13..15)
     end
-
   end
 
   def add
@@ -64,6 +54,12 @@ class ClaimsController < ApplicationController
   def edit
     c = Claim.find_by_id(params[:claim][:id])
     c.update_attributes(claim_params)
+    redirect_to :action => 'clubclaims'
+  end
+  
+  def editown
+    c = Claim.find_by_id(params[:claim][:id])
+    c.update_attributes(claim_params)
     redirect_to :action => 'viewclaim'
   end
 
@@ -72,7 +68,8 @@ class ClaimsController < ApplicationController
     newstatus = c.status + 1
 
     c.update_attribute(:status, newstatus)
-    redirect_to :action => 'viewclaim'
+    # redirect_to :action => 'viewclaim'
+    redirect_to :back
   end
 
   def resubmitclaim
@@ -85,7 +82,8 @@ class ClaimsController < ApplicationController
 
     c.update_attribute(:status, newstatus)
     c.update_attribute(:remarks, nil)
-    redirect_to :action => 'viewclaim'
+    # redirect_to :action => 'viewclaim'
+    redirect_to :back
   end
 
   def confirmrejectclaim
@@ -93,7 +91,7 @@ class ClaimsController < ApplicationController
 
     c.update_attribute(:remarks, params[:claim][:remarks])
     c.update_attribute(:status, params[:claim][:status])
-    redirect_to :action => 'viewclaim'
+    redirect_to :action => 'clubclaims'
   end
 
   def endorseclub

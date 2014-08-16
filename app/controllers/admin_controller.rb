@@ -1,7 +1,8 @@
 class AdminController < ApplicationController
   def register
     @userList=Clubusers.where(clubid:session[:club])
-    @users=User.where.not(userid: session[:userid])
+    # @users=User.where.not(userid: session[:userid])
+    @users=User.all
     @allClubs = Club.where("clubtype != 'cbd' and clubtype <> 'smusa' and clubtype != 'infinite'")
     @clubsUnderCbd = Club.where(clubtype: session[:club])
     @cbds = Club.where(clubtype: 'cbd')
@@ -103,7 +104,7 @@ class AdminController < ApplicationController
     id = user.slice(0,location+1)
     userrec = User.find_by_email(user)
     userrec.update_attribute(userid:id)
-    redirect_to :action => 'users/sign_in'
+    redirect_to :action => 'users/sign_in', :layout => false
   end
 
   def loginProcess
@@ -134,9 +135,19 @@ class AdminController < ApplicationController
       session[:role] = nil
       session[:club] = nil
       redirect_to :action => 'register'
-    elsif userarray.size > 1
+    elsif userarray.size >= 1
       session[:userid]=user
-      redirect_to :action => 'chooserole'
+      @userarray = Clubusers.find_by_sql(["select distinct clubid from clubusers where userid = ? order by clubid", session[:userid]])
+      firstClub = @userarray[0]
+      firstClubid = firstClub.clubid
+      session[:club] = firstClubid
+      @userarray2 = Clubusers.where(userid:session[:userid], clubid:firstClubid)
+      roles = []
+      @userarray2.each { |clubuser|
+        roles << clubuser.role
+      }
+      session[:role] = roles.join(',')
+      redirect_to :action => 'home'
     elsif userarray.size == 1
       session[:userid]=user
       session[:role] = userarray[0].role
@@ -160,12 +171,24 @@ class AdminController < ApplicationController
     session[:club]=params[:club]
     redirect_to :action => 'home'
   end
+  
+  def selectClub
+    clubid = params[:selected_club_id]
+    session[:club] = clubid
+    @userarray2 = Clubusers.where(userid:session[:userid], clubid:clubid)
+      roles = []
+      @userarray2.each { |clubuser|
+        roles << clubuser.role
+      }
+      session[:role] = roles.join(',')
+    redirect_to :action => 'home'
+  end
 
   def logout
     session[:userid] = nil
     session[:role] = nil
     session[:club] = nil
-    redirect_to :action => 'login'
+    redirect_to :action => 'login', :layout => false
   end
 
   def home
@@ -180,6 +203,7 @@ class AdminController < ApplicationController
   def registerclub
     @newclub = Club.new
     @users=User.where.not(userid: session[:userid])
+    
     @cbds = Club.where(clubtype: 'cbd')
     @clubs = Club.all
   end
