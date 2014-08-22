@@ -5,7 +5,7 @@ class AccountsController < ApplicationController
   end
 
   def viewcbdaccounts
-    if session[:role] == 'smusafinsec'
+    if session[:role].include? 'smusafinsec'
       @CBD = Club.where(clubtype:"cbd")
       @totalBdgt = 0.00
       @budgetArr = []
@@ -28,14 +28,14 @@ class AccountsController < ApplicationController
         @choiceofCBD = []
       end
     end
-    if session[:role]=='cbdfinsec'
+    if session[:role].include?'cbdfinsec'
       @clubArr = ExpenditureAccount.where(['clubid in (select clubid from clubs where clubtype = ?)', session[:club]])
       @choiceofCBD = ExpenditureAccount.where(clubid:session[:club])
     end
   end
   
   def viewcbdaccountsreserve
-    if session[:role] == 'smusafinsec'
+    if session[:role].include? 'smusafinsec'
       @CBD = Club.where(clubtype:"cbd")
       @totalBdgt = 0.00
       @budgetArr = []
@@ -61,7 +61,7 @@ class AccountsController < ApplicationController
         @choiceofCBD = []
       end
     end
-    if session[:role]=='cbdfinsec'
+    if session[:role].include?'cbdfinsec'
       @clubArr = ReserveAccount.where(['clubid in (select clubid from clubs where clubtype = ?)', session[:club]])
       @choiceofCBD = ReserveAccount.where(clubid:session[:club])
     end
@@ -82,6 +82,10 @@ class AccountsController < ApplicationController
     if params[:choice] != nil
       @clubArr = ExpenditureAccount.where(['clubid in (select clubid from clubs where clubtype = ?)', params[:choice]])
     end
+  end
+  
+  def viewsecaccount
+    @clubArr = ExpenditureAccount.where(['clubid in (select clubid from clubs where clubtype = ?)', 'smusa'])
   end
 
   def deposit

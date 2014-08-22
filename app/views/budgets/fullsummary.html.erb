@@ -20,7 +20,7 @@
 		</tr>
 	<%end%>
 </table>
-<%if session[:role] == 'smusafinsec'%>
+<%if session[:role].include? 'smusafinsec'%>
 <h3>SMUSA Departments</h3>
 <table class='table table-bordered'>
 	<tr>

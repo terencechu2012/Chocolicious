@@ -132,7 +132,7 @@ class AdminController < ApplicationController
     if userarray.size == 0
       #redirect to useless page
       session[:userid]=user
-      session[:role] = nil
+      session[:role] = ''
       session[:club] = nil
       redirect_to :action => 'register'
     elsif userarray.size >= 1

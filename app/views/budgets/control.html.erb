@@ -1,4 +1,4 @@
-<%if session[:role] == 'smusafinsec'%>
+<%if session[:role].include? 'smusafinsec'%>
 <h2>Control panel</h2>
 <%
 year = Date.today.year

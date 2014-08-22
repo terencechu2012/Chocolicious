@@ -1,4 +1,5 @@
-<% if session[:role]=="clubfinsec" || session[:role]=='president' || session[:role] == 'smusasec'%> <h1>View <%= session[:club]%> Expenditure Account</h1>
+<% if (session[:role].include?"clubfinsec") || (session[:role].include?'president') || (session[:role].include?'smusasec')%> 
+<h1>View <%= session[:club]%> Expenditure Account</h1>
 
 <table class = "table table-bordered table-condensed">
 	<tr>
@@ -28,18 +29,7 @@
 		<td><%=total%></td>
 		<td><%= @club.Category1Balance%></td>
 		<td><%= @club.Category2Balance%></td>
-		<!-- <td><%= @club.Category3Balance%></td>
-		<td><%= @club.Category4Balance%></td>
-		<td><%= @club.Category5Balance%></td>
-		<td><%= @club.Category6Balance%></td>
-		<td><%= @club.Category7Balance%></td>
-		<td><%= @club.Category8Balance%></td>
-		<td><%= @club.Category9Balance%></td>
-		<td><%= @club.Category10Balance%></td>
-		<td><%= @club.Category11Balance%></td>
-		<td><%= @club.Category12Balance%></td>
-		<td><%= @club.Category13Balance%></td>
-		<td><%= @club.MiscellaneousBalance%></td> -->
+		
 		
 	</tr>
 
@@ -59,12 +49,13 @@
 	</tr>
 	
 </table>
-<%end%>
+
 <h3>Edit justification</h3>
 <%=form_for @reserve, :url => {:action => 'editjustification'} do |f|%>
 <%=f.text_area :justification%>
 <%=f.hidden_field :clubid, :value => @reserve.clubid%>
 <%=f.submit 'Submit', :class => 'btn'%>
+<%end%>
 <%end%>
 <%end%>
 

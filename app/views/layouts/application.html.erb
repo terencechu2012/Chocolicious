@@ -87,13 +87,15 @@
         <nav id='main-nav'>
             <div class='navigation'>
                 <ul class='nav nav-stacked'>
+                	<%if !role.empty?%>
                     <li class=''>
                         <a href='<%= admin_home_path %>'>
                             <i class='icon-dashboard'></i>
                             <span>Dashboard</span>
                         </a>
                     </li>
-					<%if role.include? 'normal'%>
+                    <%end%>
+					<%if (role.include? 'normal') || role.empty?%>
                     <li class=''>
                         <a href='/admin/register'>
                             <i class='icon-flag'></i>

@@ -48,6 +48,8 @@ Rails.application.routes.draw do
   
   post 'accounts/viewcbdaccountsreserve'
   
+  get 'accounts/viewsecaccount'
+  
   get 'accounts/forconvenience'
   
   post 'accounts/add'

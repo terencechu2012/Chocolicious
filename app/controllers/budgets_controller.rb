@@ -241,9 +241,9 @@ class BudgetsController < ApplicationController
           r = ReserveAccount.find_by_clubid(d.clubid)
           smallarray << [d.clubid, d.sum1, d.sum2, r.balance, r.justification]
         end
-        if session[:role] == 'cbdfinsec' && session[:club] == c.clubid
+        if (session[:role].include? 'cbdfinsec') && (session[:club].include? c.clubid)
           @superhash[c.clubid] = smallarray
-        elsif session[:role] == 'smusafinsec'
+        elsif session[:role].include? 'smusafinsec'
           @superhash[c.clubid] = smallarray
         end
         

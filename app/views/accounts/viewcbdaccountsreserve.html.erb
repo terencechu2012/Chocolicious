@@ -1,6 +1,6 @@
-<% if session[:role]=="smusafinsec" || session[:role]=='cbdfinsec'%>
+<% if (session[:role].include?"smusafinsec") || (session[:role].incude?'cbdfinsec')%>
 <h1>View CBd Reserve Accounts</h1>
-<% if session[:role]=="smusafinsec" %>
+<% if session[:role].include?"smusafinsec" %>
 <table class = "table table-bordered table-condensed">
 	<tr>
 		<th>Overall Budget</th>

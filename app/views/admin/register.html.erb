@@ -1,4 +1,4 @@
-<% if session[:role]=="clubfinsec"%> <h2>Registered Users</h2>
+<% if session[:role].include?"clubfinsec"%> <h2>Registered Users</h2>
 <% if flash[:error] %>
 <font color="red"><%= flash[:error]%></font>
 <%end%>
@@ -66,7 +66,7 @@ Search for user:<%= select_tag(:userid, options_from_collection_for_select(@user
 <%= submit_tag("Add", :class=>"btn") %>
 <%end%>
 
-<%elsif session[:role]=='smusafinsec'%>
+<%elsif session[:role].include?'smusafinsec'%>
 
 <h2>CBDs and their Fin Secs</h2>
 
@@ -138,7 +138,7 @@ Search for department:<%= select_tag(:club, options_from_collection_for_select(@
 <%end%>
 
 
-<%elsif session[:role]=='cbdfinsec'%>
+<%elsif session[:role].include?'cbdfinsec'%>
 <h2>Clubs and their Fin Secs</h2>
 
 <%= form_tag("/admin/delete/", :method => "post") do %>

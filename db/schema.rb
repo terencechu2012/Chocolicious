@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140821070725) do
+ActiveRecord::Schema.define(version: 20140822050306) do
 
   create_table "budget_controls", force: true do |t|
     t.boolean  "open"
@@ -92,6 +92,7 @@ ActiveRecord::Schema.define(version: 20140821070725) do
     t.string   "clubname"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "clubcode"
   end
 
   create_table "clubusers", force: true do |t|

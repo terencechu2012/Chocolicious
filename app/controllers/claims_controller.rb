@@ -45,19 +45,22 @@ class ClaimsController < ApplicationController
 
   def add
     test = false
+   
     balance = ExpenditureAccount.find_by_clubid(session[:club]).Category1Balance
     amount = params[:claim][:amount]
     if current_user.nric.nil? || current_user.nric.empty?
       flash[:error] = 'There was a problem adding your claim. Have you updated your NRIC?'
-    elsif amount > balance
+    elsif amount.to_d > balance
       flash[:error] = 'There are insufficient funds in the expenditure account'
     else
+      p 'Hellos!!'
       test = Claim.create(claim_params).valid?
+      if !test
+        flash[:error] = 'There was a problem adding your claim. Have you attached a supporting document?'
+      end
     end
 
-    if !test
-      flash[:error] = 'There was a problem adding your claim. Have you attached a supporting document?'
-    end
+    
     redirect_to :action => 'viewclaim'
   end
 
@@ -154,6 +157,7 @@ class ClaimsController < ApplicationController
     amount = claim.amount
     category = claim.category
     cbdfinsec = Club.find_by_clubid(claim.clubid).finsecid
+    clubcode = Club.find_by_clubid(claim.clubid).clubcode
     cbdpres = Club.find_by_clubid(claim.clubid).presidentid
     smusafinsec = current_user.userid
     claimid = claim.id
@@ -162,7 +166,7 @@ class ClaimsController < ApplicationController
     date = Date.today
     Prawn::Document.generate("public/toprint.pdf") do
       text 'Claim ID:'+claimid.to_s
-
+      text 'Club Code:'+clubcode.to_s
       text 'Payee Name: '+fullname.to_s
       text 'Contact Number: '+contact.to_s
       text 'NRIC: '+nric.to_s
@@ -188,13 +192,14 @@ class ClaimsController < ApplicationController
     category = claim.category
     smusasec = claimant.userid
     smusafinsec = current_user.userid
+    clubcode = Club.find_by_clubid(claim.clubid).clubcode
     claimid = claim.id
     clubname = Club.find_by_clubid(claim.clubid).clubname
     cbdname = session[:club]
     date = Date.today
     Prawn::Document.generate("public/toprint.pdf") do
       text 'Claim ID:'+claimid.to_s
-
+      text 'Club Code:'+clubcode.to_s
       text 'Payee Name: '+fullname.to_s
       text 'Contact Number: '+contact.to_s
       text 'NRIC: '+nric.to_s
