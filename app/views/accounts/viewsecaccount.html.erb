@@ -1,53 +1,82 @@
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='page-header'>
+			<h1 class='pull-left'><i class='icon-money'></i>
+				<!-- span has to be on next line to create that space between the logo and the words -->
+				<span>Accounts for SMUSA departments</span></h1>
+		</div>
+	</div>
+</div>
 <%if session[:role].include? 'smusafinsec'%>
-<h2>Accounts for SMUSA departments</h2>
-<table class = "table table-bordered table-condensed">
-	<tr>
-		<th>Club</th>
-		<th>Total</th>
-		<th>Cat 1</th>
-		<th>Cat 2</th>
-		<!-- <th>Cat 3</th>
-		<th>Cat 4</th>
-		<th>Cat 5</th>
-		<th>Cat 6</th>
-		<th>Cat 7</th>
-		<th>Cat 8</th>
-		<th>Cat 9</th>
-		<th>Cat 10</th>
-		<th>Cat 11</th>
-		<th>Cat 12</th>
-		<th>Cat 13</th>
-		<th>Misc</th> -->
-		<th>Options</th>
-	</tr>
-	<% @clubArr.each do|x| %>
-	<tr>
-		<%total = x.Category1Balance + x.Category2Balance%>
-		<td><%= x.clubid%></td>
-		<td><%=total%></td>
-		<td><%= x.Category1Balance%></td>
-		
-		<td><%= x.Category2Balance%></td>
-		<%if false%>
-		<!-- <td><%= x.Category3Balance%></td>
-		<td><%= x.Category4Balance%></td>
-		<td><%= x.Category5Balance%></td>
-		<td><%= x.Category6Balance%></td>
-		<td><%= x.Category7Balance%></td>
-		<td><%= x.Category8Balance%></td>
-		<td><%= x.Category9Balance%></td>
-		<td><%= x.Category10Balance%></td>
-		<td><%= x.Category11Balance%></td>
-		<td><%= x.Category12Balance%></td>
-		<td><%= x.Category13Balance%></td>
-		<td><%= x.MiscellaneousBalance%></td> -->
-		<%end%>
-		<td> <%= form_tag("/accounts/editaccount", :method => "get") do %>
-		<%= hidden_field_tag(:id, x.clubid) %>
-		<%= hidden_field_tag(:destination, "viewsecaccount") %>
-		<%= submit_tag("Edit", :class=>"btn") %>
-		<% end %> </td>
-	</tr>
-	<%end%>
-</table>
-<%end%>
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='box bordered-box blue-border' style='margin-bottom:0;'>
+			<div class='box-header blue-background'>
+				<div class='title'>
+					Expenditure Accounts
+				</div>
+				<div class='actions'>
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class='box-content box-no-padding'>
+				<div class='responsive-table'>
+					<div class='scrollable-area'>
+						<table class='table' style='margin-bottom:0;'>
+							<tr>
+								<th>Club</th>
+								<th>Total</th>
+								<th>Cat 1</th>
+								<th>Cat 2</th>
+								<!-- <th>Cat 3</th>
+								<th>Cat 4</th>
+								<th>Cat 5</th>
+								<th>Cat 6</th>
+								<th>Cat 7</th>
+								<th>Cat 8</th>
+								<th>Cat 9</th>
+								<th>Cat 10</th>
+								<th>Cat 11</th>
+								<th>Cat 12</th>
+								<th>Cat 13</th>
+								<th>Misc</th> -->
+								<th>Options</th>
+							</tr>
+							<% @clubArr.each do|x| %>
+							<tr>
+								<% total = x.Category1Balance + x.Category2Balance%>
+								<td><%= x.clubid%></td>
+								<td><%= total%></td>
+								<td><%= x.Category1Balance%></td>
+
+								<td><%= x.Category2Balance%></td>
+								<%if false%>
+								<!-- <td><%= x.Category3Balance%></td>
+								<td><%= x.Category4Balance%></td>
+								<td><%= x.Category5Balance%></td>
+								<td><%= x.Category6Balance%></td>
+								<td><%= x.Category7Balance%></td>
+								<td><%= x.Category8Balance%></td>
+								<td><%= x.Category9Balance%></td>
+								<td><%= x.Category10Balance%></td>
+								<td><%= x.Category11Balance%></td>
+								<td><%= x.Category12Balance%></td>
+								<td><%= x.Category13Balance%></td>
+								<td><%= x.MiscellaneousBalance%></td> -->
+								<%end%>
+								<td> <%= form_tag("/accounts/editaccount", :method => "get") do %>
+								<%= hidden_field_tag(:id, x.clubid) %>
+								<%= hidden_field_tag(:destination, "viewsecaccount") %>
+								<%= submit_tag("Edit", :class=>"btn blue-background") %>
+								<% end %> </td>
+							</tr>
+							<%end%>
+						</table>
+						<%end%>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

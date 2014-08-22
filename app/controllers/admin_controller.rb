@@ -10,6 +10,7 @@ class AdminController < ApplicationController
     @cbdList = Clubusers.where(role:'cbdfinsec')
     @clubFinSecList = Clubusers.where(['clubid in (select clubid from clubs where clubtype = ?) AND role = ?', session[:club], 'clubfinsec'])
     @clubs = Request.joins("INNER JOIN clubs on clubs.clubid = requests.clubid").where(:userid => session[:userid])
+    @clublist = Clubusers.where(:userid => session[:userid])
     @cbdmcList = Clubusers.where(clubid:session[:club])
     @smusasecList = Clubusers.where(role: 'smusasec')
     @departments = Club.where(clubtype: 'smusa')

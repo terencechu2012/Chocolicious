@@ -1,3 +1,13 @@
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='page-header'>
+			<h1 class='pull-left'><i class='icon-edit'></i>
+				<!-- span has to be on next line to create that space between the logo and the words -->
+				<span>Edit Expenditure Account</span></h1>
+		</div>
+	</div>
+</div>
+<!-- Any permissions required: insert here -->
 <h1>Edit Balances in <%=@clubid%></h1>
 <%= form_tag("/accounts/update/", :method => "post") do %>
 <table>
@@ -48,5 +58,6 @@
 </table>
 <%= hidden_field_tag(:id, @clubexpAcc.clubid)%>
 <%= hidden_field_tag(:destination, @destination)%>
-<%= submit_tag("Update Record", :class=>"btn") %></th>
+<br />
+<%= submit_tag("Update Record", :class=>"btn btn-primary btn-lg") %></th>
 <%end%>

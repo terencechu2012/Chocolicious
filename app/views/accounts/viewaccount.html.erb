@@ -1,69 +1,115 @@
-<% if (session[:role].include?"clubfinsec") || (session[:role].include?'president') || (session[:role].include?'smusasec')%> 
-<h1>View <%= session[:club]%> Expenditure Account</h1>
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='page-header'>
+			<h1 class='pull-left'><i class='icon-dollar'></i>
+				<!-- span has to be on next line to create that space between the logo and the words -->
+				<span>View Account</span></h1>
+		</div>
+	</div>
+</div>
+<% if (session[:role].include?"clubfinsec") || (session[:role].include?'president') || (session[:role].include?'smusasec')%>
 
-<table class = "table table-bordered table-condensed">
-	<tr>
-		<th>Club</th>
-		<th>Total</th>
-		<th>Cat 1</th>
-		<th>Cat 2</th>
-		<!-- <th>Cat 3</th>
-		<th>Cat 4</th>
-		<th>Cat 5</th>
-		<th>Cat 6</th>
-		<th>Cat 7</th>
-		<th>Cat 8</th>
-		<th>Cat 9</th>
-		<th>Cat 10</th>
-		<th>Cat 11</th>
-		<th>Cat 12</th>
-		<th>Cat 13</th>
-		<th>Misc</th> -->
-		
-	</tr>
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='box bordered-box blue-border' style='margin-bottom:0;'>
+			<div class='box-header blue-background'>
+				<div class='title'>
+					View <%= session[:club]%> Expenditure Account
+				</div>
+				<div class='actions'>
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class='box-content box-no-padding'>
+				<div class='responsive-table'>
+					<div class='scrollable-area'>
+						<table class='table' style='margin-bottom:0;'>
+							<tr>
+								<th>Club</th>
+								<th>Total</th>
+								<th>Cat 1</th>
+								<th>Cat 2</th>
+								<!-- <th>Cat 3</th>
+								<th>Cat 4</th>
+								<th>Cat 5</th>
+								<th>Cat 6</th>
+								<th>Cat 7</th>
+								<th>Cat 8</th>
+								<th>Cat 9</th>
+								<th>Cat 10</th>
+								<th>Cat 11</th>
+								<th>Cat 12</th>
+								<th>Cat 13</th>
+								<th>Misc</th> -->
 
-	<tr>
-		<%x = @club%>
-		<%total = x.Category1Balance + x.Category2Balance%>
-		<td><%= @club.clubid%></td>
-		<td><%=total%></td>
-		<td><%= @club.Category1Balance%></td>
-		<td><%= @club.Category2Balance%></td>
-		
-		
-	</tr>
+							</tr>
 
-</table>
+							<tr>
+								<% x = @club%>
+								<% total = x.Category1Balance + x.Category2Balance%>
+								<td><%= @club.clubid%></td>
+								<td><%= total%></td>
+								<td><%= @club.Category1Balance%></td>
+								<td><%= @club.Category2Balance%></td>
+
+							</tr>
+
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 <%if !@reserve.nil?%>
-<h2>Reserve Account</h2>
-<table class = "table table-bordered table-condensed">
-	<tr>
-		<th>Balance</th>
-		<th>Limit</th>
-		
-	</tr>
-	<tr>
-		<td><%=@reserve.balance%></td>
-		<td><%=@reserve.limit%></td>
-		
-	</tr>
-	
-</table>
+<!-- View club's reserve account -->
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='box bordered-box blue-border' style='margin-bottom:0;'>
+			<div class='box-header blue-background'>
+				<div class='title'>
+					View <%= session[:club]%> Reserve Account
+				</div>
+				<div class='actions'>
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class='box-content box-no-padding'>
+				<div class='responsive-table'>
+					<div class='scrollable-area'>
+						<table class='table' style='margin-bottom:0;'>
+							<tr>
+								<th>Balance</th>
+								<th>Limit</th>
+
+							</tr>
+							<tr>
+								<td><%= @reserve.balance%></td>
+								<td><%= @reserve.limit%></td>
+
+							</tr>
+
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
 <h3>Edit justification</h3>
 <%=form_for @reserve, :url => {:action => 'editjustification'} do |f|%>
-<%=f.text_area :justification%>
-<%=f.hidden_field :clubid, :value => @reserve.clubid%>
-<%=f.submit 'Submit', :class => 'btn'%>
+<%= f.text_area :justification%>
+<%= f.hidden_field :clubid, :value => @reserve.clubid%>
+<%= f.submit 'Submit', :class => 'btn'%>
 <%end%>
 <%end%>
 <%end%>
-
 
 <script>
-	function viewremark(a){
-	
+	function viewremark(a) {
+
 		alert(a);
-	
-}
+
+	}
 </script>

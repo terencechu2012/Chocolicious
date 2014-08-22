@@ -1,6 +1,46 @@
-<%=form_for @new, :url => { :action => "add" } do |f|%>
-<%=f.select(:clubid, options_from_collection_for_select(@cbds, 'clubid', 'clubid'))%>
-<%=f.number_field(:balance)%>
-<%=f.number_field(:limit)%>
-<%= f.submit("Save", :class=>"btn")%>
-<%end%>
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='page-header'>
+			<h1 class='pull-left'><i class='icon-code'></i>
+				<!-- span has to be on next line to create that space between the logo and the words -->
+				<span>For Convenience ~ Programmer ONLY</span></h1>
+		</div>
+	</div>
+</div>
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='box bordered-box red-border' style='margin-bottom:0;'>
+			<div class='box-header red-background'>
+				<div class='title'>
+					Edit Account balance and limit
+				</div>
+				<div class='actions'>
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class='box-content box-no-padding'>
+				<div class="col-sm-12">
+					<br />
+				<%=form_for @new, :url => { :action => "add" } do |f|%>
+				<label>Club</label>
+				<br />
+				<%= f.select(:clubid, options_from_collection_for_select(@cbds, 'clubid', 'clubid'))%>
+				<br />
+				<br />
+				<label>Balance</label>
+				<br />
+				<%= f.number_field(:balance)%>
+				<br />
+				<br />
+				<label>Limit</label>
+				<br />
+				<%= f.number_field(:limit)%>
+				<br />
+				<br />
+				<%= f.submit("Save", :class=>"btn red-background")%>
+				<%end%>
+				<br />
+			</div>
+		</div>
+	</div>
+</div>

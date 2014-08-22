@@ -1,56 +1,94 @@
-<h1>View all Expenditure Accounts</h1>
-<p>
-	Select a CBd to view the clubs in the Constituent Bodies.
-</p>
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='page-header'>
+			<h1 class='pull-left'><i class='icon-dollar'></i>
+				<!-- span has to be on next line to create that space between the logo and the words -->
+				<span>View all Expenditure Accounts</span></h1>
+		</div>
+	</div>
+</div>
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='box bordered-box blue-border' style='margin-bottom:0;'>
+			<div class='box-header blue-background'>
+				<div class='title'>
+					View Expenditure Accounts of Clubs
+				</div>
+				<div class='actions'>
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class='box-content box-no-padding'>
+				<div class='col-sm-12'>
+					Select a CBd to view the clubs in the Constituent Bodies.
+				</div>
 
-<%= form_tag("/accounts/viewallaccounts/", :method => "get") do %>
-<b>Select CBD:</b><%= select_tag(:choice, options_from_collection_for_select(@CBD, "clubid", "clubid"), include_blank: true)%>
-<%= submit_tag("Go!", :class=>"btn") %></th>
-<%end%>
-<table class = "table table-bordered table-condensed">
-	<tr>
-		<th>Club</th>
-		<th>Total</th>
-		<th>Cat 1</th>
-		<th>Cat 2</th>
-		<!-- <th>Cat 3</th>
-		<th>Cat 4</th>
-		<th>Cat 5</th>
-		<th>Cat 6</th>
-		<th>Cat 7</th>
-		<th>Cat 8</th>
-		<th>Cat 9</th>
-		<th>Cat 10</th>
-		<th>Cat 11</th>
-		<th>Cat 12</th>
-		<th>Cat 13</th>
-		<th>Misc Balance</th> -->
-		<th>Options</th>
-	</tr>
-	<% @clubArr.each do|x| %>
-	<tr>
-		<%total = x.Category1Balance + x.Category2Balance%>
-		<td><%= x.clubid%></td>
-		<td><%=total%></td>
-		<td><%= x.Category1Balance%></td>
-		<td><%= x.Category2Balance%></td>
-		<!-- <td><%= x.Category3Balance%></td>
-		<td><%= x.Category4Balance%></td>
-		<td><%= x.Category5Balance%></td>
-		<td><%= x.Category6Balance%></td>
-		<td><%= x.Category7Balance%></td>
-		<td><%= x.Category8Balance%></td>
-		<td><%= x.Category9Balance%></td>
-		<td><%= x.Category10Balance%></td>
-		<td><%= x.Category11Balance%></td>
-		<td><%= x.Category12Balance%></td>
-		<td><%= x.Category13Balance%></td>
-		<td><%= x.MiscellaneousBalance%></td> -->
-		<td> <%= form_tag("/accounts/editaccount", :method => "get") do %>
-		<%= hidden_field_tag(:id, x.clubid) %>
-		<%= hidden_field_tag(:destination, "viewallaccounts") %>		
-		<%= submit_tag("Edit", :class=>"btn") %>
-		<% end %> </td>
-	</tr>
-	<%end%>
-</table>
+				<%= form_tag("/accounts/viewallaccounts/", :html =>{class:'form', style:'margin-bottom: 0;'}, :method => "get") do %>
+				<div class='col-sm-12'>
+					<fieldset>
+						<label>Select CBd</label>
+						<%= select_tag(:choice, options_from_collection_for_select(@CBD, "clubid", "clubid"), include_blank: true)%>
+					</fieldset>
+					<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
+						<%= submit_tag("Go!", :class=>"btn blue-background") %>
+					</div>
+					<%end%>
+				</div>
+				<br />
+				<div class='col-sm-12'>
+					<div class='responsive-table'>
+						<div class='scrollable-area'>
+							<table class='table' style='margin-bottom:0;'>
+								<tr>
+									<th>Club</th>
+									<th>Total</th>
+									<th>Cat 1</th>
+									<th>Cat 2</th>
+									<!-- <th>Cat 3</th>
+									<th>Cat 4</th>
+									<th>Cat 5</th>
+									<th>Cat 6</th>
+									<th>Cat 7</th>
+									<th>Cat 8</th>
+									<th>Cat 9</th>
+									<th>Cat 10</th>
+									<th>Cat 11</th>
+									<th>Cat 12</th>
+									<th>Cat 13</th>
+									<th>Misc Balance</th> -->
+									<th>Options</th>
+								</tr>
+								<% @clubArr.each do|x| %>
+								<tr>
+									<% total = x.Category1Balance + x.Category2Balance%>
+									<td><%= x.clubid%></td>
+									<td><%= total%></td>
+									<td><%= x.Category1Balance%></td>
+									<td><%= x.Category2Balance%></td>
+									<!-- <td><%= x.Category3Balance%></td>
+									<td><%= x.Category4Balance%></td>
+									<td><%= x.Category5Balance%></td>
+									<td><%= x.Category6Balance%></td>
+									<td><%= x.Category7Balance%></td>
+									<td><%= x.Category8Balance%></td>
+									<td><%= x.Category9Balance%></td>
+									<td><%= x.Category10Balance%></td>
+									<td><%= x.Category11Balance%></td>
+									<td><%= x.Category12Balance%></td>
+									<td><%= x.Category13Balance%></td>
+									<td><%= x.MiscellaneousBalance%></td> -->
+									<td> <%= form_tag("/accounts/editaccount", :method => "get") do %>
+									<%= hidden_field_tag(:id, x.clubid) %>
+									<%= hidden_field_tag(:destination, "viewallaccounts") %>
+									<%= submit_tag("Edit", :class=>"btn blue-background") %>
+									<% end %> </td>
+								</tr>
+								<%end%>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

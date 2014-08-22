@@ -1,251 +1,665 @@
-<% if session[:role].include?"clubfinsec"%> <h2>Registered Users</h2>
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='page-header'>
+			<h1 class='pull-left'><i class='icon-group'></i>
+				<!-- span has to be on next line to create that space between the logo and the words -->
+				<span>Managing my Club</span></h1>
+		</div>
+	</div>
+</div>
+<% if session[:role].include?"clubfinsec"%>
 <% if flash[:error] %>
 <font color="red"><%= flash[:error]%></font>
 <%end%>
-<%= form_tag("/admin/delete/", :method => "post") do %>
-<table class = "table table-bordered table-condensed">
-	<tr>
-		<th>Name</th>
-		<th>Role</th>
-		<th><%= submit_tag("Delete", :class=>"btn") %></th>
-	</tr>
+<!-- Responsive tabs for Club Finance Secretaries -->
+<div class='row'>
+	<div class='col-sm-12 box' style='margin-bottom: 0'>
+		<div class='box-header orange-background'>
+			<div class='title'>
+				<%= session[:club]%> Members
+			</div>
+			<div class='actions'>
+				<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+			</div>
+		</div>
+		<div class='box-content'>
+			<div class='tabbable' style='margin-top: 20px'>
+				<!-- Tabs' titles -->
+				<ul class='nav nav-responsive nav-tabs'>
+					<li class='active'>
+						<a data-toggle='tab' href='#retab1'> Members </a>
+					</li>
+					<li class=''>
+						<a data-toggle='tab' href='#retab2'> Membership Requests </a>
+					</li>
+					<li class=''>
+						<a data-toggle='tab' href='#retab3'> Add Member </a>
+					</li>
+					<li class=''>
+						<a data-toggle='tab' href='#retab4'> Add President </a>
+					</li>
+				</ul>
 
-	<% @userList.each do |user| %>
-	<tr>
-		<td><%= user.userid %></td>
-		<td><%= user.role %></td>
-		<td> <%if session[:userid]!=user.userid%><%= check_box_tag("toDelete[]",user.userid+","+user.clubid)%>
-		<%else%><font color=red><i>You are not able to delete yourself</i><%end%> </td>
-		<%= hidden_field_tag(:club, session[:club])%>
-	</tr>
-	<%end%>
-	<%end%>
-</table>
+				<div class='tab-content'>
+					<!-- Tab 1 -->
+					<div id="retab1" class="tab-pane active">
 
-<h2>User requests</h2>
+						<div class="box-content box-no-padding">
+							<div class="responsive-table">
+								<div class="scrollable-area">
+									<%= form_tag("/admin/delete/", :method => "post") do %>
+									<table class="table table-striped" style="margin-bottom:0;">
+										<tr>
+											<th>Name</th>
+											<th>Role</th>
+											<th><%= submit_tag("Delete", :class=>"btn orange-background") %></th>
+										</tr>
 
-<%= form_tag("/admin/notifications/", :method => "post") do %>
-<table class = "table table-bordered table-condensed">
-	<tr>
-		<th>Name</th>
-		<th>Requested Date</th>
-		<th><%= select_tag(:choice, "<option>Add</option><option>Reject</option>".html_safe) %>
-		<br />
-		<%= submit_tag("Go!", :class=>"btn") %></th>
-	</tr>
+										<% @userList.each do |user| %>
+										<tr>
+											<td><%= user.userid %></td>
+											<td><%= user.role %></td>
+											<td> <%if session[:userid]!=user.userid%><%= check_box_tag("toDelete[]",user.userid+","+user.clubid)%>
+											<%else%><font color=red><i>You are not able to delete yourself</i><%end%> </td>
+											<%= hidden_field_tag(:club, session[:club])%>
+										</tr>
+										<%end%>
+									</table>
+									<%end%>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Tab 2 -->
+					<div id="retab2" class="tab-pane">
+						<div class="box-content box-no-padding">
+							<div class="responsive-table">
+								<div class="scrollable-area">
+									<%= form_tag("/admin/notifications/", :method => "post") do %>
+									<table class="table table-striped" style="margin-bottom:0;">
+										<tr>
+											<th>Name</th>
+											<th>Requested Date</th>
+											<th><%= select_tag(:choice, "<option>Add</option><option>Reject</option>".html_safe) %>
+											<br />
+											<%= submit_tag("Go!", :class=>"btn orange-background") %></th>
+										</tr>
 
-	<% @clubRequests.each do |user| %>
-	<tr>
-		<td><%= user.userid %></td>
-		<td><%= user.created_at %></td>
-		<td> <%= check_box_tag("newRegister[]", user.userid)%> </td>
-	</tr>
-	<%end%>
-	<%end%>
-</table>
-
-<h2>Add Member</h2>
-
-<!-- <form>
-Search: <%= text_field_tag(:userid) %><%= submit_tag("Search", :class=>"btn") %>
-</form> -->
-<%= form_tag("/admin/add/", :method => "post") do %>
-Search for:<%= select_tag(:userid, options_from_collection_for_select(@users, "userid", "userid"))%>
-<%= hidden_field_tag(:role, "normal") %>
-<%= hidden_field_tag(:club, session[:club])%>
-<%= submit_tag("Add", :class=>"btn") %>
-<%end%>
-
-<h2>Add President</h2>
-<%= form_tag("/admin/addLeader/", :method => "post") do %>
-<!-- Select tags to make dropdownlist with search -->
-Search for user:<%= select_tag(:userid, options_from_collection_for_select(@users, "userid", "userid"))%>
-
-<%= hidden_field_tag(:role,'president')%>
-<%= hidden_field_tag(:club, session[:club])%>
-<%= submit_tag("Add", :class=>"btn") %>
-<%end%>
-
+										<% @clubRequests.each do |user| %>
+										<tr>
+											<td><%= user.userid %></td>
+											<td><%= user.created_at %></td>
+											<td> <%= check_box_tag("newRegister[]", user.userid)%> </td>
+										</tr>
+										<%end%>
+									</table>
+									<%end%>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Tab 3 -->
+					<div id="retab3" class="tab-pane">
+						<div class='col-sm-12'>
+							<div class='box-content box-padding'>
+								<%= form_tag("/admin/add/", :html =>{class:'form', style:'margin-bottom: 0;'}, :method => "post") do %>
+								<fieldset>
+									<div class='col-sm-4'>
+										<div class='box'>
+											<div class='lead'>
+												<i class='icon-file-alt'></i>
+												Notes on adding club member
+											</div>
+											<small class='text-muted'> If a student is unable to apply for membership due to whatever reasons: Locked out of system, no access to means of application etc., you may add the user as a member on their behalf.
+												<br />
+												In the unlikely event that you accidentally deleted a member, you may browse the user list and add him/her back.
+												<br />
+												<strong> Take Note!!
+												<br />
+												Refrain from abusing this capability by adding users against their will! </strong> </small>
+										</div>
+									</div>
+									<div class='col-sm-7 col-sm-offset-1'>
+										<div class='form-group'>
+											<label>Select User</label>
+											<%= select_tag(:userid, options_from_collection_for_select(@users, "userid", "userid"))%>
+											<%= hidden_field_tag(:role, "normal") %>
+											<%= hidden_field_tag(:club, session[:club])%>
+										</div>
+								</fieldset>
+								<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
+									<div class='text-right'>
+										<%= submit_tag("Add", :class=>"btn btn-primary btn-lg orange-background") %>
+									</div>
+								</div>
+								<%end%>
+							</div>
+						</div>
+					</div>
+					<!-- Tab 4 -->
+					<div id="retab4" class="tab-pane">
+						<div class='col-sm-12'>
+							<div class='box-content box-padding'>
+								<%= form_tag("/admin/addLeader/", :method => "post") do %>
+								<!-- Select tags to make dropdownlist with search -->
+								<fieldset>
+									<div class='col-sm-4'>
+										<div class='box'>
+											<div class='lead'>
+												<i class='icon-file-alt'></i>
+												Notes on adding club president
+											</div>
+											<small class='text-muted'>In the event that the Club President has to step down for whatever reasons, or a new Exco has been elected:
+												<br />
+												<ol>
+													<li>
+														Check if President has stepped down, and position is vacant in the first tab "Members"
+													</li>
+													<li>
+														Select next president from list of users in dropdown list
+													</li>
+													<li>
+														Add new President
+													</li>
+												</ol> If you have selected the wrong user accidentally, you may remove the assigned role in the first tab "Members". </small>
+										</div>
+									</div>
+									<div class='col-sm-7 col-sm-offset-1'>
+										<div class='form-group'>
+											<label>Select User</label>
+											<%= select_tag(:userid, options_from_collection_for_select(@users, "userid", "userid"))%>
+											<%= hidden_field_tag(:role,'president')%>
+											<%= hidden_field_tag(:club, session[:club])%>
+										</div>
+								</fieldset>
+								<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
+									<div class='text-right'>
+										<%= submit_tag("Add", :class=>"btn btn-primary btn-lg orange-background") %>
+									</div>
+								</div>
+								<%end%>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+</div>
+</div>
 <%elsif session[:role].include?'smusafinsec'%>
+<!-- Tabs for Smusa Finance Secretaries -->
+<div class='row'>
+	<div class='col-sm-12 box' style='margin-bottom: 0'>
+		<div class='box-header orange-background'>
+			<div class='title'>
+				Managing SMUSA and CBds
+			</div>
+			<div class='actions'>
 
-<h2>CBDs and their Fin Secs</h2>
+				<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+			</div>
+		</div>
+		<div class='box-content'>
+			<div class='tabbable' style='margin-top: 20px'>
+				<ul class='nav nav-responsive nav-tabs'>
+					<li class='active'>
+						<a data-toggle='tab' href='#retab1'> CBd Finance Secretaries </a>
+					</li>
+					<li class=''>
+						<a data-toggle='tab' href='#retab2'> Add new CBd Finance Secretary </a>
+					</li>
+					<li class=''>
+						<a data-toggle='tab' href='#retab3'> SMUSA Secretaries </a>
+					</li>
+					<li class=''>
+						<a data-toggle='tab' href='#retab4'> Add new SMUSA Secretary </a>
+					</li>
+				</ul>
+				<div class='tab-content'>
+					<div id="retab1" class="tab-pane active">
+						<div class="box-content box-no-padding">
+							<div class="responsive-table">
+								<div class="scrollable-area">
+									<%= form_tag("/admin/delete/", :method => "post") do %>
+									<table class="table table-striped" style="margin-bottom:0;">
+										<tr>
+											<th>Name</th>
+											<th>Role</th>
+											<th>CBD</th>
+											<th><%= submit_tag("Delete", :class=>"btn orange-background") %></th>
+										</tr>
 
-<%= form_tag("/admin/delete/", :method => "post") do %>
-<table class = "table table-bordered table-condensed">
-	<tr>
-		<th>Name</th>
-		<th>Role</th>
-		<th>CBD</th>
-		<th><%= submit_tag("Delete", :class=>"btn") %></th>
-	</tr>
+										<% @cbdList.each do |user| %>
+										<tr>
+											<td><%= user.userid %></td>
+											<td><%= user.role %></td>
+											<td><%= user.clubid%></td>
+											<td> <%if session[:userid]!=user.userid%><%= check_box_tag("toDelete[]",user.userid+","+user.clubid)%>
+											<%else%><font color=red><i>You are not able to delete yourself</i><%end%> </td>
+											<%= hidden_field_tag(:club, user.clubid)%>
+										</tr>
+										<%end%>
+										<%end%>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Tab 2 -->
+					<div id="retab2" class="tab-pane">
+						<div class='box-content box-padding'>
+							<%= form_tag("/admin/addLeader/", :html =>{class:'form', style:'margin-bottom: 0;'}, :method => "post") do %>
+							<!-- Select tags to make dropdownlist with search -->
+							<fieldset>
+								<div class='col-sm-4'>
+									<div class='box'>
+										<div class='lead'>
+											<i class='icon-file-alt'></i>
+											Notes on adding new CBd Finance Secretary
+										</div>
+										<small class='text-muted'>You may browse the list of all users and add users as new CBd Finance Secretary. Do remember to check if current CBd Fin Sec's vacancy first!</small>
+									</div>
+								</div>
 
-	<% @cbdList.each do |user| %>
-	<tr>
-		<td><%= user.userid %></td>
-		<td><%= user.role %></td>
-		<td><%= user.clubid%></td>
-		<td> <%if session[:userid]!=user.userid%><%= check_box_tag("toDelete[]",user.userid+","+user.clubid)%>
-		<%else%><font color=red><i>You are not able to delete yourself</i><%end%> </td>
-		<%= hidden_field_tag(:club, user.clubid)%>
-	</tr>
+								<div class='col-sm-7 col-sm-offset-1'>
+									<div class='form-group'>
+										<label>Select User</label>
+										<br />
+										<%= select_tag(:userid, options_from_collection_for_select(@users, "userid", "userid"))%>
+										<br />
+										<br />
+										<label>Select CBd</label>
+										<br />
+										<%= select_tag(:club, options_from_collection_for_select(@cbds, "clubid", "clubname"))%>
+										<%= hidden_field_tag(:role,'cbdfinsec')%>
+									</div>
+							</fieldset>
+							<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
+								<div class='text-right'>
+									<%= submit_tag("Add", :class=>"btn btn-primary btn-lg orange-background") %>
+								</div>
+							</div>
+							<%end%>
+						</div>
+					</div>
+					<!-- Tab 3 -->
+					<div id="retab3" class="tab-pane">
+						<div class="box-content box-no-padding">
+							<div class="responsive-table">
+								<div class="scrollable-area">
+									<%= form_tag("/admin/delete/", :method => "post") do %>
+									<table class = "table table-bordered table-condensed">
+										<tr>
+											<th>Name</th>
+											<th>Department</th>
+											<th><%= submit_tag("Delete", :class=>"btn orange-background") %></th>
+										</tr>
 
-	<%end%>
-</table>
-<%end%>
-
-<h2>Add CBD Fin Sec</h2>
-
-<%= form_tag("/admin/addLeader/", :method => "post") do %>
-<!-- Select tags to make dropdownlist with search -->
-Search for user:<%= select_tag(:userid, options_from_collection_for_select(@users, "userid", "userid"))%>
-Search for cbd:<%= select_tag(:club, options_from_collection_for_select(@cbds, "clubid", "clubname"))%>
-<%= hidden_field_tag(:role,'cbdfinsec')%>
-<%= submit_tag("Add", :class=>"btn") %>
-<%end%>
-
-<h2>Smusa Secretaries</h2>
-
-<%= form_tag("/admin/delete/", :method => "post") do %>
-<table class = "table table-bordered table-condensed">
-	<tr>
-		<th>Name</th>
-		<th>Department</th>
-		<th><%= submit_tag("Delete", :class=>"btn") %></th>
-	</tr>
-
-	<% @smusasecList.each do |user| %>
-	<tr>
-		<td><%= user.userid %></td>
-		<td><%=user.clubid%></td>
-		<td> <%if session[:userid]!=user.userid%><%= check_box_tag("toDelete[]",user.userid+","+user.clubid)%>
-		<%else%><font color=red><i>You are not able to delete yourself</i><%end%> </td>
-		<%= hidden_field_tag(:club, user.clubid)%>
-	</tr>
-
-	<%end%>
-</table>
-<%end%>
-
-
-<h2>Add Smusa Sec</h2>
-
-<%= form_tag("/admin/add/", :method => "post") do %>
-<!-- Select tags to make dropdownlist with search -->
-Search for user:<%= select_tag(:userid, options_from_collection_for_select(@users, "userid", "userid"))%>
-Search for department:<%= select_tag(:club, options_from_collection_for_select(@departments, "clubid", "clubname"))%>
-<%= hidden_field_tag(:role,'smusasec')%>
-<%= submit_tag("Add", :class=>"btn") %>
-<%end%>
-
-
+										<% @smusasecList.each do |user| %>
+										<tr>
+											<td><%= user.userid %></td>
+											<td><%= user.clubid%></td>
+											<td> <%if session[:userid]!=user.userid%><%= check_box_tag("toDelete[]",user.userid+","+user.clubid)%>
+											<%else%><font color=red><i>You are not able to delete yourself</i><%end%> </td>
+											<%= hidden_field_tag(:club, user.clubid)%>
+										</tr>
+										<%end%>
+										<%end%>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Tab 4 -->
+					<div id="retab4" class="tab-pane">
+						<div class='box-content box-padding'>
+							<%= form_tag("/admin/add/", :html =>{class:'form', style:'margin-bottom: 0;'}, :method => "post") do %>
+							<!-- Select tags to make dropdownlist with search -->
+							<fieldset>
+								<div class='col-sm-4'>
+									<div class='box'>
+										<div class='lead'>
+											<i class='icon-file-alt'></i>
+											Notes on adding new SMUSA Secretary
+										</div>
+										<small class='text-muted'>You may browse the list of all users and add users as new SMUSA Secretary. Do remember to check if current SMUSA Sec of selected department's vacancy first!</small>
+									</div>
+								</div>
+								<div class='col-sm-7 col-sm-offset-1'>
+									<div class='form-group'>
+										<label>Select User</label>
+										<br />
+										<%= select_tag(:userid, options_from_collection_for_select(@users, "userid", "userid"))%>
+										<br />
+										<br />
+										<label>Select department</label>
+										<br />
+										<%= select_tag(:club, options_from_collection_for_select(@departments, "clubid", "clubname"))%>
+										<%= hidden_field_tag(:role,'smusasec')%>
+									</div>
+							</fieldset>
+							<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
+								<div class='text-right'>
+									<%= submit_tag("Add", :class=>"btn btn-primary btn-lg orange-background") %>
+								</div>
+							</div>
+							<%end%>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+</div>
 <%elsif session[:role].include?'cbdfinsec'%>
-<h2>Clubs and their Fin Secs</h2>
+<!-- Responsive tabs for CBd Finance Secretary -->
+<div class='row'>
+	<div class='col-sm-12 box' style='margin-bottom: 0'>
+		<div class='box-header orange-background'>
+			<div class='title'>
+				Managing your CBd and its Clubs
+			</div>
+			<div class='actions'>
 
-<%= form_tag("/admin/delete/", :method => "post") do %>
-<table class = "table table-bordered table-condensed">
-	<tr>
-		<th>Name</th>
-		<th>Role</th>
-		<th>Club</th>
-		<th><%= submit_tag("Delete", :class=>"btn") %></th>
-	</tr>
+				<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+			</div>
+		</div>
+		<div class='box-content'>
+			<div class='tabbable' style='margin-top: 20px'>
+				<ul class='nav nav-responsive nav-tabs'>
+					<li class='active'>
+						<a data-toggle='tab' href='#retab1'> Club Finance Secretaries </a>
+					</li>
+					<li class=''>
+						<a data-toggle='tab' href='#retab2'> Add new Club Finance Secretary </a>
+					</li>
+					<li class=''>
+						<a data-toggle='tab' href='#retab3'> CBd MC Members </a>
+					</li>
+					<li class=''>
+						<a data-toggle='tab' href='#retab4'> Add new CBd MC Members </a>
+					</li>
+					<li class=''>
+						<a data-toggle='tab' href='#retab5'> Add new CBd President </a>
+					</li>
+				</ul>
+				<div class='tab-content'>
+					<!-- Tab 1 -->
+					<div id="retab1" class="tab-pane active">
+						<div class="box-content box-no-padding">
+							<div class="responsive-table">
+								<div class="scrollable-area">
+									<%= form_tag("/admin/delete/", :method => "post") do %>
+									<table class = "table table-bordered table-condensed">
+										<tr>
+											<th>Name</th>
+											<th>Role</th>
+											<th>Club</th>
+											<th><%= submit_tag("Delete", :class=>"btn orange-background") %></th>
+										</tr>
 
-	<% @clubFinSecList.each do |user| %>
-	<tr>
-		<td><%= user.userid %></td>
-		<td><%= user.role %></td>
-		<td><%= user.clubid%></td>
-		<td> <%if session[:userid]!=user.userid%><%= check_box_tag("toDelete[]",user.userid+","+user.clubid)%>
-		<%else%><font color=red><i>You are not able to delete yourself</i><%end%> </td>
-		<%= hidden_field_tag(:club, user.clubid)%>
-	</tr>
+										<% @clubFinSecList.each do |user| %>
+										<tr>
+											<td><%= user.userid %></td>
+											<td><%= user.role %></td>
+											<td><%= user.clubid%></td>
+											<td> <%if session[:userid]!=user.userid%><%= check_box_tag("toDelete[]",user.userid+","+user.clubid)%>
+											<%else%><font color=red><i>You are not able to delete yourself</i><%end%> </td>
+											<%= hidden_field_tag(:club, user.clubid)%>
+										</tr>
+										<%end%>
+										<%end%>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Tab 2 -->
+					<div id="retab2" class="tab-pane">
+						<div class='box-content box-padding'>
+							<%= form_tag("/admin/addLeader/", :html =>{class:'form', style:'margin-bottom: 0;'}, :method => "post") do %>
+							<!-- Select tags to make dropdownlist with search -->
+							<fieldset>
+								<div class='col-sm-4'>
+									<div class='box'>
+										<div class='lead'>
+											<i class='icon-file-alt'></i>
+											Notes on adding new Club Finance Secretary
+										</div>
+										<small class='text-muted'>You may browse the list of all users and add users as new Club Finance Secretary. Do remember to check current Club Fin Sec's vacancy first!</small>
+									</div>
+								</div>
+								<div class='col-sm-7 col-sm-offset-1'>
+									<div class='form-group'>
+										<label>Select User</label>
+										<br />
+										<%= select_tag(:userid, options_from_collection_for_select(@users, "userid", "userid"))%>
+										<br />
+										<br />
+										<label>Select CBd</label>
+										<br />
+										<%= select_tag(:club, options_from_collection_for_select(@clubsUnderCbd, "clubid", "clubname"))%>
+										<%= hidden_field_tag(:role,'clubfinsec')%>
+									</div>
+							</fieldset>
+							<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
+								<div class='text-right'>
+									<%= submit_tag("Add", :class=>"btn btn-primary btn-lg orange-background") %>
+								</div>
+							</div>
+							<%end%>
+						</div>
+					</div>
+					<!-- Tab 3 -->
+					<div id="retab3" class="tab-pane">
+						<div class="box-content box-no-padding">
+							<div class="responsive-table">
+								<div class="scrollable-area">
+									<%= form_tag("/admin/delete/", :method => "post") do %>
+									<table class = "table table-bordered table-condensed">
+										<tr>
+											<th>Name</th>
+											<th>Role</th>
+											<th><%= submit_tag("Delete", :class=>"btn orange-background") %></th>
+										</tr>
 
-	<%end%>
-</table>
-<%end%>
-
-<h2>Add Club Fin Sec</h2>
-
-<%= form_tag("/admin/addLeader/", :method => "post") do %>
-<!-- Select tags to make dropdownlist with search -->
-Search for user:<%= select_tag(:userid, options_from_collection_for_select(@users, "userid", "userid"))%>
-Search for club:<%= select_tag(:club, options_from_collection_for_select(@clubsUnderCbd, "clubid", "clubname"))%>
-<%= hidden_field_tag(:role,'clubfinsec')%>
-<%= submit_tag("Add", :class=>"btn") %>
-<%end%>
-
-<h2>CBD MC Members</h2>
-
-<%= form_tag("/admin/delete/", :method => "post") do %>
-<table class = "table table-bordered table-condensed">
-	<tr>
-		<th>Name</th>
-		<th>Role</th>
-		<th><%= submit_tag("Delete", :class=>"btn") %></th>
-	</tr>
-
-	<% @cbdmcList.each do |user| %>
-	<tr>
-		<td><%= user.userid %></td>
-		<td><%= user.role %></td>
-		<td> <%if session[:userid]!=user.userid%><%= check_box_tag("toDelete[]",user.userid+","+user.clubid)%>
-		<%else%><font color=red><i>You are not able to delete yourself</i><%end%> </td>
-		<%= hidden_field_tag(:club, user.clubid)%>
-	</tr>
-
-	<%end%>
-</table>
-<%end%>
-
-<h2>Add CBD MC Member</h2>
-
-<%= form_tag("/admin/add/", :method => "post") do %>
-<!-- Select tags to make dropdownlist with search -->
-Search for user:<%= select_tag(:userid, options_from_collection_for_select(@users, "userid", "userid"))%>
-<%= hidden_field_tag(:club, session[:club])%>
-<%= hidden_field_tag(:role,'cbdmc')%>
-<%= submit_tag("Add", :class=>"btn") %>
-<%end%>
-
-<h2>Add CBD President</h2>
-<%= form_tag("/admin/addLeader/", :method => "post") do %>
-<!-- Select tags to make dropdownlist with search -->
-Search for user:<%= select_tag(:userid, options_from_collection_for_select(@users, "userid", "userid"))%>
-<%= hidden_field_tag(:club, session[:club])%>
-<%= hidden_field_tag(:role,'president')%>
-<%= submit_tag("Add", :class=>"btn") %>
-<%end%>
+										<% @cbdmcList.each do |user| %>
+										<tr>
+											<td><%= user.userid %></td>
+											<td><%= user.role %></td>
+											<td> <%if session[:userid]!=user.userid%><%= check_box_tag("toDelete[]",user.userid+","+user.clubid)%>
+											<%else%><font color=red><i>You are not able to delete yourself</i><%end%> </td>
+											<%= hidden_field_tag(:club, user.clubid)%>
+										</tr>
+										<%end%>
+										<%end%>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Tab 4 -->
+					<div id="retab4" class="tab-pane">
+						<div class='box-content box-padding'>
+							<%= form_tag("/admin/add/", :html =>{class:'form', style:'margin-bottom: 0;'}, :method => "post") do %>
+							<!-- Select tags to make dropdownlist with search -->
+							<fieldset>
+								<div class='col-sm-4'>
+									<div class='box'>
+										<div class='lead'>
+											<i class='icon-file-alt'></i>
+											Notes on adding new CBd MC Members
+										</div>
+										<small class='text-muted'>You may browse the list of all users and add users as new CBd MC Members. Do remember to check current CBd MC Members' vacancy first!</small>
+									</div>
+								</div>
+								<div class='col-sm-7 col-sm-offset-1'>
+									<div class='form-group'>
+										<label>Select User</label>
+										<br />
+										<%= select_tag(:userid, options_from_collection_for_select(@users, "userid", "userid"))%>
+										<%= hidden_field_tag(:club, session[:club])%>
+										<%= hidden_field_tag(:role,'cbdmc')%>
+									</div>
+							</fieldset>
+							<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
+								<div class='text-right'>
+									<%= submit_tag("Add", :class=>"btn btn-primary btn-lg orange-background") %>
+								</div>
+							</div>
+							<%end%>
+						</div>
+					</div>
+					<!-- Tab 5 -->
+					<div id="retab5" class="tab-pane">
+						<div class='box-content box-padding'>
+							<%= form_tag("/admin/addLeader/", :html =>{class:'form', style:'margin-bottom: 0;'}, :method => "post") do %>
+							<!-- Select tags to make dropdownlist with search -->
+							<fieldset>
+								<div class='col-sm-4'>
+									<div class='box'>
+										<div class='lead'>
+											<i class='icon-file-alt'></i>
+											Notes on adding new CBd President
+										</div>
+										<small class='text-muted'>In the event that the CBd President has to step down for whatever reasons, or a new Exco has been elected:
+											<br />
+											<ol>
+												<li>
+													Check if President has stepped down, and position is vacant in the first tab "Members"
+												</li>
+												<li>
+													Select next president from list of users in dropdown list
+												</li>
+												<li>
+													Add new President
+												</li>
+											</ol> If you have selected the wrong user accidentally, you may remove the assigned role in the first tab "Members". </small>
+									</div>
+								</div>
+								<div class='col-sm-7 col-sm-offset-1'>
+									<div class='form-group'>
+										<label>Select User</label>
+										<br />
+										<%= select_tag(:userid, options_from_collection_for_select(@users, "userid", "userid"))%>
+										<%= hidden_field_tag(:club, session[:club])%>
+										<%= hidden_field_tag(:role,'president')%>
+									</div>
+							</fieldset>
+							<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
+								<div class='text-right'>
+									<%= submit_tag("Add", :class=>"btn btn-primary btn-lg orange-background") %>
+								</div>
+							</div>
+							<%end%>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+</div>
+</div>
 <% elsif session[:role].nil? %>
 <p>
 	You do not have a club yet.
 </p>
 <%end%>
-<h2>Register for a new club</h2>
-<table>
-	<%= form_tag("/admin/requestClub", :method => "post") do %>
-	<!-- Select tags to make dropdownlist with search -->
-	<th></th>Request for Membership: </th></th><%= select_tag(:cName, options_from_collection_for_select(@allClubs, "clubid", "clubname"), prompt: "---Please select---")%>
-</table>
-<br>
-<%= submit_tag("Register", :class=>"btn") %>
-<%end%>
+<!-- Clubs I have enrolled in and registering of new clubs -->
+<br />
+<div class='row'>
 
-<p>
-	You have requested to join membership in the following club(s):
-</p>
-<p>
-	User ID: <%= session[:userid]%>
-</p>
+	<div class='col-sm-12 box' style='margin-bottom: 0'>
+		<div class="col-sm-6 col-lg-6">
+			<div class="box bordered-box green-border">
+				<div class="box-header green-background">
+					<div class="title">
+						My Club Enrollment
+					</div>
+					<div class="actions">
+						<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+					</div>
+				</div>
+				<div class="box-content box-no-padding">
+					<div class="responsive-table">
+						<div class="scrollable-area">
+							<table class="table table-striped" style="margin-bottom:0;">
+								<tr>
 
-<table>
+									<th> Club Name </th>
+									<th> Role </th>
+									<th></th>
+								</tr>
+								<% @clublist.each do |name|
+								clubenrolled = Club.find_by(clubid:name.clubid)%>
+								<tr>
+									<td><%= clubenrolled.clubname %></td>
+									<td><%= name.role %></td>
+									<td><div class="text-center"></div></td>
+								</tr>
+								<%end%>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-	<th>Club name</th>
-	<% @clubs.each do |name|
-	clubtable = Club.find_by(clubid:name.clubid)%>
-	<tr>
-		<td><%= clubtable.clubname %></td><td><a href='/admin/deleteRequest?id=<%= name.id%>'>Delete</td>
-	</tr>
-	<%end%>
+		<div class="col-sm-6 col-lg-6">
+			<div class="box bordered-box blue-border">
+				<div class="box-header blue-background">
+					<div class="title">
+						Request To Join Club
+					</div>
+					<div class="actions">
+						<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+					</div>
+				</div>
+				<div class="box-content box-no-padding">
+					<%= form_tag("/admin/requestClub", :html =>{class:'form', style:'margin-bottom: 0;'}, :method => "post") do %>
+					<!-- Select tags to make dropdownlist with search -->
+					<div class='col-sm-12'>
+						<fieldset>
+							<label>Select Club to join</label>
+							<%= select_tag(:cName, options_from_collection_for_select(@allClubs, "clubid", "clubname"), prompt: "---Please select---", class:"select2 form-control")%>
+						</fieldset>
+						<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
+							<%= submit_tag("Register", :class=>"btn btn-primary btn-lg btn-block") %>
+						</div>
+						<%end%>
 
-</table>
+					</div>
 
+					<h2>Pending Club requests</h2>
+					<div class="responsive-table">
+						<div class="scrollable-area">
+							<table class="table table-striped" style="margin-bottom:0;">
+								<th>Club name</th><th>
+								<div class="text-center">
+									Delete Request
+								</div></th>
+								<% @clubs.each do |name|
+								clubtable = Club.find_by(clubid:name.clubid)%>
+								<tr>
+									<td><%= clubtable.clubname %></td>
+									<td>
+									<div class="text-center">
+										<a class="btn btn-danger btn-xs" href='/admin/deleteRequest?id=<%= name.id%>'> <i class="icon-remove"></i> </a>
+									</div><!-- <a href='/admin/deleteRequest?id=<%= name.id%>'>Delete --></td>
+								</tr>
+								<%end%>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
