@@ -1,11 +1,13 @@
 <%if @own=='true'%>
 <%= form_for @claim, :url => { :action => "editown" }, :method => :POST, :html => { :multipart => true }  do |f|  %>
 <%= f.hidden_field(:id, :value => @claim.id)%>
-Enter amount: <%= f.number_field(:amount, :step => 'any') %><br>
+Enter amount: <%= f.number_field(:amount, :step => 'any', :min => 0, :required => true) %><br>
 <%a = Array(1..13)%>
 
 Select category: 
 <%=f.select(:category, options_for_select(a))%><br>
+Select event:
+<%=f.select(:event, options_from_collection_for_select(@events, 'event', 'event'))%><br>
 Upload supporting doc:
 <%=f.file_field(:supportdoc)%>
 <%= f.submit("Save", :class=>"btn")%>

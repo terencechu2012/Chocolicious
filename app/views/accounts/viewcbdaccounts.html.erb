@@ -35,7 +35,7 @@
 		<th>Total</th>
 		<th>Cat 1</th>
 		<th>Cat 2</th>
-		<th>Cat 3</th>
+		<!-- <th>Cat 3</th>
 		<th>Cat 4</th>
 		<th>Cat 5</th>
 		<th>Cat 6</th>
@@ -46,17 +46,18 @@
 		<th>Cat 11</th>
 		<th>Cat 12</th>
 		<th>Cat 13</th>
-		<th>Misc</th>
+		<th>Misc</th> -->
 		<th>Options</th>
 	</tr>
 	<% @choiceofCBD.each do|x| %>
 	<tr>
-		<%total = x.Category1Balance + x.Category2Balance + x.Category3Balance + x.Category4Balance + x.Category5Balance + x.Category6Balance + x.Category7Balance + x.Category8Balance + x.Category9Balance + x.Category10Balance + x.Category11Balance + x.Category12Balance + x.Category13Balance + x.MiscellaneousBalance%>
+		<%total = x.Category1Balance + x.Category2Balance%>
 		<td><%= x.clubid%></td>
 		<td><%=total%></td>
 		<td><%= x.Category1Balance%></td>
 		<td><%= x.Category2Balance%></td>
-		<td><%= x.Category3Balance%></td>
+		<%if false%>
+		<!-- <td><%= x.Category3Balance%></td>
 		<td><%= x.Category4Balance%></td>
 		<td><%= x.Category5Balance%></td>
 		<td><%= x.Category6Balance%></td>
@@ -67,7 +68,8 @@
 		<td><%= x.Category11Balance%></td>
 		<td><%= x.Category12Balance%></td>
 		<td><%= x.Category13Balance%></td>
-		<td><%= x.MiscellaneousBalance%></td>
+		<td><%= x.MiscellaneousBalance%></td> -->
+		<%end%>
 		<td> <%= form_tag("/accounts/editaccount", :method => "get") do %>
 		<%= hidden_field_tag(:id, x.clubid) %>
 		<%= hidden_field_tag(:destination, "viewcbdaccounts") %>
@@ -83,7 +85,7 @@
 		<th>Total</th>
 		<th>Cat 1</th>
 		<th>Cat 2</th>
-		<th>Cat 3</th>
+		<!-- <th>Cat 3</th>
 		<th>Cat 4</th>
 		<th>Cat 5</th>
 		<th>Cat 6</th>
@@ -94,18 +96,19 @@
 		<th>Cat 11</th>
 		<th>Cat 12</th>
 		<th>Cat 13</th>
-		<th>Misc</th>
+		<th>Misc</th> -->
 		<th>Options</th>
 	</tr>
 	<% @clubArr.each do|x| %>
 	<tr>
-		<%total = x.Category1Balance + x.Category2Balance + x.Category3Balance + x.Category4Balance + x.Category5Balance + x.Category6Balance + x.Category7Balance + x.Category8Balance + x.Category9Balance + x.Category10Balance + x.Category11Balance + x.Category12Balance + x.Category13Balance + x.MiscellaneousBalance%>
+		<%total = x.Category1Balance + x.Category2Balance%>
 		<td><%= x.clubid%></td>
 		<td><%=total%></td>
 		<td><%= x.Category1Balance%></td>
 		
 		<td><%= x.Category2Balance%></td>
-		<td><%= x.Category3Balance%></td>
+		<%if false%>
+		<!-- <td><%= x.Category3Balance%></td>
 		<td><%= x.Category4Balance%></td>
 		<td><%= x.Category5Balance%></td>
 		<td><%= x.Category6Balance%></td>
@@ -116,7 +119,8 @@
 		<td><%= x.Category11Balance%></td>
 		<td><%= x.Category12Balance%></td>
 		<td><%= x.Category13Balance%></td>
-		<td><%= x.MiscellaneousBalance%></td>
+		<td><%= x.MiscellaneousBalance%></td> -->
+		<%end%>
 		<td> <%= form_tag("/accounts/editaccount", :method => "get") do %>
 		<%= hidden_field_tag(:id, x.clubid) %>
 		<%= hidden_field_tag(:destination, "viewcbdaccounts") %>

@@ -10,7 +10,7 @@ a = a + b
 %>
 <table>
 	<tr>
-		<td><%=f.text_field(:clubid)%></td><td>Club ID</td>
+		<td><%=f.text_field(:clubid, :required => true)%></td><td>Club ID</td>
 	</tr>
 	<!-- <tr>
 		<td><%=f.select(:finsecid, options_from_collection_for_select(@users, 'userid', 'userid'), :include_blank => true)%></td><td>Finance Secretary ID(Optional)</td>
@@ -22,7 +22,7 @@ a = a + b
 		<td><%=f.select(:clubtype, options_for_select(a))%></td><td>Club type</td>
 	</tr>
 	<tr>
-		<td><%=f.text_field(:clubname)%></td><td>Club name</td>
+		<td><%=f.text_field(:clubname, :required => true)%></td><td>Club name</td>
 	</tr>
 	
 </table>

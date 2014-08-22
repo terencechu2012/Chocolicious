@@ -1,6 +1,7 @@
 class BudgetsController < ApplicationController
   def index
     @control = BudgetControl.find_by_id(1)
+   
     @past = Budget.find_by_sql("select distinct year, semester from budgets where clubid ='"+session[:club]+"'")
   end
   def main
@@ -24,10 +25,17 @@ class BudgetsController < ApplicationController
   end
   def control
     @control = BudgetControl.find_by_id(1)
+    @control2 = BudgetControl.find_by_id(2)
   end
   def allow
     c = BudgetControl.find_by_id(1)
     c.update_attributes(:open => true, :year => params[:year], :semester => params[:semester])
+    redirect_to :back
+  end
+  
+  def allowspending
+    c = BudgetControl.find_by_id(2)
+    c.update_attributes(:year => params[:year], :semester => params[:semester])
     redirect_to :back
   end
   def disallow

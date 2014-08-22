@@ -6,10 +6,20 @@ class ClaimsController < ApplicationController
 
   def newclaim
     @new_claim = Claim.new
+    clubid = session[:club]
+    control = BudgetControl.find_by_id(2)
+    year = control.year
+    semester = control.semester
+    @events = Budget.where(clubid:clubid, year:year, semester:semester)
   end
 
   def editclaim
     @claim = Claim.find_by_id(params[:id])
+    clubid = session[:club]
+    control = BudgetControl.find_by_id(2)
+    year = control.year
+    semester = control.semester
+    @events = Budget.where(clubid:clubid, year:year, semester:semester)
     @own = params[:own]
   end
 
@@ -35,8 +45,12 @@ class ClaimsController < ApplicationController
 
   def add
     test = false
+    balance = ExpenditureAccount.find_by_clubid(session[:club]).Category1Balance
+    amount = params[:claim][:amount]
     if current_user.nric.nil? || current_user.nric.empty?
       flash[:error] = 'There was a problem adding your claim. Have you updated your NRIC?'
+    elsif amount > balance
+      flash[:error] = 'There are insufficient funds in the expenditure account'
     else
       test = Claim.create(claim_params).valid?
     end
@@ -106,6 +120,7 @@ class ClaimsController < ApplicationController
     amount = claim.amount
     category = claim.category
     clubfinsec = Club.find_by_clubid(claim.clubid).finsecid
+    clubcode = Club.find_by_clubid(claim.clubid).clubcode
     clubpres = Club.find_by_clubid(claim.clubid).presidentid
     cbdfinsec = current_user.userid
     claimid = claim.id
@@ -114,7 +129,7 @@ class ClaimsController < ApplicationController
     date = Date.today
     Prawn::Document.generate("public/toprint.pdf") do
       text 'Claim ID:'+claimid.to_s
-
+      text 'Club Code:'+clubcode.to_s
       text 'Payee Name: '+fullname.to_s
       text 'Contact Number: '+contact.to_s
       text 'NRIC: '+nric.to_s

@@ -51,11 +51,11 @@
 		
 	</tr>
 	<tr>
-		<td><%=text_field_tag :event%></td>
-		<td><%=date_field_tag :startdate%></td>
-		<td><%=date_field_tag :enddate%></td>
-		<td><%=number_field_tag :estnopar%></td>
-		<td><%=select_tag 'categories[]', options_for_select(Array(1..13)), :multiple => true%></td>
+		<td><%=text_field_tag :event, nil, :required => true%></td>
+		<td><%=date_field_tag :startdate, nil, :required => true%></td>
+		<td><%=date_field_tag :enddate, nil, :required => true%></td>
+		<td><%=number_field_tag :estnopar, nil, :required => true%></td>
+		<td><%=select_tag 'categories[]', options_for_select(Array(1..13)), :multiple => true, :required => true%></td>
 		<td><%=text_field_tag :explanations%></td>
 		<td><%=file_field_tag :poster %></td>
 	</tr>

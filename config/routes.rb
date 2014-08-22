@@ -114,6 +114,7 @@ Rails.application.routes.draw do
   get 'budgets/control'
   get 'budgets/disallow'
   post 'budgets/allow'
+  post 'budgets/allowspending'
   get 'budgets/index'
   get 'budgets/main'
   get 'budgets/reviewmain'

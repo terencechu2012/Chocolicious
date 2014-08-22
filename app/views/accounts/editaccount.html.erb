@@ -2,12 +2,13 @@
 <%= form_tag("/accounts/update/", :method => "post") do %>
 <table>
 	<tr>
-		<th align="right">Categoy 1 Balance: </th><td><%= number_field_tag(:cat1, @clubexpAcc.Category1Balance, :step => 0.01) %></td>
+		<th align="right">Categoy 1 Balance: </th><td><%= number_field_tag(:cat1, @clubexpAcc.Category1Balance, :step => 0.01, :min => 0, :max => 9999999999) %></td>
 	</tr>
 	<tr>
-		<th align="right">Categoy 2 Balance: </th><td><%= number_field_tag(:cat2, @clubexpAcc.Category2Balance, :step => 0.01) %></td>
+		<th align="right">Categoy 2 Balance: </th><td><%= number_field_tag(:cat2, @clubexpAcc.Category2Balance, :step => 0.01, :min => 0, :max => 9999999999) %></td>
 	</tr>
-	<tr>
+	<% if false%>
+	<!-- <tr>
 		<th align="right">Categoy 3 Balance: </th><td><%= number_field_tag(:cat3, @clubexpAcc.Category3Balance, :step => 0.01) %></td>
 	</tr>
 	<tr>
@@ -42,7 +43,8 @@
 	</tr>
 	<tr>
 		<th align="right">Miscellaneous Balance: </th><td><%= number_field_tag(:misc, @clubexpAcc.MiscellaneousBalance, :step => 0.01) %></td>
-	</tr>
+	</tr> -->
+	<%end%>
 </table>
 <%= hidden_field_tag(:id, @clubexpAcc.clubid)%>
 <%= hidden_field_tag(:destination, @destination)%>

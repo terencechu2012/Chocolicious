@@ -1,12 +1,12 @@
 
 <%role = session[:role]%>
-<%if current_user.nric.nil? || current_user.nric.empty?%>
+<%if current_user.nric.nil? || current_user.nric.empty? || current_user.fullname.nil? || current_user.fullname.empty? || current_user.contactno.nil? || current_user.contactno.empty?%>
 <p>Please set your user details before making a claim!</p>
 <%else%>
 <%= form_for @new_claim, :url => { :action => "add" }, :method => :POST, :html => { :multipart => true }  do |f|  %>
 <%= f.hidden_field(:userid, :value => session[:userid])%>
 <%= f.hidden_field(:clubid, :value => session[:club])%>
-Enter amount: <%= f.number_field(:amount, :step => 0.01) %><br>
+Enter amount: <%= f.number_field(:amount, :step => 0.01, :min => 0, :required => true) %><br>
 <%a = Array(1..13)%>
 
 <%if role.include? 'normal'%>
@@ -20,6 +20,11 @@ Enter amount: <%= f.number_field(:amount, :step => 0.01) %><br>
 
 Select category: 
 <%=f.select(:category, options_for_select(a))%><br>
+
+
+Select event:
+<%=f.select(:event, options_from_collection_for_select(@events, 'event', 'event'))%><br>
+
 Upload supporting doc:
 <%=f.file_field(:supportdoc)%>
 

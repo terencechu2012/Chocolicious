@@ -13,7 +13,7 @@
         .img-circular {
             width: 150px;
             height: 150px;
-            background-image: url(<%= image_path 'smusa-logo-transparent.png' %>);
+            background-image: url(<%= image_path 'smusa-new-logo.png' %>);
             background-color: #f0f0f0;
             display: block;
             margin: 0em auto;
@@ -73,6 +73,21 @@
                                       <% end -%>
                                      <%= f.submit "Sign in", :class => 'btn btn-block btn-lg btn-success' %>
                                 <% end %>
+						                                
+						      <% if !notice.nil? && !notice.empty? %>
+						      <p class="notice">
+									<%= notice %>
+								</p>
+						      <% end %>
+						      <% if !alert.nil? && !alert.empty? %>
+						    <p class="alert">
+								<%= alert %>
+							</p>
+						      <% end %>
+						      
+						
+						      
+						    
                                 <div class='text-center'>
                                     <hr class='hr-normal'>
                                     <%= render "devise/shared/links" %>

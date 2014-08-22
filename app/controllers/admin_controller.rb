@@ -209,11 +209,17 @@ class AdminController < ApplicationController
   end
   
   def addclub
-    Club.create(club_params)
-    ExpenditureAccount.create(:clubid => params[:club][:clubid])
-    if params[:club][:clubtype] != 'smusa'
-      ReserveAccount.create(:clubid => params[:club][:clubid], :limit => 20000, :balance => 0)
+    begin
+      Club.create(club_params)
+      ExpenditureAccount.create(:clubid => params[:club][:clubid])
+      if params[:club][:clubtype] != 'smusa'
+        ReserveAccount.create(:clubid => params[:club][:clubid], :limit => 20000, :balance => 0)
+      end
+      
+    rescue
+      flash.alert = "Duplicate entry found!"
     end
+    
     redirect_to :back
   end
   
@@ -248,6 +254,7 @@ class AdminController < ApplicationController
   end
   def setnric2
     current_user.update(user_params)
+    flash.notice = 'Details have been updated.'
     redirect_to :back
   end
   def user_params

@@ -29,4 +29,27 @@ end
 	</tr>
 </table>
 
+<h3>Clubs can now spend budgets allocated in:</h3>
+Year: <%=@control2.year%><br>
+Semester: <%=@control2.semester%><br>
+<h3>Change:</h3>
+<table class='table table-bordered'>
+	<tr>
+		<th>Academic year</th><th>Semester</th>
+	</tr>
+	<tr>
+		<%=form_tag '/budgets/allowspending', :method => 'post' do%>
+		
+		
+		<td><%=select_tag :year, options_for_select(a)%></td>
+		<td><%=select_tag :semester, options_for_select([1,2])%></td>
+		
+	</tr>
+	<tr>
+		<td><%=submit_tag 'Change', :class => 'btn'%></td>
+	</tr>
+	<%end%>
+</table>
+
+
 <%end%>

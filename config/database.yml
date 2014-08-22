@@ -26,8 +26,8 @@ test:
 
 production:
   <<: *default
-  database: "<%=ENV['OPENSHIFT_APP_NAME']%>"
-  username: "<%=ENV['OPENSHIFT_MYSQL_DB_USERNAME']%>"
-  password: "<%=ENV['OPENSHIFT_MYSQL_DB_PASSWORD']%>"
-  host: <%=ENV['OPENSHIFT_MYSQL_DB_HOST']%>
-  port: <%=ENV['OPENSHIFT_MYSQL_DB_PORT']%>
+  database: chocolicious
+  username: terencechu
+  password: terencechu
+  host: aisnew.cfub0mbrr00q.ap-southeast-1.rds.amazonaws.com
+  port: 3306

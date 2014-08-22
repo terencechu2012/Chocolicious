@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140802133251) do
+ActiveRecord::Schema.define(version: 20140821070725) do
 
   create_table "budget_controls", force: true do |t|
     t.boolean  "open"
@@ -24,10 +24,10 @@ ActiveRecord::Schema.define(version: 20140802133251) do
   create_table "budget_expenses", force: true do |t|
     t.integer  "budget_id"
     t.string   "item"
-    t.decimal  "requestsac",      precision: 10, scale: 2
-    t.decimal  "requestreserves", precision: 10, scale: 2
-    t.decimal  "unitcost",        precision: 10, scale: 2
-    t.integer  "quantity"
+    t.decimal  "requestsac",      precision: 10, scale: 2, default: 0.0
+    t.decimal  "requestreserves", precision: 10, scale: 2, default: 0.0
+    t.decimal  "unitcost",        precision: 10, scale: 2, default: 0.0
+    t.integer  "quantity",                                 default: 0
     t.string   "justification"
     t.string   "quotation"
     t.datetime "created_at"
@@ -56,9 +56,9 @@ ActiveRecord::Schema.define(version: 20140802133251) do
     t.date     "enddate"
     t.integer  "estnopar"
     t.string   "category"
-    t.decimal  "requestsac",                             precision: 10, scale: 2
-    t.decimal  "requestreserves",                        precision: 10, scale: 2
-    t.decimal  "projectedincome",                        precision: 10, scale: 2
+    t.decimal  "requestsac",                             precision: 10, scale: 2, default: 0.0
+    t.decimal  "requestreserves",                        precision: 10, scale: 2, default: 0.0
+    t.decimal  "projectedincome",                        precision: 10, scale: 2, default: 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "explanation",         limit: 2147483647
@@ -108,20 +108,8 @@ ActiveRecord::Schema.define(version: 20140802133251) do
 
   create_table "expenditure_accounts", force: true do |t|
     t.string   "clubid"
-    t.decimal  "Category1Balance",     precision: 10, scale: 2, default: 0.0
-    t.decimal  "Category2Balance",     precision: 10, scale: 2, default: 0.0
-    t.decimal  "Category3Balance",     precision: 10, scale: 2, default: 0.0
-    t.decimal  "Category4Balance",     precision: 10, scale: 2, default: 0.0
-    t.decimal  "Category5Balance",     precision: 10, scale: 2, default: 0.0
-    t.decimal  "Category6Balance",     precision: 10, scale: 2, default: 0.0
-    t.decimal  "Category7Balance",     precision: 10, scale: 2, default: 0.0
-    t.decimal  "Category8Balance",     precision: 10, scale: 2, default: 0.0
-    t.decimal  "Category9Balance",     precision: 10, scale: 2, default: 0.0
-    t.decimal  "Category10Balance",    precision: 10, scale: 2, default: 0.0
-    t.decimal  "Category11Balance",    precision: 10, scale: 2, default: 0.0
-    t.decimal  "Category12Balance",    precision: 10, scale: 2, default: 0.0
-    t.decimal  "Category13Balance",    precision: 10, scale: 2, default: 0.0
-    t.decimal  "MiscellaneousBalance", precision: 10, scale: 2, default: 0.0
+    t.decimal  "Category1Balance", precision: 10, scale: 2, default: 0.0
+    t.decimal  "Category2Balance", precision: 10, scale: 2, default: 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
   end

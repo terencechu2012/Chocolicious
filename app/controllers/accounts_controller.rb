@@ -116,7 +116,7 @@ class AccountsController < ApplicationController
   def calculateAllBudget(clubArr)
     @clubBudget = 0.00
     clubArr.each do|x|
-      @clubBudget = @clubBudget + (x.Category1Balance + x.Category2Balance + x.Category3Balance + x.Category4Balance + x.Category5Balance + x.Category6Balance + x.Category7Balance + x.Category8Balance + x.Category9Balance + x.Category10Balance + x.Category11Balance + x.Category12Balance + x.Category13Balance + x.MiscellaneousBalance)
+      @clubBudget = @clubBudget + (x.Category1Balance + x.Category2Balance)
     end
     return @clubBudget
   end
@@ -125,18 +125,18 @@ class AccountsController < ApplicationController
     m = ExpenditureAccount.find_by_clubid(params[:id])
     m.update_attribute(:Category1Balance, params[:cat1])
     m.update_attribute(:Category2Balance, params[:cat2])
-    m.update_attribute(:Category3Balance, params[:cat3])
-    m.update_attribute(:Category4Balance, params[:cat4])
-    m.update_attribute(:Category5Balance, params[:cat5])
-    m.update_attribute(:Category6Balance, params[:cat6])
-    m.update_attribute(:Category7Balance, params[:cat7])
-    m.update_attribute(:Category8Balance, params[:cat8])
-    m.update_attribute(:Category9Balance, params[:cat9])
-    m.update_attribute(:Category10Balance, params[:cat10])
-    m.update_attribute(:Category11Balance, params[:cat11])
-    m.update_attribute(:Category12Balance, params[:cat12])
-    m.update_attribute(:Category13Balance, params[:cat13])
-    m.update_attribute(:MiscellaneousBalance, params[:misc])
+    # m.update_attribute(:Category3Balance, params[:cat3])
+    # m.update_attribute(:Category4Balance, params[:cat4])
+    # m.update_attribute(:Category5Balance, params[:cat5])
+    # m.update_attribute(:Category6Balance, params[:cat6])
+    # m.update_attribute(:Category7Balance, params[:cat7])
+    # m.update_attribute(:Category8Balance, params[:cat8])
+    # m.update_attribute(:Category9Balance, params[:cat9])
+    # m.update_attribute(:Category10Balance, params[:cat10])
+    # m.update_attribute(:Category11Balance, params[:cat11])
+    # m.update_attribute(:Category12Balance, params[:cat12])
+    # m.update_attribute(:Category13Balance, params[:cat13])
+    # m.update_attribute(:MiscellaneousBalance, params[:misc])
     redirect_to :action => params[:destination]
   end
   def updatereserve
