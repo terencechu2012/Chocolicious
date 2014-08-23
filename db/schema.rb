@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140822050306) do
+ActiveRecord::Schema.define(version: 20140823024618) do
 
   create_table "budget_controls", force: true do |t|
     t.boolean  "open"
@@ -106,6 +106,22 @@ ActiveRecord::Schema.define(version: 20140822050306) do
   add_index "clubusers", ["clubid"], name: "fk_1_idx", using: :btree
   add_index "clubusers", ["userid", "clubid", "role"], name: "userid", unique: true, using: :btree
   add_index "clubusers", ["userid"], name: "fk_2_idx", using: :btree
+
+  create_table "deposits", force: true do |t|
+    t.string   "userid"
+    t.string   "clubid"
+    t.decimal  "amount",     precision: 10, scale: 2
+    t.integer  "status"
+    t.string   "remarks"
+    t.date     "date"
+    t.string   "receipts"
+    t.string   "donorname"
+    t.string   "donoradd"
+    t.string   "donoric"
+    t.string   "purpose"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "expenditure_accounts", force: true do |t|
     t.string   "clubid"

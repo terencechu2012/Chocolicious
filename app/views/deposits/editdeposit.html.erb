@@ -1,0 +1,32 @@
+<%if @own=='true'%>
+<%= form_for @deposit, :url => { :action => "editown" }, :method => :POST, :html => { :multipart => true }  do |f|  %>
+<%= f.hidden_field(:id, :value => @deposit.id)%>
+Enter amount: <%= f.number_field(:amount, :step => 'any', :min => 0, :required => true) %><br>
+
+
+Enter date: <%=f.date_field(:date, :required => true)%><br>
+Enter receipt numbers: <%=f.text_field :receipts, :required => true%><br>
+Enter purpose: <%=f.text_field :purpose, :required => true%><br>
+Enter donor name: <%=f.text_field :donorname%><br>
+Enter donor address: <%=f.text_field :donoradd%><br>
+Enter donor IC: <%=f.text_field :donoric%><br>
+<%= f.submit("Save", :class=>"btn")%>
+<%end%>
+
+<%else%>
+
+<%= form_for @deposit, :url => { :action => "edit" }, :method => :POST, :html => { :multipart => true }  do |f|  %>
+<%= f.hidden_field(:id, :value => @deposit.id)%>
+Enter amount: <%= f.number_field(:amount, :step => 'any', :min => 0, :required => true) %><br>
+
+
+Enter date: <%=f.date_field(:date, :required => true)%><br>
+Enter receipt numbers: <%=f.text_field :receipts, :required => true%><br>
+Enter purpose: <%=f.text_field :purpose, :required => true%><br>
+Enter donor name: <%=f.text_field :donorname%><br>
+Enter donor address: <%=f.text_field :donoradd%><br>
+Enter donor IC: <%=f.text_field :donoric%><br>
+<%= f.submit("Save", :class=>"btn")%>
+<%end%>
+
+<%end%>

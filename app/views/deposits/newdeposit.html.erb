@@ -1,0 +1,33 @@
+
+<%role = session[:role]%>
+<%if current_user.nric.nil? || current_user.nric.empty? || current_user.fullname.nil? || current_user.fullname.empty? || current_user.contactno.nil? || current_user.contactno.empty?%>
+<p>Please set your user details before making a deposit!</p>
+<%else%>
+<%= form_for @new_deposit, :url => { :action => "add" }, :method => :POST, :html => { :multipart => true }  do |f|  %>
+<%= f.hidden_field(:userid, :value => session[:userid])%>
+<%= f.hidden_field(:clubid, :value => session[:club])%>
+Enter amount: <%= f.number_field(:amount, :step => 0.01, :min => 0, :required => true) %><br>
+
+
+<%if role.include? 'clubfinsec'%>
+<%= f.hidden_field(:status, :value => 1)%>
+<%elsif role.include? 'cbdmc'%>
+<%= f.hidden_field(:status, :value => 6)%>
+<%elsif role.include? 'smusasec'%>
+<%= f.hidden_field(:status, :value => 12)%>
+<%end%>
+
+
+Enter date: <%=f.date_field(:date, :required => true)%><br>
+Enter receipt numbers: <%=f.text_field :receipts, :required => true%><br>
+Enter purpose: <%=f.text_field :purpose, :required => true%><br>
+Enter donor name: <%=f.text_field :donorname%><br>
+Enter donor address: <%=f.text_field :donoradd%><br>
+Enter donor IC: <%=f.text_field :donoric%><br>
+
+
+<!-- If no file attached, to display error -->
+<%= f.submit("Save", :class=>"btn")%>
+<%end%>
+
+<%end%>

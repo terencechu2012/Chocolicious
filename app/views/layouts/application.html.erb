@@ -118,7 +118,22 @@
                         </a>
                     </li>
                     <%end%>
-
+					<%if (role.include?'clubfinsec') || (role.include? 'cbdmc') || (role.include? 'smusasec')%>
+					<li class=''>
+                        <a href='/deposits/newdeposit'>
+                            <i class='icon-file-alt'></i>
+                            <span>New Deposit</span>
+                        </a>
+                    </li>
+					<%end%>
+					<%if(role.include? 'cbdmc') || (role.include? 'smusasec')%>
+					<li class=''>
+                        <a href='/deposits/viewdeposit'>
+                            <i class='icon-file-alt'></i>
+                            <span>My Deposits</span>
+                        </a>
+                    </li>
+					<%end%>
                     <%if role.include? 'clubfinsec'%>
                     <li>
                         <a class="dropdown-collapse in" href="#">
@@ -131,6 +146,12 @@
                                 <a href='/claims/clubclaims'>
                                     <i class='icon-copy'></i>
                                     <span>Club Claims</span>
+                                </a>
+                            </li>
+                            <li class=''>
+                                <a href='/deposits/clubdeposits'>
+                                    <i class='icon-copy'></i>
+                                    <span>Club Deposits</span>
                                 </a>
                             </li>
                         
@@ -178,6 +199,12 @@
                                 <a href='/claims/clubclaims'>
                                     <i class='icon-copy'></i>
                                     <span>Manage Claims</span>
+                                </a>
+                            </li>
+                            <li class=''>
+                                <a href='/deposits/clubdeposits'>
+                                    <i class='icon-copy'></i>
+                                    <span>Manage Deposits</span>
                                 </a>
                             </li>
                         	
@@ -243,6 +270,12 @@
                                     <span>CBD Claims</span>
                                 </a>
                             </li>
+                            <li class=''>
+                                <a href='/deposits/clubdeposits'>
+                                    <i class='icon-copy'></i>
+                                    <span>CBD Deposits</span>
+                                </a>
+                            </li>
 
                             <li class=''>
                                 <a href='/admin/register'>
@@ -291,6 +324,12 @@
                                 <a href='/claims/clubclaims'>
                                     <i class='icon-copy'></i>
                                     <span>Club Claims</span>
+                                </a>
+                            </li>
+                            <li class=''>
+                                <a href='/deposits/clubdeposits'>
+                                    <i class='icon-copy'></i>
+                                    <span>Club Deposits</span>
                                 </a>
                             </li>
 

@@ -1,4 +1,24 @@
 Rails.application.routes.draw do
+  get 'deposits/addremark'
+  post 'deposits/addremark'
+  get 'deposits/clubdeposits'
+
+  get 'deposits/editdeposit'
+
+  get 'deposits/newdeposit'
+  
+  get 'deposits/viewdeposit'
+  
+  post 'deposits/add'
+  
+  post 'deposits/edit'
+  post 'deposits/editown'
+  get 'deposits/submitdeposit'
+  get 'deposits/resubmitdeposit'
+  post 'deposits/confirmrejectdeposit'
+  get 'deposits/endorseclub'
+  get 'deposits/endorsecbdmc'
+  get 'deposits/endorsesmusasec'
   devise_for :users, :controllers => {:confirmations => 'confirmations', :registrations => "registrations"}
   devise_scope :user do
     patch "/confirm" => "confirmations#confirm"
