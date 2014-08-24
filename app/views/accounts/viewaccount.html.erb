@@ -1,9 +1,7 @@
 <div class='row'>
 	<div class='col-sm-12'>
 		<div class='page-header'>
-			<h1 class='pull-left'><i class='icon-dollar'></i>
-				<!-- span has to be on next line to create that space between the logo and the words -->
-				<span>View Account</span></h1>
+			<h1 class='pull-left'><i class='icon-dollar'></i> <!-- span has to be on next line to create that space between the logo and the words --><span>View Account</span></h1>
 		</div>
 	</div>
 </div>
@@ -61,6 +59,7 @@
 		</div>
 	</div>
 </div>
+<br />
 <%if !@reserve.nil?%>
 <!-- View club's reserve account -->
 <div class='row'>
@@ -96,13 +95,40 @@
 		</div>
 	</div>
 </div>
-
-<h3>Edit justification</h3>
-<%=form_for @reserve, :url => {:action => 'editjustification'} do |f|%>
-<%= f.text_area :justification%>
-<%= f.hidden_field :clubid, :value => @reserve.clubid%>
-<%= f.submit 'Submit', :class => 'btn'%>
-<%end%>
+<br />
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='box bordered-box blue-border' style='margin-bottom:0;'>
+			<div class='box-header blue-background'>
+				<div class='title'>
+					Reserves Justification
+				</div>
+				<div class='actions'>
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class='box-content box-double-padding'>
+				<p>
+					Enter the justification for the level of reserves in your account, you can update this anytime.
+				</p>
+				<%=form_for @reserve, :url => {:action => 'editjustification'} do |f|%>
+				<fieldset>
+					<div class="form-group">
+						
+						<%= f.text_area :justification%>
+						<%= f.hidden_field :clubid, :value => @reserve.clubid%>
+					</div>
+				</fieldset>
+				<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
+					<div class='text-right'>
+						<%= f.submit 'Submit', :class=>"btn btn-primary btn-lg blue-background"%>
+					</div>
+				</div>
+				<%end%>
+			</div>
+		</div>
+	</div>
+</div>
 <%end%>
 <%end%>
 

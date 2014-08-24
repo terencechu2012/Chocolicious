@@ -1,32 +1,201 @@
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='page-header'>
+			<h1 class='pull-left'><i class='icon-edit'></i><span>Edit Deposit</span></h1>
+		</div>
+	</div>
+</div>
+
 <%if @own=='true'%>
-<%= form_for @deposit, :url => { :action => "editown" }, :method => :POST, :html => { :multipart => true }  do |f|  %>
-<%= f.hidden_field(:id, :value => @deposit.id)%>
-Enter amount: <%= f.number_field(:amount, :step => 'any', :min => 0, :required => true) %><br>
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='box'>
+			<div class='box-content box-padding'>
+				<div class='fuelux'>
+					<div class='wizard'>
+						<ul class='steps'>
+							<li class='active' data-target='#step1'>
+								<span class='step'>1</span>
+							</li>
+							<li data-target='#step2'>
+								<span class='step'>2</span>
+							</li>
+							<li data-target='#step3'>
+								<span class='step'>3</span>
+							</li>
+						</ul>
+						<div class='actions'>
+							<button class='btn btn-xs btn-prev'>
+								<i class='icon-arrow-left'></i>Prev
+							</button>
+							<button class='btn btn-xs btn-success btn-next' data-last='Click Save'>
+								Next
+								<i class='icon-arrow-right'></i>
+							</button>
+						</div>
+					</div>
+					<div class='step-content'>
+						<hr class='hr-normal'>
+						<%= form_for @deposit, :url => { :action => "editown" }, :method => :POST, :html => { :multipart => true }  do |f|  %>
+						<div class='step-pane active' id='step1'>
+							<h2>Application Information</h2>
+							<div class='form-group'>
+								<div class='controls'>
+									<%= f.hidden_field(:id, :value => @deposit.id)%>
+									<label>Enter amount</label>
+									<br />
+									<%= f.number_field(:amount, :step => 'any', :min => 0, :required => true) %>
+								</div>
+								<div class='controls'>
+									<label>Enter purpose</label>
+									<br />
+									<%= f.text_field :purpose, :required => true%>
+								</div>
+							</div>
+						</div>
+						<div class='step-pane' id='step2'>
+							<h2>Deposit Information</h2>
+							<div class='form-group'>
+								<div class='controls'>
+									<label>Enter date</label>
+									<br />
+									<%= f.date_field(:date, :required => true)%>
+								</div>
+								<div class='controls'>
+									<label>Enter receipt number</label>
+									<br />
+									<%= f.text_field :receipts, :required => true%>
+								</div>
+							</div>
+						</div>
+						<div class='step-pane' id='step3'>
+							<h2>Donor Information</h2>
+							<div class='form-group'>
+								<div class='controls'>
+									<label>Enter donor's name</label>
+									<br />
+									<%= f.text_field :donorname%>
+								</div>
+								<div class='controls'>
+									<label>Enter donor's address</label>
+									<br />
+									<%= f.text_field :donoradd%>
+								</div>
+								<div class='controls'>
+									<label>Enter donor's IC</label>
+									<br />
+									<%= f.text_field :donoric%>
+								</div>
+							</div>
+							<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
+								<div class='text-right'>
+									<%= f.submit("Save", :class=>"btn btn-primary btn-lg blue-background")%>
+								</div>
+							</div>
+						</div>
+						<%end%>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
 
-Enter date: <%=f.date_field(:date, :required => true)%><br>
-Enter receipt numbers: <%=f.text_field :receipts, :required => true%><br>
-Enter purpose: <%=f.text_field :purpose, :required => true%><br>
-Enter donor name: <%=f.text_field :donorname%><br>
-Enter donor address: <%=f.text_field :donoradd%><br>
-Enter donor IC: <%=f.text_field :donoric%><br>
-<%= f.submit("Save", :class=>"btn")%>
-<%end%>
 
 <%else%>
-
-<%= form_for @deposit, :url => { :action => "edit" }, :method => :POST, :html => { :multipart => true }  do |f|  %>
-<%= f.hidden_field(:id, :value => @deposit.id)%>
-Enter amount: <%= f.number_field(:amount, :step => 'any', :min => 0, :required => true) %><br>
-
-
-Enter date: <%=f.date_field(:date, :required => true)%><br>
-Enter receipt numbers: <%=f.text_field :receipts, :required => true%><br>
-Enter purpose: <%=f.text_field :purpose, :required => true%><br>
-Enter donor name: <%=f.text_field :donorname%><br>
-Enter donor address: <%=f.text_field :donoradd%><br>
-Enter donor IC: <%=f.text_field :donoric%><br>
-<%= f.submit("Save", :class=>"btn")%>
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='box'>
+			<div class='box-content box-padding'>
+				<div class='fuelux'>
+					<div class='wizard'>
+						<ul class='steps'>
+							<li class='active' data-target='#step1'>
+								<span class='step'>1</span>
+							</li>
+							<li data-target='#step2'>
+								<span class='step'>2</span>
+							</li>
+							<li data-target='#step3'>
+								<span class='step'>3</span>
+							</li>
+						</ul>
+						<div class='actions'>
+							<button class='btn btn-xs btn-prev'>
+								<i class='icon-arrow-left'></i>Prev
+							</button>
+							<button class='btn btn-xs btn-success btn-next' data-last='Click Save'>
+								Next
+								<i class='icon-arrow-right'></i>
+							</button>
+						</div>
+					</div>
+					<div class='step-content'>
+						<hr class='hr-normal'>
+						<%= form_for @deposit, :url => { :action => "edit" }, :method => :POST, :html => { :multipart => true }  do |f|  %>
+						<div class='step-pane active' id='step1'>
+							<h2>Application Information</h2>
+							<div class='form-group'>
+								<div class='controls'>
+									<%= f.hidden_field(:id, :value => @deposit.id)%>
+									<label>Enter amount</label>
+									<br />
+									<%= f.number_field(:amount, :step => 'any', :min => 0, :required => true) %>
+								</div>
+								<div class='controls'>
+									<label>Enter purpose</label>
+									<br />
+									<%= f.text_field :purpose, :required => true%>
+								</div>
+							</div>
+						</div>
+						<div class='step-pane' id='step2'>
+							<h2>Deposit Information</h2>
+							<div class='form-group'>
+								<div class='controls'>
+									<label>Enter date</label>
+									<br />
+									<%= f.date_field(:date, :required => true)%>
+								</div>
+								<div class='controls'>
+									<label>Enter receipt number</label>
+									<br />
+									<%= f.text_field :receipts, :required => true%>
+								</div>
+							</div>
+						</div>
+						<div class='step-pane' id='step3'>
+							<h2>Donor Information</h2>
+							<div class='form-group'>
+								<div class='controls'>
+									<label>Enter donor's name</label>
+									<br />
+									<%= f.text_field :donorname%>
+								</div>
+								<div class='controls'>
+									<label>Enter donor's address</label>
+									<br />
+									<%= f.text_field :donoradd%>
+								</div>
+								<div class='controls'>
+									<label>Enter donor's IC</label>
+									<br />
+									<%= f.text_field :donoric%>
+								</div>
+							</div>
+							<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
+								<div class='text-right'>
+									<%= f.submit("Save", :class=>"btn btn-primary btn-lg blue-background")%>
+								</div>
+							</div>
+						</div>
+						<%end%>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 <%end%>
 
-<%end%>

@@ -1,33 +1,94 @@
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='page-header'>
+			<h1 class='pull-left'><i class='icon-file-alt'></i> <span>New Deposit</span></h1>
+		</div>
+	</div>
+</div>
 
-<%role = session[:role]%>
+<% role = session[:role]%>
 <%if current_user.nric.nil? || current_user.nric.empty? || current_user.fullname.nil? || current_user.fullname.empty? || current_user.contactno.nil? || current_user.contactno.empty?%>
-<p>Please set your user details before making a deposit!</p>
+<p>
+	Please set your user details before making a deposit!
+</p>
 <%else%>
-<%= form_for @new_deposit, :url => { :action => "add" }, :method => :POST, :html => { :multipart => true }  do |f|  %>
-<%= f.hidden_field(:userid, :value => session[:userid])%>
-<%= f.hidden_field(:clubid, :value => session[:club])%>
-Enter amount: <%= f.number_field(:amount, :step => 0.01, :min => 0, :required => true) %><br>
+<div class='row'>
+	<div class='col-sm-12 col-lg-12'>
+		<div class='box bordered-box'>
+			<div class='box-content box-double-padding'>
+				<%= form_for @new_deposit, :url => { :action => "add" }, :method => :POST, :html => { :multipart => true }  do |f|  %>
+				<fieldset>
+					<div class='col-sm-4'>
+						<div class='lead'>
+							<i class='icon-file-alt text-contrast'></i>
+							Notes On New Deposit
+						</div>
+						<small class='text-muted'> Please be careful when entering details such as the receipt number and donor IC. Wrong entry of details can lead to rejection of deposits. </small>
+					</div>
+					<div class='col-sm-7 col-sm-offset-1'>
+						<h3>Application Information</h3>
+						<div class='form-group'>
+							<%= f.hidden_field(:userid, :value => session[:userid])%>
+							<%= f.hidden_field(:clubid, :value => session[:club])%>
+							<label>Enter amount</label>
+							<br />
+							<%= f.number_field(:amount, :step => 0.01, :min => 0, :required => true) %>
+						</div>
 
-
-<%if role.include? 'clubfinsec'%>
-<%= f.hidden_field(:status, :value => 1)%>
-<%elsif role.include? 'cbdmc'%>
-<%= f.hidden_field(:status, :value => 6)%>
-<%elsif role.include? 'smusasec'%>
-<%= f.hidden_field(:status, :value => 12)%>
-<%end%>
-
-
-Enter date: <%=f.date_field(:date, :required => true)%><br>
-Enter receipt numbers: <%=f.text_field :receipts, :required => true%><br>
-Enter purpose: <%=f.text_field :purpose, :required => true%><br>
-Enter donor name: <%=f.text_field :donorname%><br>
-Enter donor address: <%=f.text_field :donoradd%><br>
-Enter donor IC: <%=f.text_field :donoric%><br>
-
-
-<!-- If no file attached, to display error -->
-<%= f.submit("Save", :class=>"btn")%>
-<%end%>
+						<%if role.include? 'clubfinsec'%>
+						<%= f.hidden_field(:status, :value => 1)%>
+						<%elsif role.include? 'cbdmc'%>
+						<%= f.hidden_field(:status, :value => 6)%>
+						<%elsif role.include? 'smusasec'%>
+						<%= f.hidden_field(:status, :value => 12)%>
+						<%end%>
+						
+						<div class='form-group'>
+							<label>Enter purpose</label>
+							<br />
+							<%= f.text_field :purpose, :required => true%>
+						</div>
+						<hr />
+						<h3>Deposit Information</h3>
+						<div class='form-group'>
+							<label>Enter date</label>
+							<br />
+							<%= f.date_field(:date, :required => true)%>
+						</div>
+						<div class='form-group'>
+							<label>Enter receipt number</label>
+							<br />
+							<%= f.text_field :receipts, :required => true%>
+						</div>
+						
+						<hr />
+						<h3>Donor Information</h3>
+						<div class='form-group'>
+							<label>Enter donor name</label>
+							<br />
+							<%= f.text_field :donorname%>
+						</div>
+						<div class='form-group'>
+							<label>Enter donor address</label>
+							<br />
+							<%= f.text_field :donoradd%>
+						</div>
+						<div class='form-group'>
+							<label>Enter donor IC</label>
+							<br />
+							<%= f.text_field :donoric%>
+						</div>
+				</fieldset>
+				<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
+					<div class='text-right'>
+						<!-- If no file attached, to display error -->
+						<%= f.submit("Save", :class=>"btn btn-primary btn-lg blue-background")%>
+					</div>
+				</div>
+				<%end%>
+			</div>
+		</div>
+	</div>
+</div>
 
 <%end%>

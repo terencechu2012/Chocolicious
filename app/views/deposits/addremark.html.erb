@@ -1,13 +1,36 @@
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='page-header'>
+			<h1 class='pull-left'><i class='icon-edit'></i> <span>Reject Deposit</span></h1>
+		</div>
+	</div>
+</div>
 
-<%= form_for @rejectdeposit, :url => { :action => "confirmrejectdeposit" }, :method => :POST  do |f|  %>
-<%= f.hidden_field(:id, :value => @rejectdeposit.id)%>
-<div>
-	<b>You are rejecting deposit submmited by <u><%= @rejectdeposit.userid %></u> from <u><%= @rejectdeposit.clubid %></u> with amount <u><%= @rejectdeposit.amount %></u>.</b>
+<div class='row'>
+	<div class='col-sm-12 col-lg-12'>
+		<div class='box bordered-box'>
+			<div class='box-content box-double-padding'>
+				<%= form_for @rejectdeposit, :url => { :action => "confirmrejectdeposit" }, :method => :POST  do |f|  %>
+				<fieldset>
+					<%= f.hidden_field(:id, :value => @rejectdeposit.id)%>
+					<div>
+						<b>You are rejecting deposit submmited by <u><%= @rejectdeposit.userid %></u> from <u><%= @rejectdeposit.clubid %></u> with amount <u><%= @rejectdeposit.amount %></u>.</b>
+					</div>
+					<div>
+						Please add remark for the rejection:
+					</div>
+					<div class='form-group'>
+						<%= f.hidden_field(:status, :value => @status)%>
+						<%= f.text_area :remarks, size: "100 x 5" %>
+					</div>
+				</fieldset>
+				<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
+					<div class='text-right'>
+						<%= f.submit("Confirm", :class=>"btn btn-primary btn-lg red-background"%>
+					</div>
+				</div>
+				<%end%>
+			</div>
+		</div>
+	</div>
 </div>
-<div>
-	Please add remark for the rejection:
-</div>
-<%= f.hidden_field(:status, :value => @status)%>
-<%= f.text_area :remarks, size: "100 x 5" %><br>
-<%= f.submit("Confirm")%>
-<%end%>
