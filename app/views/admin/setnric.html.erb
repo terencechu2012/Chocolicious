@@ -1,10 +1,62 @@
-<h2>Set NRIC</h2>
-<%= form_for @user, :url => { :action => "setnric2" }, :method => :POST  do |f|%>
-Enter your NRIC:
-<%=f.text_field :nric%><br />
-Enter your full name:
-<%=f.text_field :fullname%><br />
-Enter your contact number:
-<%=f.text_field :contactno%><br />
-<%= f.submit("Save", :class=>"btn")%>
-<%end%>
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='page-header'>
+			<h1 class='pull-left'><i class='icon-user'></i> <span>Profile</span></h1>
+		</div>
+	</div>
+</div>
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='box bordered-box blue-border'>
+			<div class='box-header blue-background'>
+				<div class='title'>
+					<i class='icon-user'></i>
+					Set Profile details
+				</div>
+				<div class='actions'>
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class='box-content box-double-padding'>
+				<%= form_for @user, :url => { :action => "setnric2" }, :method => :POST  do |f|%>
+				<fieldset>
+					<div class='col-sm-4'>
+						<div class='box'>
+							<div class='lead'>
+								<i class='icon-user'></i>
+								Notes on setting profile
+							</div>
+							<small class='text-muted'>
+								<p>
+									Please set your profile before you proceed to use any features. Many features require these basic information to function such as claims processing and tracking. It is your responsibility to fill in the correct details!
+								</p> </small>
+						</div>
+					</div>
+					<div class='col-sm-7 col-sm-offset-1'>
+						<div class='form-group'>
+							<label>Enter your full name</label>
+							<br />
+							<%= f.text_field :fullname, :class=>"form-control" %>
+						</div>
+						<div class='form-group'>
+							<label>Enter your NRIC</label>
+							<br />
+							<%= f.text_field :nric, :class=>"form-control" %>
+						</div>
+						<div class='form-group'>
+							<label>Enter your contact number</label>
+							<br />
+							<%= f.text_field :contactno, :class=>"form-control" %>
+						</div>
+				</fieldset>
+				<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
+					<div class='text-right'>
+						<%= f.submit("Save", :class=>"btn btn-primary btn-lg")%>
+					</div>
+				</div>
+				<%end%>
+			</div>
+		</div>
+	</div>
+</div>
+</div>

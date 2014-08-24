@@ -1,42 +1,72 @@
-<h2>Term budget proposal summary</h2>
-<table class='table table-bordered'>
-	<tr>
-		<th>Event</th>
-		<th>Start date</th>
-		<th>End date</th>
-		<th>Estimated no. of participants</th>
-		<th>Category of expense</th>
-		<th>Request from SAC</th>
-		<th>Request from reserves</th>
-		<th>Projected Income</th>
-		<th>Explanations</th>
-		<th>Attachments</th>
-		<th>View breakdown</th>
-		<!-- <th>Delete</th> -->
-	</tr>
-	<%@budgets.each do |b|%>
-	<tr>
-		<td><%=b.event%></td>
-		<td><%=b.startdate%></td>
-		<td><%=b.enddate%></td>
-		<td><%=b.estnopar%></td>
-		<td><%=b.category%></td>
-		<td><%=b.requestsac%></td>
-		<td><%=b.requestreserves%></td>
-		<td><%=b.projectedincome%></td>
-		<td><a href="#", onclick="viewremark('<%=b.explanation%>')">View Explanation</a></td>
-		<td><a href='<%=b.poster.url%>'>Download</a></td>
-		<td><a href='/budgets/viewbreakdown?id=<%=b.id%>'>View</a></td>
-		
-	</tr>
-	<%end%>
-</table>
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='page-header'>
+			<h1 class='pull-left'><i class='icon-list-alt'></i><span>Term Budget</span></h1>
+		</div>
+	</div>
+</div>
+<div class='row'>
+	<div class='col-sm-12 box' style='margin-bottom: 0'>
+		<div class="box bordered-red red-border">
+			<div class="box-header red-background">
+				<div class="title">
+					<i class="icon-dollar"></i>
+					Proposal Summary
+				</div>
+				<div class="actions">
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class="box-content box-no-padding">
+				<div class="responsive-table">
+					<div class="scrollable-area">
+						<table class="data-table table table-bordered table-striped" style="margin-bottom:0;">
+							<thead>
+								<tr>
+									<th>Event</th>
+									<th>Start date</th>
+									<th>End date</th>
+									<th>Estimated no. of participants</th>
+									<th>Category of expense</th>
+									<th>Request from SAC</th>
+									<th>Request from reserves</th>
+									<th>Projected Income</th>
+									<th>Explanations</th>
+									<th>Attachments</th>
+									<th>View breakdown</th>
+									<!-- <th>Delete</th> -->
+								</tr>
+							</thead>
+							<tbody>
+								<%@budgets.each do |b|%>
+								<tr>
+									<td><%= b.event%></td>
+									<td><%= b.startdate%></td>
+									<td><%= b.enddate%></td>
+									<td><%= b.estnopar%></td>
+									<td><%= b.category%></td>
+									<td><%= b.requestsac%></td>
+									<td><%= b.requestreserves%></td>
+									<td><%= b.projectedincome%></td>
+									<td><a href="#", onclick="viewremark('<%= b.explanation%>')" class="btn btn-danger btn-xs blue-background"><i class="icon-eye-open"></i> View</a></td>
+									<td><a href='<%= b.poster.url%>' class="btn btn-success btn-xs"><i class="icon-download"></i> Download</a></td>
+									<td><a href='/budgets/viewbreakdown?id=<%= b.id%> ' class="btn btn-danger btn-xs blue-background"><i class="icon-eye-open"></i> View</a></td>
 
+								</tr>
+								<%end%>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
 <script>
-	function viewremark(a){
-	
+	function viewremark(a) {
+
 		alert(a);
-	
-}
+
+	}
 </script>

@@ -1,43 +1,99 @@
-<h2>View breakdown for <%=@b.event%></h2>
-<h3>Expenses</h3>
-<table class='table table-bordered'>
-	<tr>
-		<th>Item</th>
-		<th>Request SAC</th>
-		<th>Request Reserves</th>
-		<th>Unit Cost</th>
-		<th>Quantity</th>
-		<th>Justification</th>
-		<th>Quotation</th>
-		<!-- <th>Delete</th> -->
-	</tr>
-	<%@expenditures.each do |e|%>
-		<tr>
-			<td><%=e.item%></td>
-			<td><%=e.requestsac%></td>
-			<td><%=e.requestreserves%></td>
-			<td><%=e.unitcost%></td>
-			<td><%=e.quantity%></td>
-			<td><%=e.justification%></td>
-			<td><%=e.quotation%></td>
-			
-		</tr>
-	<%end%>
-</table>
-<h3>Income</h3>
-<table class='table table-bordered'>
-	<tr>
-		<th>Item</th>
-		<th>Income</th>
-		<th>Breakdown of income</th>
-	
-	</tr>
-	<%@incomes.each do |i|%>
-		<tr>
-			<td><%=i.item%></td>
-			<td><%=i.income%></td>
-			<td><%=i.incomebreakdown%></td>
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='page-header'>
+			<h1 class='pull-left'><i class='icon-list-alt'></i><span>View breakdown for <%= @b.event%></span></h1>
+		</div>
+	</div>
+</div>
+<div class='row'>
+	<div class='col-sm-12 box' style='margin-bottom: 0'>
+		<div class="box bordered-red red-border">
+			<div class="box-header red-background">
+				<div class="title">
+					<i class="icon-dollar"></i>
+					Expenses
+				</div>
+				<div class="actions">
+					
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class="box-content box-no-padding">
+				<div class="responsive-table">
+					<div class="scrollable-area">
+						<table class="data-table table table-bordered table-striped" style="margin-bottom:0;">
+							<thead>
+								<tr>
+									<th>Item</th>
+									<th>Request SAC</th>
+									<th>Request Reserves</th>
+									<th>Unit Cost</th>
+									<th>Quantity</th>
+									<th>Justification</th>
+									<th>Quotation</th>
+									<!-- <th>Delete</th> -->
+								</tr>
+							</thead>
+							<tbody>
+								<%@expenditures.each do |e|%>
+								<tr>
+									<td><%= e.item%></td>
+									<td><%= e.requestsac%></td>
+									<td><%= e.requestreserves%></td>
+									<td><%= e.unitcost%></td>
+									<td><%= e.quantity%></td>
+									<td><%= e.justification%></td>
+									<td><%= e.quotation%></td>
 
-		</tr>
-	<%end%>
-</table>
+								</tr>
+								<%end%>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class='row'>
+	<div class='col-sm-12 box' style='margin-bottom: 0'>
+		<div class="box bordered-red red-border">
+			<div class="box-header red-background">
+				<div class="title">
+					<i class="icon-dollar"></i>
+					Income
+				</div>
+				<div class="actions">
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class="box-content box-no-padding">
+				<div class="responsive-table">
+					<div class="scrollable-area">
+						<table class="data-table table table-bordered table-striped" style="margin-bottom:0;">
+							<thead>
+								<tr>
+									<th>Item</th>
+									<th>Income</th>
+									<th>Breakdown of income</th>
+
+								</tr>
+							</thead>
+							<tbody>
+								<%@incomes.each do |i|%>
+								<tr>
+									<td><%= i.item%></td>
+									<td><%= i.income%></td>
+									<td><%= i.incomebreakdown%></td>
+
+								</tr>
+								<%end%>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

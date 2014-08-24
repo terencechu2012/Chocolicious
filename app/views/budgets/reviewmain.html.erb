@@ -1,75 +1,131 @@
-<%role = session[:role]%>
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='page-header'>
+			<h1 class='pull-left'><i class='icon-list-alt'></i><span>Term Budget Summary</span></h1>
+		</div>
+	</div>
+</div>
+<% role = session[:role]%>
 <%if (role.include? 'smusafinsec') || (role.include? 'cbdfinsec')%>
 
+<div class='row'>
+	<div class='col-sm-12 box' style='margin-bottom: 0'>
+		<div class="box bordered-red red-border">
+			<div class="box-header red-background">
+				<div class="title">
+					<i class="icon-dollar"></i>
+					Term budget proposal summary
+				</div>
+				<div class="actions">
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class="box-content box-no-padding">
+				<div class="responsive-table">
+					<div class="scrollable-area">
+						<table class="data-table table table-bordered table-striped" style="margin-bottom:0;">
+							<thead>
+								<tr>
+									<th>Event</th>
+									<th>Start date</th>
+									<th>End date</th>
+									<th>Estimated no. of participants</th>
+									<th>Category of expense</th>
+									<th>Request from SAC</th>
+									<th>Request from reserves</th>
+									<th>Projected Income</th>
+									<th>Explanations</th>
+									<th>Attachments</th>
+									<th>Manage breakdown</th>
+									<th>Delete</th>
+								</tr>
+							</thead>
+							<tbody>
+								<%if !@budgets.nil?%>
+								<%@budgets.each do |b| %>
+								<tr>
+									<td><%= b.event%></td>
+									<td><%= b.startdate%></td>
+									<td><%= b.enddate%></td>
+									<td><%= b.estnopar%></td>
+									<td><%= b.category%></td>
+									<td><%= b.requestsac%></td>
+									<td><%= b.requestreserves%></td>
+									<td><%= b.projectedincome%></td>
+									<td><a href="#", onclick="viewremark('<%= b.explanation%>')" class="btn btn-danger btn-xs blue-background"><i class="icon-eye-open"></i> View</a></td>
+									<td><a href='<%= b.poster.url%>' class="btn btn-success btn-xs"><i class="icon-download"></i> Download</a></td>
+									<td><a href='/budgets/reviewmanagebreakdown?id=<%= b.id%>'class="btn btn-warning btn-xs"><i class="icon-pencil"></i></a></td>
+									<td><a href='/budgets/delete?id=<%= b.id%>' class="btn btn-danger btn-xs"><i class="icon-remove"></i></a></td>
+								</tr>
+								<%end%>
+								<%end%>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
-<h2>Term budget proposal summary</h2>
-<table class='table table-bordered'>
-	<tr>
-		<th>Event</th>
-		<th>Start date</th>
-		<th>End date</th>
-		<th>Estimated no. of participants</th>
-		<th>Category of expense</th>
-		<th>Request from SAC</th>
-		<th>Request from reserves</th>
-		<th>Projected Income</th>
-		<th>Explanations</th>
-		<th>Attachments</th>
-		<th>Manage breakdown</th>
-		<th>Delete</th>
-	</tr>
-	<%if !@budgets.nil?%>
-	<%@budgets.each do |b| %>
-	<tr>
-		<td><%=b.event%></td>
-		<td><%=b.startdate%></td>
-		<td><%=b.enddate%></td>
-		<td><%=b.estnopar%></td>
-		<td><%=b.category%></td>
-		<td><%=b.requestsac%></td>
-		<td><%=b.requestreserves%></td>
-		<td><%=b.projectedincome%></td>
-		<td><a href="#", onclick="viewremark('<%=b.explanation%>')">View Explanation</a></td>
-		<td><a href='<%=b.poster.url%>'>Download</a></td>
-		<td><a href='/budgets/reviewmanagebreakdown?id=<%=b.id%>'>Manage</a></td>
-		<td><a href='/budgets/delete?id=<%=b.id%>'>Delete</a></td>
-	</tr>
-	<%end%>
-	<%end%>
-</table>
-<h2>New Item</h2>
-<%=form_tag '/budgets/additem', :method => 'post', :multipart => true do%>
-<table class='table table-bordered'>
-	<tr>
-		<th>Event</th>
-		<th>Start date</th>
-		<th>End date</th>
-		<th>Estimated no. of participants</th>
-		<th>Category of expense</th>
-		<th>Explanations</th>
-		<th>Attachments</th>
-		
-	</tr>
-	<tr>
-		<td><%=text_field_tag :event%></td>
-		<td><%=date_field_tag :startdate%></td>
-		<td><%=date_field_tag :enddate%></td>
-		<td><%=number_field_tag :estnopar%></td>
-		<td><%=select_tag 'categories[]', options_for_select(Array(1..13)), :multiple => true%></td>
-		<td><%=text_field_tag :explanations%></td>
-		<td><%=file_field_tag :poster %></td>
-	</tr>
-</table>
-<%=submit_tag 'Add', :class => 'btn'%>
-<%end%>
+<div class='row'>
+	<div class='col-sm-12 box' style='margin-bottom: 0'>
+		<div class="box bordered-red red-border">
+			<div class="box-header red-background">
+				<div class="title">
+					<i class="icon-star-empty"></i>
+					New Item
+				</div>
+				<div class="actions">
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class="box-content box-no-padding">
 
+				<%=form_tag '/budgets/additem', :method => 'post', :multipart => true do%>
+				<div class="responsive-table">
+					<div class="scrollable-area">
+						<table class="table table-striped" style="margin-bottom:0;">
+							<tr>
+								<th>Event</th>
+								<th>Start date</th>
+								<th>End date</th>
+								<th>Estimated no. of participants</th>
+								<th>Category of expense</th>
+								<th>Explanations</th>
+								<th>Attachments</th>
 
+							</tr>
+							<tr>
+								<td><%= text_field_tag :event%></td>
+								<td><%= date_field_tag :startdate%></td>
+								<td><%= date_field_tag :enddate%></td>
+								<td><%= number_field_tag :estnopar%></td>
+								<td><%= select_tag 'categories[]', options_for_select(Array(1..13)), :multiple => true%></td>
+								<td><%= text_field_tag :explanations%></td>
+								<td><%= file_field_tag :poster %></td>
+							</tr>
+						</table>
+						<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
+							<div class='text-center'>
+								<%= submit_tag 'Add Item', :class => 'btn btn-primary btn-lg red-background'%>
+							</div>
+						</div>
+
+						<br />
+					</div>
+				</div>
+				<%end%>
+			</div>
+		</div>
+	</div>
+</div>
 
 <%end%>
 <script>
-	function viewremark(a){
-	
+	function viewremark(a) {
+
 		alert(a);
-	
-}
+
+	}
 </script>

@@ -1,55 +1,114 @@
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='page-header'>
+			<h1 class='pull-left'><i class='icon-cog'></i> <span>Control Panel</span></h1>
+		</div>
+	</div>
+</div>
 <%if session[:role].include? 'smusafinsec'%>
-<h2>Control panel</h2>
+
 <%
-year = Date.today.year
-a = []
-for i in year-1..year+1
-	a << 'AY'+i.to_s+'-'+(i+1).to_s
-end
+ year = Date.today.year
+  a = []
+  for i in year-1..year+1
+    a << 'AY'+i.to_s+'-'+(i+1).to_s
+  end
 %>
-<table class='table table-bordered'>
-	<tr>
-		<th>Allow editing?</th><th>Academic year</th><th>Semester</th>
-	</tr>
-	<tr>
-		<%if !@control.open%>
-		<%=form_tag '/budgets/allow', :method => 'post' do%>
-		<td><%=submit_tag 'Allow', :class => 'btn'%></td>
-		
-		<td><%=select_tag :year, options_for_select(a)%></td>
-		<td><%=select_tag :semester, options_for_select([1,2])%></td>
-		<%end%>
-		<%else%>
-		<td><a href='/budgets/disallow'>Disallow</a></td>
-		<td><%=@control.year%></td>
-		<td><%=@control.semester%></td>
-		<%end%>
-		
-		
-	</tr>
-</table>
 
-<h3>Clubs can now spend budgets allocated in:</h3>
-Year: <%=@control2.year%><br>
-Semester: <%=@control2.semester%><br>
-<h3>Change:</h3>
-<table class='table table-bordered'>
-	<tr>
-		<th>Academic year</th><th>Semester</th>
-	</tr>
-	<tr>
-		<%=form_tag '/budgets/allowspending', :method => 'post' do%>
-		
-		
-		<td><%=select_tag :year, options_for_select(a)%></td>
-		<td><%=select_tag :semester, options_for_select([1,2])%></td>
-		
-	</tr>
-	<tr>
-		<td><%=submit_tag 'Change', :class => 'btn'%></td>
-	</tr>
-	<%end%>
-</table>
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='box bordered-box blue-border'>
+			<div class='box-header blue-background'>
+				<div class='title'>
+					<i class='icon-cog'></i>
+					Allow Budget Editing
+				</div>
+				<div class='actions'>
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class='box-content box-double-padding'>
+				<h3><i class="icon-cog"></i> How to use:</h3>
+				<p>
+					You have the capability to set the period where budgets are editable. i.e. When the option displayed is Disallow it means that the window shown is now open for Finance Secretaries to edit the budget of the specified year in the table.
+				</p>
+				<div class="responsive-table">
+					<div class="scrollable-area">
+						<table class="table table-striped" style="margin-bottom:0;">
+							<tr>
+								<th>Allow editing?</th><th>Academic year</th><th>Semester</th>
+							</tr>
+							<tr>
+								<%if !@control.open%>
+								<%=form_tag '/budgets/allow', :method => 'post' do%>
+								<td><%= submit_tag 'Allow', :class => 'btn btn-primary green-background'%></td>
 
+								<td><%= select_tag :year, options_for_select(a)%></td>
+								<td><%= select_tag :semester, options_for_select([1,2])%></td>
+								<%end%>
+								<%else%>
+								<td><a href='/budgets/disallow' class="btn btn-primary red-background">Disallow</a></td>
+								<td><%= @control.year%></td>
+								<td><%= @control.semester%></td>
+								<%end%>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
+</div>
+
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='box bordered-box blue-border'>
+			<div class='box-header blue-background'>
+				<div class='title'>
+					<i class='icon-cog'></i>
+					Set Allocated Budget allowed for Clubs' Usage
+				</div>
+				<div class='actions'>
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class='box-content box-double-padding'>
+				<h3>Clubs can now spend budgets allocated in:</h3>
+				Year: <%= @control2.year%>
+				<br>
+				Semester: <%= @control2.semester%>
+				<br>
+
+				<hr class='hr-normal'>
+				<div class='form-group'>
+					<div class='controls'>
+						<div class='checkbox'>
+							<label>
+								<input data-target='#change-year' data-toggle='collapse' id='changeyearcheck' type='checkbox' value='option1'>
+								Change allowed Academic Year and Semester that Clubs may spend from </label>
+						</div>
+					</div>
+				</div>
+				<div class='collapse' id='change-year'>
+					<%=form_tag '/budgets/allowspending', :method => 'post' do%>
+					<div class='form-group'>
+						<label>Academic year</label>
+						<%= select_tag :year, options_for_select(a)%>
+					</div>
+					<div class='form-group'>
+						<label>Semester</label>
+						<%= select_tag :semester, options_for_select([1,2])%>
+					</div>
+					<%= submit_tag 'Change', :class => 'btn btn-primary'%>
+					<%end%>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+			
 <%end%>
+
+
+			

@@ -1,98 +1,208 @@
-<%role = session[:role]%>
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='page-header'>
+			<h1 class='pull-left'><i class='icon-list-alt'></i><span>Manage Budget Breakdown</span></h1>
+		</div>
+	</div>
+</div>
+<% role = session[:role]%>
 <%if (role.include? 'clubfinsec') || (role.include? 'president') || (role.include? 'smusasec') || (role.include? 'cbdfinsec')%>
 
 <%if @check%>
-<h2>Manage breakdown for <%=@b.event%></h2>
-<h3>Expenses</h3>
-<table class='table table-bordered'>
-	<tr>
-		<th>Item</th>
-		<th>Request SAC</th>
-		<th>Request Reserves</th>
-		<th>Unit Cost</th>
-		<th>Quantity</th>
-		<th>Justification</th>
-		<th>Quotation</th>
-		<th>Delete</th>
-	</tr>
-	<%@expenditures.each do |e|%>
-		<tr>
-			<td><%=e.item%></td>
-			<td><%=e.requestsac%></td>
-			<td><%=e.requestreserves%></td>
-			<td><%=e.unitcost%></td>
-			<td><%=e.quantity%></td>
-			<td><%=e.justification%></td>
-			<td><%=e.quotation%></td>
-			<td><a href='/budgets/deleteexpenditure?id=<%=e.id%>'>Delete</a></td>
-		</tr>
-	<%end%>
-</table>
-<h3>Add expenditure</h3>
-<%=form_for @newexpenditure, :url => {:action => 'addexpenditure'} do |f|%>
-<table class='table table-bordered'>
-	<tr>
-		<th>Item</th>
-		<th>Request SAC</th>
-		<%if session[:role] != 'smusasec'%>
-		<th>Request Reserves</th>
-		<%end%>
-		<th>Unit Cost</th>
-		<th>Quantity</th>
-		<th>Justification</th>
-		<th>Quotation</th>
-	</tr>
-	<tr>
-		<td><%=f.text_field :item%></td>
-		<td><%=f.number_field :requestsac, :step => 0.01%></td>
-		<%if session[:role] != 'smusasec'%>
-		<td><%=f.number_field :requestreserves, :step => 0.01%></td>
-		<%end%>
-		<td><%=f.number_field :unitcost, :step => 0.01%></td>
-		<td><%=f.number_field :quantity%></td>
-		<td><%=f.text_field :justification%></td>
-		<td><%=f.text_field :quotation%></td>
-	</tr>
-</table>
-<%=f.hidden_field :budget_id, :value => @id%>
-<%=f.submit "Add item", :class => 'btn'%>
-<%end%>
+<div class='row'>
+	<div class='col-sm-12 box' style='margin-bottom: 0'>
+		<div class="box bordered-red red-border">
+			<div class="box-header red-background">
+				<div class="title">
+					<i class="icon-dollar"></i>
+					Manage breakdown for <%= @b.event%>
+				</div>
+				<div class="actions">
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class="box-content box-no-padding">
+				<div class="responsive-table">
+					<div class="scrollable-area">
+						<table class="data-table table table-bordered table-striped" style="margin-bottom:0;">
+							<thead>
+								<table class='table table-bordered'>
+									<tr>
+										<th>Item</th>
+										<th>Request SAC</th>
+										<th>Request Reserves</th>
+										<th>Unit Cost</th>
+										<th>Quantity</th>
+										<th>Justification</th>
+										<th>Quotation</th>
+										<th>Delete</th>
+									</tr>
+							</thead>
+							<tbody>
+								<%@expenditures.each do |e|%>
+								<tr>
+									<td><%= e.item%></td>
+									<td><%= e.requestsac%></td>
+									<td><%= e.requestreserves%></td>
+									<td><%= e.unitcost%></td>
+									<td><%= e.quantity%></td>
+									<td><%= e.justification%></td>
+									<td><%= e.quotation%></td>
+									<td><a href='/budgets/deleteexpenditure?id=<%= e.id%>' class="btn btn-danger btn-xs"><i class="icon-remove"></i></a></td>
+								</tr>
+								<%end%>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class='row'>
+	<div class='col-sm-12 box' style='margin-bottom: 0'>
+		<div class="box bordered-red red-border">
+			<div class="box-header red-background">
+				<div class="title">
+					<i class="icon-plus"></i><i class="icon-dollar"></i>
+					Add expenditure
+				</div>
+				<div class="actions">
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class="box-content box-no-padding">
+				<%=form_for @newexpenditure, :url => {:action => 'addexpenditure'} do |f|%>
+				<div class="responsive-table">
+					<div class="scrollable-area">
+						<table class="table table-striped" style="margin-bottom:0;">
+							<tr>
+								<th>Item</th>
+								<th>Request SAC</th>
+								<%if session[:role] != 'smusasec'%>
+								<th>Request Reserves</th>
+								<%end%>
+								<th>Unit Cost</th>
+								<th>Quantity</th>
+								<th>Justification</th>
+								<th>Quotation</th>
+							</tr>
+							<tr>
+								<td><%= f.text_field :item%></td>
+								<td><%= f.number_field :requestsac, :step => 0.01%></td>
+								<%if session[:role] != 'smusasec'%>
+								<td><%= f.number_field :requestreserves, :step => 0.01%></td>
+								<%end%>
+								<td><%= f.number_field :unitcost, :step => 0.01%></td>
+								<td><%= f.number_field :quantity%></td>
+								<td><%= f.text_field :justification%></td>
+								<td><%= f.text_field :quotation%></td>
+							</tr>
+						</table>
+						<%= f.hidden_field :budget_id, :value => @id%>
+						<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
+							<div class='text-center'>
+								<%= f.submit "Add item", :class => 'btn'%>
+							</div>
+						</div>
 
-<h3>Income</h3>
-<table class='table table-bordered'>
-	<tr>
-		<th>Item</th>
-		<th>Income</th>
-		<th>Breakdown of income</th>
-		<th>Delete</th>
-	</tr>
-	<%@incomes.each do |i|%>
-		<tr>
-			<td><%=i.item%></td>
-			<td><%=i.income%></td>
-			<td><%=i.incomebreakdown%></td>
-			<td><a href='/budgets/deleteincome?id=<%=i.id%>'>Delete</a></td>
-		</tr>
-	<%end%>
-</table>
-<h3>Add income</h3>
-<%=form_for @newincome, :url => {:action => 'addincome'} do |f| %>
-<table class='table table-bordered'>
-	<tr>
-		<th>Item</th>
-		<th>Income</th>
-		<th>Breakdown of income</th>
-	</tr>
-	<tr>
-		<td><%=f.text_field :item%></td>
-		<td><%=f.number_field :income, :step => 0.01%></td>
-		<td><%=f.text_field :incomebreakdown%></td>
-	</tr>
-</table>
-<%=f.hidden_field :budget_id, :value => @id%>
-<%=f.submit "Add item", :class => 'btn'%>
-<%end%>
+						<br />
+					</div>
+				</div>
+				<%end%>
+			</div>
+		</div>
+	</div>
+</div>
 
-<a href='/budgets/main'>Back to main</a>
+<div class='row'>
+	<div class='col-sm-12 box' style='margin-bottom: 0'>
+		<div class="box bordered-orange orange-border">
+			<div class="box-header orange-background">
+				<div class="title">
+					<i class="icon-dollar"></i>
+					Income
+				</div>
+				<div class="actions">
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class="box-content box-no-padding">
+				<div class="responsive-table">
+					<div class="scrollable-area">
+						<table class="data-table table table-bordered table-striped" style="margin-bottom:0;">
+							<thead>
+								<tr>
+									<th>Item</th>
+									<th>Income</th>
+									<th>Breakdown of income</th>
+									<th>Delete</th>
+								</tr>
+							</thead>
+							<tbody>
+								<%@incomes.each do |i|%>
+								<tr>
+									<td><%= i.item%></td>
+									<td><%= i.income%></td>
+									<td><%= i.incomebreakdown%></td>
+									<td><a href='/budgets/deleteincome?id=<%= i.id%>'>Delete</a></td>
+								</tr>
+								<%end%>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class='row'>
+	<div class='col-sm-12 box' style='margin-bottom: 0'>
+		<div class="box bordered-orange orange-border">
+			<div class="box-header orange-background">
+				<div class="title">
+					<i class="icon-plus"></i><i class="icon-dollar"></i>
+					Add income
+				</div>
+				<div class="actions">
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class="box-content box-no-padding">
+				<%=form_for @newincome, :url => {:action => 'addincome'} do |f| %>
+				<div class="responsive-table">
+					<div class="scrollable-area">
+						<table class="table table-striped" style="margin-bottom:0;">
+
+							<tr>
+								<th>Item</th>
+								<th>Income</th>
+								<th>Breakdown of income</th>
+							</tr>
+							<tr>
+								<td><%= f.text_field :item%></td>
+								<td><%= f.number_field :income, :step => 0.01%></td>
+								<td><%= f.text_field :incomebreakdown%></td>
+							</tr>
+						</table>
+						<%= f.hidden_field :budget_id, :value => @id%>
+						<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
+							<div class='text-center'>
+								<%= f.submit "Add item", :class => 'btn'%>
+							</div>
+						</div>
+
+						<br />
+					</div>
+				</div>
+				<%end%>
+			</div>
+		</div>
+	</div>
+</div>
+
+<a href='/budgets/main' class="btn btn-success btn-xs"><i class="icon-backward"></i> To main</a>
+
 <%end%>
 <%end%>

@@ -1,14 +1,67 @@
-<%role = session[:role]%>
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='page-header'>
+			<h1 class='pull-left'><i class='icon-list-alt'></i><span>Budget</span></h1>
+		</div>
+	</div>
+</div>
+<% role = session[:role]%>
 <%if (role.include? 'clubfinsec') || (role.include? 'president') || (role.include? 'smusasec') || (role.include? 'cbdfinsec')%>
-<h2>Budget</h2>
 
 <%if @control.open%>
-<h3>Budget for <%=@control.year%> semester <%=@control.semester%> is open for editing</h3>
-<a href='/budgets/main'>Go to edit</a>
-<%end%>
+<div class='row'>
 
-<h2>Past budgets</h2>
-<%@past.each do |p|%>
-<a href='/budgets/show?year=<%=p.year%>&semester=<%=p.semester%>'><%=p.year%> semester <%=p.semester%></a><br>
-<%end%>
+	<div class='col-sm-12 box' style='margin-bottom: 0'>
+		<div class="col-sm-6 col-lg-6">
+			<div class="box bordered-box green-border">
+				<div class="box-header green-background">
+					<div class="title">
+						Edit Budget
+					</div>
+					<div class="actions">
+						<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+					</div>
+				</div>
+				<div class="box-content box-double-padding">
+					<h3>Budget for <%= @control.year%> semester <%= @control.semester%> is open for editing</h3>
+					<a href='/budgets/main' class="btn btn-success btn-xs ">Go to edit <i class="icon-hand-left"></i></a>
+					<%end%>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-sm-6 col-lg-6">
+			<div class="box bordered-box blue-border">
+				<div class="box-header blue-background">
+					<div class="title">
+						Past Budgets
+					</div>
+					<div class="actions">
+						<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+					</div>
+				</div>
+				<div class="box-content box-no-padding">
+					<div class="responsive-table">
+						<div class="scrollable-area">
+							<table class="data-table table table-bordered table-striped" style="margin-bottom:0;">
+								<thead>
+									<tr>
+										<th> Past Budgets </th>
+									</tr>
+								</thead>
+								<tbody>
+									<%@past.each do |p|%>
+									<tr>
+										<td><a href='/budgets/show?year=<%= p.year%>&semester=<%= p.semester%>'><%= p.year%> semester <%= p.semester%></a></td>
+									</tr>
+									<%end%>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 <%end%>
