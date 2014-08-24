@@ -52,7 +52,13 @@ class BudgetsController < ApplicationController
       categories = categories + ca.to_s + ','
     end
     categories = categories.chop
-    Budget.create(:clubid => session[:club], :year => c.year, :semester => c.semester, :event => params[:event], :startdate => params[:startdate], :enddate => params[:enddate], :estnopar => params[:estnopar], :category => categories, :explanation => params[:explanations], :poster => params[:poster])
+    if !params[:review].nil? && params[:review] == 'true'
+      club = session[:tempclub]
+    else
+      club = session[:club]
+    end
+    
+    Budget.create(:clubid => club, :year => c.year, :semester => c.semester, :event => params[:event], :startdate => params[:startdate], :enddate => params[:enddate], :estnopar => params[:estnopar], :category => categories, :explanation => params[:explanations], :poster => params[:poster])
     redirect_to :back
   end
   

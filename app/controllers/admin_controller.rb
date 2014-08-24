@@ -39,7 +39,7 @@ class AdminController < ApplicationController
         y = x.split(",")
         d = Clubusers.find_by_userid_and_clubid(y[0],y[1])
         d.delete
-        
+
       end
     end
     redirect_to :action => 'register'
@@ -49,7 +49,7 @@ class AdminController < ApplicationController
     r = Request.find_by_id(params[:id])
     r.delete
     redirect_to :action => 'register'
-   
+
   end
 
   def notifications
@@ -81,7 +81,7 @@ class AdminController < ApplicationController
       rescue
         flash[:error] = "Problem with request!"
       end
-      
+
     end
     redirect_to :action => 'register'
   end
@@ -172,16 +172,16 @@ class AdminController < ApplicationController
     session[:club]=params[:club]
     redirect_to :action => 'home'
   end
-  
+
   def selectClub
     clubid = params[:selected_club_id]
     session[:club] = clubid
     @userarray2 = Clubusers.where(userid:session[:userid], clubid:clubid)
-      roles = []
-      @userarray2.each { |clubuser|
-        roles << clubuser.role
-      }
-      session[:role] = roles.join(',')
+    roles = []
+    @userarray2.each { |clubuser|
+      roles << clubuser.role
+    }
+    session[:role] = roles.join(',')
     redirect_to :action => 'home'
   end
 
@@ -200,15 +200,15 @@ class AdminController < ApplicationController
 
   def viewrequests
   end
-  
+
   def registerclub
     @newclub = Club.new
     @users=User.where.not(userid: session[:userid])
-    
+
     @cbds = Club.where(clubtype: 'cbd')
     @clubs = Club.all
   end
-  
+
   def addclub
     begin
       Club.create(club_params)
@@ -216,48 +216,100 @@ class AdminController < ApplicationController
       if params[:club][:clubtype] != 'smusa'
         ReserveAccount.create(:clubid => params[:club][:clubid], :limit => 20000, :balance => 0)
       end
-      
+
     rescue
       flash.alert = "Duplicate entry found!"
     end
-    
+
     redirect_to :back
   end
-  
+
   def club_params
     params.require(:club).permit!
   end
-  
+
   def deleteclub
     clubid = params[:clubid]
-    Claim.delete_all(clubid: clubid)
-    Clubusers.delete_all(clubid: clubid)
-    Request.delete_all(clubid: clubid)
-    ReserveAccount.delete_all(clubid: clubid)
-    ExpenditureAccount.delete_all(clubid: clubid)
+    # Claim.delete_all(clubid: clubid)
+    # Deposit.delete_all(clubid: clubid)
+    # Clubusers.delete_all(clubid: clubid)
+    # Request.delete_all(clubid: clubid)
+    # ReserveAccount.delete_all(clubid: clubid)
+    # ExpenditureAccount.delete_all(clubid: clubid)
+
+    budgets = Budget.where(clubid: clubid)
+    budgets.each do |b|
+      expenses = BudgetExpense.where(budget_id: b.id)
+      incomes = BudgetIncome.where(budget_id: b.id)
+      expenses.each do |e|
+        newrow = ArchiveBudgetExpense.create(e.attributes)
+
+        e.delete
+      end
+      incomes.each do |i|
+        newrow = ArchiveBudgetIncome.create(i.attributes)
+
+        i.delete
+      end
+      newrow = ArchiveBudget.create(b.attributes)
+
+      b.delete
+    end
+    claims = Claim.where(clubid: clubid)
+    claims.each do |cl|
+      ArchiveClaim.create(cl.attributes)
+      cl.delete
+    end
+    deposits = Deposit.where(clubid: clubid)
+    deposits.each do |cl|
+      ArchiveDeposit.create(cl.attributes)
+      cl.delete
+    end
+    clubusers = Clubusers.where(clubid: clubid)
+    clubusers.each do |x|
+      ArchiveClubuser.create(x.attributes)
+      x.delete
+    end
+    requests = Request.where(clubid: clubid)
+    requests.each do |x|
+      ArchiveRequest.create(x.attributes)
+      x.delete
+    end
+    reserves = ReserveAccount.where(clubid: clubid)
+    reserves.each do |x|
+      ArchiveReserveAccount.create(x.attributes)
+      x.delete
+    end
+    expenses = ExpenditureAccount.where(clubid: clubid)
+    expenses.each do |x|
+      ArchiveExpenditureAccount.create(x.attributes)
+      x.delete
+    end
     c = Club.find_by_clubid(clubid)
-   
+    ArchiveClub.create(c.attributes)
     c.delete
-    
+
     # e = ExpenditureAccount.find_by_clubid(clubid)
     # r = ReserveAccount.find_by_clubid(clubid)
     # if !e.nil?
-      # e.delete
+    # e.delete
     # end
     # if !r.nil?
-      # r.delete
+    # r.delete
     # end
     redirect_to :back
   end
-  
+
   def setnric
     @user = current_user
   end
+
   def setnric2
     current_user.update(user_params)
     flash.notice = 'Details have been updated.'
     redirect_to :back
   end
+
   def user_params
     params.require(:user).permit!
   end
