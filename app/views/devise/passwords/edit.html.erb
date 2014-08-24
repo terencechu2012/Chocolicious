@@ -1,16 +1,48 @@
-<h2>Change your password</h2>
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='page-header'>
+			<h1 class='pull-left'><i class='icon-key'></i>
+				<!-- span has to be on next line to create that space between the logo and the words -->
+				<span>Forgot your password?</span></h1>
+		</div>
+	</div>
+</div>
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='box bordered-box blue-border'>
+			<div class='box-header blue-background'>
+				<div class='title'>
+					<i class='icon-key'></i>
+					Change your password
+				</div>
+				<div class='actions'>
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class='box-content box-double-padding'>
+				<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+				<%= devise_error_messages! %>
+				<%= f.hidden_field :reset_password_token %>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-  <%= devise_error_messages! %>
-  <%= f.hidden_field :reset_password_token %>
+				<div class='form-group'>
+					<label>Enter new password</label>
+					<%= f.password_field :password, autofocus: true, autocomplete: "off", :class => 'form-control' %>
+				</div>
 
-  <div><%= f.label :password, "New password" %><br />
-    <%= f.password_field :password, autofocus: true, autocomplete: "off" %></div>
-
-  <div><%= f.label :password_confirmation, "Confirm new password" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %></div>
-
-  <div><%= f.submit "Change my password" %></div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+				<div class='form-group'>
+					<label>Confirm new password</label>
+					<%= f.password_field :password_confirmation, autocomplete: "off", :class => 'form-control' %>
+				</div>
+				<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
+					<div class='text-center'>
+						<%= f.submit "Change my password", :class => 'btn btn-primary btn-lg btn-success'  %>
+					</div>
+				</div>
+				<% end %>
+				<div class='text-center'>
+					<%= render "devise/shared/links" %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

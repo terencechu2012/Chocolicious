@@ -1,29 +1,95 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='page-header'>
+			<h1 class='pull-left'><i class='icon-user'></i>
+				<!-- span has to be on next line to create that space between the logo and the words -->
+				<span>Change my password</span></h1>
+		</div>
+	</div>
+</div>
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='box bordered-box blue-border'>
+			<div class='box-header blue-background'>
+				<div class='title'>
+					<i class='icon-user'></i><i class='icon-cog'></i>
+					Edit <%= resource_name.to_s.humanize %>
+				</div>
+				<div class='actions'>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= devise_error_messages! %>
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class='box-content box-double-padding'>
+				<%= form_for(resource, as: resource_name, :html =>{class:'form', style:'margin-bottom: 0;'}, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+				<%= devise_error_messages! %>
 
-  <!-- <div><%= f.label :email %><br />
-  <%= f.email_field :email, autofocus: true %></div> -->
+				<!-- <div><%= f.label :email %><br />
+				<%= f.email_field :email, autofocus: true %></div> -->
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-  
-  <div><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "off" %></div>
+				<% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+				<div>
+					Currently waiting confirmation for: <%= resource.unconfirmed_email %>
+				</div>
+				<% end %>
+				<fieldset>
+					<div class='col-sm-4'>
+						<div class='box'>
+							<div class='lead'>
+								<i class='icon-exclamation-sign'></i>
+								Notes on changing password
+							</div>
+							<small class='text-muted'>Please fill up all fields in the form. If you DO NOT WANT to change your password, DO NOT enter any details.</small>
+						</div>
+					</div>
+					<div class='col-sm-7 col-sm-offset-1'>
 
-  <div><%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %></div>
+						<div class='form-group'>
+							<%= f.hidden_field(:userid, :value => session[:userid])%>
+							<%= f.hidden_field(:clubid, :value => session[:club])%>
+						</div>
+						<div class='form-group'>
+							<label>Enter new Password</label><i>(leave blank if you don't want to change it)</i>
+							<%= f.password_field :password, autocomplete: "off", :class => 'form-control' %>
+						</div>
 
-  <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "off" %></div>
+						<div class='form-group'>
+							<label>Confirm new Password</label>
+							<%= f.password_field :password_confirmation, autocomplete: "off", :class => 'form-control' %>
+						</div>
 
-  <div><%= f.submit "Update" %></div>
-<% end %>
+						<div class='form-group'>
+							<label>Enter old Password</label><i>(we need your current password to confirm your changes)</i>
+							<%= f.password_field :current_password, autocomplete: "off", :class => 'form-control' %>
+						</div>
+				</fieldset>
+				<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
+					<div class='text-right'>
+						<%= f.submit "Update", :class => 'btn btn-block btn-lg btn-success' %>
+					</div>
+				</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>
 
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
-
-<%= link_to "Back", :back %>
+<div class='row'>
+	<div class="col-sm-6 col-lg-6">
+		<div class="box bordered-box red-border">
+			<div class="box-header red-background">
+				<div class="title">
+					Cancel my account
+				</div>
+				<div class="actions">
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class="box-content box-no-padding">
+				<div class='col-sm-12'>
+					<p><h2>Unhappy?</h2><%= button_to "Cancel my account", registration_path(resource_name), :class => 'btn btn-danger btn-lg', data: { confirm: "Are you sure?" }, method: :delete %></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

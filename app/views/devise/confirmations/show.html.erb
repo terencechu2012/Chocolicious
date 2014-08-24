@@ -1,12 +1,59 @@
-<h2>You're almost done! Now create a password to securely access your account.</h2>
-<%= semantic_form_for(resource, :as => resource_name, :url => confirm_path) do |form|%>
-<%= devise_error_messages!%>
-<%= form.inputs do%>
-<%= form.input :password, :input_html => {:autofocus => true}%>
-<%= form.input :password_confirmation%>
-<%= form.input :confirmation_token, :as => :hidden, :value => @original_token%>
-<%end%>
-<%= form.actions do%>
-<%= form.action :submit, :label => 'Confirm Account'%>
-<%end%>
-<%end%>
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>SMUSA AIS</title>
+		<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+		<%= favicon_link_tag(source='/favicon.ico')%>
+		<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+		<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+		<%= csrf_meta_tags %>
+
+	</head>
+
+	<body class="contrast-background contrast-sea-blue login">
+		<!-- your content goes here -->
+		<div class='middle-container'>
+			<div class='middle-row'>
+				<div class='middle-wrapper'>
+					<div class='login-container-header'>
+						<div class='container'>
+							<div class='row'>
+								<div class='col-sm-12'>
+									<div class='text-center'>
+										<h1 class="" style="color: #fff; font-size:32px">You're almost done!</h1>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class='login-container'>
+						<div class='container'>
+							<div class='row'>
+								<div class='col-sm-4 col-sm-offset-4'>
+									<h1 class='text-center title'>Now create a password to securely access your account.</h1>
+									<%= semantic_form_for(resource, :as => resource_name, :url => confirm_path) do |form|%>
+									<%= devise_error_messages!%>
+									<%= form.inputs do%>
+									<%= form.input :password, :label => '.', :placeholder => 'Enter password', :input_html => {:autofocus => true}%>
+									<br />
+										<%= form.input :password_confirmation,  :label => '.', :placeholder => 'Confirm password' %>
+										<%= form.input :confirmation_token, :as => :hidden, :value => @original_token%> 
+									<%end%>
+									<%= form.actions do%>
+									<%= form.action :submit, :label => 'Confirm Account', :button_html => { :class => "btn btn-block btn-success"}%>
+									<%end%>
+									<%end%>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	</body>
+
+</html>

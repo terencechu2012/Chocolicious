@@ -23,6 +23,9 @@
 //= require flatty/theme
 //= require flatty/plugins/validate/jquery.validate.min
 //= require flatty/plugins/validate/additional-methods
+//= require flatty/plugins/datatables/jquery.dataTables.min.js
+//= require flatty/plugins/datatables/jquery.dataTables.columnFilter.js
+//= require flatty/plugins/datatables/dataTables.overrides.js
 
 //= require moment.min
 //= require jquery_ujs

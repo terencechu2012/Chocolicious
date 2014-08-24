@@ -1,56 +1,155 @@
-<h2>Register a new club</h2>
-<%=form_for @newclub, :url => { :action => "addclub" } do |f|%>
-<%
-a = []
-@cbds.each do |c|
-	a<<c.clubid
-end
-b = ['cbd', 'smusa']
-a = a + b
-%>
-<table>
-	<tr>
-		<td><%=f.text_field(:clubid, :required => true)%></td><td>Club ID</td>
-	</tr>
-	<tr>
-		<td><%=f.text_field(:clubcode, :required => true)%></td><td>Club SAC Code</td>
-	</tr>
-	<!-- <tr>
-		<td><%=f.select(:finsecid, options_from_collection_for_select(@users, 'userid', 'userid'), :include_blank => true)%></td><td>Finance Secretary ID(Optional)</td>
-	</tr>
-	<tr>
-		<td><%=f.select(:presidentid, options_from_collection_for_select(@users, 'userid', 'userid'), :include_blank => true)%></td><td>President ID(Optional)</td>
-	</tr> -->
-	<tr>
-		<td><%=f.select(:clubtype, options_for_select(a))%></td><td>Club type</td>
-	</tr>
-	<tr>
-		<td><%=f.text_field(:clubname, :required => true)%></td><td>Club name</td>
-	</tr>
-	
-</table>
-<%= f.submit("Add Club", :class=>"btn")%>
-<%end%>
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='page-header'>
+			<h1 class='pull-left'><i class='icon-flag-checkered'></i><span>Make a new Claim</span></h1>
+		</div>
+	</div>
+</div>
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='box bordered-box blue-border'>
+			<div class='box-header blue-background'>
+				<div class='title'>
+					<i class='icon-flag-checkered'></i>
+					Register a Club
+				</div>
+				<div class='actions'>
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class='box-content box-double-padding'>
+				<%=form_for @newclub, :url => { :action => "addclub" } do |f|%>
+				<%
+				a = []
+				@cbds.each do |c|
+				a<<c.clubid
+				end
+				b = ['cbd', 'smusa']
+				a = a + b
+				%>
+					<fieldset>
+						<div class='col-sm-4'>
+							<div class='box'>
+								<div class='lead'>
+									<i class='icon-file-alt'></i>
+									Notes on creating clubs
+								</div>
+								<small class='text-muted'>
+									<p>
+										Fill in the correct details for the new club.
+										<br />
+										<ul>
+											<li>
+												Club ID refers to the unique ID that clubs are referred to such as SISS for the School of Information Systems Society and SMUSA for SMU Students' Association.
+											</li>
+											<li>
+												Club SAC Code is the club's expenditure account number. Please make sure you input the correct account number!
+											</li>
+											<li>
+												Club type consists of 3 levels: Clubs, CBds and SMUSA.
+												<ol>
+													<li>
+														it is a normal club, select the CBd that it falls under such as:
+														<ul>
+															<li>
+																SMU Ultimate Frisbee - being a Sports Club, it falls under the SMU Sports Union (SSU).
+																<br />
+																Therfore, select the CBd it belongs to: <b>"SSU"</b>
+															</li>
+														</ul>
+													</li>
+													<li>
+														If it is a CBd such as the Arts and Cultural Fraternity, select <b>"CBd"</b>.
+														<br />
+													</li>
+													<li>
+														If it is a Department under SMUSA, select <b>"SMUSA"</b>.
+													</li>
+												</ol>
+											</li>
+											<li>
+												Lastly, input the Club Name, refrain from entering an existing Club name to avoid confusion for you or your colleagues in the future.
+											</li>
+										</ul>
+									</p></small>
+							</div>
+						</div>
+						<div class='col-sm-7 col-sm-offset-1'>
+							<div class='form-group'>
+								<label>Enter Club ID</label>
+								<br />
+								<%= f.text_field(:clubid, :required => true, class:"form-control") %>
+							</div>
+							<div class='form-group'>
+								<label>Enter Club SAC Code</label>
+								<br />
+								<%= f.text_field(:clubcode, :required => true, class:"form-control") %>
+							</div>
+							<div class='form-group'>
+								<label>Select Club Type</label>
+								<br />
+								<%= f.select(:clubtype, options_for_select(a))%>
+							</div>
+							<div class='form-group'>
+								<label>Enter Club Name</label>
+								<br />
+								<%= f.text_field(:clubname, :required => true, class:"form-control") %>
+							</div>
+					</fieldset>
+					<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
+						<div class='text-right'>
+							<%= f.submit("Add Club", :class=>"btn btn-primary btn-lg")%>
+						</div>
+					</div>
+					<%end%>
+			</div>
+		</div>
+	</div>
+</div>
 
-<h2>All clubs</h2>
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='box bordered-box orange-border' style='margin-bottom:0;'>
+			<div class='box-header orange-background'>
+				<div class='title'>
+					<i class='icon-flag-checkered'></i>
+					Edit/Delete Club
+				</div>
+				<div class='actions'>
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class='box-content box-no-padding'>
+				<div class='responsive-table'>
+					<div class='scrollable-area'>
+						<table class='data-table table table-bordered table-striped' style='margin-bottom:0;'>
+							<thead>
+								<tr>
+									<th>Club ID</th>
+									<th>Club Type</th>
+									<th>Club Name</th>
+									<th class="text-center">Change Club Name</th>
+									<th class="text-center">Delete Club</th>
+								</tr>
+							</thead>
+							<tbody>
+								<%@clubs.each do |c|%>
+								<tr>
+									<td><%= c.clubid%></td>
+									<td><%= c.clubtype%></td>
+									<td><%= c.clubname%></td>
+									<td class="text-center">
+										<a href="/admin/changeclubname?+<%=c.clubid%>" class="btn btn-success btn-xs"><i class="icon-pencil"></i></a>
+									<td class="text-center"> <%= button_to  '/admin/deleteclub?clubid='+c.clubid, data: { confirm: "WARNING:\nAre you sure you want to delete the club and all its associated accounts? All information related to this club will be deleted including claims, club requests and user roles. Changes from this point are irreversible." }, :class => 'btn btn-danger btn-xs' do%><i class="icon-remove"></i><%end%> </td>
+								</tr>
+								<%end%>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
 
-<table class="table">
-	<thead>
-		<tr>
-			<th>Club ID</th>
-			<th>Club Type</th>
-			<th>Club Name</th>
-			<th>Change Club Name</th>
-			<th>Delete Club</th>
-		</tr>
-	</thead>
-	<%@clubs.each do |c|%>
-	<tr>
-		<td><%=c.clubid%></td>
-		<td><%=c.clubtype%></td>
-		<td><%=c.clubname%></td>
-		<td><a href='/admin/changeclubname?clubid=<%= c.clubid%>'>Change</td>
-		<td><%= button_to "Delete", '/admin/deleteclub?clubid='+c.clubid, data: { confirm: "WARNING:\nAre you sure you want to delete the club and all its associated accounts? All information related to this club will be deleted including claims, club requests and user roles. Changes from this point are irreversible." } %></td>
-	</tr>
-	<%end%>
-</table>
