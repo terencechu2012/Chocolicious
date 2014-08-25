@@ -1,55 +1,178 @@
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='page-header'>
+			<h1 class='pull-left'><i class='icon-plus-sign'></i><span>New Claim</span></h1>
+		</div>
+	</div>
+</div>
 
-<%role = session[:role]%>
+<% role = session[:role]%>
 <%if current_user.nric.nil? || current_user.nric.empty? || current_user.fullname.nil? || current_user.fullname.empty? || current_user.contactno.nil? || current_user.contactno.empty?%>
-<p>Please set your user details before making a claim!</p>
+<p>
+	Please set your user details before making a claim!
+</p>
 <%else%>
-<%= form_for @new_claim, :url => { :action => "add" }, :method => :POST, :html => { :multipart => true }  do |f|  %>
-<%= f.hidden_field(:userid, :value => session[:userid])%>
-<%= f.hidden_field(:clubid, :value => session[:club])%>
-Enter amount: <%= f.number_field(:amount, :step => 0.01, :min => 0, :required => true) %><br>
-<%a = Array(1..13)%>
+<div class='row'>
+	<div class='col-sm-12 col-lg-12'>
+		<div class='box bordered-box'>
+			<div class='box-content box-double-padding'>
+				<%= form_for @new_claim, :url => { :action => "add" }, :method => :POST, :html => { :multipart => true }  do |f|  %>
+				<fieldset>
+					<div class='col-sm-4'>
+						<div class='lead'>
+							<i class='icon-file-alt text-contrast'></i>
+							Notes On New Claim
+						</div>
+						<small class='text-muted'> There are 13 Categories for claims, do make sure you look through all 13 in the table below before making your claim, this will greatly help us in processing your claims. Thank you for your consideration! </small>
+					</div>
+					<div class='col-sm-7 col-sm-offset-1'>
+						<div class='form-group'>
 
-<%if role.include? 'normal'%>
-<%= f.hidden_field(:status, :value => 0)%>
-<%elsif role.include? 'cbdmc'%>
-<%= f.hidden_field(:status, :value => 6)%>
-<%elsif role.include? 'smusasec'%>
-<%= f.hidden_field(:status, :value => 12)%>
-<%end%>
+							<%= f.hidden_field(:userid, :value => session[:userid])%>
+							<%= f.hidden_field(:clubid, :value => session[:club])%>
+							<label>Enter amount</label>
+							<br />
+							<%= f.number_field(:amount, :step => 0.01, :min => 0, :required => true) %>
+						</div>
 
+						<% a = Array(1..13)%>
 
-Select category: 
-<%=f.select(:category, options_for_select(a))%><br>
+						<%if role.include? 'normal'%>
+						<%= f.hidden_field(:status, :value => 0)%>
+						<%elsif role.include? 'cbdmc'%>
+						<%= f.hidden_field(:status, :value => 6)%>
+						<%elsif role.include? 'smusasec'%>
+						<%= f.hidden_field(:status, :value => 12)%>
+						<%end%>
 
+						<div class='form-group'>
+							<label>Select Category</label>
+							<br />
+							<%= f.select(:category, options_for_select(a))%>
+						</div>
 
-Select event:
-<%=f.select(:event, options_from_collection_for_select(@events, 'event', 'event'))%><br>
+						<div class='form-group'>
+							<label>Select event to claim for</label>
+							<br />
+							<%= f.select(:event, options_from_collection_for_select(@events, 'event', 'event'))%>
+						</div>
 
-Upload supporting doc:
-<%=f.file_field(:supportdoc)%>
+						<div class='form-group'>
+							<label>Upload supporting doc</label>
+							<br />
+							<%= f.file_field(:supportdoc)%>
 
-<%=f.hidden_field :nric, :value => current_user.nric%>
-<!-- If no file attached, to display error -->
-<%= f.submit("Save", :class=>"btn")%>
-<%end%>
+							<%= f.hidden_field :nric, :value => current_user.nric%> <!-- If no file attached, to display error -->
+						</div>
+				</fieldset>
+				<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
+					<div class='text-right'>
+						<%= f.submit("Save", :class=>"btn btn-primary btn-lg blue-background")%>
+					</div>
+				</div>
+				<%end%>
+			</div>
+		</div>
+	</div>
+</div>
 
+<div class="row">
 
+	<div class="col-sm-12">
+		<div class="box bordered-box green-border" style="margin-bottom:0;">
+			<div class="box-header green-background">
+				<div class="title">
+					Claim Categories
+				</div>
+				<div class="actions">
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class="box-content box-no-padding">
+				<div class="responsive-table">
+					<div class="scrollable-area">
+						<table class="table table-striped" style="margin-bottom:0;">
+							<thead>
+								<tr>
+									<th> S/N </th>
+									<th> Category </th>
+									<th> Explanation </th>
+								</tr>
+							</thead>
 
-Refer to the table below for category guide:<br>
-<table class="table table-bordered table-condensed">
-<tr><th>S/n</th><th>Categories</th><th>Explanation</th></tr>
- <tr><td>1</td><td>Assets maintenance and repair</td><td>Equipment with life-span of >1 year.</td></tr>
- <tr><td>2</td><td>Assets purchases: <=$100</td><td>Equipment with life-span of >1 year with cost <=$100</td></tr>
- <tr><td>3</td><td>Assets purchases: 100<X<500</td><td>Equipment with life-span of >1 year with cost $100 < X < $500</td></tr>
- <tr><td>4</td><td>Assets purchases: >500</td><td>Equipment with life-span of >1 year with cost >$500</td></tr>
- <tr><td>5</td><td>Attire</td><td>Attire used for competitive purposes or authorized by the SMUSA Finance Secretary</td></tr>
- <tr><td>6</td><td>Coaching fees</td><td>Fees to trainers/ coaches</td></tr>
- <tr><td>7</td><td>Facilities booking/clubs' membership payment to organisation</td><td>Fees to rent training facilities or venue</td></tr>
- <tr><td>8</td><td>Gifts/prizes/awards</td><td>Gifts, prizes, awards, tokens of appreciation etc</td></tr>
- <tr><td>9</td><td>Publicity</td><td>General costs of marketing materials etc</td></tr>
- <tr><td>10</td><td>Stationery</td><td>Stationery material for club's administrative purposes</td></tr>
- <tr><td>11</td><td>Food and Beverages</td><td>Welfare events such as BBQ, food gathering, for members of clubs only.</td></tr>
- <tr><td>12</td><td>Transport</td><td>Fees for transportation</td></tr>
- <tr><td>13</td><td>Miscellaneous</td><td>Any misc. expenses that do not fall into the above cateogories. Egs include stationary etc. </td></tr>
-</table>
+							<tbody>
+								<tr>
+									<td>1</td>
+									<td>Assets maintenance and repair</td>
+									<td>Equipment with life-span of &gt;1 year.</td>
+								</tr>
+								<tr>
+									<td>2</td>
+									<td>Assets purchases: &lt;=$100</td>
+									<td>Equipment with life-span of &gt;1 year with cost &lt;=$100</td>
+								</tr>
+								<tr>
+									<td>3</td>
+									<td>Assets purchases: $100</td>
+									<td>Equipment with life-span of &gt;1 year with cost $100 &lt; X &lt; $500</td>
+								</tr>
+								<tr>
+									<td>4</td>
+									<td>Assets purchases: &gt;$500</td>
+									<td>Equipment with life-span of &gt;1 year with cost &gt;$500</td>
+								</tr>
+								<tr>
+									<td>5</td>
+									<td>Attire</td>
+									<td>Attire used for competitive purposes or authorized by the SMUSA Finance Secretary</td>
+								</tr>
+								<tr>
+									<td>6</td>
+									<td>Coaching fees</td>
+									<td>Fees to trainers/ coaches</td>
+								</tr>
+								<tr>
+									<td>7</td>
+									<td>Facilities booking/clubs' membership payment to organisation</td>
+									<td>Fees to rent training facilities or venue</td>
+								</tr>
+								<tr>
+									<td>8</td>
+									<td>Gifts/prizes/awards</td>
+									<td>Gifts, prizes, awards, tokens of appreciation etc</td>
+								</tr>
+								<tr>
+									<td>9</td>
+									<td>Publicity</td>
+									<td>General costs of marketing materials etc</td>
+								</tr>
+								<tr>
+									<td>10</td>
+									<td>Stationery</td>
+									<td>Stationery material for club's administrative purposes</td>
+								</tr>
+								<tr>
+									<td>11</td>
+									<td>Food and Beverages</td>
+									<td>Welfare events such as BBQ, food gathering, for members of clubs only.</td>
+								</tr>
+								<tr>
+									<td>12</td>
+									<td>Transport</td>
+									<td>Fees for transportation</td>
+								</tr>
+								<tr>
+									<td>13</td>
+									<td>Miscellaneous</td>
+									<td>Any misc. expenses that do not fall into the above cateogories. Egs include stationary etc.</td>
+								</tr>
+							</tbody>
+
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 <%end%>

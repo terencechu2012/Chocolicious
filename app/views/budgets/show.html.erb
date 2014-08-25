@@ -31,9 +31,27 @@
 									<th>Request from SAC</th>
 									<th>Request from reserves</th>
 									<th>Projected Income</th>
-									<th>Explanations</th>
+									<th>
+									<div class='btn-group dropdown'>
+										<button class='btn dropdown-toggle' data-delay='100' data-hover='dropdown' data-toggle='dropdown' data-placement="top">
+											Options<br /> (Click for legend)
+											<span class='caret'></span>
+										</button>
+										<ul class='dropdown-menu'>
+											<li class="btn btn-danger blue-background">
+												<i class="icon-eye-open"></i> View Explanations
+											</li>
+											<li class="btn btn-danger green-background">
+												<i class="icon-download-alt"></i> Download Attachments
+											</li>
+											<li class="btn btn-danger orange-background">
+												<i class="icon-list"></i> View Breakdown
+											</li>
+										</ul>
+									</div></th>
+									<!-- <th>Explanations</th>
 									<th>Attachments</th>
-									<th>View breakdown</th>
+									<th>View breakdown</th> -->
 									<!-- <th>Delete</th> -->
 								</tr>
 							</thead>
@@ -48,9 +66,9 @@
 									<td><%= b.requestsac%></td>
 									<td><%= b.requestreserves%></td>
 									<td><%= b.projectedincome%></td>
-									<td><a href="#", onclick="viewremark('<%= b.explanation%>')" class="btn btn-danger btn-xs blue-background"><i class="icon-eye-open"></i> View</a></td>
-									<td><a href='<%= b.poster.url%>' class="btn btn-success btn-xs"><i class="icon-download"></i> Download</a></td>
-									<td><a href='/budgets/viewbreakdown?id=<%= b.id%> ' class="btn btn-danger btn-xs blue-background"><i class="icon-eye-open"></i> View</a></td>
+									<td><a href="#", onclick="viewremark('<%= b.explanation%>')" class="btn btn-danger btn-xs blue-background"><i class="icon-eye-open"></i></a>
+										<a href='<%= b.poster.url%>' class="btn btn-success btn-xs"><i class="icon-download"></i></a>
+										<a href='/budgets/viewbreakdown?id=<%= b.id%> ' class="btn btn-danger btn-xs orange-background"><i class="icon-list"></i></a></td>
 
 								</tr>
 								<%end%>
@@ -62,7 +80,105 @@
 		</div>
 	</div>
 </div>
+<div class="row">
 
+	<div class="col-sm-12">
+		<div class="box bordered-box green-border" style="margin-bottom:0;">
+			<div class="box-header green-background">
+				<div class="title">
+					Claim Categories
+				</div>
+				<div class="actions">
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class="box-content box-no-padding">
+				<div class="responsive-table">
+					<div class="scrollable-area">
+						<table class="table table-striped" style="margin-bottom:0;">
+							<thead>
+								<tr>
+									<th> S/N </th>
+									<th> Category </th>
+									<th> Explanation </th>
+								</tr>
+							</thead>
+
+							<tbody>
+								<tr>
+									<td>1</td>
+									<td>Assets maintenance and repair</td>
+									<td>Equipment with life-span of &gt;1 year.</td>
+								</tr>
+								<tr>
+									<td>2</td>
+									<td>Assets purchases: &lt;=$100</td>
+									<td>Equipment with life-span of &gt;1 year with cost &lt;=$100</td>
+								</tr>
+								<tr>
+									<td>3</td>
+									<td>Assets purchases: $100</td>
+									<td>Equipment with life-span of &gt;1 year with cost $100 &lt; X &lt; $500</td>
+								</tr>
+								<tr>
+									<td>4</td>
+									<td>Assets purchases: &gt;$500</td>
+									<td>Equipment with life-span of &gt;1 year with cost &gt;$500</td>
+								</tr>
+								<tr>
+									<td>5</td>
+									<td>Attire</td>
+									<td>Attire used for competitive purposes or authorized by the SMUSA Finance Secretary</td>
+								</tr>
+								<tr>
+									<td>6</td>
+									<td>Coaching fees</td>
+									<td>Fees to trainers/ coaches</td>
+								</tr>
+								<tr>
+									<td>7</td>
+									<td>Facilities booking/clubs' membership payment to organisation</td>
+									<td>Fees to rent training facilities or venue</td>
+								</tr>
+								<tr>
+									<td>8</td>
+									<td>Gifts/prizes/awards</td>
+									<td>Gifts, prizes, awards, tokens of appreciation etc</td>
+								</tr>
+								<tr>
+									<td>9</td>
+									<td>Publicity</td>
+									<td>General costs of marketing materials etc</td>
+								</tr>
+								<tr>
+									<td>10</td>
+									<td>Stationery</td>
+									<td>Stationery material for club's administrative purposes</td>
+								</tr>
+								<tr>
+									<td>11</td>
+									<td>Food and Beverages</td>
+									<td>Welfare events such as BBQ, food gathering, for members of clubs only.</td>
+								</tr>
+								<tr>
+									<td>12</td>
+									<td>Transport</td>
+									<td>Fees for transportation</td>
+								</tr>
+								<tr>
+									<td>13</td>
+									<td>Miscellaneous</td>
+									<td>Any misc. expenses that do not fall into the above cateogories. Egs include stationary etc.</td>
+								</tr>
+							</tbody>
+
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 <script>
 	function viewremark(a) {
 

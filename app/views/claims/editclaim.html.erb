@@ -1,30 +1,115 @@
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='page-header'>
+			<h1 class='pull-left'><i class='icon-edit'></i><span>Edit Claim</span></h1>
+		</div>
+	</div>
+</div>
+
 <%if @own=='true'%>
-<%= form_for @claim, :url => { :action => "editown" }, :method => :POST, :html => { :multipart => true }  do |f|  %>
-<%= f.hidden_field(:id, :value => @claim.id)%>
-Enter amount: <%= f.number_field(:amount, :step => 'any', :min => 0, :required => true) %><br>
-<%a = Array(1..13)%>
+<div class='row'>
+	<div class='col-sm-12 col-lg-12'>
+		<div class='box bordered-box'>
+			<div class='box-content box-double-padding'>
+				<%= form_for @claim, :url => { :action => "editown" }, :method => :POST, :html => { :multipart => true }  do |f|  %>
+				<fieldset>
+					<div class='col-sm-4'>
+						<div class='lead'>
+							<i class='icon-file-alt text-contrast'></i>
+							Notes On Editing Claim
+						</div>
+						<small class='text-muted'>
+							<p>
+								Please look through the values that you have input, and make the changes where necessary.
+								<br />
+								are 13 Categories for claims, do make sure you look through all 13 in the table below before making your claim, this will greatly help us in processing your claims. Thank you for your consideration!
+							</p> </small>
+					</div>
+					<div class='col-sm-7 col-sm-offset-1'>
+						<div class='form-group'>
+							<%= f.hidden_field(:id, :value => @claim.id)%>
+							<label>Enter amount</label>
+							<br />
+							<%= f.number_field(:amount, :step => 'any', :min => 0, :required => true) %>
+						</div>
+						<% a = Array(1..13)%>
+						<div class='form-group'>
+							<label>Select Category</label>
+							<br />
+							<%= f.select(:category, options_for_select(a))%>
+						</div>
 
-Select category: 
-<%=f.select(:category, options_for_select(a))%><br>
-Select event:
-<%=f.select(:event, options_from_collection_for_select(@events, 'event', 'event'))%><br>
-Upload supporting doc:
-<%=f.file_field(:supportdoc)%>
-<%= f.submit("Save", :class=>"btn")%>
-<%end%>
+						<div class='form-group'>
+							<label>Select event to claim for</label>
+							<br />
+							<%= f.select(:event, options_from_collection_for_select(@events, 'event', 'event'))%>
+						</div>
 
+						<div class='form-group'>
+							<label>Upload supporting doc</label>
+							<br />
+
+							<%= f.file_field(:supportdoc)%>
+						</div>
+				</fieldset>
+				<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
+					<div class='text-right'>
+						<%= f.submit("Save", :class=>"btn btn-primary btn-lg blue-background")%>
+					</div>
+				</div>
+				<%end%>
+			</div>
+		</div>
+	</div>
+</div>
 <%else%>
+<div class='row'>
+	<div class='col-sm-12 col-lg-12'>
+		<div class='box bordered-box'>
+			<div class='box-content box-double-padding'>
+				<%= form_for @claim, :url => { :action => "edit" }, :method => :POST, :html => { :multipart => true }  do |f|  %>
+				<fieldset>
+					<div class='col-sm-4'>
+						<div class='lead'>
+							<i class='icon-file-alt text-contrast'></i>
+							Notes On Editing Claim
+						</div>
+						<small class='text-muted'>
+							<p>
+								Please look through the values that you have input, and make the changes where necessary.
+								<br />
+								are 13 Categories for claims, do make sure you look through all 13 in the table below before making your claim, this will greatly help us in processing your claims. Thank you for your consideration!
+							</p> </small>
+					</div>
+					<div class='col-sm-7 col-sm-offset-1'>
+						<div class='form-group'>
+							<%= f.hidden_field(:id, :value => @claim.id)%>
+							<label>Enter amount</label>
+							<br />
+							<%= f.number_field(:amount, :step => 'any') %>
+						</div>
+						<% a = Array(1..13)%>
+						<div class='form-group'>
+							<label>Select Category</label>
+							<br />
+							<%= f.select(:category, options_for_select(a))%>
+						</div>
 
-<%= form_for @claim, :url => { :action => "edit" }, :method => :POST, :html => { :multipart => true }  do |f|  %>
-<%= f.hidden_field(:id, :value => @claim.id)%>
-Enter amount: <%= f.number_field(:amount, :step => 'any') %><br>
-<%a = Array(1..13)%>
-
-Select category: 
-<%=f.select(:category, options_for_select(a))%><br>
-Upload supporting doc:
-<%=f.file_field(:supportdoc)%>
-<%= f.submit("Save", :class=>"btn")%>
-<%end%>
+						<div class='form-group'>
+							<label>Upload supporting doc</label>
+							<br />
+							<%= f.file_field(:supportdoc)%>
+						</div>
+				</fieldset>
+				<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
+					<div class='text-right'>
+						<%= f.submit("Save", :class=>"btn btn-primary btn-lg blue-background")%>
+					</div>
+				</div>
+				<%end%>
+			</div>
+		</div>
+	</div>
+</div>
 
 <%end%>

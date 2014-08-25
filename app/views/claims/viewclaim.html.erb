@@ -63,14 +63,14 @@
 		<td><%= c.created_at%></td>
 		<td><%= c.updated_at%></td>
 		<td><%= c.status%></td>
-		<td><a href="<%= c.supportdoc.url%>" class="btn btn-sm btn-primary">Download</td>
+		<td><a href="<%= c.supportdoc.url%>" class="btn btn-success btn-xs"><i class="icon-download"></i> Download</a></td>
 		<%if status == 0 || status == 12 || status == 6%>
-		<td><a href="/claims/editclaim?id=<%=c.id%>&own=true" class="btn btn-sm btn-primary">Edit</td>
+		<td><a href="/claims/editclaim?id=<%=c.id%>&own=true" class="btn btn-warning btn-xs"><i class="icon-pencil"></i>Edit</a></td>
 		<%if c.remarks.nil?%>
-		<td><a href="/claims/submitclaim?id=<%=c.id%>" class="btn btn-sm btn-primary">Submit</td>
+		<td><a href="/claims/submitclaim?id=<%=c.id%>" class="btn btn-danger btn-xs">Submit</a></td>
 		<%else%>
-		<td><a href="/claims/resubmitclaim?id=<%=c.id%>" class="btn btn-sm btn-primary">ReSubmit</td>
-		<td><a href="#", onclick="viewremark('<%=c.remarks%>')" class="btn btn-sm btn-primary">View Remarks</a></td>
+		<td><a href="/claims/resubmitclaim?id=<%=c.id%>" class="btn btn-danger btn-xs">ReSubmit</a></td>
+		<td><a href="#", onclick="viewremark('<%=c.remarks%>')" class="btn btn-success btn-xs"><i class="icon-eye-open"></i> View Remarks</a></td>
 		<%end%>
 		<%end%>
 	</tr>

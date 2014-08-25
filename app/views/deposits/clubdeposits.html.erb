@@ -1,529 +1,512 @@
-<% if flash[:error] %>
-<font color="red"><%= flash[:error]%></font>
+<% if flash[:error] %> <font color="red"><%= flash[:error]%></font>
 <%end%>
-<%role = session[:role]%>
-
+<% role = session[:role]%>
 
 <div class='row'>
-                            <div class='col-sm-12'>
-                                <div class='page-header'>
-                                    <h1 class='pull-left'>
-                      <i class='icon-file-alt'></i>
-                      <span>Other people's deposits</span>
-                    </h1>
-                                    
-                                </div>
-                            </div>
-                        </div>
-<%if role.include? 'clubfinsec'%>                        
+	<div class='col-sm-12'>
+		<div class='page-header'>
+			<h1 class='pull-left'><i class='icon-file-alt'></i><span>Other people's deposits</span></h1>
+
+		</div>
+	</div>
+</div>
+<%if role.include? 'clubfinsec'%>
 
 <div class='row'>
 
-                            <div class="col-sm-12">
-                                <div class="box bordered-box blue-border">
-                                    <div class="box-header blue-background">
-                                        <div class="title">Club deposits</div>
-                                        <div class="actions">
-                                            <a class="btn box-remove btn-xs btn-link" href="#"><i class="icon-remove"></i>
-                        </a>
-
-                                            <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
-                        </a>
-                                        </div>
-                                    </div>
-                                    <div class="box-content box-no-padding">
-                                        <div class="responsive-table">
-                                            <div class="scrollable-area">
-                                                
-                                              <table class="table table-striped" style="margin-bottom:0;">
-	<tr>
-		<th>deposit ID</th>
-		<th>deposit By</th>
-		<th>Club</th>
-		<th>Amount</th>
-		<th>Date</th>
-		<th>Receipt Nos</th>
-		<th>Donor Name</th>
-		<th>Donor Address</th>
-		<th>Donor IC</th>
-		<th>Purpose</th>
-		<th>Created</th>
-		<th>Updated</th>
-		<th>Status</th>
-		
-		<th>Action</th>
-		
-	</tr>
-	<% @normaldeposits.each do |c|%>
-	<%status = c.status%>
-	<%if c.remarks.nil?%>
-	<tr>
-	<%else%>
-	<tr class = 'warning'>
-	<%end%>
-		<td><%=c.id%></td>
-		<td><%= c.userid%></td>
-		<td><%= c.clubid%></td>
-		<td><%= c.amount%></td>
-		<td><%= c.date%></td>
-		<td><%= c.receipts%></td>
-		<td><%= c.donorname%></td>
-		<td><%= c.donoradd%></td>
-		<td><%= c.donoric%></td>
-		<td><%= c.purpose%></td>
-		<td><%= c.created_at%></td>
-		<td><%= c.updated_at%></td>
-		<td><%= c.status%></td>
-		
-		<%if status == 1%>
-		<td><a href="/deposits/editdeposit?id=<%=c.id%>" class="btn btn-sm btn-primary">Edit</td>
-		<%if c.remarks.nil?%>
-		<td><a href="/deposits/submitdeposit?id=<%=c.id%>" class="btn btn-sm btn-primary">Submit</td>
-		<%else%>
-		<td><a href="/deposits/resubmitdeposit?id=<%=c.id%>" class="btn btn-sm btn-primary">ReSubmit</td>
-		<td><a href="#", onclick="viewremark('<%=c.remarks%>')" class="btn btn-sm btn-primary">View Remarks</a></td>
-		<%end%>
-		<%end%>
-	</tr>
-	<%end%>
-
-</table>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+	<div class="col-sm-12">
+		<div class="box bordered-box blue-border">
+			<div class="box-header blue-background">
+				<div class="title">
+					Club deposits
+				</div>
+				<div class="actions">
 
 
-                        </div>
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class="box-content box-no-padding">
+				<div class="responsive-table">
+					<div class="scrollable-area">
+
+						<table class="table table-striped" style="margin-bottom:0;">
+							<tr>
+								<th>deposit ID</th>
+								<th>deposit By</th>
+								<th>Club</th>
+								<th>Amount</th>
+								<th>Date</th>
+								<th>Receipt Nos</th>
+								<th>Donor Name</th>
+								<th>Donor Address</th>
+								<th>Donor IC</th>
+								<th>Purpose</th>
+								<th>Created</th>
+								<th>Updated</th>
+								<th>Status</th>
+
+								<th>Action</th>
+
+							</tr>
+							<% @normaldeposits.each do |c|%>
+							<% status = c.status%>
+							<%if c.remarks.nil?%>
+							<tr>
+								<%else%>
+							<tr class = 'warning'>
+								<%end%>
+								<td><%= c.id%></td>
+								<td><%= c.userid%></td>
+								<td><%= c.clubid%></td>
+								<td><%= c.amount%></td>
+								<td><%= c.date%></td>
+								<td><%= c.receipts%></td>
+								<td><%= c.donorname%></td>
+								<td><%= c.donoradd%></td>
+								<td><%= c.donoric%></td>
+								<td><%= c.purpose%></td>
+								<td><%= c.created_at%></td>
+								<td><%= c.updated_at%></td>
+								<td><%= c.status%></td>
+
+								<%if status == 1%>
+								<td><a href="/deposits/editdeposit?id=<%= c.id%>" class="btn btn-sm btn-primary">Edit</td>
+								<%if c.remarks.nil?%>
+								<td><a href="/deposits/submitdeposit?id=<%= c.id%>" class="btn btn-sm btn-primary">Submit</td>
+								<%else%>
+								<td><a href="/deposits/resubmitdeposit?id=<%= c.id%>" class="btn btn-sm btn-primary">ReSubmit</td>
+								<td><a href="#", onclick="viewremark('<%= c.remarks%>')" class="btn btn-sm btn-primary">View Remarks</a></td>
+								<%end%>
+								<%end%>
+							</tr>
+							<%end%>
+
+						</table>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
 <%elsif role.include? 'cbdfinsec'%>
 <div class='row'>
 
-                            <div class="col-sm-12">
-                                <div class="box bordered-box blue-border">
-                                    <div class="box-header blue-background">
-                                        <div class="title">Club deposits</div>
-                                        <div class="actions">
-                                            <a class="btn box-remove btn-xs btn-link" href="#"><i class="icon-remove"></i>
-                        </a>
 
-                                            <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
-                        </a>
-                                        </div>
-                                    </div>
-                                    <div class="box-content box-no-padding">
-                                        <div class="responsive-table">
-                                            <div class="scrollable-area">
-                                                
-                                              <table class="table table-striped" style="margin-bottom:0;">
-	<tr>
-		<th>deposit ID</th>
-		<th>deposit By</th>
-		<th>Club</th>
-		<th>Amount</th>
-		<th>Date</th>
-		<th>Receipt Nos</th>
-		<th>Donor Name</th>
-		<th>Donor Address</th>
-		<th>Donor IC</th>
-		<th>Purpose</th>
-		<th>Created</th>
-		<th>Updated</th>
-		<th>Status</th>
-		
-		<th>Action</th>
-		
-	</tr>
-	<% @normaldeposits.each do |c|%>
-	<%status = c.status%>
-	<%if c.remarks.nil?%>
-	<tr>
-	<%else%>
-	<tr class = 'warning'>
-	<%end%>
-		<td><%=c.id%></td>
-		<td><%= c.userid%></td>
-		<td><%= c.clubid%></td>
-		<td><%= c.amount%></td>
-		<td><%= c.date%></td>
-		<td><%= c.receipts%></td>
-		<td><%= c.donorname%></td>
-		<td><%= c.donoradd%></td>
-		<td><%= c.donoric%></td>
-		<td><%= c.purpose%></td>
-		<td><%= c.created_at%></td>
-		<td><%= c.updated_at%></td>
-		<td><%= c.status%></td>
-		
-		<%if status == 3%>
-		<td><a href="/deposits/endorseclub?id=<%=c.id%>" class="btn btn-sm btn-primary">Endorse</td>
-		<td><a href="/deposits/addremark?id=<%=c.id%>&status=1" class="btn btn-sm btn-primary">Reject</td>
-		<%elsif status == 4%>
-		<td><a href="/deposits/endorseclub?id=<%=c.id%>" class="btn btn-sm btn-primary">Endorsed. View form</td>
-		<td><a href="/deposits/addremark?id=<%=c.id%>&status=1" class="btn btn-sm btn-primary">Reject</td>
-		<td><a href="/deposits/completedeposit?id=<%=c.id%>" class="btn btn-sm btn-primary">deposit complete</td>
-		<%elsif status == 5%>
-		<td>deposit completed</td>
-		<%end%>
-	</tr>
-	<%end%>
-
-</table>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                        </div>
           <!-- CBD deposits from here               -->
+
+	<div class="col-sm-12">
+		<div class="box bordered-box blue-border">
+			<div class="box-header blue-background">
+				<div class="title">
+					Club deposits
+				</div>
+				<div class="actions">
+
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class="box-content box-no-padding">
+				<div class="responsive-table">
+					<div class="scrollable-area">
+
+						<table class="table table-striped" style="margin-bottom:0;">
+							<tr>
+								<th>deposit ID</th>
+								<th>deposit By</th>
+								<th>Club</th>
+								<th>Amount</th>
+								<th>Date</th>
+								<th>Receipt Nos</th>
+								<th>Donor Name</th>
+								<th>Donor Address</th>
+								<th>Donor IC</th>
+								<th>Purpose</th>
+								<th>Created</th>
+								<th>Updated</th>
+								<th>Status</th>
+
+								<th>Action</th>
+
+							</tr>
+							<% @normaldeposits.each do |c|%>
+							<% status = c.status%>
+							<%if c.remarks.nil?%>
+							<tr>
+								<%else%>
+							<tr class = 'warning'>
+								<%end%>
+								<td><%= c.id%></td>
+								<td><%= c.userid%></td>
+								<td><%= c.clubid%></td>
+								<td><%= c.amount%></td>
+								<td><%= c.date%></td>
+								<td><%= c.receipts%></td>
+								<td><%= c.donorname%></td>
+								<td><%= c.donoradd%></td>
+								<td><%= c.donoric%></td>
+								<td><%= c.purpose%></td>
+								<td><%= c.created_at%></td>
+								<td><%= c.updated_at%></td>
+								<td><%= c.status%></td>
+
+								<%if status == 3%>
+								<td><a href="/deposits/endorseclub?id=<%= c.id%>" class="btn btn-sm btn-primary">Endorse</td>
+								<td><a href="/deposits/addremark?id=<%= c.id%>&status=1" class="btn btn-sm btn-primary">Reject</td>
+								<%elsif status == 4%>
+								<td><a href="/deposits/endorseclub?id=<%= c.id%>" class="btn btn-sm btn-primary">Endorsed. View form</td>
+								<td><a href="/deposits/addremark?id=<%= c.id%>&status=1" class="btn btn-sm btn-primary">Reject</td>
+								<td><a href="/deposits/completedeposit?id=<%= c.id%>" class="btn btn-sm btn-primary">deposit complete</td>
+								<%elsif status == 5%>
+								<td>deposit completed</td>
+								<%end%>
+							</tr>
+							<%end%>
+
+						</table>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+<!-- CBD deposits from here               -->
+
 <div class='row'>
 
-                            <div class="col-sm-12">
-                                <div class="box bordered-box blue-border">
-                                    <div class="box-header blue-background">
-                                        <div class="title">CBD deposits</div>
-                                        <div class="actions">
-                                            <a class="btn box-remove btn-xs btn-link" href="#"><i class="icon-remove"></i>
-                        </a>
+	<div class="col-sm-12">
+		<div class="box bordered-box blue-border">
+			<div class="box-header blue-background">
+				<div class="title">
+					CBD deposits
+				</div>
+				<div class="actions">
 
-                                            <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
-                        </a>
-                                        </div>
-                                    </div>
-                                    <div class="box-content box-no-padding">
-                                        <div class="responsive-table">
-                                            <div class="scrollable-area">
-                                                
-                                              <table class="table table-striped" style="margin-bottom:0;">
-	<tr>
-		<th>deposit ID</th>
-		<th>deposit By</th>
-		<th>Club</th>
-		<th>Amount</th>
-		<th>Date</th>
-		<th>Receipt Nos</th>
-		<th>Donor Name</th>
-		<th>Donor Address</th>
-		<th>Donor IC</th>
-		<th>Purpose</th>
-		<th>Created</th>
-		<th>Updated</th>
-		<th>Status</th>
-		
-		<th>Action</th>
-		
-	</tr>
-	<% @cbdmcdeposits.each do |c|%>
-	<%status = c.status%>
-	<%if c.remarks.nil?%>
-	<tr>
-	<%else%>
-	<tr class = 'warning'>
-	<%end%>
-		<td><%=c.id%></td>
-		<td><%= c.userid%></td>
-		<td><%= c.clubid%></td>
-		<td><%= c.amount%></td>
-		<td><%= c.date%></td>
-		<td><%= c.receipts%></td>
-		<td><%= c.donorname%></td>
-		<td><%= c.donoradd%></td>
-		<td><%= c.donoric%></td>
-		<td><%= c.purpose%></td>
-		<td><%= c.created_at%></td>
-		<td><%= c.updated_at%></td>
-		<td><%= c.status%></td>
-		
-		<%if status == 7%>
-		<td><a href="/deposits/editdeposit?id=<%=c.id%>" class="btn btn-sm btn-primary">Edit</td>
-		<%if c.remarks.nil?%>
-		<td><a href="/deposits/submitdeposit?id=<%=c.id%>" class="btn btn-sm btn-primary">Submit</td>
-		<%else%>
-		<td><a href="/deposits/resubmitdeposit?id=<%=c.id%>" class="btn btn-sm btn-primary">ReSubmit</td>
-		<td><a href="#", onclick="viewremark('<%=c.remarks%>')" class="btn btn-sm btn-primary">View Remarks</a></td>
-		<%end%>
-		<%end%>
-	</tr>
-	<%end%>
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class="box-content box-no-padding">
+				<div class="responsive-table">
+					<div class="scrollable-area">
 
-</table>
+						<table class="table table-striped" style="margin-bottom:0;">
+							<tr>
+								<th>deposit ID</th>
+								<th>deposit By</th>
+								<th>Club</th>
+								<th>Amount</th>
+								<th>Date</th>
+								<th>Receipt Nos</th>
+								<th>Donor Name</th>
+								<th>Donor Address</th>
+								<th>Donor IC</th>
+								<th>Purpose</th>
+								<th>Created</th>
+								<th>Updated</th>
+								<th>Status</th>
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+								<th>Action</th>
 
+							</tr>
+							<% @cbdmcdeposits.each do |c|%>
+							<% status = c.status%>
+							<%if c.remarks.nil?%>
+							<tr>
+								<%else%>
+							<tr class = 'warning'>
+								<%end%>
+								<td><%= c.id%></td>
+								<td><%= c.userid%></td>
+								<td><%= c.clubid%></td>
+								<td><%= c.amount%></td>
+								<td><%= c.date%></td>
+								<td><%= c.receipts%></td>
+								<td><%= c.donorname%></td>
+								<td><%= c.donoradd%></td>
+								<td><%= c.donoric%></td>
+								<td><%= c.purpose%></td>
+								<td><%= c.created_at%></td>
+								<td><%= c.updated_at%></td>
+								<td><%= c.status%></td>
 
-                        </div>
+								<%if status == 7%>
+								<td><a href="/deposits/editdeposit?id=<%= c.id%>" class="btn btn-sm btn-primary">Edit</td>
+								<%if c.remarks.nil?%>
+								<td><a href="/deposits/submitdeposit?id=<%= c.id%>" class="btn btn-sm btn-primary">Submit</td>
+								<%else%>
+								<td><a href="/deposits/resubmitdeposit?id=<%= c.id%>" class="btn btn-sm btn-primary">ReSubmit</td>
+								<td><a href="#", onclick="viewremark('<%= c.remarks%>')" class="btn btn-sm btn-primary">View Remarks</a></td>
+								<%end%>
+								<%end%>
+							</tr>
+							<%end%>
+
+						</table>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
 
 <%elsif role.include? 'president'%>
 <div class='row'>
 
-                            <div class="col-sm-12">
-                                <div class="box bordered-box blue-border">
-                                    <div class="box-header blue-background">
-                                        <div class="title">Club deposits</div>
-                                        <div class="actions">
-                                            <a class="btn box-remove btn-xs btn-link" href="#"><i class="icon-remove"></i>
-                        </a>
+	<div class="col-sm-12">
+		<div class="box bordered-box blue-border">
+			<div class="box-header blue-background">
+				<div class="title">
+					Club deposits
+				</div>
+				<div class="actions">
 
-                                            <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
-                        </a>
-                                        </div>
-                                    </div>
-                                    <div class="box-content box-no-padding">
-                                        <div class="responsive-table">
-                                            <div class="scrollable-area">
-                                                
-                                              <table class="table table-striped" style="margin-bottom:0;">
-	<tr>
-		<th>deposit ID</th>
-		<th>deposit By</th>
-		<th>Club</th>
-		<th>Amount</th>
-		<th>Date</th>
-		<th>Receipt Nos</th>
-		<th>Donor Name</th>
-		<th>Donor Address</th>
-		<th>Donor IC</th>
-		<th>Purpose</th>
-		<th>Created</th>
-		<th>Updated</th>
-		<th>Status</th>
-		
-		<th>Action</th>
-		
-	</tr>
-	<% @deposits.each do |c|%>
-	<%status = c.status%>
-	<%if c.remarks.nil?%>
-	<tr>
-	<%else%>
-	<tr class = 'warning'>
-	<%end%>
-		<td><%=c.id%></td>
-		<td><%= c.userid%></td>
-		<td><%= c.clubid%></td>
-		<td><%= c.amount%></td>
-		<td><%= c.date%></td>
-		<td><%= c.receipts%></td>
-		<td><%= c.donorname%></td>
-		<td><%= c.donoradd%></td>
-		<td><%= c.donoric%></td>
-		<td><%= c.purpose%></td>
-		<td><%= c.created_at%></td>
-		<td><%= c.updated_at%></td>
-		<td><%= c.status%></td>
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class="box-content box-no-padding">
+				<div class="responsive-table">
+					<div class="scrollable-area">
 
-		<%if status == 2 || status == 8%>
-		<td><a href="#", onclick="pres(<%=c.id%>)" class="btn btn-sm btn-primary">Acknowledge</a></td>
-		<p id ="pres"> </p>
-		<%end%>
-	</tr>
-	<%end%>
+						<table class="table table-striped" style="margin-bottom:0;">
+							<tr>
+								<th>deposit ID</th>
+								<th>deposit By</th>
+								<th>Club</th>
+								<th>Amount</th>
+								<th>Date</th>
+								<th>Receipt Nos</th>
+								<th>Donor Name</th>
+								<th>Donor Address</th>
+								<th>Donor IC</th>
+								<th>Purpose</th>
+								<th>Created</th>
+								<th>Updated</th>
+								<th>Status</th>
 
-</table>
+								<th>Action</th>
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+							</tr>
+							<% @deposits.each do |c|%>
+							<% status = c.status%>
+							<%if c.remarks.nil?%>
+							<tr>
+								<%else%>
+							<tr class = 'warning'>
+								<%end%>
+								<td><%= c.id%></td>
+								<td><%= c.userid%></td>
+								<td><%= c.clubid%></td>
+								<td><%= c.amount%></td>
+								<td><%= c.date%></td>
+								<td><%= c.receipts%></td>
+								<td><%= c.donorname%></td>
+								<td><%= c.donoradd%></td>
+								<td><%= c.donoric%></td>
+								<td><%= c.purpose%></td>
+								<td><%= c.created_at%></td>
+								<td><%= c.updated_at%></td>
+								<td><%= c.status%></td>
 
+								<%if status == 2 || status == 8%>
+								<td><a href="#", onclick="pres(<%= c.id%>)" class="btn btn-sm btn-primary">Acknowledge</a></td>
+								<p id ="pres"></p>
+								<%end%>
+							</tr>
+							<%end%>
 
-                        </div>
+						</table>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
 <%elsif role.include? 'smusafinsec'%>
 <div class='row'>
 
-                            <div class="col-sm-12">
-                                <div class="box bordered-box blue-border">
-                                    <div class="box-header blue-background">
-                                        <div class="title">CBD MC deposits</div>
-                                        <div class="actions">
-                                            <a class="btn box-remove btn-xs btn-link" href="#"><i class="icon-remove"></i>
-                        </a>
 
-                                            <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
-                        </a>
-                                        </div>
-                                    </div>
-                                    <div class="box-content box-no-padding">
-                                        <div class="responsive-table">
-                                            <div class="scrollable-area">
-                                                
-                                              <table class="table table-striped" style="margin-bottom:0;">
-	<tr>
-		<th>deposit ID</th>
-		<th>deposit By</th>
-		<th>Club</th>
-		<th>Amount</th>
-		<th>Date</th>
-		<th>Receipt Nos</th>
-		<th>Donor Name</th>
-		<th>Donor Address</th>
-		<th>Donor IC</th>
-		<th>Purpose</th>
-		<th>Created</th>
-		<th>Updated</th>
-		<th>Status</th>
-		
-		<th>Action</th>
-		
-	</tr>
-	<% @cbdmcdeposits.each do |c|%>
-	<%status = c.status%>
-	<%if c.remarks.nil?%>
-	<tr>
-	<%else%>
-	<tr class = 'warning'>
-	<%end%>
-		<td><%=c.id%></td>
-		<td><%= c.userid%></td>
-		<td><%= c.clubid%></td>
-		<td><%= c.amount%></td>
-		<td><%= c.date%></td>
-		<td><%= c.receipts%></td>
-		<td><%= c.donorname%></td>
-		<td><%= c.donoradd%></td>
-		<td><%= c.donoric%></td>
-		<td><%= c.purpose%></td>
-		<td><%= c.created_at%></td>
-		<td><%= c.updated_at%></td>
-		<td><%= c.status%></td>
-	
-		<%if status == 9%>
-		<td><a href="/deposits/endorsecbdmc?id=<%=c.id%>" class="btn btn-sm btn-primary">Endorse</td>
-		<td><a href="/deposits/addremark?id=<%=c.id%>&status=7" class="btn btn-sm btn-primary">Reject</td>
-		<%elsif status == 10%>
-		<td><a href="/deposits/endorsecbdmc?id=<%=c.id%>" class="btn btn-sm btn-primary">Endorsed. View form</td>
-		<td><a href="/deposits/addremark?id=<%=c.id%>&status=7" class="btn btn-sm btn-primary">Reject</td>
-		<td><a href="/deposits/completedeposit?id=<%=c.id%>" class="btn btn-sm btn-primary">deposit complete</td>
-		<%elsif status == 11%>
-		<td>deposit complete</td>
-		<%end%>
-	</tr>
-	<%end%>
+	<div class="col-sm-12">
+		<div class="box bordered-box blue-border">
+			<div class="box-header blue-background">
+				<div class="title">
+					CBD MC deposits
+				</div>
+				<div class="actions">
 
-</table>
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class="box-content box-no-padding">
+				<div class="responsive-table">
+					<div class="scrollable-area">
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+						<table class="table table-striped" style="margin-bottom:0;">
+							<tr>
+								<th>deposit ID</th>
+								<th>deposit By</th>
+								<th>Club</th>
+								<th>Amount</th>
+								<th>Date</th>
+								<th>Receipt Nos</th>
+								<th>Donor Name</th>
+								<th>Donor Address</th>
+								<th>Donor IC</th>
+								<th>Purpose</th>
+								<th>Created</th>
+								<th>Updated</th>
+								<th>Status</th>
 
+								<th>Action</th>
 
-                        </div>
-                        
-                        
+							</tr>
+							<% @cbdmcdeposits.each do |c|%>
+							<% status = c.status%>
+							<%if c.remarks.nil?%>
+							<tr>
+								<%else%>
+							<tr class = 'warning'>
+								<%end%>
+								<td><%= c.id%></td>
+								<td><%= c.userid%></td>
+								<td><%= c.clubid%></td>
+								<td><%= c.amount%></td>
+								<td><%= c.date%></td>
+								<td><%= c.receipts%></td>
+								<td><%= c.donorname%></td>
+								<td><%= c.donoradd%></td>
+								<td><%= c.donoric%></td>
+								<td><%= c.purpose%></td>
+								<td><%= c.created_at%></td>
+								<td><%= c.updated_at%></td>
+								<td><%= c.status%></td>
+
+								<%if status == 9%>
+								<td><a href="/deposits/endorsecbdmc?id=<%= c.id%>" class="btn btn-sm btn-primary">Endorse</td>
+								<td><a href="/deposits/addremark?id=<%= c.id%>&status=7" class="btn btn-sm btn-primary">Reject</td>
+								<%elsif status == 10%>
+								<td><a href="/deposits/endorsecbdmc?id=<%= c.id%>" class="btn btn-sm btn-primary">Endorsed. View form</td>
+								<td><a href="/deposits/addremark?id=<%= c.id%>&status=7" class="btn btn-sm btn-primary">Reject</td>
+								<td><a href="/deposits/completedeposit?id=<%= c.id%>" class="btn btn-sm btn-primary">deposit complete</td>
+								<%elsif status == 11%>
+								<td>deposit complete</td>
+								<%end%>
+							</tr>
+							<%end%>
+
+						</table>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
 <div class='row'>
 
-                            <div class="col-sm-12">
-                                <div class="box bordered-box blue-border">
-                                    <div class="box-header blue-background">
-                                        <div class="title">SMUSA Secretary deposits</div>
-                                        <div class="actions">
-                                            <a class="btn box-remove btn-xs btn-link" href="#"><i class="icon-remove"></i>
-                        </a>
 
-                                            <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
-                        </a>
-                                        </div>
-                                    </div>
-                                    <div class="box-content box-no-padding">
-                                        <div class="responsive-table">
-                                            <div class="scrollable-area">
-                                                
-                                              <table class="table table-striped" style="margin-bottom:0;">
-	<tr>
-		<th>deposit ID</th>
-		<th>deposit By</th>
-		<th>Club</th>
-		<th>Amount</th>
-		<th>Date</th>
-		<th>Receipt Nos</th>
-		<th>Donor Name</th>
-		<th>Donor Address</th>
-		<th>Donor IC</th>
-		<th>Purpose</th>
-		<th>Created</th>
-		<th>Updated</th>
-		<th>Status</th>
-		
-		<th>Action</th>
-		
-	</tr>
-	<% @smusasecdeposits.each do |c|%>
-	<%status = c.status%>
-	<%if c.remarks.nil?%>
-	<tr>
-	<%else%>
-	<tr class = 'warning'>
-	<%end%>
-		<td><%=c.id%></td>
-		<td><%= c.userid%></td>
-		<td><%= c.clubid%></td>
-		<td><%= c.amount%></td>
-		<td><%= c.date%></td>
-		<td><%= c.receipts%></td>
-		<td><%= c.donorname%></td>
-		<td><%= c.donoradd%></td>
-		<td><%= c.donoric%></td>
-		<td><%= c.purpose%></td>
-		<td><%= c.created_at%></td>
-		<td><%= c.updated_at%></td>
-		<td><%= c.status%></td>
-		
-		<%if status == 13%>
-		<td><a href="/deposits/endorsesmusasec?id=<%=c.id%>" class="btn btn-sm btn-primary">Endorse</td>
-		<td><a href="/deposits/addremark?id=<%=c.id%>&status=12" class="btn btn-sm btn-primary">Reject</td>
-		<%elsif status == 14%>
-		<td><a href="/deposits/endorsesmusasec?id=<%=c.id%>" class="btn btn-sm btn-primary">Endorsed. View form</td>
-		<td><a href="/deposits/addremark?id=<%=c.id%>&status=12" class="btn btn-sm btn-primary">Reject</td>
-		<td><a href="/deposits/completedeposit?id=<%=c.id%>" class="btn btn-sm btn-primary">deposit complete</td>
-		<%elsif status == 15%>
-		<td>deposit complete</td>
-		<%end%>
-	</tr>
-	<%end%>
+	<div class="col-sm-12">
+		<div class="box bordered-box blue-border">
+			<div class="box-header blue-background">
+				<div class="title">
+					SMUSA Secretary deposits
+				</div>
+				<div class="actions">
 
-</table>
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class="box-content box-no-padding">
+				<div class="responsive-table">
+					<div class="scrollable-area">
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+						<table class="table table-striped" style="margin-bottom:0;">
+							<tr>
+								<th>deposit ID</th>
+								<th>deposit By</th>
+								<th>Club</th>
+								<th>Amount</th>
+								<th>Date</th>
+								<th>Receipt Nos</th>
+								<th>Donor Name</th>
+								<th>Donor Address</th>
+								<th>Donor IC</th>
+								<th>Purpose</th>
+								<th>Created</th>
+								<th>Updated</th>
+								<th>Status</th>
 
+								<th>Action</th>
 
-                        </div>
+							</tr>
+							<% @smusasecdeposits.each do |c|%>
+							<% status = c.status%>
+							<%if c.remarks.nil?%>
+							<tr>
+								<%else%>
+							<tr class = 'warning'>
+								<%end%>
+								<td><%= c.id%></td>
+								<td><%= c.userid%></td>
+								<td><%= c.clubid%></td>
+								<td><%= c.amount%></td>
+								<td><%= c.date%></td>
+								<td><%= c.receipts%></td>
+								<td><%= c.donorname%></td>
+								<td><%= c.donoradd%></td>
+								<td><%= c.donoric%></td>
+								<td><%= c.purpose%></td>
+								<td><%= c.created_at%></td>
+								<td><%= c.updated_at%></td>
+								<td><%= c.status%></td>
 
+								<%if status == 13%>
+								<td><a href="/deposits/endorsesmusasec?id=<%= c.id%>" class="btn btn-sm btn-primary">Endorse</td>
+								<td><a href="/deposits/addremark?id=<%= c.id%>&status=12" class="btn btn-sm btn-primary">Reject</td>
+								<%elsif status == 14%>
+								<td><a href="/deposits/endorsesmusasec?id=<%= c.id%>" class="btn btn-sm btn-primary">Endorsed. View form</td>
+								<td><a href="/deposits/addremark?id=<%= c.id%>&status=12" class="btn btn-sm btn-primary">Reject</td>
+								<td><a href="/deposits/completedeposit?id=<%= c.id%>" class="btn btn-sm btn-primary">deposit complete</td>
+								<%elsif status == 15%>
+								<td>deposit complete</td>
+								<%end%>
+							</tr>
+							<%end%>
+
+						</table>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
 
 <%end%>
 
-
-
-
-
-
 <%=javascript_tag do%>
- 
+
 function pres(a){
-	var x;
-	if (confirm("You have acknowleged the deposit!")==true){
-		window.location = "/deposits/submitdeposit?id="+a;
-	}
-	document.getElementById("pres").innerHTML = x;
+var x;
+if (confirm("You have acknowleged the deposit!")==true){
+window.location = "/deposits/submitdeposit?id="+a;
+}
+document.getElementById("pres").innerHTML = x;
 }
 function viewremark(a){
-	
-		alert(a);
-	
+
+alert(a);
+
 }
 <%end%>
 
