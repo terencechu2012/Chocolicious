@@ -88,6 +88,21 @@ class ClaimsController < ApplicationController
     # redirect_to :action => 'viewclaim'
     redirect_to :back
   end
+  
+  def completeclaim
+    c = Claim.find_by_id(params[:id])
+    newstatus = c.status + 1
+
+    c.update_attribute(:status, newstatus)
+    # redirect_to :action => 'viewclaim'
+    club = c.clubid
+    amount = c.amount
+    account = ExpenditureAccount.find_by_clubid(club)
+    balance = account.Category1Balance
+    balance -= amount
+    account.update_attribute(:Category1Balance, balance)
+    redirect_to :back
+  end
 
   def resubmitclaim
     c = Claim.find_by_id(params[:id])

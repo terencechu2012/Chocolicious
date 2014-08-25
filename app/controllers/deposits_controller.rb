@@ -70,6 +70,24 @@ class DepositsController < ApplicationController
     # redirect_to :action => 'viewclaim'
     redirect_to :back
   end
+  
+  def completedeposit
+    c = Deposit.find_by_id(params[:id])
+    newstatus = c.status + 1
+
+    c.update_attribute(:status, newstatus)
+    # redirect_to :action => 'viewclaim'
+    club = c.clubid
+    amount = c.amount
+    account = ExpenditureAccount.find_by_clubid(club)
+    balance = account.Category1Balance
+    balance += amount
+    account.update_attribute(:Category1Balance, balance)
+    balance2 = account.Category2Balance
+    balance2 += amount
+    account.update_attribute(:Category2Balance, balance2)
+    redirect_to :back
+  end
 
   def resubmitdeposit
     c = Deposit.find_by_id(params[:id])

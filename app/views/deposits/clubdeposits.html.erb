@@ -162,7 +162,7 @@
 		<%elsif status == 4%>
 		<td><a href="/deposits/endorseclub?id=<%=c.id%>" class="btn btn-sm btn-primary">Endorsed. View form</td>
 		<td><a href="/deposits/addremark?id=<%=c.id%>&status=1" class="btn btn-sm btn-primary">Reject</td>
-		<td><a href="/deposits/submitdeposit?id=<%=c.id%>" class="btn btn-sm btn-primary">deposit complete</td>
+		<td><a href="/deposits/completedeposit?id=<%=c.id%>" class="btn btn-sm btn-primary">deposit complete</td>
 		<%elsif status == 5%>
 		<td>deposit completed</td>
 		<%end%>
@@ -402,7 +402,7 @@
 		<%elsif status == 10%>
 		<td><a href="/deposits/endorsecbdmc?id=<%=c.id%>" class="btn btn-sm btn-primary">Endorsed. View form</td>
 		<td><a href="/deposits/addremark?id=<%=c.id%>&status=7" class="btn btn-sm btn-primary">Reject</td>
-		<td><a href="/deposits/submitdeposit?id=<%=c.id%>" class="btn btn-sm btn-primary">deposit complete</td>
+		<td><a href="/deposits/completedeposit?id=<%=c.id%>" class="btn btn-sm btn-primary">deposit complete</td>
 		<%elsif status == 11%>
 		<td>deposit complete</td>
 		<%end%>
@@ -485,7 +485,7 @@
 		<%elsif status == 14%>
 		<td><a href="/deposits/endorsesmusasec?id=<%=c.id%>" class="btn btn-sm btn-primary">Endorsed. View form</td>
 		<td><a href="/deposits/addremark?id=<%=c.id%>&status=12" class="btn btn-sm btn-primary">Reject</td>
-		<td><a href="/deposits/submitdeposit?id=<%=c.id%>" class="btn btn-sm btn-primary">deposit complete</td>
+		<td><a href="/deposits/completedeposit?id=<%=c.id%>" class="btn btn-sm btn-primary">deposit complete</td>
 		<%elsif status == 15%>
 		<td>deposit complete</td>
 		<%end%>

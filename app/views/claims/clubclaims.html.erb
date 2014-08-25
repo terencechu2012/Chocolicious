@@ -146,7 +146,7 @@
 		<%elsif status == 4%>
 		<td><a href="/claims/endorseclub?id=<%=c.id%>" class="btn btn-sm btn-primary">Endorsed. View form</td>
 		<td><a href="/claims/addremark?id=<%=c.id%>&status=1" class="btn btn-sm btn-primary">Reject</td>
-		<td><a href="/claims/submitclaim?id=<%=c.id%>" class="btn btn-sm btn-primary">Claim complete</td>
+		<td><a href="/claims/completeclaim?id=<%=c.id%>" class="btn btn-sm btn-primary">Claim complete</td>
 		<%elsif status == 5%>
 		<td>Claim completed</td>
 		<%end%>
@@ -362,7 +362,7 @@
 		<%elsif status == 10%>
 		<td><a href="/claims/endorsecbdmc?id=<%=c.id%>" class="btn btn-sm btn-primary">Endorsed. View form</td>
 		<td><a href="/claims/addremark?id=<%=c.id%>&status=7" class="btn btn-sm btn-primary">Reject</td>
-		<td><a href="/claims/submitclaim?id=<%=c.id%>" class="btn btn-sm btn-primary">Claim complete</td>
+		<td><a href="/claims/completeclaim?id=<%=c.id%>" class="btn btn-sm btn-primary">Claim complete</td>
 		<%elsif status == 11%>
 		<td>Claim complete</td>
 		<%end%>
@@ -437,7 +437,7 @@
 		<%elsif status == 14%>
 		<td><a href="/claims/endorsesmusasec?id=<%=c.id%>" class="btn btn-sm btn-primary">Endorsed. View form</td>
 		<td><a href="/claims/addremark?id=<%=c.id%>&status=12" class="btn btn-sm btn-primary">Reject</td>
-		<td><a href="/claims/submitclaim?id=<%=c.id%>" class="btn btn-sm btn-primary">Claim complete</td>
+		<td><a href="/claims/completeclaim?id=<%=c.id%>" class="btn btn-sm btn-primary">Claim complete</td>
 		<%elsif status == 15%>
 		<td>Claim complete</td>
 		<%end%>

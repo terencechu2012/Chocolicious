@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   get 'deposits/addremark'
   post 'deposits/addremark'
   get 'deposits/clubdeposits'
+  get 'deposits/completedeposit'
+  get 'claims/completeclaim'
 
   get 'deposits/editdeposit'
 
