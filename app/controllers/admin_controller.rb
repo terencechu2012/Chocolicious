@@ -313,4 +313,15 @@ class AdminController < ApplicationController
   def user_params
     params.require(:user).permit!
   end
+  
+  def changeclubname
+    clubid = params[:clubid]
+    @club = Club.find_by_clubid(clubid)
+  end
+  
+  def changename
+    c = Club.find_by_clubid(params[:club][:clubid])
+    c.update_attributes(club_params)
+    redirect_to :action => 'registerclub'
+  end
 end

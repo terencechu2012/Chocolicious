@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   post 'admin/addLeader'
   get 'admin/selectClub'
   get 'claims/clubclaims'
+  get 'claims/deleteclaim'
   post 'admin/requestClub'
   
   post 'admin/deleteclub'
@@ -43,6 +44,9 @@ Rails.application.routes.draw do
   post 'admin/delete'
 
   get 'admin/setUserId'
+  
+  get 'admin/changeclubname'
+  patch 'admin/changename'
 
   get 'chief/changereserveslimit'
 

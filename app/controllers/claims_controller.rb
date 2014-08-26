@@ -22,6 +22,12 @@ class ClaimsController < ApplicationController
     @events = Budget.where(clubid:clubid, year:year, semester:semester)
     @own = params[:own]
   end
+  
+  def deleteclaim
+    c = Claim.find_by_id(params[:id])
+    c.delete
+    redirect_to :back
+  end
 
   def viewclaim
       @normalclaims = Claim.where(userid:session[:userid], clubid:session[:club])

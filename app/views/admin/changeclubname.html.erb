@@ -1,0 +1,7 @@
+<h2>Change club name</h2>
+<%=form_for @club, :url => { :action => "changename" }  do |f|%>
+<%=f.text_field :clubname%>Clubname<br>
+<%=f.text_field :clubcode%>Clubcode<br>
+<%=f.hidden_field :clubid, :value=> @club.clubid%>
+<%=f.submit 'Change'%>
+<%end%>

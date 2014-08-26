@@ -126,6 +126,7 @@
 							<thead>
 								<tr>
 									<th>Club ID</th>
+									<th>Club Code</th>
 									<th>Club Type</th>
 									<th>Club Name</th>
 									<th class="text-center">Change Club Name</th>
@@ -136,10 +137,11 @@
 								<%@clubs.each do |c|%>
 								<tr>
 									<td><%= c.clubid%></td>
+									<td><%=c.clubcode%></td>
 									<td><%= c.clubtype%></td>
 									<td><%= c.clubname%></td>
 									<td class="text-center">
-										<a href="/admin/changeclubname?+<%=c.clubid%>" class="btn btn-success btn-xs"><i class="icon-pencil"></i></a>
+										<a href="/admin/changeclubname?clubid=<%=c.clubid%>" class="btn btn-success btn-xs"><i class="icon-pencil"></i></a>
 									<td class="text-center"> <%= button_to  '/admin/deleteclub?clubid='+c.clubid, data: { confirm: "WARNING:\nAre you sure you want to delete the club and all its associated accounts? All information related to this club will be deleted including claims, club requests and user roles. Changes from this point are irreversible." }, :class => 'btn btn-danger btn-xs' do%><i class="icon-remove"></i><%end%> </td>
 								</tr>
 								<%end%>

@@ -72,6 +72,7 @@
 		<td><a href="/claims/resubmitclaim?id=<%=c.id%>" class="btn btn-danger btn-xs">ReSubmit</a></td>
 		<td><a href="#", onclick="viewremark('<%=c.remarks%>')" class="btn btn-success btn-xs"><i class="icon-eye-open"></i> View Remarks</a></td>
 		<%end%>
+		<td><a href="/claims/deleteclaim?id=<%=c.id%>&own=true" class="btn btn-warning btn-xs"><i class="icon-pencil"></i>Delete</a></td>
 		<%end%>
 	</tr>
 	<%end%>
