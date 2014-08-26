@@ -46,6 +46,7 @@
 		<th>Supporting Doc</th>
 		<th>Edit</th>
 		<th>Submit</th>
+		<th>Delete</th>
 	</tr>
 	<% @normalclaims.each do |c|%>
 	<%status = c.status%>
@@ -65,14 +66,14 @@
 		<td><%= c.status%></td>
 		<td><a href="<%= c.supportdoc.url%>" class="btn btn-success btn-xs"><i class="icon-download"></i> Download</a></td>
 		<%if status == 0 || status == 12 || status == 6%>
-		<td><a href="/claims/editclaim?id=<%=c.id%>&own=true" class="btn btn-warning btn-xs"><i class="icon-pencil"></i>Edit</a></td>
+		<td><a href="/claims/editclaim?id=<%=c.id%>&own=true" class="btn btn-warning btn-xs"><i class="icon-pencil"></i> Edit</a></td>
 		<%if c.remarks.nil?%>
 		<td><a href="/claims/submitclaim?id=<%=c.id%>" class="btn btn-danger btn-xs">Submit</a></td>
 		<%else%>
-		<td><a href="/claims/resubmitclaim?id=<%=c.id%>" class="btn btn-danger btn-xs">ReSubmit</a></td>
-		<td><a href="#", onclick="viewremark('<%=c.remarks%>')" class="btn btn-success btn-xs"><i class="icon-eye-open"></i> View Remarks</a></td>
+		<td><a href="/claims/resubmitclaim?id=<%=c.id%>" class="btn btn-danger btn-xs">ReSubmit</a><br />
+		<a href="#", onclick="viewremark('<%=c.remarks%>')" class="btn btn-success btn-xs"><i class="icon-eye-open"></i> View Remarks</a></td>
 		<%end%>
-		<td><a href="/claims/deleteclaim?id=<%=c.id%>&own=true" class="btn btn-warning btn-xs"><i class="icon-pencil"></i>Delete</a></td>
+		<td><a href="/claims/deleteclaim?id=<%=c.id%>&own=true" class="btn btn-danger btn-xs"><i class="icon-remove"></i> Delete</a></td>
 		<%end%>
 	</tr>
 	<%end%>

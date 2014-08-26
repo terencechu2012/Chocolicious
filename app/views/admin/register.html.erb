@@ -595,16 +595,17 @@
 
 									<th> Club Name </th>
 									<th> Role </th>
-									<th></th>
+									<th> Status </th>
 								</tr>
 								<% @clublist.each do |name|
 								clubenrolled = Club.find_by(clubid:name.clubid)%>
 								<tr>
 									<td><%= clubenrolled.clubname %></td>
 									<td><%= name.role %></td>
-									<td><div class="text-center"></div></td>
+									<td><span class="label label-success">Enrolled</span></td>
 								</tr>
 								<%end%>
+								
 							</table>
 						</div>
 					</div>
