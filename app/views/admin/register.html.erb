@@ -1,9 +1,7 @@
 <div class='row'>
 	<div class='col-sm-12'>
 		<div class='page-header'>
-			<h1 class='pull-left'><i class='icon-group'></i>
-				<!-- span has to be on next line to create that space between the logo and the words -->
-				<span>Managing my Club</span></h1>
+			<h1 class='pull-left'><i class='icon-group'></i> <!-- span has to be on next line to create that space between the logo and the words --><span>Managing my Club</span></h1>
 		</div>
 	</div>
 </div>
@@ -48,22 +46,25 @@
 							<div class="responsive-table">
 								<div class="scrollable-area">
 									<%= form_tag("/admin/delete/", :method => "post") do %>
-									<table class="table table-striped" style="margin-bottom:0;">
-										<tr>
-											<th>Name</th>
-											<th>Role</th>
-											<th><%= submit_tag("Delete", :class=>"btn orange-background") %></th>
-										</tr>
-
-										<% @userList.each do |user| %>
-										<tr>
-											<td><%= user.userid %></td>
-											<td><%= user.role %></td>
-											<td> <%if session[:userid]!=user.userid%><%= check_box_tag("toDelete[]",user.userid+","+user.clubid)%>
-											<%else%><font color=red><i>You are not able to delete yourself</i><%end%> </td>
-											<%= hidden_field_tag(:club, session[:club])%>
-										</tr>
-										<%end%>
+									<table id="example" class="table table-striped" style="margin-bottom:0;">
+										<thead>
+											<tr>
+												<th>Name</th>
+												<th>Role</th>
+												<th><%= submit_tag("Delete", :class=>"btn orange-background") %></th>
+											</tr>
+										</thead>
+										<tbody>
+											<% @userList.each do |user| %>
+											<tr>
+												<td><%= user.userid %></td>
+												<td><%= user.role %></td>
+												<td> <%if session[:userid]!=user.userid%><%= check_box_tag("toDelete[]",user.userid+","+user.clubid)%>
+												<%else%><font color=red><i>You are not able to delete yourself</i><%end%> </td>
+												<%= hidden_field_tag(:club, session[:club])%>
+											</tr>
+											<%end%>
+										</tbody>
 									</table>
 									<%end%>
 								</div>
@@ -75,24 +76,28 @@
 						<div class="box-content box-no-padding">
 							<div class="responsive-table">
 								<div class="scrollable-area">
+									<% if @clubRequests.size > 0 %>
 									<%= form_tag("/admin/notifications/", :method => "post") do %>
 									<table class="table table-striped" style="margin-bottom:0;">
-										<tr>
-											<th>Name</th>
-											<th>Requested Date</th>
-											<th><%= select_tag(:choice, "<option>Add</option><option>Reject</option>".html_safe) %>
-											<br />
-											<%= submit_tag("Go!", :class=>"btn orange-background") %></th>
-										</tr>
-
-										<% @clubRequests.each do |user| %>
-										<tr>
-											<td><%= user.userid %></td>
-											<td><%= user.created_at %></td>
-											<td> <%= check_box_tag("newRegister[]", user.userid)%> </td>
-										</tr>
-										<%end%>
+										
+											<tr>
+												<th>Name</th>
+												<th>Requested Date</th>
+												<th><%= select_tag(:choice, "<option>Add</option><option>Reject</option>".html_safe) %>
+												<br />
+												<%= submit_tag("Go!", :class=>"btn orange-background") %></th>
+											</tr>
+										
+											<% @clubRequests.each do |user| %>
+											<tr>
+												<td><%= user.userid %></td>
+												<td><%= user.created_at %></td>
+												<td> <%= check_box_tag("newRegister[]", user.userid)%> </td>
+											</tr>
+											<%end%>
+										
 									</table>
+									<%end%>
 									<%end%>
 								</div>
 							</div>
@@ -225,13 +230,14 @@
 								<div class="scrollable-area">
 									<%= form_tag("/admin/delete/", :method => "post") do %>
 									<table class="table table-striped" style="margin-bottom:0;">
+										
 										<tr>
 											<th>Name</th>
 											<th>Role</th>
 											<th>CBD</th>
 											<th><%= submit_tag("Delete", :class=>"btn orange-background") %></th>
 										</tr>
-
+										
 										<% @cbdList.each do |user| %>
 										<tr>
 											<td><%= user.userid %></td>
@@ -241,9 +247,10 @@
 											<%else%><font color=red><i>You are not able to delete yourself</i><%end%> </td>
 											<%= hidden_field_tag(:club, user.clubid)%>
 										</tr>
-										<%end%>
+										<%end%>	
 										<%end%>
 									</table>
+									
 								</div>
 							</div>
 						</div>
@@ -605,7 +612,7 @@
 									<td><span class="label label-success">Enrolled</span></td>
 								</tr>
 								<%end%>
-								
+
 							</table>
 						</div>
 					</div>
@@ -664,3 +671,10 @@
 		</div>
 	</div>
 </div>
+<script>
+	$(document).ready(function() {
+		$('#example').dataTable({
+			"scrollX" : true
+		});
+	}); 
+</script>

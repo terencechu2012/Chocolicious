@@ -23,8 +23,8 @@
 			<div class="box-content box-no-padding">
 				<div class="responsive-table">
 					<div class="scrollable-area">
-						<table class="data-table table table-bordered table-striped" style="margin-bottom:0;">
-							<thead>
+						<table class="table table-bordered table-striped" style="margin-bottom:0;">
+							
 								<tr>
 									<th>Event</th>
 									<th>Start date</th>
@@ -60,8 +60,7 @@
 									<th>Manage breakdown</th>
 									<th>Delete</th> -->
 								</tr>
-							</thead>
-							<tbody>
+							
 								<%if !@budgets.nil?%>
 								<%@budgets.each do |b| %>
 								<tr>
@@ -80,7 +79,7 @@
 								</tr>
 								<%end%>
 								<%end%>
-							</tbody>
+							
 						</table>
 					</div>
 				</div>
@@ -170,15 +169,13 @@
 				<div class="responsive-table">
 					<div class="scrollable-area">
 						<table class="table table-striped" style="margin-bottom:0;">
-							<thead>
+							
 								<tr>
 									<th> S/N </th>
 									<th> Category </th>
 									<th> Explanation </th>
 								</tr>
-							</thead>
-
-							<tbody>
+							
 								<tr>
 									<td>1</td>
 									<td>Assets maintenance and repair</td>
@@ -244,8 +241,7 @@
 									<td>Miscellaneous</td>
 									<td>Any misc. expenses that do not fall into the above cateogories. Egs include stationary etc.</td>
 								</tr>
-							</tbody>
-
+							
 						</table>
 					</div>
 				</div>
