@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   get 'deposits/endorseclub'
   get 'deposits/endorsecbdmc'
   get 'deposits/endorsesmusasec'
-  devise_for :users, :controllers => {:confirmations => 'confirmations', :registrations => "registrations"}
+  devise_for :users, :controllers => {:confirmations => 'confirmations', :registrations => "registrations"}, sign_out_via: :post
   devise_scope :user do
     patch "/confirm" => "confirmations#confirm"
     root 'devise/sessions#new'
