@@ -95,7 +95,15 @@ Rails.application.routes.draw do
   patch 'accounts/editjustification'
   
   post 'accounts/update'
-
+  
+  get 'reserve_limit/viewreservelimit'
+  post 'reserve_limit/viewreservelimit'
+  post 'reserve_limit/addReserve'
+  get 'reserve_limit/viewallreservelimitchangerequest'
+  get 'reserve_limit/accept'
+  get 'reserve_limit/reject'
+  
+  
   get 'claims/newclaim'
 
   get 'claims/editclaim'
