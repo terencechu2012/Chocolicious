@@ -285,6 +285,10 @@
 		<td><a href="<%= c.supportdoc.url%>" class="btn btn-sm btn-primary">Download</td>
 		<%if status == 2 || status == 8%>
 		<td><a href="#", onclick="pres(<%=c.id%>)" class="btn btn-sm btn-primary">Acknowledge</a></td>
+		<%if status == 2%>
+		<td><a href="/claims/addremark?id=<%=c.id%>&status=1" class="btn btn-sm btn-primary">Reject</td>
+		<%elsif status == 8%>
+		<td><a href="/claims/addremark?id=<%=c.id%>&status=7" class="btn btn-sm btn-primary">Reject</td>
 		<p id ="pres"> </p>
 		<%end%>
 	</tr>

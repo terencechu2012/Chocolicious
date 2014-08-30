@@ -65,6 +65,10 @@ Rails.application.routes.draw do
   get 'chief/injectfunds'
 
   get 'accounts/viewaccount'
+  
+  get 'accounts/sacaccount'
+  
+  post 'accounts/inject'
 
   get 'accounts/viewcbdaccounts'
   

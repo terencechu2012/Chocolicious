@@ -13,6 +13,149 @@
 
 ActiveRecord::Schema.define(version: 20140829072942) do
 
+  create_table "archive_budget_expenses", force: true do |t|
+    t.integer  "budget_id"
+    t.string   "item"
+    t.decimal  "requestsac",      precision: 10, scale: 2, default: 0.0
+    t.decimal  "requestreserves", precision: 10, scale: 2, default: 0.0
+    t.decimal  "unitcost",        precision: 10, scale: 2, default: 0.0
+    t.integer  "quantity",                                 default: 0
+    t.string   "justification"
+    t.string   "quotation"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "archive_budget_incomes", force: true do |t|
+    t.integer  "budget_id"
+    t.string   "item"
+    t.decimal  "income",          precision: 10, scale: 2
+    t.string   "incomebreakdown"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "archive_budgets", force: true do |t|
+    t.string   "clubid"
+    t.string   "year"
+    t.integer  "semester"
+    t.string   "event"
+    t.date     "startdate"
+    t.date     "enddate"
+    t.integer  "estnopar"
+    t.string   "category"
+    t.decimal  "requestsac",                             precision: 10, scale: 2, default: 0.0
+    t.decimal  "requestreserves",                        precision: 10, scale: 2, default: 0.0
+    t.decimal  "projectedincome",                        precision: 10, scale: 2, default: 0.0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "explanation",         limit: 2147483647
+    t.string   "poster_file_name"
+    t.string   "poster_content_type"
+    t.integer  "poster_file_size"
+    t.datetime "poster_updated_at"
+  end
+
+  create_table "archive_claims", force: true do |t|
+    t.string   "userid"
+    t.string   "clubid"
+    t.decimal  "amount",                  precision: 10, scale: 2
+    t.integer  "status"
+    t.string   "category"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "supportdoc_file_name"
+    t.string   "supportdoc_content_type"
+    t.integer  "supportdoc_file_size"
+    t.datetime "supportdoc_updated_at"
+    t.string   "remarks"
+    t.string   "nric"
+    t.string   "event"
+  end
+
+  create_table "archive_clubs", id: false, force: true do |t|
+    t.string   "clubid",      default: "", null: false
+    t.string   "finsecid"
+    t.string   "presidentid"
+    t.string   "clubtype"
+    t.string   "clubname"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "clubcode"
+  end
+
+  create_table "archive_clubusers", id: false, force: true do |t|
+    t.integer  "id",         default: 0, null: false
+    t.string   "userid"
+    t.string   "clubid"
+    t.string   "role"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "archive_deposits", force: true do |t|
+    t.string   "userid"
+    t.string   "clubid"
+    t.decimal  "amount",     precision: 10, scale: 2
+    t.integer  "status"
+    t.string   "remarks"
+    t.date     "date"
+    t.string   "receipts"
+    t.string   "donorname"
+    t.string   "donoradd"
+    t.string   "donoric"
+    t.string   "purpose"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "archive_expenditure_accounts", force: true do |t|
+    t.string   "clubid"
+    t.decimal  "Category1Balance", precision: 10, scale: 2, default: 0.0
+    t.decimal  "Category2Balance", precision: 10, scale: 2, default: 0.0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "archive_requests", force: true do |t|
+    t.string   "userid"
+    t.string   "clubid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "archive_reserve_accounts", force: true do |t|
+    t.string   "clubid"
+    t.decimal  "balance",                          precision: 10, scale: 2
+    t.decimal  "limit",                            precision: 10, scale: 2
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "justification", limit: 2147483647
+  end
+
+  create_table "archive_users", primary_key: "userid", force: true do |t|
+    t.string   "passwordhash"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "nric"
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
+    t.string   "fullname"
+    t.string   "contactno"
+  end
+
   create_table "budget_controls", force: true do |t|
     t.boolean  "open"
     t.string   "year"
