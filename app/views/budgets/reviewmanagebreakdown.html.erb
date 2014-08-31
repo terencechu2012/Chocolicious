@@ -22,8 +22,8 @@
 			<div class="box-content box-no-padding">
 				<div class="responsive-table">
 					<div class="scrollable-area">
-						<table class="table table-bordered table-striped" style="margin-bottom:0;">
-							
+						<table id="expensesTable" class="table table-bordered table-striped" style="margin-bottom:0;">
+							<thead>
 								<tr>
 									<th>Item</th>
 									<th>Request SAC</th>
@@ -34,7 +34,8 @@
 									<th>Quotation</th>
 									<th>Delete</th>
 								</tr>
-							
+							</thead>
+							<tbody>
 								<%@expenditures.each do |e|%>
 								<tr>
 									<td><%= e.item%></td>
@@ -54,6 +55,15 @@
 			</div>
 		</div>
 	</div>
+	<script>
+	$(document).ready(function() {
+		$('#expensesTable').dataTable({
+			"sScrollX": "100%",
+		"sScrollXInner": "100%",
+		"bScrollCollapse": true
+		});
+	}); 
+</script>
 </div>
 
 <div class='row'>
@@ -128,15 +138,16 @@
 			<div class="box-content box-no-padding">
 				<div class="responsive-table">
 					<div class="scrollable-area">
-						<table class="table table-bordered table-striped" style="margin-bottom:0;">
-							
+						<table id="incomeTable" class="table table-bordered table-striped" style="margin-bottom:0;">
+							<thead>
 								<tr>
 									<th>Item</th>
 									<th>Income</th>
 									<th>Breakdown of income</th>
 									<th>Delete</th>
 								</tr>
-							
+							</thead>
+							<tbody>
 								<%@incomes.each do |i|%>
 								<tr>
 									<td><%= i.item%></td>
@@ -145,13 +156,22 @@
 									<td><a href='/budgets/deleteincome?id=<%= i.id%>' class="btn btn-danger btn-xs"><i class="icon-remove"></i></a></td>
 								</tr>
 								<%end%>
-							
+							</tbody>
 						</table>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<script>
+	$(document).ready(function() {
+		$('#incomeTable').dataTable({
+			"sScrollX": "100%",
+		"sScrollXInner": "100%",
+		"bScrollCollapse": true
+		});
+	}); 
+</script>
 </div>
 
 <div class='row'>

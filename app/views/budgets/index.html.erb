@@ -43,7 +43,7 @@
 				<div class="box-content box-no-padding">
 					<div class="responsive-table">
 						<div class="scrollable-area">
-							<table id="example" class="table table-bordered table-striped" style="margin-bottom:0;">
+							<table id="pastbudTable" class="table table-bordered table-striped" style="margin-bottom:0;">
 								<thead>
 									<tr>
 										<th> Past Budgets </th>
@@ -67,8 +67,10 @@
 <%end%>
 <script>
 	$(document).ready(function() {
-		$('#example').dataTable({
-			"scrollX" : true
+		$('#pastbudTable').dataTable({
+			"sScrollX": "100%",
+		"sScrollXInner": "100%",
+		"bScrollCollapse": true
 		});
 	}); 
 </script>

@@ -24,8 +24,8 @@
 			<div class="box-content box-no-padding">
 				<div class="responsive-table">
 					<div class="scrollable-area">
-						<table class="table table-bordered table-striped" style="margin-bottom:0;">
-							
+						<table id="proposeBTable" class="table table-bordered table-striped" style="margin-bottom:0;">
+							<thead>
 								<tr>
 									<th>Event</th>
 									<th>Start date</th>
@@ -37,27 +37,7 @@
 									<th>Projected Income</th>
 									<!-- <th id="popoverData" class="btn btn-block green-background" href="#" rel="popover" data-placement="bottom" data-original-title="Title" data-trigger="hover" > -->
 
-									<th>
-									<div class='btn-group dropdown'>
-										<button class='btn dropdown-toggle' data-delay='100' data-hover='dropdown' data-toggle='dropdown' data-placement="top">
-											Options<br /> (Click for legend)
-											<span class='caret'></span>
-										</button>
-										<ul class='dropdown-menu'>
-											<li class="btn btn-danger blue-background">
-												<i class="icon-eye-open"></i> View Explanations
-											</li>
-											<li class="btn btn-danger green-background">
-												<i class="icon-download-alt"></i> Download Attachments
-											</li>
-											<li class="btn btn-danger orange-background">
-												<i class="icon-edit"></i> Manage
-											</li>
-											<li class="btn btn-danger red-background">
-												<i class="icon-remove"></i> Delete
-											</li>
-										</ul>
-									</div></th>
+									<th>Options</th>
 									<!-- <script type="text/javascript">
 									$('#popoverData').popover({content:'<i class="icon-eye-open"></i>View Explanations'});
 									$('#popoverOption').popover({ trigger: "hover" });
@@ -66,7 +46,8 @@
 									<th>Manage breakdown</th>
 									<th>Delete</th> -->
 								</tr>
-							
+							</thead>
+							<tbody>
 								<%if !@budgets.nil?%>
 								<%@budgets.each do |b|%>
 								<tr>
@@ -78,10 +59,10 @@
 									<td><%= b.requestsac%></td>
 									<td><%= b.requestreserves%></td>
 									<td><%= b.projectedincome%></td>
-									<td><a href="#", onclick="alert('<%= b.explanation%>')" class="btn btn-success btn-xs blue-background"><i class="icon-eye-open"></i></a>
-										<a href='<%= b.poster.url%>'class="btn btn-success btn-xs green-background"><i class="icon-download-alt"></i></a>
-										<a href='/budgets/managebreakdown?id=<%= b.id%>' class="btn btn-success btn-xs orange-background"><i class="icon-edit"></i></a>
-										<a href='/budgets/delete?id=<%= b.id%>' class="btn btn-success btn-xs red-background"><i class="icon-remove"></i></a></td>
+									<td><a href="#", onclick="alert('<%= b.explanation%>')" class="btn btn-success btn-xs blue-background has-tooltip" data-placement="top" title="Explanation"><i class="icon-eye-open"></i></a>
+										<a href='<%= b.poster.url%>'class="btn btn-success btn-xs green-background has-tooltip" data-placement="top" title="Download Attachments"><i class="icon-download-alt"></i></a>
+										<a href='/budgets/managebreakdown?id=<%= b.id%>' class="btn btn-success btn-xs orange-background has-tooltip" data-placement="top" title="Manage Breakdown"><i class="icon-edit"></i></a>
+										<a href='/budgets/delete?id=<%= b.id%>' class="btn btn-success btn-xs red-background has-tooltip" data-placement="top" title="Delete"><i class="icon-remove"></i></a></td>
 
 									<!-- <td><a href='<%= b.poster.url%>'class="btn btn-success btn-xs green-background"><i class="icon-download-alt"></i></a></td>
 									<td><a href='/budgets/managebreakdown?id=<%= b.id%>'>Manage</a></td>
@@ -89,13 +70,22 @@
 								</tr>
 								<%end%>
 								<%end%>
-							
+							</tbody>
 						</table>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<script>
+	$(document).ready(function() {
+		$('#proposeBTable').dataTable({
+			"sScrollX": "100%",
+		"sScrollXInner": "100%",
+		"bScrollCollapse": true
+		});
+	}); 
+</script>
 </div>
 
 <div class='row'>
