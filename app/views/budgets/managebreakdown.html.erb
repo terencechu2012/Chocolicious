@@ -24,7 +24,7 @@
 			<div class="box-content box-no-padding">
 				<div class="responsive-table">
 					<div class="scrollable-area">
-						<table class="data-table table table-bordered table-striped" style="margin-bottom:0;">
+						<table id="mngbreakdownTable" class="table table-bordered table-striped" style="margin-bottom:0;">
 							<thead>
 								<table class='table table-bordered'>
 									<tr>
@@ -58,6 +58,15 @@
 			</div>
 		</div>
 	</div>
+	<script>
+	$(document).ready(function() {
+		$('#mngbreakdownTable').dataTable({
+			"sScrollX": "100%",
+		"sScrollXInner": "100%",
+		"bScrollCollapse": true
+		});
+	}); 
+</script>
 </div>
 <div class='row'>
 	<div class='col-sm-12 box' style='margin-bottom: 0'>
@@ -130,15 +139,16 @@
 			<div class="box-content box-no-padding">
 				<div class="responsive-table">
 					<div class="scrollable-area">
-						<table class="table table-bordered table-striped" style="margin-bottom:0;">
-							
+						<table id="incomeTable" class="table table-bordered table-striped" style="margin-bottom:0;">
+							<thead>
 								<tr>
 									<th>Item</th>
 									<th>Income</th>
 									<th>Breakdown of income</th>
 									<th>Delete</th>
 								</tr>
-							
+							</thead>
+							<tbody>
 								<%@incomes.each do |i|%>
 								<tr>
 									<td><%= i.item%></td>
@@ -147,13 +157,22 @@
 									<td><a href='/budgets/deleteincome?id=<%= i.id%>'>Delete</a></td>
 								</tr>
 								<%end%>
-							
+							</tbody>
 						</table>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<script>
+	$(document).ready(function() {
+		$('#incomeTable').dataTable({
+			"sScrollX": "100%",
+		"sScrollXInner": "100%",
+		"bScrollCollapse": true
+		});
+	}); 
+</script>
 </div>
 
 <div class='row'>

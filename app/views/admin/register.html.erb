@@ -1,7 +1,7 @@
 <div class='row'>
 	<div class='col-sm-12'>
 		<div class='page-header'>
-			<h1 class='pull-left'><i class='icon-group'></i> <!-- span has to be on next line to create that space between the logo and the words --><span>Managing my Club</span></h1>
+			<h1 class='pull-left'><i class='icon-group'></i><!-- span has to be on next line to create that space between the logo and the words --><span>Managing my Club</span></h1>
 		</div>
 	</div>
 </div>
@@ -21,7 +21,7 @@
 			</div>
 		</div>
 		<div class='box-content'>
-			<div class='tabbable' style='margin-top: 20px'>
+			<div id="tab" class='tabbable' style='margin-top: 20px'>
 				<!-- Tabs' titles -->
 				<ul class='nav nav-responsive nav-tabs'>
 					<li class='active'>
@@ -46,7 +46,7 @@
 							<div class="responsive-table">
 								<div class="scrollable-area">
 									<%= form_tag("/admin/delete/", :method => "post") do %>
-									<table id="example" class="table table-striped" style="margin-bottom:0;">
+									<table id="memberinclub" class="table table-striped" style="margin-bottom:0;">
 										<thead>
 											<tr>
 												<th>Name</th>
@@ -70,38 +70,57 @@
 								</div>
 							</div>
 						</div>
+						<script>
+							$(document).ready(function() {
+								$('#memberinclub').dataTable({
+									"sScrollX": "100%",
+		"sScrollXInner": "100%",
+		"bScrollCollapse": true
+								});
+							});
+						</script>
 					</div>
 					<!-- Tab 2 -->
 					<div id="retab2" class="tab-pane">
 						<div class="box-content box-no-padding">
 							<div class="responsive-table">
 								<div class="scrollable-area">
-									<% if @clubRequests.size > 0 %>
+									
 									<%= form_tag("/admin/notifications/", :method => "post") do %>
-									<table class="table table-striped" style="margin-bottom:0;">
-										
-											<tr>
-												<th>Name</th>
-												<th>Requested Date</th>
-												<th><%= select_tag(:choice, "<option>Add</option><option>Reject</option>".html_safe) %>
-												<br />
-												<%= submit_tag("Go!", :class=>"btn orange-background") %></th>
-											</tr>
-										
-											<% @clubRequests.each do |user| %>
-											<tr>
-												<td><%= user.userid %></td>
-												<td><%= user.created_at %></td>
-												<td> <%= check_box_tag("newRegister[]", user.userid)%> </td>
-											</tr>
-											<%end%>
-										
+									<table id="memberReq" class="table table-striped" style="margin-bottom:0;">
+										<thead>
+										<tr>
+											<th>Name</th>
+											<th>Requested Date</th>
+											<th><%= select_tag(:choice, "<option>Add</option><option>Reject</option>".html_safe) %>
+											<br />
+											<%= submit_tag("Go!", :class=>"btn orange-background") %></th>
+										</tr>
+										</thead>
+										<tbody>
+										<% @clubRequests.each do |user| %>
+										<tr>
+											<td><%= user.userid %></td>
+											<td><%= user.created_at %></td>
+											<td> <%= check_box_tag("newRegister[]", user.userid)%> </td>
+										</tr>
+										<%end%>
+										</tbody>
 									</table>
 									<%end%>
-									<%end%>
+									
 								</div>
 							</div>
 						</div>
+						<script>
+							$(document).ready(function() {
+								$('#memberReq').dataTable({
+									"sScrollX": "100%",
+		"sScrollXInner": "100%",
+		"bScrollCollapse": true
+								});
+							});
+						</script>
 					</div>
 					<!-- Tab 3 -->
 					<div id="retab3" class="tab-pane">
@@ -194,6 +213,15 @@
 </div>
 </div>
 </div>
+<script>
+$(document).ready(function() {
+    $("#tab").tabs( {
+        "activate": function(event, ui) {
+            $( $.fn.dataTable.tables( true ) ).DataTable().columns.adjust();
+        }
+    } );
+} );
+</script>
 <%elsif session[:role].include?'smusafinsec'%>
 <!-- Tabs for Smusa Finance Secretaries -->
 <div class='row'>
@@ -208,7 +236,7 @@
 			</div>
 		</div>
 		<div class='box-content'>
-			<div class='tabbable' style='margin-top: 20px'>
+			<div id="tabSmusa" class='tabbable' style='margin-top: 20px'>
 				<ul class='nav nav-responsive nav-tabs'>
 					<li class='active'>
 						<a data-toggle='tab' href='#retab1'> CBd Finance Secretaries </a>
@@ -229,15 +257,16 @@
 							<div class="responsive-table">
 								<div class="scrollable-area">
 									<%= form_tag("/admin/delete/", :method => "post") do %>
-									<table class="table table-striped" style="margin-bottom:0;">
-										
+									<table id="cbdfsTable" class="table table-striped" style="margin-bottom:0;">
+										<thead>
 										<tr>
 											<th>Name</th>
 											<th>Role</th>
 											<th>CBD</th>
 											<th><%= submit_tag("Delete", :class=>"btn orange-background") %></th>
 										</tr>
-										
+										</thead>
+										<tbody>
 										<% @cbdList.each do |user| %>
 										<tr>
 											<td><%= user.userid %></td>
@@ -247,13 +276,23 @@
 											<%else%><font color=red><i>You are not able to delete yourself</i><%end%> </td>
 											<%= hidden_field_tag(:club, user.clubid)%>
 										</tr>
-										<%end%>	
+										<%end%>
+										</tbody>
 										<%end%>
 									</table>
-									
+
 								</div>
 							</div>
 						</div>
+						<script>
+							$(document).ready(function() {
+								$('#cbdfsTable').dataTable({
+									"sScrollX": "100%",
+		"sScrollXInner": "100%",
+		"bScrollCollapse": true
+								});
+							});
+						</script>
 					</div>
 					<!-- Tab 2 -->
 					<div id="retab2" class="tab-pane">
@@ -298,12 +337,15 @@
 							<div class="responsive-table">
 								<div class="scrollable-area">
 									<%= form_tag("/admin/delete/", :method => "post") do %>
-									<table class = "table table-bordered table-condensed">
+									<table id="smusasecTable" class = "table table-striped">
+										<thead>
 										<tr>
 											<th>Name</th>
 											<th>Department</th>
 											<th><%= submit_tag("Delete", :class=>"btn orange-background") %></th>
 										</tr>
+										</thead>
+										<tbody>
 
 										<% @smusasecList.each do |user| %>
 										<tr>
@@ -314,11 +356,21 @@
 											<%= hidden_field_tag(:club, user.clubid)%>
 										</tr>
 										<%end%>
+										</tbody>
 										<%end%>
 									</table>
 								</div>
 							</div>
 						</div>
+						<script>
+							$(document).ready(function() {
+								$('#smusasecTable').dataTable({
+									"sScrollX": "100%",
+		"sScrollXInner": "100%",
+		"bScrollCollapse": true
+								});
+							});
+						</script>
 					</div>
 					<!-- Tab 4 -->
 					<div id="retab4" class="tab-pane">
@@ -363,6 +415,15 @@
 </div>
 </div>
 </div>
+<script>
+$(document).ready(function() {
+    $("#tabSmusa").tabs( {
+        "activate": function(event, ui) {
+            $( $.fn.dataTable.tables( true ) ).DataTable().columns.adjust();
+        }
+    } );
+} );
+</script>
 <%elsif session[:role].include?'cbdfinsec'%>
 <!-- Responsive tabs for CBd Finance Secretary -->
 <div class='row'>
@@ -377,7 +438,7 @@
 			</div>
 		</div>
 		<div class='box-content'>
-			<div class='tabbable' style='margin-top: 20px'>
+			<div id="tabCBD" class='tabbable' style='margin-top: 20px'>
 				<ul class='nav nav-responsive nav-tabs'>
 					<li class='active'>
 						<a data-toggle='tab' href='#retab1'> Club Finance Secretaries </a>
@@ -402,14 +463,16 @@
 							<div class="responsive-table">
 								<div class="scrollable-area">
 									<%= form_tag("/admin/delete/", :method => "post") do %>
-									<table class = "table table-bordered table-condensed">
+									<table id="clubfsTable" class = "table table-striped">
+										<thead>
 										<tr>
 											<th>Name</th>
 											<th>Role</th>
 											<th>Club</th>
 											<th><%= submit_tag("Delete", :class=>"btn orange-background") %></th>
 										</tr>
-
+										</thead>
+										<tbody>
 										<% @clubFinSecList.each do |user| %>
 										<tr>
 											<td><%= user.userid %></td>
@@ -420,11 +483,21 @@
 											<%= hidden_field_tag(:club, user.clubid)%>
 										</tr>
 										<%end%>
+										</tbody>
 										<%end%>
 									</table>
 								</div>
 							</div>
 						</div>
+						<script>
+							$(document).ready(function() {
+								$('#clubfsTable').dataTable({
+									"sScrollX": "100%",
+		"sScrollXInner": "100%",
+		"bScrollCollapse": true
+								});
+							});
+						</script>
 					</div>
 					<!-- Tab 2 -->
 					<div id="retab2" class="tab-pane">
@@ -468,13 +541,15 @@
 							<div class="responsive-table">
 								<div class="scrollable-area">
 									<%= form_tag("/admin/delete/", :method => "post") do %>
-									<table class = "table table-bordered table-condensed">
+									<table id="cbdmcTable" class = "table table-bordered table-condensed">
+										<thead>
 										<tr>
 											<th>Name</th>
 											<th>Role</th>
 											<th><%= submit_tag("Delete", :class=>"btn orange-background") %></th>
 										</tr>
-
+										</thead>
+										<tbody>
 										<% @cbdmcList.each do |user| %>
 										<tr>
 											<td><%= user.userid %></td>
@@ -484,11 +559,21 @@
 											<%= hidden_field_tag(:club, user.clubid)%>
 										</tr>
 										<%end%>
+										</tbody>
 										<%end%>
 									</table>
 								</div>
 							</div>
 						</div>
+						<script>
+							$(document).ready(function() {
+								$('#cbdmcTable').dataTable({
+									"sScrollX": "100%",
+		"sScrollXInner": "100%",
+		"bScrollCollapse": true
+								});
+							});
+						</script>
 					</div>
 					<!-- Tab 4 -->
 					<div id="retab4" class="tab-pane">
@@ -573,7 +658,17 @@
 </div>
 </div>
 </div>
+<script>
+$(document).ready(function() {
+    $("#tabCBD").tabs( {
+        "activate": function(event, ui) {
+            $( $.fn.dataTable.tables( true ) ).DataTable().columns.adjust();
+        }
+    } );
+} );
+</script>
 </div>
+
 <% elsif session[:role].nil? %>
 <p>
 	You do not have a club yet.
@@ -659,7 +754,8 @@
 									<td><%= clubtable.clubname %></td>
 									<td>
 									<div class="text-center">
-										<a class="btn btn-danger btn-xs" href='/admin/deleteRequest?id=<%= name.id%>'> <i class="icon-remove"></i> </a>
+										<span class="label label-warning">Pending</span>
+										<a class="btn btn-danger btn-xs" href='/admin/deleteRequest?id=<%= name.id%>'> <i class="icon-remove"></i> Delete </a>
 									</div><!-- <a href='/admin/deleteRequest?id=<%= name.id%>'>Delete --></td>
 								</tr>
 								<%end%>
@@ -671,10 +767,3 @@
 		</div>
 	</div>
 </div>
-<script>
-	$(document).ready(function() {
-		$('#example').dataTable({
-			"scrollX" : true
-		});
-	}); 
-</script>
