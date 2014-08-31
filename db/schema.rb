@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140829072942) do
+ActiveRecord::Schema.define(version: 20140831095849) do
 
   create_table "archive_budget_expenses", force: true do |t|
     t.integer  "budget_id"
@@ -300,6 +300,21 @@ ActiveRecord::Schema.define(version: 20140829072942) do
     t.string   "clubid"
     t.decimal  "amount",                        precision: 10, scale: 2
     t.text     "remarks",    limit: 2147483647
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "transactions", force: true do |t|
+    t.string   "clubid"
+    t.string   "clubcode"
+    t.string   "year"
+    t.integer  "semester"
+    t.string   "typeoftransaction"
+    t.decimal  "amount",            precision: 10, scale: 2
+    t.integer  "depositid"
+    t.integer  "claimid"
+    t.string   "event"
+    t.string   "purpose"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

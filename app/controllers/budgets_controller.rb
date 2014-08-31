@@ -93,14 +93,21 @@ class BudgetsController < ApplicationController
   end
   
   def addexpenditure
-    BudgetExpense.create(budget_expense_params)
+    
     b = Budget.find_by_id(params[:budget_expense][:budget_id])
     requestsac = b.requestsac
     requestreserves = b.requestreserves
     requestsac += params[:budget_expense][:requestsac].to_f
     requestreserves += params[:budget_expense][:requestreserves].to_f
-    b.update_attribute(:requestsac, requestsac)
-    b.update_attribute(:requestreserves, requestreserves)
+    reservebalance = ReserveAccount.find_by_clubid(b.clubid).balance
+    if reservebalance < requestreserves
+      flash.alert = 'Not enough funds in reserve account'
+    else
+      BudgetExpense.create(budget_expense_params)
+      b.update_attribute(:requestsac, requestsac)
+      b.update_attribute(:requestreserves, requestreserves)
+    end
+    
     redirect_to :back
   end
   

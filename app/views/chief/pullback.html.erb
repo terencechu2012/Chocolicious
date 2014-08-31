@@ -1,2 +1,43 @@
-<h1>Chief#pullback</h1>
-<p>Find me in app/views/chief/pullback.html.erb</p>
+<%@arr.each do |a|%>
+<h2><%=a['clubname']%></h2>
+<table class='table table-bordered'>
+	<tr>
+		<th>Surplus</th><th>Return to SAC</th><th>Allocated Budget</th><th>Allocation from Reserves</th>
+	</tr>
+	<tr>
+		<td><%=a['surplus']%></td>
+		<td><%=a['returnsac']%></td>
+		<td><%=a['allocatedbudget']%></td>
+		<td><%=a['allocatefromreserves']%></td>
+	</tr>
+</table>
+Total expenses $<%=a['expensesamount']%>:
+<table class='table table-bordered'>
+	<tr>
+		<th>Transaction Type</th><th>Amount</th><th>Claim ID</th><th>Event</th>
+	</tr>
+	<%a['expenses'].each do |e|%>
+		<tr>
+			<td><%=e.typeoftransaction%></td>
+			<td><%=e.amount%></td>
+			<td><%=e.claimid%></td>
+			<td><%=e.event%></td>
+		</tr>
+	<%end%>
+</table>
+Total revenue $<%=a['revenuesamount']%>:
+<table class='table table-bordered'>
+	<tr>
+		<th>Transaction Type</th><th>Amount</th><th>Deposit ID</th><th>Purpose</th>
+	</tr>
+	<%a['revenues'].each do |e|%>
+		<tr>
+			<td><%=e.typeoftransaction%></td>
+			<td><%=e.amount%></td>
+			<td><%=e.depositid%></td>
+			<td><%=e.purpose%></td>
+		</tr>
+	<%end%>
+</table>
+
+<%end%>
