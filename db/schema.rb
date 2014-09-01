@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140831095849) do
+ActiveRecord::Schema.define(version: 20140901133421) do
 
   create_table "archive_budget_expenses", force: true do |t|
     t.integer  "budget_id"
@@ -226,6 +226,7 @@ ActiveRecord::Schema.define(version: 20140831095849) do
     t.string   "remarks"
     t.string   "nric"
     t.string   "event"
+    t.string   "expense"
   end
 
   create_table "clubs", primary_key: "clubid", force: true do |t|

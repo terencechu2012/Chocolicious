@@ -250,6 +250,9 @@ $(document).ready(function() {
 					<li class=''>
 						<a data-toggle='tab' href='#retab4'> Add new SMUSA Secretary </a>
 					</li>
+					<li class=''>
+						<a data-toggle='tab' href='#retab5'> Add President </a>
+					</li>
 				</ul>
 				<div class='tab-content'>
 					<div id="retab1" class="tab-pane active">
@@ -406,6 +409,52 @@ $(document).ready(function() {
 								</div>
 							</div>
 							<%end%>
+						</div>
+					</div>
+				</div>
+				
+				<div id="retab5" class="tab-pane">
+						<div class='col-sm-12'>
+							<div class='box-content box-padding'>
+								<%= form_tag("/admin/addLeader/", :method => "post") do %>
+								<!-- Select tags to make dropdownlist with search -->
+								<fieldset>
+									<div class='col-sm-4'>
+										<div class='box'>
+											<div class='lead'>
+												<i class='icon-file-alt'></i>
+												Notes on adding president
+											</div>
+											<small class='text-muted'>In the event that the President has to step down for whatever reasons, or a new Exco has been elected:
+												<br />
+												<ol>
+													<li>
+														Check if President has stepped down, and position is vacant in the first tab "Members"
+													</li>
+													<li>
+														Select next president from list of users in dropdown list
+													</li>
+													<li>
+														Add new President
+													</li>
+												</ol> If you have selected the wrong user accidentally, you may remove the assigned role in the first tab "Members". </small>
+										</div>
+									</div>
+									<div class='col-sm-7 col-sm-offset-1'>
+										<div class='form-group'>
+											<label>Select User</label>
+											<%= select_tag(:userid, options_from_collection_for_select(@users, "userid", "userid"))%>
+											<%= hidden_field_tag(:role,'president')%>
+											<%= hidden_field_tag(:club, session[:club])%>
+										</div>
+								</fieldset>
+								<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
+									<div class='text-right'>
+										<%= submit_tag("Add", :class=>"btn btn-primary btn-lg orange-background") %>
+									</div>
+								</div>
+								<%end%>
+							</div>
 						</div>
 					</div>
 				</div>

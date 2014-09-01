@@ -192,12 +192,17 @@ class AccountsController < ApplicationController
     
     @schoolreserves = 0.0
     schools = []
+    iconclubs = ReserveAccount.where(['clubid in (select clubid from clubs where clubtype = ?)', 'ICON'])
+    iconclubs.each do |ic|
+      @schoolreserves += ic.balance
+    end
     schools << ReserveAccount.find_by_clubid('ASOC')
     schools << ReserveAccount.find_by_clubid('BONDUE')
     schools << ReserveAccount.find_by_clubid('OIKOS')
     schools << ReserveAccount.find_by_clubid('THE BAR')
     schools << ReserveAccount.find_by_clubid('SISS')
     schools << ReserveAccount.find_by_clubid('SOSCIETY')
+    schools << ReserveAccount.find_by_clubid('ICON')
     schools.each do |s|
       if !s.nil?
         @schoolreserves += s.balance

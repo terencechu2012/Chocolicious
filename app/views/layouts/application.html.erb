@@ -371,13 +371,14 @@
                                     <span>Club Account</span>
                                 </a>
                             </li>
-                          
+                          <%if session[:club] != 'bizcom' && session[:club] != 'smusa'%>
                           <li class=''>
                                 <a href='/budgets/index'>
                                     <i class='icon-btc'></i>
                                     <span>Club Budget</span>
                                 </a>
                             </li>
+                            <%end%>
                         </ul>
                     </li>
                     <%end%>

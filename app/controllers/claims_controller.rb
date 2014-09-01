@@ -43,9 +43,14 @@ class ClaimsController < ApplicationController
       @normalclaims = Claim.where(clubid:session[:club], status: 2..5)
       @cbdmcclaims = Claim.where(clubid:session[:club], status: 8..11)
       @claims = @normalclaims + @cbdmcclaims
+      if session[:club] == 'smusa'
+        @thirdclaims = Claim.where(['clubid in (select clubid from clubs where clubtype = ?) and status > 12 and status < 17', 'smusa'])
+        @claims = @normalclaims + @cbdmcclaims + @thirdclaims
+      end
+      
     elsif role.include? 'smusafinsec'
       @cbdmcclaims = Claim.where(status: 9..11)
-      @smusasecclaims = Claim.where(status: 13..15)
+      @smusasecclaims = Claim.where(status: 14..16)
     end
   end
 
@@ -113,7 +118,7 @@ class ClaimsController < ApplicationController
   def resubmitclaim
     c = Claim.find_by_id(params[:id])
     if c.status == 12
-    newstatus = c.status + 1
+    newstatus = c.status + 2
     else
     newstatus = c.status + 2
     end
@@ -143,6 +148,7 @@ class ClaimsController < ApplicationController
     eventname = claim.event
     amount = claim.amount
     category = claim.category
+    expense = claim.expense
     clubfinsec = Club.find_by_clubid(claim.clubid).finsecid
     clubcode = Club.find_by_clubid(claim.clubid).clubcode
     clubpres = Club.find_by_clubid(claim.clubid).presidentid
@@ -159,7 +165,7 @@ class ClaimsController < ApplicationController
       text 'NRIC: '+nric.to_s
       text "Date: "+date.to_s
       move_down 30
-      table([['Event Name', 'Amount', 'Category'],[eventname, amount, category]])
+      table([['Event Name', 'Amount', 'Category','Expense'],[eventname, amount, category, expense]])
       move_down 30
       table([['Prepared and verified by', 'Certified by', 'Endorsed/Approved by'], [clubfinsec, clubpres,cbdfinsec], [clubname, clubname, cbdname], ['Club finance secretary', 'Club president', 'CBD finance secretary']], :cell_style => {:borders => []})
     end
@@ -177,6 +183,7 @@ class ClaimsController < ApplicationController
     eventname = claim.event
     amount = claim.amount
     category = claim.category
+    expense = claim.expense
     cbdfinsec = Club.find_by_clubid(claim.clubid).finsecid
     clubcode = Club.find_by_clubid(claim.clubid).clubcode
     cbdpres = Club.find_by_clubid(claim.clubid).presidentid
@@ -193,7 +200,7 @@ class ClaimsController < ApplicationController
       text 'NRIC: '+nric.to_s
       text "Date: "+date.to_s
       move_down 30
-      table([['Event Name', 'Amount', 'Category'],[eventname, amount, category]])
+      table([['Event Name', 'Amount', 'Category','Expense'],[eventname, amount, category, expense]])
       move_down 30
       table([['Prepared and verified by', 'Certified by', 'Endorsed/Approved by'], [cbdfinsec, cbdpres,smusafinsec], [clubname, clubname, cbdname], ['CBD finance secretary', 'CBD president', 'SMUSA finance secretary']], :cell_style => {:borders => []})
     end
@@ -203,7 +210,7 @@ class ClaimsController < ApplicationController
   def endorsesmusasec
     require 'prawn'
     claim = Claim.find_by_id(params[:id])
-    claim.update_attribute(:status, 14)
+    claim.update_attribute(:status, 15)
     claimant = User.find_by_userid(claim.userid)
     fullname = claimant.fullname
     contact = claimant.contactno
@@ -211,8 +218,10 @@ class ClaimsController < ApplicationController
     eventname = claim.event
     amount = claim.amount
     category = claim.category
+    expense = claim.expense
     smusasec = claimant.userid
     smusafinsec = current_user.userid
+    smusapres = Club.find_by_clubid('smusa').presidentid
     clubcode = Club.find_by_clubid(claim.clubid).clubcode
     claimid = claim.id
     clubname = Club.find_by_clubid(claim.clubid).clubname
@@ -226,9 +235,9 @@ class ClaimsController < ApplicationController
       text 'NRIC: '+nric.to_s
       text "Date: "+date.to_s
       move_down 30
-      table([['Event Name', 'Amount', 'Category'],[eventname, amount, category]])
+      table([['Event Name', 'Amount', 'Category','Expense'],[eventname, amount, category, expense]])
       move_down 30
-      table([['Prepared and verified by', 'Endorsed/Approved by'], [smusasec,smusafinsec], [clubname, cbdname], ['SMUSA honourary secretary', 'SMUSA finance secretary']], :cell_style => {:borders => []})
+      table([['Prepared and verified by', 'Certified by','Endorsed/Approved by'], [smusasec, smusapres, smusafinsec], [clubname,cbdname, cbdname], ['SMUSA honourary secretary', 'SMUSA President','SMUSA finance secretary']], :cell_style => {:borders => []})
     end
     redirect_to '/toprint.pdf'
   end
