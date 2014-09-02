@@ -169,5 +169,55 @@ class AccountsController < ApplicationController
     params.require(:reserve_account).permit!
   end
   
+  def sacaccount
+    @sac = ExpenditureAccount.find_by_id(121)
+    acfclubs = ReserveAccount.where(['clubid in (select clubid from clubs where clubtype = ?)', 'ACF'])
+    acf = ReserveAccount.find_by_clubid('ACF')
+    @acfreserves = acf.balance
+    acfclubs.each do |a|
+      @acfreserves += a.balance
+    end
+    sicsclubs = ReserveAccount.where(['clubid in (select clubid from clubs where clubtype = ?)', 'SICS'])
+    sics = ReserveAccount.find_by_clubid('SICS')
+    @sicsreserves = sics.balance
+    sicsclubs.each do |a|
+      @sicsreserves += a.balance
+    end
+    ssuclubs = ReserveAccount.where(['clubid in (select clubid from clubs where clubtype = ?)', 'SSU'])
+    ssu = ReserveAccount.find_by_clubid('SSU')
+    @ssureserves = ssu.balance
+    ssuclubs.each do |a|
+      @ssureserves += a.balance
+    end
+    
+    @schoolreserves = 0.0
+    schools = []
+    iconclubs = ReserveAccount.where(['clubid in (select clubid from clubs where clubtype = ?)', 'ICON'])
+    iconclubs.each do |ic|
+      @schoolreserves += ic.balance
+    end
+    schools << ReserveAccount.find_by_clubid('ASOC')
+    schools << ReserveAccount.find_by_clubid('BONDUE')
+    schools << ReserveAccount.find_by_clubid('OIKOS')
+    schools << ReserveAccount.find_by_clubid('THE BAR')
+    schools << ReserveAccount.find_by_clubid('SISS')
+    schools << ReserveAccount.find_by_clubid('SOSCIETY')
+    schools << ReserveAccount.find_by_clubid('ICON')
+    schools.each do |s|
+      if !s.nil?
+        @schoolreserves += s.balance
+      end
+    end
+    
+  end
+  
+  def inject
+    amount = params[:amount].to_d
+    a = ExpenditureAccount.find_by_id(121)
+    balance = a.Category1Balance
+    balance += amount
+    a.update_attribute(:Category1Balance, balance)
+    redirect_to :back
+  end
   
 end

@@ -14,10 +14,11 @@ class DepositsController < ApplicationController
     elsif role.include? 'president'
       @normaldeposits = Deposit.where(clubid:session[:club], status: 2..5)
       @cbdmcdeposits = Deposit.where(clubid:session[:club], status: 8..11)
-      @deposits = @normaldeposits + @cbdmcdeposits
+      @thirddeposits = Deposit.where(['clubid in (select clubid from clubs where clubtype = ?) and status > 12 and status < 17', 'smusa'])
+      @deposits = @normaldeposits + @cbdmcdeposits + @thirddeposits
     elsif role.include? 'smusafinsec'
       @cbdmcdeposits = Deposit.where(status: 9..11)
-      @smusasecdeposits = Deposit.where(status: 13..15)
+      @smusasecdeposits = Deposit.where(status: 14..16)
     end
   end
 
@@ -92,7 +93,7 @@ class DepositsController < ApplicationController
   def resubmitdeposit
     c = Deposit.find_by_id(params[:id])
     if c.status == 12
-    newstatus = c.status + 1
+    newstatus = c.status + 2
     else
     newstatus = c.status + 2
     end
@@ -194,7 +195,7 @@ class DepositsController < ApplicationController
   def endorsesmusasec
     require 'prawn'
     deposit = Deposit.find_by_id(params[:id])
-    deposit.update_attribute(:status, 14)
+    deposit.update_attribute(:status, 15)
     claimant = User.find_by_userid(deposit.userid)
     fullname = claimant.fullname
     contact = claimant.contactno
@@ -208,6 +209,7 @@ class DepositsController < ApplicationController
     donoric = deposit.donoric
     smusasec = claimant.userid
     smusafinsec = current_user.userid
+    smusapres = Club.find_by_clubid('smusa').presidentid
     clubcode = Club.find_by_clubid(deposit.clubid).clubcode
     depositid = deposit.id
     clubname = Club.find_by_clubid(deposit.clubid).clubname
@@ -225,7 +227,7 @@ class DepositsController < ApplicationController
       move_down 30
       table([['Donor name', 'Donor Address', 'Donor IC'],[donorname, donoradd, donoric]])
       move_down 30
-      table([['Prepared and verified by', 'Endorsed/Approved by'], [smusasec,smusafinsec], [clubname, cbdname], ['SMUSA honourary secretary', 'SMUSA finance secretary']], :cell_style => {:borders => []})
+      table([['Prepared and verified by', 'Certified by','Endorsed/Approved by'], [smusasec,smusapres, smusafinsec], [clubname, cbdname, cbdname], ['SMUSA honourary secretary', 'SMUSA President','SMUSA finance secretary']], :cell_style => {:borders => []})
     end
     redirect_to '/toprint.pdf'
   end
