@@ -24,17 +24,6 @@
 //= require flatty/plugins/validate/jquery.validate.min
 //= require flatty/plugins/validate/additional-methods
 //= require dataTables.bootstrap.js
-
-
-
-
-//= require dataTables.min.js
-
-
-
-
-//= require dataTables.min.js
-
 //= require flatty/plugins/fuelux/wizard.js
 
 //= require moment.min
