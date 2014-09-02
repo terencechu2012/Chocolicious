@@ -1,34 +1,18 @@
 Rails.application.routes.draw do
-  get 'reserve_withdrawals/newrequest'
-  get 'reserve_withdrawals/viewrequest'
-  get 'reserve_withdrawals/editrequest'
-  post 'reserve_withdrawals/add'
-  post 'reserve_withdrawals/edit'
-  get 'reserve_withdrawals/addremark'
-  post 'reserve_withdrawals/addremark'
-  get 'reserve_withdrawals/submitrequest'
-  get 'reserve_withdrawals/deleterequest'
-  post 'reserve_withdrawals/confirmreject'
-  get 'reserve_withdrawals/confirmreject'
-  get 'reserve_withdrawals/resubmitrequest'
-  get 'reserve_withdrawals/approverequest'
-  post 'reserve_withdrawals/approverequest'
-  get 'reserve_withdrawals/viewbalance'
-  
-
   get 'deposits/addremark'
   post 'deposits/addremark'
   get 'deposits/clubdeposits'
   get 'deposits/completedeposit'
   get 'claims/completeclaim'
+
   get 'deposits/editdeposit'
 
   get 'deposits/newdeposit'
-
+  
   get 'deposits/viewdeposit'
-
+  
   post 'deposits/add'
-
+  
   post 'deposits/edit'
   post 'deposits/editown'
   get 'deposits/submitdeposit'
@@ -54,13 +38,13 @@ Rails.application.routes.draw do
   get 'claims/clubclaims'
   get 'claims/deleteclaim'
   post 'admin/requestClub'
-
+  
   post 'admin/deleteclub'
 
   post 'admin/delete'
 
   get 'admin/setUserId'
-
+  
   get 'admin/changeclubname'
   patch 'admin/changename'
 
@@ -81,62 +65,51 @@ Rails.application.routes.draw do
   get 'chief/injectfunds'
 
   get 'accounts/viewaccount'
-  
-  get 'accounts/sacaccount'
-  
-  post 'accounts/inject'
 
   get 'accounts/viewcbdaccounts'
-
+  
   post 'accounts/viewcbdaccounts'
-
+  
   get 'accounts/viewcbdaccountsreserve'
-
+  
   post 'accounts/viewcbdaccountsreserve'
-
+  
   get 'accounts/viewsecaccount'
-
+  
   get 'accounts/forconvenience'
-
+  
   post 'accounts/add'
 
   get 'accounts/viewallaccounts'
 
   get 'accounts/deposit'
-
+  
   get 'accounts/editaccount'
-
+  
   get 'accounts/editaccountreserve'
-
+  
   patch 'accounts/updatereserve'
 
   get 'accounts/fundstransfer'
-
+  
   patch 'accounts/editjustification'
-
+  
   post 'accounts/update'
-  
-  get 'reserve_limit/viewreservelimit'
-  post 'reserve_limit/viewreservelimit'
-  post 'reserve_limit/addReserve'
-  get 'reserve_limit/viewallreservelimitchangerequest'
-  get 'reserve_limit/accept'
-  get 'reserve_limit/reject'
-  
-  
+
   get 'claims/newclaim'
 
   get 'claims/editclaim'
 
   get 'claims/viewclaim'
   post 'claims/viewclaim'
+  
 
   get 'admin/register'
 
   get 'admin/login'
 
   get 'admin/chooserole'
-
+  
   post 'admin/chooserole'
 
   get 'admin/home'
@@ -164,7 +137,7 @@ Rails.application.routes.draw do
   get 'claims/endorseclub'
   get 'claims/endorsecbdmc'
   get 'claims/endorsesmusasec'
-
+  
   post 'claims/confirmrejectclaim'
   get 'budgets/control'
   get 'budgets/disallow'
@@ -184,7 +157,7 @@ Rails.application.routes.draw do
   post 'budgets/addincome'
   get 'budgets/deleteincome'
   get 'budgets/fullsummary'
-
+ 
 # The priority is based upon order of creation: first created -> highest priority.
 # See how all your routes lay out with "rake routes".
 

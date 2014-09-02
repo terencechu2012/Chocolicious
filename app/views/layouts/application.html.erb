@@ -182,27 +182,10 @@
                                     <span>Club Budget</span>
                                 </a>
                             </li>
-<<<<<<< HEAD
-                           <li class=''>
-                                <a href='/reserve_withdrawals/newrequest'>
-=======
-                            <!-- <li class=''>
+                            <li class=''>
                                 <a href="#">
->>>>>>> FETCH_HEAD
                                     <i class='icon-btc'></i>
                                     <span>Request Withdrawal/Change Limit</span>
-                                </a>
-                            </li> -->
-                            <li class=''>
-                                <a href="/reserve_limit/viewreservelimit">
-                                    <i class='icon-dollar'></i>
-                                    <span>Change Reserve Limit</span>
-                                </a>
-                            </li>
-                            <li class=''>
-                                <a href='/reserve_withdrawals/viewrequest'>
-                                    <i class='icon-btc'></i>
-                                    <span>View Request Withdrawal</span>
                                 </a>
                             </li>
                         </ul>
@@ -243,12 +226,6 @@
                                     <span>Manage User Roles</span>
                                 </a>
                             </li>
-                            <li class="">
-                                <a href="/accounts/sacaccount">
-                                    <i class="icon-dollar"></i>
-                                    <span>Manage SAC Account</span>
-                                </a>
-                            </li>
 
                             <li class="">
                                 <a href="/accounts/viewcbdaccounts">
@@ -280,24 +257,7 @@
                                     <i class="icon-list-alt"></i>
                                     <span>Budget Summary</span>
                                 </a>
-<<<<<<< HEAD
-                            </li>  
-                            <li class=''>
-                                <a href='/reserve_withdrawals/viewrequest'>
-                                    <i class='icon-btc'></i>
-                                    <span>View Request Withdrawal</span>
-                                </a>
-                            </li>
-                                                    
-=======
-                            </li>     
-                            <li class="">
-                                <a href="/reserve_limit/viewallreservelimitchangerequest">
-                                    <i class="icon-list-alt"></i>
-                                    <span>Requests for change of reserve limit</span>
-                                </a>
                             </li>                          
->>>>>>> FETCH_HEAD
                         </ul>
                     </li>
                     <%end%>
@@ -355,24 +315,6 @@
                                     <span>Budgets Under CBD</span>
                                 </a>
                             </li>
-                            <li class=''>
-<<<<<<< HEAD
-                                <a href='/reserve_withdrawals/newrequest'>
-                                    <i class='icon-btc'></i>
-                                    <span>Request Withdrawal/Change Limit</span>
-                                </a>
-                            </li>
-                            <li class=''>
-                                <a href='/reserve_withdrawals/viewrequest'>
-                                    <i class='icon-btc'></i>
-                                    <span>View Request Withdrawal</span>
-=======
-                                <a href="/reserve_limit/viewreservelimit">
-                                    <i class='icon-dollar'></i>
-                                    <span>Change Reserve Limit</span>
->>>>>>> FETCH_HEAD
-                                </a>
-                            </li>
                         </ul>
                     </li>
                     <%end%>
@@ -395,39 +337,24 @@
                                     <i class='icon-copy'></i>
                                     <span>Club Deposits</span>
                                 </a>
- 
                             </li>
- 
+
                             
-                            
-                            
+
                             <li class=''>
                                 <a href='/accounts/viewaccount'>
-
-
                                     <i class='icon-dollar'></i>
-                                    <span>Club Account</span>                                </a>
+                                    <span>Club Account</span>
+                                </a>
                             </li>
-                          <%if session[:club] != 'bizcom' && session[:club] != 'smusa'%>
+                          
                           <li class=''>
                                 <a href='/budgets/index'>
                                     <i class='icon-btc'></i>
                                     <span>Club Budget</span>
                                 </a>
                             </li>
-<<<<<<< HEAD
-                            <li class=''>
-                                <a href='/reserve_withdrawals/viewrequest'>
-                                    <i class='icon-btc'></i>
-                                    <span>View Request Withdrawal</span>
-                                </a>
-                            </li>
-                            
-=======
-                            <%end%>
->>>>>>> FETCH_HEAD
                         </ul>
-                        
                     </li>
                     <%end%>
                     <%if role.include? 'smusasec'%>
