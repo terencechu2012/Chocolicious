@@ -23,7 +23,7 @@
 			<div class="box-content box-no-padding">
 				<div class="responsive-table">
 					<div class="scrollable-area">
-						<table class="table data-table table-striped" style="margin-bottom:0;">
+						<table id="proposalTable" class="table table-bordered table-striped" style="margin-bottom:0;">
 							<thead>
 								<tr>
 									<th>Event</th>
@@ -67,7 +67,15 @@
 			</div>
 		</div>
 	</div>
-	
+	<script>
+	$(document).ready(function() {
+		$('#proposalTable').dataTable({
+			"sScrollX": "100%",
+		"sScrollXInner": "100%",
+		"bScrollCollapse": true
+		});
+	}); 
+</script>
 </div>
 
 <div class='row'>

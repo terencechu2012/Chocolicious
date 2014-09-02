@@ -46,7 +46,7 @@
 							<div class="responsive-table">
 								<div class="scrollable-area">
 									<%= form_tag("/admin/delete/", :method => "post") do %>
-									<table class="table data-table table-striped" style="margin-bottom:0;">
+									<table id="memberinclub" class="table table-striped" style="margin-bottom:0;">
 										<thead>
 											<tr>
 												<th>Name</th>
@@ -70,7 +70,15 @@
 								</div>
 							</div>
 						</div>
-						
+						<script>
+							$(document).ready(function() {
+								$('#memberinclub').dataTable({
+									"sScrollX": "100%",
+		"sScrollXInner": "100%",
+		"bScrollCollapse": true
+								});
+							});
+						</script>
 					</div>
 					<!-- Tab 2 -->
 					<div id="retab2" class="tab-pane">
@@ -79,7 +87,7 @@
 								<div class="scrollable-area">
 									
 									<%= form_tag("/admin/notifications/", :method => "post") do %>
-									<table class="table data-table table-striped" style="margin-bottom:0;">
+									<table id="memberReq" class="table table-striped" style="margin-bottom:0;">
 										<thead>
 										<tr>
 											<th>Name</th>
@@ -104,7 +112,15 @@
 								</div>
 							</div>
 						</div>
-						
+						<script>
+							$(document).ready(function() {
+								$('#memberReq').dataTable({
+									"sScrollX": "100%",
+		"sScrollXInner": "100%",
+		"bScrollCollapse": true
+								});
+							});
+						</script>
 					</div>
 					<!-- Tab 3 -->
 					<div id="retab3" class="tab-pane">
@@ -244,7 +260,7 @@ $(document).ready(function() {
 							<div class="responsive-table">
 								<div class="scrollable-area">
 									<%= form_tag("/admin/delete/", :method => "post") do %>
-									<table class="table data-table table-striped" style="margin-bottom:0;">
+									<table id="cbdfsTable" class="table table-striped" style="margin-bottom:0;">
 										<thead>
 										<tr>
 											<th>Name</th>
@@ -271,7 +287,15 @@ $(document).ready(function() {
 								</div>
 							</div>
 						</div>
-						
+						<script>
+							$(document).ready(function() {
+								$('#cbdfsTable').dataTable({
+									"sScrollX": "100%",
+		"sScrollXInner": "100%",
+		"bScrollCollapse": true
+								});
+							});
+						</script>
 					</div>
 					<!-- Tab 2 -->
 					<div id="retab2" class="tab-pane">
@@ -316,7 +340,7 @@ $(document).ready(function() {
 							<div class="responsive-table">
 								<div class="scrollable-area">
 									<%= form_tag("/admin/delete/", :method => "post") do %>
-									<table class="table data-table table-striped" style="margin-bottom:0;">
+									<table id="smusasecTable" class = "table table-striped">
 										<thead>
 										<tr>
 											<th>Name</th>
@@ -341,7 +365,15 @@ $(document).ready(function() {
 								</div>
 							</div>
 						</div>
-						
+						<script>
+							$(document).ready(function() {
+								$('#smusasecTable').dataTable({
+									"sScrollX": "100%",
+		"sScrollXInner": "100%",
+		"bScrollCollapse": true
+								});
+							});
+						</script>
 					</div>
 					<!-- Tab 4 -->
 					<div id="retab4" class="tab-pane">
@@ -480,7 +512,7 @@ $(document).ready(function() {
 							<div class="responsive-table">
 								<div class="scrollable-area">
 									<%= form_tag("/admin/delete/", :method => "post") do %>
-									<table class="table data-table table-striped" style="margin-bottom:0;">
+									<table id="clubfsTable" class = "table table-striped">
 										<thead>
 										<tr>
 											<th>Name</th>
@@ -506,7 +538,15 @@ $(document).ready(function() {
 								</div>
 							</div>
 						</div>
-						
+						<script>
+							$(document).ready(function() {
+								$('#clubfsTable').dataTable({
+									"sScrollX": "100%",
+		"sScrollXInner": "100%",
+		"bScrollCollapse": true
+								});
+							});
+						</script>
 					</div>
 					<!-- Tab 2 -->
 					<div id="retab2" class="tab-pane">
@@ -550,7 +590,7 @@ $(document).ready(function() {
 							<div class="responsive-table">
 								<div class="scrollable-area">
 									<%= form_tag("/admin/delete/", :method => "post") do %>
-									<table class="table data-table table-striped" style="margin-bottom:0;">
+									<table id="cbdmcTable" class = "table table-bordered table-condensed">
 										<thead>
 										<tr>
 											<th>Name</th>
@@ -574,7 +614,15 @@ $(document).ready(function() {
 								</div>
 							</div>
 						</div>
-						
+						<script>
+							$(document).ready(function() {
+								$('#cbdmcTable').dataTable({
+									"sScrollX": "100%",
+		"sScrollXInner": "100%",
+		"bScrollCollapse": true
+								});
+							});
+						</script>
 					</div>
 					<!-- Tab 4 -->
 					<div id="retab4" class="tab-pane">
