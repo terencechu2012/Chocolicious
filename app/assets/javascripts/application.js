@@ -27,10 +27,13 @@
 
 
 
+
 //= require dataTables.min.js
 
 
 
+
+//= require dataTables.min.js
 
 //= require flatty/plugins/fuelux/wizard.js
 
