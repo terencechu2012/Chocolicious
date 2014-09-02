@@ -1,0 +1,38 @@
+<% role = session[:role]%>
+<div class='row'>
+	<div class='col-sm-12 col-lg-12'>
+		<div class='box bordered-box'>
+			<div class='box-content box-double-padding'>
+				<%= form_for ReserveLimit.new, :url => { :action => "addReserve" }  do |f|  %>
+				<fieldset>
+					<div class='col-sm-4'>
+						<div class='lead'>
+							<i class='icon-file-alt text-contrast'></i>
+							Notes On New Request limit change
+						</div>
+						<small class='text-muted'> Blabla </small>
+					</div>
+					<div class='col-sm-7 col-sm-offset-1'>
+						<div class='form-group'>
+
+							
+							<%= f.hidden_field(:clubid, :value => session[:club])%>
+							<label>Enter amount</label>
+							<br />
+							<%= f.number_field(:amount, :step => 0.01, :min => 0, :required => true) %><br /><br />
+							<label>Enter remarks </label><br />
+							<%= f.text_area :remarks, :required => true%>
+						</div>
+						
+
+				</fieldset>
+				<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
+					<div class='text-right'>
+						<%= f.submit("Submit", :class=>"btn btn-primary btn-lg blue-background")%>
+					</div>
+				</div>
+				<%end%>
+			</div>
+		</div>
+	</div>
+</div>

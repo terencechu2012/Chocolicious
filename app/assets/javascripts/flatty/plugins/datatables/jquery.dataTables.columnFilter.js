@@ -22,7 +22,6 @@
  http://www.datatables.net/plug-ins/filtering
 
  */
-
 (function ($) {
 
 

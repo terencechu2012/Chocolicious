@@ -182,10 +182,16 @@
                                     <span>Club Budget</span>
                                 </a>
                             </li>
-                            <li class=''>
+                            <!-- <li class=''>
                                 <a href="#">
                                     <i class='icon-btc'></i>
                                     <span>Request Withdrawal/Change Limit</span>
+                                </a>
+                            </li> -->
+                            <li class=''>
+                                <a href="/reserve_limit/viewreservelimit">
+                                    <i class='icon-dollar'></i>
+                                    <span>Change Reserve Limit</span>
                                 </a>
                             </li>
                         </ul>
@@ -226,6 +232,12 @@
                                     <span>Manage User Roles</span>
                                 </a>
                             </li>
+                            <li class="">
+                                <a href="/accounts/sacaccount">
+                                    <i class="icon-dollar"></i>
+                                    <span>Manage SAC Account</span>
+                                </a>
+                            </li>
 
                             <li class="">
                                 <a href="/accounts/viewcbdaccounts">
@@ -256,6 +268,12 @@
                                 <a href="/budgets/fullsummary">
                                     <i class="icon-list-alt"></i>
                                     <span>Budget Summary</span>
+                                </a>
+                            </li>     
+                            <li class="">
+                                <a href="/reserve_limit/viewallreservelimitchangerequest">
+                                    <i class="icon-list-alt"></i>
+                                    <span>Requests for change of reserve limit</span>
                                 </a>
                             </li>                          
                         </ul>
@@ -315,6 +333,12 @@
                                     <span>Budgets Under CBD</span>
                                 </a>
                             </li>
+                            <li class=''>
+                                <a href="/reserve_limit/viewreservelimit">
+                                    <i class='icon-dollar'></i>
+                                    <span>Change Reserve Limit</span>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                     <%end%>
@@ -347,13 +371,14 @@
                                     <span>Club Account</span>
                                 </a>
                             </li>
-                          
+                          <%if session[:club] != 'bizcom' && session[:club] != 'smusa'%>
                           <li class=''>
                                 <a href='/budgets/index'>
                                     <i class='icon-btc'></i>
                                     <span>Club Budget</span>
                                 </a>
                             </li>
+                            <%end%>
                         </ul>
                     </li>
                     <%end%>

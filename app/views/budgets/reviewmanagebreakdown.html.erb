@@ -22,7 +22,7 @@
 			<div class="box-content box-no-padding">
 				<div class="responsive-table">
 					<div class="scrollable-area">
-						<table class="table data-table table-striped" style="margin-bottom:0;">
+						<table id="expensesTable" class="table table-bordered table-striped" style="margin-bottom:0;">
 							<thead>
 								<tr>
 									<th>Item</th>
@@ -55,7 +55,15 @@
 			</div>
 		</div>
 	</div>
-	
+	<script>
+	$(document).ready(function() {
+		$('#expensesTable').dataTable({
+			"sScrollX": "100%",
+		"sScrollXInner": "100%",
+		"bScrollCollapse": true
+		});
+	}); 
+</script>
 </div>
 
 <div class='row'>
@@ -130,7 +138,7 @@
 			<div class="box-content box-no-padding">
 				<div class="responsive-table">
 					<div class="scrollable-area">
-						<table class="table data-table table-striped" style="margin-bottom:0;">
+						<table id="incomeTable" class="table table-bordered table-striped" style="margin-bottom:0;">
 							<thead>
 								<tr>
 									<th>Item</th>
@@ -155,7 +163,15 @@
 			</div>
 		</div>
 	</div>
-	
+	<script>
+	$(document).ready(function() {
+		$('#incomeTable').dataTable({
+			"sScrollX": "100%",
+		"sScrollXInner": "100%",
+		"bScrollCollapse": true
+		});
+	}); 
+</script>
 </div>
 
 <div class='row'>
