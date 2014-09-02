@@ -1,0 +1,88 @@
+<% if flash[:error] %> <font color="red"><%= flash[:error]%></font>
+<%end%>
+<% role = session[:role]%>
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='page-header'>
+			<h1 class='pull-left'><i class='icon-file-alt'></i><span> Withdrawal Requests</span></h1>
+
+		</div>
+	</div>
+</div>
+<%if (role.include? 'smusafinsec')%>
+<div class='row'>
+	<div class="col-sm-12">
+		<div class="box bordered-box blue-border">
+			<div class="box-header blue-background">
+				<div class="title">
+					 Withdrawal Request Summary
+				</div>
+				<div class="actions">
+					</a>
+
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class="box-content box-no-padding">
+				<div class="responsive-table">
+					<div class="scrollable-area">
+						Reserve Account Balance: <%=@balance%>
+						<br>
+						Expenditure Account Balance: <%=@ex%>
+						<table class="table table-striped" style="margin-bottom:0;">
+							<tr>
+								<th>Date</th>
+								<th>Member</th>
+								<th>Club Name</th>
+								<th>Withdrawal Amount</th>
+								<th>Purpose</th>
+								<!-- <th>Updated</th> -->
+
+							</tr>
+							<% @withdrawalrequest.each do |c|%>
+							<% status = c.status%>
+							<%if status == 15%>
+							<%if c.remarks.nil?%>
+							<tr>
+								<%else%>
+							<tr class = 'warning'>
+								<%end%>
+								<td><%= c.updated_at%></td>
+								<td><%= c.userid%></td>
+								<td><%= c.clubid%></td>
+								<td><%= c.amount%></td>
+								<td><%= c.purpose%></td>
+								
+								<!-- <td><%= c.updated_at%></td> -->
+
+								<%end%>
+							</tr>
+							<%end%>
+
+						</table>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+<%=javascript_tag do%>
+
+function smusa(a){
+var x;
+if (confirm("Are you confirmed of your action?")==true){
+window.location = "/reserve_withdrawals/addremark?id="+a;
+}
+function smuasaapprove(a){
+var x;
+if (confirm("Are you confirmed of your action?")==true){
+window.location = "/reserve_withdrawals/approverequest?id="+a;
+}
+document.getElementById("smusa").innerHTML = x;
+}
+
+<%end%>
+
+<%end%>

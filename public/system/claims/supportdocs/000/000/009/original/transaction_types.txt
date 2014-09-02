@@ -1,0 +1,10 @@
+transaction types
+
+allocation
+transferfromreserves
+claim
+deposit
+transferout
+transferin
+transfertoreserves
+transfertosac
