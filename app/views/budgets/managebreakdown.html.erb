@@ -89,7 +89,7 @@
 								<th>Quotation</th>
 							</tr>
 							<tr>
-								<td><%= f.text_field :item%></td>
+								<td><%= f.text_field :item, :required => true%></td>
 								<td><%= f.number_field :requestsac, :step => 0.01%></td>
 								<%if session[:role] != 'smusasec'%>
 								<td><%= f.number_field :requestreserves, :step => 0.01%></td>
@@ -183,7 +183,7 @@
 								<th>Breakdown of income</th>
 							</tr>
 							<tr>
-								<td><%= f.text_field :item%></td>
+								<td><%= f.text_field :item, :required => true%></td>
 								<td><%= f.number_field :income, :step => 0.01%></td>
 								<td><%= f.text_field :incomebreakdown%></td>
 							</tr>

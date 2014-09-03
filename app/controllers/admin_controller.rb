@@ -309,7 +309,7 @@ class AdminController < ApplicationController
   def setnric2
     current_user.update(user_params)
     flash.notice = 'Details have been updated.'
-    redirect_to :back
+    redirect_to :action => 'home'
   end
 
   def user_params

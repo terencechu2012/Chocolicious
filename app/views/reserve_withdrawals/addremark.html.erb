@@ -1,7 +1,7 @@
 <div class='row'>
 	<div class='col-sm-12'>
 		<div class='page-header'>
-			<h1 class='pull-left'><i class='icon-edit'></i><span>Reject Claim</span></h1>
+			<h1 class='pull-left'><i class='icon-edit'></i><span>Reject Withdrawal</span></h1>
 		</div>
 	</div>
 </div>
@@ -10,18 +10,18 @@
 	<div class='col-sm-12 col-lg-12'>
 		<div class='box bordered-box'>
 			<div class='box-content box-double-padding'>
-				<%= form_for @rejectclaim, :url => { :action => "confirmrejectclaim" }, :method => :POST  do |f|  %>
+				<%= form_for @rejectwithdrawal, :url => { :action => "confirmreject" }, :method => :POST  do |f|  %>
 				<fieldset>
-					<%= f.hidden_field(:id, :value => @rejectclaim.id)%>
+					<%= f.hidden_field(:id, :value => @rejectwithdrawal.id)%>
 					<div>
-						<b>You are rejecting claim submmited by <u><%= @rejectclaim.userid %></u> from <u><%= @rejectclaim.clubid %></u> with amount <u><%= @rejectclaim.amount %></u>.</b>
+						<b>You are rejecting withdrawal request submmited by <u><%= @rejectwithdrawal.userid %></u> from <u><%= @rejectwithdrawal.clubid %></u> with amount <u><%= @rejectwithdrawal .amount %></u>.</b>
 					</div>
 					<div>
 						Please add remark for the rejection:
 					</div>
 					<div class='form-group'>
 						<%= f.hidden_field(:status, :value => @status)%>
-						<%= f.text_area :remarks, size: "100 x 5", :required => true %>
+						<%= f.text_area :remarks, size: "100 x 5" %>
 					</div>
 				</fieldset>
 				<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
@@ -29,7 +29,7 @@
 						<%= f.submit("Confirm", :class=>"btn btn-primary btn-lg red-background")%>
 					</div>
 				</div>
-				<% end %>
+				<%end%>
 			</div>
 		</div>
 	</div>

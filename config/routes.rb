@@ -169,6 +169,22 @@ Rails.application.routes.draw do
   post 'budgets/addincome'
   get 'budgets/deleteincome'
   get 'budgets/fullsummary'
+  
+  get 'reserve_withdrawals/newrequest'
+  get 'reserve_withdrawals/viewrequest'
+  get 'reserve_withdrawals/editrequest'
+  post 'reserve_withdrawals/add'
+  post 'reserve_withdrawals/edit'
+  get 'reserve_withdrawals/addremark'
+  post 'reserve_withdrawals/addremark'
+  get 'reserve_withdrawals/submitrequest'
+  get 'reserve_withdrawals/deleterequest'
+  post 'reserve_withdrawals/confirmreject'
+  get 'reserve_withdrawals/confirmreject'
+  get 'reserve_withdrawals/resubmitrequest'
+  get 'reserve_withdrawals/approverequest'
+  post 'reserve_withdrawals/approverequest'
+  get 'reserve_withdrawals/viewbalance'
  
 # The priority is based upon order of creation: first created -> highest priority.
 # See how all your routes lay out with "rake routes".
