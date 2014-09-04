@@ -30,7 +30,7 @@
 							<%= f.hidden_field(:id, :value => @claim.id)%>
 							<label>Enter amount</label>
 							<br />
-							<%= f.number_field(:amount, :step => 'any', :min => 0, :required => true) %>
+							<%= f.number_field(:amount, :step => 0.01, :min => 0, :required => true) %>
 						</div>
 						<% a = Array(1..13)%>
 						<% b = ['A','B','C','D','E','F']%>

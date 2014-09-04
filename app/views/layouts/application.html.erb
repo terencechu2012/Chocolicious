@@ -182,12 +182,18 @@
                                     <span>Club Budget</span>
                                 </a>
                             </li>
-                            <!-- <li class=''>
-                                <a href="#">
+                            <li class=''>
+                                <a href="/reserve_withdrawals/newrequest">
                                     <i class='icon-btc'></i>
-                                    <span>Request Withdrawal/Change Limit</span>
+                                    <span>Request Withdrawal</span>
                                 </a>
-                            </li> -->
+                            </li>
+                            <li class=''>
+                                <a href="/reserve_withdrawals/viewrequest">
+                                    <i class='icon-btc'></i>
+                                    <span>View Request Withdrawals</span>
+                                </a>
+                            </li>
                             <li class=''>
                                 <a href="/reserve_limit/viewreservelimit">
                                     <i class='icon-dollar'></i>
@@ -275,7 +281,13 @@
                                     <i class="icon-list-alt"></i>
                                     <span>Requests for change of reserve limit</span>
                                 </a>
-                            </li>                          
+                            </li> 
+                            <li class=''>
+                                <a href="/reserve_withdrawals/viewrequest">
+                                    <i class='icon-btc'></i>
+                                    <span>View Request Withdrawals</span>
+                                </a>
+                            </li>                         
                         </ul>
                     </li>
                     <%end%>
@@ -320,7 +332,7 @@
                                     <span>View Reserve Accounts</span>
                                 </a>
                             </li>
-                          
+                          <%if session[:club] != 'bizcom' && session[:club] != 'smusa'%>
                           <li class=''>
                                 <a href='/budgets/index'>
                                     <i class='icon-btc'></i>
@@ -333,10 +345,23 @@
                                     <span>Budgets Under CBD</span>
                                 </a>
                             </li>
+                            <%end%>
                             <li class=''>
                                 <a href="/reserve_limit/viewreservelimit">
                                     <i class='icon-dollar'></i>
                                     <span>Change Reserve Limit</span>
+                                </a>
+                            </li>
+                            <li class=''>
+                                <a href="/reserve_withdrawals/newrequest">
+                                    <i class='icon-btc'></i>
+                                    <span>Request Withdrawal</span>
+                                </a>
+                            </li>
+                            <li class=''>
+                                <a href="/reserve_withdrawals/viewrequest">
+                                    <i class='icon-btc'></i>
+                                    <span>View Request Withdrawals</span>
                                 </a>
                             </li>
                         </ul>
@@ -376,6 +401,12 @@
                                 <a href='/budgets/index'>
                                     <i class='icon-btc'></i>
                                     <span>Club Budget</span>
+                                </a>
+                            </li>
+                            <li class=''>
+                                <a href="/reserve_withdrawals/viewrequest">
+                                    <i class='icon-btc'></i>
+                                    <span>View Request Withdrawals</span>
                                 </a>
                             </li>
                             <%end%>

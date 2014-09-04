@@ -120,7 +120,7 @@ class AccountsController < ApplicationController
   def calculateAllBudget(clubArr)
     @clubBudget = 0.00
     clubArr.each do|x|
-      @clubBudget = @clubBudget + (x.Category1Balance + x.Category2Balance)
+      @clubBudget = @clubBudget + (x.Category1Balance)
     end
     return @clubBudget
   end

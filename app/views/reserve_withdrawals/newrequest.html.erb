@@ -32,11 +32,10 @@
 						</div>
 
 						<%if role.include? 'clubfinsec'%>
-						<%= f.hidden_field(:status, :value => 0)%>
-						<%elsif role.include? 'cbdmc'%>
-						<%= f.hidden_field(:status, :value => 6)%>
-						<%elsif role.include? 'smusasec'%>
-						<%= f.hidden_field(:status, :value => 12)%>
+						<%= f.hidden_field(:status, :value => 1)%>
+						<%elsif role.include? 'cbdfinsec'%>
+						<%= f.hidden_field(:status, :value => 7)%>
+						
 						<%end%>
 						
 						<div class='form-group'>

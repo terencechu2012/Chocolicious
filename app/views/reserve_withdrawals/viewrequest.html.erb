@@ -1,5 +1,6 @@
 <% if flash[:error] %> <font color="red"><%= flash[:error]%></font>
 <%end%>
+<%statuscode = ['Unsubmitted', 'With Club Finsec', 'With Club Pres', 'With CBD Finsec', 'With SMUSA Finsec', 'Done', 'Unsubmitted', 'With CBD Finsec', 'With CBD Pres', 'With SMUSA Finsec', 'Done']%>
 <%role = session[:role]%>
 <div class='row'>
 	<div class='col-sm-12'>
@@ -54,9 +55,9 @@
 								<td><%= c.purpose%></td>
 								<td><%= c.created_at%></td>
 								<td><%= c.updated_at%></td>
-								<td><%= c.status%></td>
+								<td><%= statuscode[c.status]%></td>
 
-								<%if status == 0 || status == 12 || status == 6%>
+								<%if status == 1 || status == 7%>
 								<td><a href="/reserve_withdrawals/editrequest?id=<%= c.id%>&own=true" class="btn btn-sm btn-primary blue-background">Edit</a> 
 										<%if c.remarks.nil?%> 
 											<a href="/reserve_withdrawals/submitrequest?id=<%= c.id%>" class="btn btn-sm btn-primary green-background">Submit</a>
@@ -65,7 +66,7 @@
 								<%end%>
 								<%end%>
 								
-								<%if status == 1 && !c.remarks.nil? %>
+								<%if (status == 1 || status == 7 )&& !c.remarks.nil? %>
 								<td>
 									<a href="#", onclick="viewremark('<%=c.remarks%>')" class="btn btn-sm btn-primary">View Remarks</a>
 									<a href="/reserve_withdrawals/resubmitrequest?id=<%= c.id%>" class="btn btn-sm btn-primary green-background">ReSubmit</a>
@@ -115,7 +116,7 @@
 							</tr>
 							<% @withdrawrequests.each do |c|%>
 							<% status = c.status%>
-							<%if status == 2 || status == 8%>
+							
 							<%if c.remarks.nil?%>
 							<tr>
 								<%else%>
@@ -127,20 +128,22 @@
 								<td><%= c.purpose%></td>
 								<td><%= c.created_at%></td>
 								<td><%= c.updated_at%></td>
-								<td><%= c.status%></td>
+								<td><%= statuscode[c.status]%></td>
 
-								<td><a href="#", onclick="pres(<%= c.id%>)" class="btn btn-sm btn-primary">Acknowledge</a> 
-									<!-- President cannot reject?! -jinq->
-									<!-- <%if status==2%> 
+								
+									<!-- President cannot reject?! -jinq-->
+									 <%if status==2%> 
+									 	<td><a href="#", onclick="pres(<%= c.id%>)" class="btn btn-sm btn-primary">Acknowledge</a> 
 										<a href="/reserve_withdrawals/addremark?id=<%= c.id%>&status=1", onclick="smusa(<%= c.id%>)" class="btn btn-sm btn-primary red-background">Reject</a> 
 									<%elsif status==8%> 
+										<td><a href="#", onclick="pres(<%= c.id%>)" class="btn btn-sm btn-primary">Acknowledge</a> 
 										<a href="/reserve_withdrawals/addremark?id=<%= c.id%>&status=7", onclick="smusa(<%= c.id%>)" class="btn btn-sm btn-primary red-background">Reject</a> 
-									<%end%>		 -->
+									<%end%>
 								</td>
 								<p id ="pres"></p>
 								<%end%>
 							</tr>
-							<%end%>
+							
 
 						</table>
 
@@ -155,11 +158,11 @@
 <%=javascript_tag do%>
 
 function pres(a){
-var x;
-if (confirm("You have acknowleged the request!")==true){
+
+if (confirm("You are going to acknowledge the request!")==true){
 window.location = "/reserve_withdrawals/submitrequest?id="+a;
 }
-document.getElementById("pres").innerHTML = x;
+
 }
 function viewremark(a){
 
@@ -201,7 +204,7 @@ alert(a);
 							</tr>
 							<% @withdrawrequndercbd.each do |c|%>
 							<% status = c.status%>
-							<%if status == 3 || status == 7%>
+							
 							<%if c.remarks.nil?%>
 							<tr>
 								<%else%>
@@ -213,14 +216,15 @@ alert(a);
 								<td><%= c.purpose%></td>
 								<td><%= c.created_at%></td>
 								<td><%= c.updated_at%></td>
-								<td><%= c.status%></td>
-
-								<td><a href="#", onclick="cbd(<%= c.id%>)" class="btn btn-sm btn-primary green-background">Approve</a>
-								<a href="/reserve_withdrawals/addremark?id=<%= c.id%>&status=1", onclick="cbd(<%= c.id%>)" class="btn btn-sm btn-primary red-background">Reject</a></td>
+								<td><%= statuscode[c.status]%></td>
+								<%if (status ==3)%>
+								<td><a href="#", onclick="cbd(<%= c.id%>)" class="btn btn-sm btn-primary green-background">Submit</a>
+								<a href="/reserve_withdrawals/addremark?id=<%= c.id%>&status=1" class="btn btn-sm btn-primary red-background">Reject</a></td>
 								<p id ="cbd"></p>
 								<%end%>
+								<%end%>
 							</tr>
-							<%end%>
+						
 
 						</table>
 
@@ -235,11 +239,11 @@ alert(a);
 <%=javascript_tag do%>
 
 function cbd(a){
-var x;
-if (confirm("You have acknowleged the request!")==true){
+
+if (confirm("You are going to acknowledge the request!")==true){
 window.location = "/reserve_withdrawals/submitrequest?id="+a;
 }
-document.getElementById("cbd").innerHTML = x;
+
 }
 function viewremark(a){
 
@@ -280,7 +284,7 @@ alert(a);
 							</tr>
 							<% @withdrawrequnderall.each do |c|%>
 							<% status = c.status%>
-							<%if status == 9 || status == 13%>
+							
 							<%if c.remarks.nil?%>
 							<tr>
 								<%else%>
@@ -292,17 +296,19 @@ alert(a);
 								<td><%= c.purpose%></td>
 								<td><%= c.created_at%></td>
 								<!-- <td><%= c.updated_at%></td> -->
-								<td><%= c.status%></td>
+								<td><%= statuscode[c.status]%></td>
+								<%if status == 4 || status == 9%>
 								<td><a href="/reserve_withdrawals/approverequest?id=<%= c.id%>, onclick="smuasaapprove(<%= c.id%>)" class="btn btn-sm btn-primary green-background">Approve</a> 
-									<%if status==9%> 
+								<%end%>	
+									<%if status==4%> 
 										<a href="/reserve_withdrawals/addremark?id=<%= c.id%>&status=1", onclick="smusa(<%= c.id%>)" class="btn btn-sm btn-primary red-background">Reject</a> 
-									<%elsif status==13%> 
+									<%elsif status==9%> 
 										<a href="/reserve_withdrawals/addremark?id=<%= c.id%>&status=7", onclick="smusa(<%= c.id%>)" class="btn btn-sm btn-primary red-background">Reject</a> 
 									<%end%>	
 								<p id ="smusa"></p>
 								<%end%>
 							</tr>
-							<%end%>
+							
 
 						</table>
 
@@ -325,9 +331,21 @@ var x;
 if (confirm("Are you confirmed of your action?")==true){
 window.location = "/reserve_withdrawals/approverequest?id="+a;
 }
-document.getElementById("smusa").innerHTML = x;
+
 }
 
 <%end%>
+
+<%end%>
+
+
+<%=javascript_tag do%>
+
+
+function viewremark(a){
+
+alert(a);
+
+}
 
 <%end%>

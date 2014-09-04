@@ -4,9 +4,18 @@ class ReserveWithdrawalsController < ApplicationController
   end
 
   def viewrequest
-    @withdrawrequests = ReserveWithdrawal.where(clubid:session[:club])
-    @withdrawrequndercbd = ReserveWithdrawal.where(['clubid in (select clubid from clubs where clubtype = ?) and status > 2 and status < 8', session[:club]])
-    @withdrawrequnderall = ReserveWithdrawal.where('status > 8 and status < 15')
+    role = session[:role]
+    if (role.include? 'clubfinsec') || (role.include? 'cbdfinsec')
+      @withdrawrequests = ReserveWithdrawal.where(clubid:session[:club])
+    elsif role.include? 'president'
+      r1 = ReserveWithdrawal.where(clubid:session[:club], status: 2..5)
+      r2 = ReserveWithdrawal.where(clubid:session[:club], status: 8..10)
+      @withdrawrequests = r1 + r2
+    end
+    
+    @withdrawrequndercbd = ReserveWithdrawal.where(['clubid in (select clubid from clubs where clubtype = ?) and status > 2 and status < 6', session[:club]])
+    r3 = ReserveWithdrawal.where(status: 4..5)
+    @withdrawrequnderall = ReserveWithdrawal.where(status: 9..10) + r3
   end
 
   def editrequest
@@ -27,7 +36,14 @@ class ReserveWithdrawalsController < ApplicationController
   end
 
   def add
-    ReserveWithdrawal.create(withdrawal_params)
+    balance = ReserveAccount.find_by_clubid(params[:reserve_withdrawal][:clubid]).balance
+    amount = params[:reserve_withdrawal][:amount].to_d
+    if balance < amount
+      flash.alert = 'There are insufficient funds in the reserve account!'
+    else
+      ReserveWithdrawal.create(withdrawal_params)
+    end
+    
     redirect_to :action => 'viewrequest'
   end
 
@@ -48,14 +64,14 @@ class ReserveWithdrawalsController < ApplicationController
   end
 
   def submitrequest
-    statuschange = 0
-    if session[:role]=='cbdfinsec' ||session[:role]=='clubfinsec'
-    statuschange = 2
-    elsif session[:role]=='president'
-    statuschange = 5
-    elsif session[:role]=='smusafinsec'
-    statuschange = 2
-    end
+    statuschange = 1
+    # if session[:role]=='cbdfinsec' ||session[:role]=='clubfinsec'
+    # statuschange = 2
+    # elsif session[:role]=='president'
+    # statuschange = 5
+    # elsif session[:role]=='smusafinsec'
+    # statuschange = 2
+    # end
 
     c = ReserveWithdrawal.find_by_id(params[:id])
     newstatus = c.status + statuschange
@@ -67,11 +83,12 @@ class ReserveWithdrawalsController < ApplicationController
 
   def resubmitrequest
     c = ReserveWithdrawal.find_by_id(params[:id])
-    if c.status == 12
-    newstatus = c.status + 1
-    else
+    # if c.status == 12
+    # newstatus = c.status + 1
+    # else
+    # newstatus = c.status + 2
+    # end
     newstatus = c.status + 2
-    end
 
     c.update_attribute(:status, newstatus)
     c.update_attribute(:remarks, nil)
@@ -95,11 +112,7 @@ class ReserveWithdrawalsController < ApplicationController
     e = ExpenditureAccount.find_by_clubid(rclubid)
 
     if t.balance > ramount 
-      if status == 13
-        newstatus = status +2
-      elsif status == 9
-        newstatus = status +6
-      end
+      newstatus = status + 1
 
       r.update_attribute(:status, newstatus)
       minus = t.balance - ramount
