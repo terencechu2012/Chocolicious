@@ -121,7 +121,7 @@ class ReserveWithdrawalsController < ApplicationController
   
   def viewbalance
     @withdrawalrequest = ReserveWithdrawal.where(clubid:params[:id])
-    
+    @totalwithdrawed=0.00
     t = ReserveAccount.find_by_clubid(params[:id])
     @balance = t.balance
     e = ExpenditureAccount.find_by_clubid(params[:id])
