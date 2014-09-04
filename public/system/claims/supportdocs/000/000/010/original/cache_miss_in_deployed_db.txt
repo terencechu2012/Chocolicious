@@ -1,0 +1,12 @@
+to add table reserve_limits
+
+add id121(smusa) into expenditure account
+to add table transactions
+<<<<<<<<<<<<<<<<<<DONE
+
+drop and reload schema migrations
+drop and reload claims table
+add smusa departments in
+<<<<<<<<<<<<<<<<<<<<<DONE
+add bizcom in and remove reserve account
+add reserve withdrawals table

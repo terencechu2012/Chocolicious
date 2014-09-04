@@ -36,7 +36,7 @@
 						</div>
 
 						<% a = Array(1..13)%>
-						<% b = ['A','B','C','D','E','F']%>
+						<% b = ['A','B','C','D','E','F','G']%>
 
 						<%if role.include? 'normal'%>
 						<%= f.hidden_field(:status, :value => 0)%>
@@ -89,6 +89,80 @@
 			<div class="box-header green-background">
 				<div class="title">
 					Claim Categories
+				</div>
+				<div class="actions">
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class="box-content box-no-padding">
+				<div class="responsive-table">
+					<div class="scrollable-area">
+						<table class="table table-striped" style="margin-bottom:0;">
+							<thead>
+								<tr>
+									<th> Code </th>
+									<th> Category </th>
+									
+								</tr>
+							</thead>
+
+							<tbody>
+								<tr>
+									<td>A</td>
+									<td>Internal (within SMU only/SMU events&competitions) e.g ccaday, school held competitions</td>
+									
+								</tr>
+								<tr>
+									<td>B</td>
+									<td>External (inter-uni/with external organisations) - competitions e.g. taking part in IVP</td>
+								
+								</tr>
+								<tr>
+									<td>C</td>
+									<td>External (inter-uni/with external organisations) - non-competitive e.g. tri-uni conferences</td>
+									
+								</tr>
+								<tr>
+									<td>D</td>
+									<td>Club-organised activties: Training/Lessons/Internal club events</td>
+									
+								</tr>
+								<tr>
+									<td>E</td>
+									<td>Club-organised activities: Events open to SMU Students only (e.g expeditions, runabout, Waikiki)</td>
+									
+								</tr>
+								<tr>
+									<td>F</td>
+									<td>Club-organised activities: Events open to SMU Students and/or external participants (e.g IVPs, Women's football clinics)</td>
+									
+								</tr>
+								<tr>
+									<td>G</td>
+									<td>Administrative Operations (e.g meetings, noticeboard decorating)</td>
+									
+								</tr>
+								
+							</tbody>
+
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+<div class="row">
+
+	<div class="col-sm-12">
+		<div class="box bordered-box green-border" style="margin-bottom:0;">
+			<div class="box-header green-background">
+				<div class="title">
+					Claim Expense Categories
 				</div>
 				<div class="actions">
 					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>

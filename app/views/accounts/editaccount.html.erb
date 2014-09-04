@@ -12,10 +12,10 @@
 <%= form_tag("/accounts/update/", :method => "post") do %>
 <table>
 	<tr>
-		<th align="right">Categoy 1 Balance: </th><td><%= number_field_tag(:cat1, @clubexpAcc.Category1Balance, :step => 0.01, :min => 0, :max => 9999999999) %></td>
+		<th align="right">Category 1 Balance: </th><td><%= number_field_tag(:cat1, @clubexpAcc.Category1Balance, :step => 0.01, :min => 0, :max => 9999999999) %></td>
 	</tr>
 	<tr>
-		<th align="right">Categoy 2 Balance: </th><td><%= number_field_tag(:cat2, @clubexpAcc.Category2Balance, :step => 0.01, :min => 0, :max => 9999999999) %></td>
+		<th align="right">Category 2 Balance: </th><td><%= number_field_tag(:cat2, @clubexpAcc.Category2Balance, :step => 0.01, :min => 0, :max => 9999999999) %></td>
 	</tr>
 	<% if false%>
 	<!-- <tr>
