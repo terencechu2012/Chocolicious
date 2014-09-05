@@ -90,11 +90,11 @@
 							</tr>
 							<tr>
 								<td><%= f.text_field :item, :required => true%></td>
-								<td><%= f.number_field :requestsac, :step => 0.01%></td>
+								<td><%= f.number_field :requestsac, :step => 0.01, :min => 0, :max => 9999999999%></td>
 								<%if session[:role] != 'smusasec'%>
-								<td><%= f.number_field :requestreserves, :step => 0.01%></td>
+								<td><%= f.number_field :requestreserves, :step => 0.01, :min => 0, :max => 9999999999%></td>
 								<%end%>
-								<td><%= f.number_field :unitcost, :step => 0.01%></td>
+								<td><%= f.number_field :unitcost, :step => 0.01, :min => 0, :max => 9999999999%></td>
 								<td><%= f.number_field :quantity%></td>
 								<td><%= f.text_field :justification%></td>
 								<td><%= f.text_field :quotation%></td>
