@@ -41,7 +41,7 @@
 <h2>Inject funds</h2>
 <%=form_tag "/accounts/inject", :method => 'post' do%>
 Amount to inject:
-<%=number_field_tag :amount, nil, :min => 0, :max => 9999999999, :step => 0.01%>
+<%=number_field_tag :amount, nil, :min => 0, :max => 99999999, :step => 0.01%>
 <%=submit_tag 'Inject', data: {confirm: 'You are going to inject funds into the SAC account!'}%>
 <%end%>
 <hr />

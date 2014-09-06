@@ -49,6 +49,10 @@
 							<%= f.hidden_field(:clubid, :value => session[:club])%>
 						</div>
 						<div class='form-group'>
+							<label>Enter old Password</label><i>(we need your current password to confirm your changes)</i>
+							<%= f.password_field :current_password, autocomplete: "off", :class => 'form-control' %>
+						</div>
+						<div class='form-group'>
 							<label>Enter new Password</label><i>(leave blank if you don't want to change it)</i>
 							<%= f.password_field :password, autocomplete: "off", :class => 'form-control' %>
 						</div>
@@ -58,10 +62,7 @@
 							<%= f.password_field :password_confirmation, autocomplete: "off", :class => 'form-control' %>
 						</div>
 
-						<div class='form-group'>
-							<label>Enter old Password</label><i>(we need your current password to confirm your changes)</i>
-							<%= f.password_field :current_password, autocomplete: "off", :class => 'form-control' %>
-						</div>
+						
 				</fieldset>
 				<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
 					<div class='text-right'>
