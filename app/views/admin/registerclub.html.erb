@@ -88,7 +88,7 @@
 							<div class='form-group'>
 								<label>Select Club Type</label>
 								<br />
-								<%= f.select(:clubtype, options_for_select(a))%>
+								<%= f.select(:clubtype, options_for_select(a), {}, {:class=>"select2 form-control"})%>
 							</div>
 							<div class='form-group'>
 								<label>Enter Club Name</label>

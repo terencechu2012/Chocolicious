@@ -27,6 +27,7 @@
 //= require flatty/plugins/datatables/jquery.dataTables.columnFilter.js
 //= require flatty/plugins/datatables/dataTables.overrides.js
 //= require flatty/plugins/fuelux/wizard.js
+//= require flatty/plugins/select2/select2.js
 
 //= require moment.min
 //= require jquery_ujs
