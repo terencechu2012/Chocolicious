@@ -183,6 +183,15 @@ class AccountsController < ApplicationController
     sicsclubs.each do |a|
       @sicsreserves += a.balance
     end
+    
+    smuxclubs = ReserveAccount.where(['clubid in (select clubid from clubs where clubtype = ?)', 'SMUX'])
+    smux = ReserveAccount.find_by_clubid('SMUX')
+    @smuxreserves = smux.balance
+    smuxclubs.each do |a|
+      @smuxreserves += a.balance
+    end
+    
+    
     ssuclubs = ReserveAccount.where(['clubid in (select clubid from clubs where clubtype = ?)', 'SSU'])
     ssu = ReserveAccount.find_by_clubid('SSU')
     @ssureserves = ssu.balance

@@ -1,4 +1,17 @@
-<%@arr.each do |a|%>
+After pullback, amounts returned to the following accounts:<br>
+<table class='table table-bordered'>
+	<tr><th>Account</th><th>Amount</th></tr>
+	<%i = 1%>
+	<%@report.each do |r|%>
+	<tr>
+		<td>R00<%=i%></td>
+		<td><%=r%></td>
+	</tr>
+	<%i += 1%>
+	<%end%>
+</table>
+<%if false%>
+<!-- <%@arr.each do |a|%>
 <h2><%=a['clubname']%></h2>
 <table class='table table-bordered'>
 	<tr>
@@ -39,5 +52,7 @@ Total revenue $<%=a['revenuesamount']%>:
 		</tr>
 	<%end%>
 </table>
+
+<%end%> -->
 
 <%end%>

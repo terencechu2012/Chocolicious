@@ -80,7 +80,7 @@
 							<tr>
 								<th>Item</th>
 								<th>Request SAC</th>
-								<%if session[:role] != 'smusasec'%>
+								<%if session[:role] != 'smusasec' && session[:club] != 'bizcom'%>
 								<th>Request Reserves</th>
 								<%end%>
 								<th>Unit Cost</th>
@@ -91,7 +91,7 @@
 							<tr>
 								<td><%= f.text_field :item, :required => true%></td>
 								<td><%= f.number_field :requestsac, :step => 0.01, :min => 0, :max => 99999999%></td>
-								<%if session[:role] != 'smusasec'%>
+								<%if session[:role] != 'smusasec' && session[:club] != 'bizcom'%>
 								<td><%= f.number_field :requestreserves, :step => 0.01, :min => 0, :max => 99999999%></td>
 								<%end%>
 								<td><%= f.number_field :unitcost, :step => 0.01, :min => 0, :max => 99999999%></td>

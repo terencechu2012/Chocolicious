@@ -1,0 +1,9 @@
+<%if session[:role].include? 'smusafinsec'%>
+<h2>Set contribution rate</h2>
+Current rate: <%=@contribution.rate%><br />
+<%=form_for @contribution,  :url => {:action => 'setrate'} do |f| %>
+Set rate: 
+<%=f.number_field(:rate, :step => 0.01, :min => 0, :max => 100)%>
+<%=f.submit 'Set'%>
+<%end%>
+<%end%>

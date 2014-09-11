@@ -175,7 +175,7 @@
 									<div class='col-sm-7 col-sm-offset-1'>
 										<div class='form-group'>
 											<label>Select User</label>
-											<%= select_tag(:userid, options_from_collection_for_select(@users, "userid", "userid"), class:"select2 form-control")%>
+											<%= select_tag(:userid, options_from_collection_for_select(@allexceptme, "userid", "userid"), class:"select2 form-control")%>
 											<%= hidden_field_tag(:role,'president')%>
 											<%= hidden_field_tag(:club, session[:club])%>
 										</div>
@@ -411,7 +411,7 @@ $(document).ready(function() {
 									<div class='col-sm-7 col-sm-offset-1'>
 										<div class='form-group'>
 											<label>Select User</label>
-											<%= select_tag(:userid, options_from_collection_for_select(@users, "userid", "userid"))%>
+											<%= select_tag(:userid, options_from_collection_for_select(@allexceptme, "userid", "userid"))%>
 											<%= hidden_field_tag(:role,'president')%>
 											<%= hidden_field_tag(:club, session[:club])%>
 										</div>
@@ -639,7 +639,7 @@ $(document).ready(function() {
 									<div class='form-group'>
 										<label>Select User</label>
 										<br />
-										<%= select_tag(:userid, options_from_collection_for_select(@users, "userid", "userid"))%>
+										<%= select_tag(:userid, options_from_collection_for_select(@allexceptme, "userid", "userid"))%>
 										<%= hidden_field_tag(:club, session[:club])%>
 										<%= hidden_field_tag(:role,'president')%>
 									</div>
