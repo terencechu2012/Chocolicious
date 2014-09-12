@@ -40,11 +40,10 @@
 								<th>Date</th>
 								<th>Receipt Nos</th>
 								<th>Donor Name</th>
-								<th>Donor Address</th>
+								
 								<th>Donor IC</th>
-								<th>Purpose</th>
-								<th>Created</th>
-								<th>Updated</th>
+								
+								<th>Details</th>
 								<th>Status</th>
 
 								<th>Action</th>
@@ -64,11 +63,15 @@
 								<td><%= c.date%></td>
 								<td><%= c.receipts%></td>
 								<td><%= c.donorname%></td>
-								<td><%= c.donoradd%></td>
+								
 								<td><%= c.donoric%></td>
-								<td><%= c.purpose%></td>
-								<td><%= c.created_at%></td>
-								<td><%= c.updated_at%></td>
+								
+								
+								<td>
+									<div class="bs-example-tooltips">
+										<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Purpose:</b><br /><%= c.purpose%><br /><b>Donor Address:</b><br /><%= c.donoradd%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">Details</button>
+									</div>
+								</td>
 								<td><%= statuscode[c.status]%></td>
 
 								<%if status == 1%>
@@ -122,11 +125,10 @@
 								<th>Date</th>
 								<th>Receipt Nos</th>
 								<th>Donor Name</th>
-								<th>Donor Address</th>
+								
 								<th>Donor IC</th>
-								<th>Purpose</th>
-								<th>Created</th>
-								<th>Updated</th>
+								
+								<th>Details</th>
 								<th>Status</th>
 
 								<th>Action</th>
@@ -146,11 +148,15 @@
 								<td><%= c.date%></td>
 								<td><%= c.receipts%></td>
 								<td><%= c.donorname%></td>
-								<td><%= c.donoradd%></td>
+								
 								<td><%= c.donoric%></td>
-								<td><%= c.purpose%></td>
-								<td><%= c.created_at%></td>
-								<td><%= c.updated_at%></td>
+								
+								
+								<td>
+									<div class="bs-example-tooltips">
+										<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Purpose:</b><br /><%= c.purpose%><br /><b>Donor Address:</b><br /><%= c.donoradd%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">Details</button>
+									</div>
+								</td>
 								<td><%= statuscode[c.status]%></td>
 
 								<%if status == 3%>
@@ -203,11 +209,10 @@
 								<th>Date</th>
 								<th>Receipt Nos</th>
 								<th>Donor Name</th>
-								<th>Donor Address</th>
+								
 								<th>Donor IC</th>
-								<th>Purpose</th>
-								<th>Created</th>
-								<th>Updated</th>
+								
+								<th>Details</th>
 								<th>Status</th>
 
 								<th>Action</th>
@@ -227,11 +232,14 @@
 								<td><%= c.date%></td>
 								<td><%= c.receipts%></td>
 								<td><%= c.donorname%></td>
-								<td><%= c.donoradd%></td>
+								
 								<td><%= c.donoric%></td>
-								<td><%= c.purpose%></td>
-								<td><%= c.created_at%></td>
-								<td><%= c.updated_at%></td>
+								
+								<td>
+									<div class="bs-example-tooltips">
+										<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Purpose:</b><br /><%= c.purpose%><br /><b>Donor Address:</b><br /><%= c.donoradd%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">Details</button>
+									</div>
+								</td>
 								<td><%= statuscode[c.status]%></td>
 
 								<%if status == 7%>
@@ -283,11 +291,10 @@
 								<th>Date</th>
 								<th>Receipt Nos</th>
 								<th>Donor Name</th>
-								<th>Donor Address</th>
+								
 								<th>Donor IC</th>
-								<th>Purpose</th>
-								<th>Created</th>
-								<th>Updated</th>
+								
+								<th>Details</th>
 								<th>Status</th>
 
 								<th>Action</th>
@@ -307,11 +314,14 @@
 								<td><%= c.date%></td>
 								<td><%= c.receipts%></td>
 								<td><%= c.donorname%></td>
-								<td><%= c.donoradd%></td>
+								
 								<td><%= c.donoric%></td>
-								<td><%= c.purpose%></td>
-								<td><%= c.created_at%></td>
-								<td><%= c.updated_at%></td>
+								
+								<td>
+									<div class="bs-example-tooltips">
+										<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Purpose:</b><br /><%= c.purpose%><br /><b>Donor Address:</b><br /><%= c.donoradd%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">Details</button>
+									</div>
+								</td>
 								<td><%= statuscode[c.status]%></td>
 
 								<%if status == 2 || status == 8 || status == 13%>
@@ -365,11 +375,10 @@
 								<th>Date</th>
 								<th>Receipt Nos</th>
 								<th>Donor Name</th>
-								<th>Donor Address</th>
+								
 								<th>Donor IC</th>
-								<th>Purpose</th>
-								<th>Created</th>
-								<th>Updated</th>
+								
+								<th>Details</th>
 								<th>Status</th>
 
 								<th>Action</th>
@@ -389,11 +398,14 @@
 								<td><%= c.date%></td>
 								<td><%= c.receipts%></td>
 								<td><%= c.donorname%></td>
-								<td><%= c.donoradd%></td>
+								
 								<td><%= c.donoric%></td>
-								<td><%= c.purpose%></td>
-								<td><%= c.created_at%></td>
-								<td><%= c.updated_at%></td>
+								
+								<td>
+									<div class="bs-example-tooltips">
+										<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Purpose:</b><br /><%= c.purpose%><br /><b>Donor Address:</b><br /><%= c.donoradd%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">Details</button>
+									</div>
+								</td>
 								<td><%= statuscode[c.status]%></td>
 
 								<%if status == 9%>
@@ -446,11 +458,10 @@
 								<th>Date</th>
 								<th>Receipt Nos</th>
 								<th>Donor Name</th>
-								<th>Donor Address</th>
+								
 								<th>Donor IC</th>
-								<th>Purpose</th>
-								<th>Created</th>
-								<th>Updated</th>
+								
+								<th>Details</th>
 								<th>Status</th>
 
 								<th>Action</th>
@@ -470,11 +481,14 @@
 								<td><%= c.date%></td>
 								<td><%= c.receipts%></td>
 								<td><%= c.donorname%></td>
-								<td><%= c.donoradd%></td>
+								
 								<td><%= c.donoric%></td>
-								<td><%= c.purpose%></td>
-								<td><%= c.created_at%></td>
-								<td><%= c.updated_at%></td>
+								
+								<td>
+									<div class="bs-example-tooltips">
+										<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Purpose:</b><br /><%= c.purpose%><br /><b>Donor Address:</b><br /><%= c.donoradd%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">Details</button>
+									</div>
+								</td>
 								<td><%= statuscode[c.status]%></td>
 
 								<%if status == 14%>
@@ -517,4 +531,16 @@ alert(a);
 
 }
 <%end%>
-
+<script type="text/javascript">
+	$('[data-toggle="popover-with-html"]').popover({ html : true });
+	
+	$('body').on('click', function (e) {
+	    $('[data-toggle="popover"]').each(function () {
+	        //the 'is' for buttons that trigger popups
+	        //the 'has' for icons within a button that triggers a popup
+	        if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+	            $(this).popover('hide');
+	        }
+	    });
+	});
+</script>

@@ -39,13 +39,11 @@
 	<tr>
 		<th>Claim ID</th>
 		<th>Claim By</th>
-		<th>Club</th>
+		
 		<th>Amount</th>
-		<th>Category</th>
-		<th>Expense</th>
+		
 		<th>Event</th>
-		<th>Created</th>
-		<th>Updated</th>
+		<th>Details</th>
 		<th>Status</th>
 		<th>Supporting Doc</th>
 		<th>Action</th>
@@ -60,24 +58,27 @@
 	<%end%>
 		<td><%=c.id%></td>
 		<td><%= c.userid%></td>
-		<td><%= c.clubid%></td>
+		
 		<td><%= c.amount%></td>
-		<td><%= c.category%></td>
-		<td><%= c.expense%></td>
+		
 		<td><%= c.event%></td>
-		<td><%= c.created_at%></td>
-		<td><%= c.updated_at%></td>
+		<td>
+			<div class="bs-example-tooltips">
+				<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Claim Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">Details</button>
+			</div>
+		</td>
 		<td><%= statuscode[c.status]%></td>
-		<td><a href="<%= c.supportdoc.url%>" class="btn btn-success btn-xs"><i class="icon-download"></i> Download</a></td>
+		<td> <a href="<%= c.supportdoc.url%>" class="btn btn-success btn-xs"><i class="icon-download"></i> Download</a></td>
+		<td>
 		<%if status == 1%>
-		<td><a href="/claims/editclaim?id=<%=c.id%>" class="btn btn-warning btn-xs"><i class="icon-pencil"></i>Edit</a></td>
+		<a href="/claims/editclaim?id=<%=c.id%>" class="btn btn-warning btn-xs"><i class="icon-pencil"></i>Edit</a>
 		<%if c.remarks.nil?%>
-		<td><a href="/claims/submitclaim?id=<%=c.id%>" class="btn btn-danger btn-xs">Submit</a></td>
+		<a href="/claims/submitclaim?id=<%=c.id%>" class="btn btn-danger btn-xs">Submit</a>
 		<%else%>
-		<td><a href="/claims/resubmitclaim?id=<%=c.id%>" class="btn btn-danger btn-xs">ReSubmit</a></td>
-		<td><a href="#", onclick="viewremark('<%=c.remarks%>')" class="btn btn-success btn-xs"><i class="icon-eye-open"></i> View Remarks</a></td>
+		<a href="/claims/resubmitclaim?id=<%=c.id%>" class="btn btn-danger btn-xs">ReSubmit</a>
+		<a href="#", onclick="viewremark('<%=c.remarks%>')" class="btn btn-success btn-xs"><i class="icon-eye-open"></i> View Remarks</a>
 		<%end%>
-		<%end%>
+		<%end%></td>
 	</tr>
 	<%end%>
 
@@ -91,6 +92,7 @@
 
 
                         </div>
+                        
 <%elsif role.include? 'cbdfinsec'%>
 <div class='row'>
 
@@ -114,11 +116,9 @@
 		<th>Claim By</th>
 		<th>Club</th>
 		<th>Amount</th>
-		<th>Category</th>
-		<th>Expense</th>
+		
 		<th>Event</th>
-		<th>Created</th>
-		<th>Updated</th>
+		<th>Details</th>
 		<th>Status</th>
 		<th>Supporting Doc</th>
 		<th>Action</th>
@@ -135,11 +135,14 @@
 		<td><%= c.userid%></td>
 		<td><%= c.clubid%></td>
 		<td><%= c.amount%></td>
-		<td><%= c.category%></td>
-		<td><%= c.expense%></td>
+		
 		<td><%= c.event%></td>
-		<td><%= c.created_at%></td>
-		<td><%= c.updated_at%></td>
+		
+		<td>
+			<div class="bs-example-tooltips">
+				<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Claim Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">Details</button>
+			</div>
+		</td>
 		<td><%= statuscode[c.status]%></td>
 		<td><a href="<%= c.supportdoc.url%>" class="btn btn-sm btn-primary">Download</td>
 		<%if status == 3%>
@@ -189,11 +192,10 @@
 		<th>Claim By</th>
 		<th>Club</th>
 		<th>Amount</th>
-		<th>Category</th>
-		<th>Expense</th>
+		
 		<th>Event</th>
-		<th>Created</th>
-		<th>Updated</th>
+		<th>Details</th>
+		
 		<th>Status</th>
 		<th>Supporting Doc</th>
 		<th>Action</th>
@@ -210,11 +212,12 @@
 		<td><%= c.userid%></td>
 		<td><%= c.clubid%></td>
 		<td><%= c.amount%></td>
-		<td><%= c.category%></td>
-		<td><%= c.expense%></td>
+		
 		<td><%= c.event%></td>
-		<td><%= c.created_at%></td>
-		<td><%= c.updated_at%></td>
+		
+		<td><div class="bs-example-tooltips">
+				<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Claim Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">Details</button>
+			</div></td>
 		<td><%= statuscode[c.status]%></td>
 		<td><a href="<%= c.supportdoc.url%>" class="btn btn-sm btn-primary">Download</td>
 		<%if status == 7%>
@@ -262,13 +265,12 @@
 	<tr>
 		<th>Claim ID</th>
 		<th>Claim By</th>
-		<th>Club</th>
+		
 		<th>Amount</th>
-		<th>Category</th>
-		<th>Expense</th>
+		
 		<th>Event</th>
-		<th>Created</th>
-		<th>Updated</th>
+		
+		<th>Details</th>
 		<th>Status</th>
 		<th>Supporting Doc</th>
 		<th>Action</th>
@@ -283,13 +285,16 @@
 	<%end%>
 		<td><%=c.id%></td>
 		<td><%= c.userid%></td>
-		<td><%= c.clubid%></td>
+		
 		<td><%= c.amount%></td>
-		<td><%= c.category%></td>
-		<td><%= c.expense%></td>
+		
 		<td><%= c.event%></td>
-		<td><%= c.created_at%></td>
-		<td><%= c.updated_at%></td>
+		
+		<td>
+			<div class="bs-example-tooltips">
+				<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Claim Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">Details</button>
+			</div>
+		</td>
 		<td><%= statuscode[c.status]%></td>
 		<td><a href="<%= c.supportdoc.url%>" class="btn btn-sm btn-primary">Download</td>
 		<%if status == 2 || status == 8 || status == 13%>
@@ -340,11 +345,9 @@
 		<th>Claim By</th>
 		<th>Club</th>
 		<th>Amount</th>
-		<th>Category</th>
-		<th>Expense</th>
+		
 		<th>Event</th>
-		<th>Created</th>
-		<th>Updated</th>
+		<th>Details</th>
 		<th>Status</th>
 		<th>Supporting Doc</th>
 		<th>Action</th>
@@ -361,11 +364,12 @@
 		<td><%= c.userid%></td>
 		<td><%= c.clubid%></td>
 		<td><%= c.amount%></td>
-		<td><%= c.category%></td>
-		<td><%= c.expense%></td>
+		
 		<td><%= c.event%></td>
-		<td><%= c.created_at%></td>
-		<td><%= c.updated_at%></td>
+		
+		<td><div class="bs-example-tooltips">
+				<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Claim Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">Details</button>
+			</div></td>
 		<td><%= statuscode[c.status]%></td>
 		<td><a href="<%= c.supportdoc.url%>" class="btn btn-sm btn-primary">Download</td>
 		<%if status == 9%>
@@ -414,13 +418,12 @@
 	<tr>
 		<th>Claim ID</th>
 		<th>Claim By</th>
-		<th>Club</th>
+		<th>Department</th>
 		<th>Amount</th>
-		<th>Category</th>
-		<th>Expense</th>
+		
 		<th>Event</th>
-		<th>Created</th>
-		<th>Updated</th>
+		
+		<th>Details</th>
 		<th>Status</th>
 		<th>Supporting Doc</th>
 		<th>Action</th>
@@ -437,11 +440,12 @@
 		<td><%= c.userid%></td>
 		<td><%= c.clubid%></td>
 		<td><%= c.amount%></td>
-		<td><%= c.category%></td>
-		<td><%= c.expense%></td>
+		
 		<td><%= c.event%></td>
-		<td><%= c.created_at%></td>
-		<td><%= c.updated_at%></td>
+		
+		<td><div class="bs-example-tooltips">
+				<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Claim Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">Details</button>
+			</div></td>
 		<td><%= statuscode[c.status]%></td>
 		<td><a href="<%= c.supportdoc.url%>" class="btn btn-sm btn-primary">Download</td>
 		<%if status == 14%>
@@ -473,7 +477,19 @@
 
 
 
-
+<script type="text/javascript">
+	$('[data-toggle="popover-with-html"]').popover({ html : true });
+	
+	$('body').on('click', function (e) {
+	    $('[data-toggle="popover"]').each(function () {
+	        //the 'is' for buttons that trigger popups
+	        //the 'has' for icons within a button that triggers a popup
+	        if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+	            $(this).popover('hide');
+	        }
+	    });
+	});
+</script>
 
 
 <%=javascript_tag do%>

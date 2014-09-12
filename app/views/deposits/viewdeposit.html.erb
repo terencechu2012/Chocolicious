@@ -36,16 +36,15 @@
 	<tr>
 		<th>deposit ID</th>
 		<th>deposit By</th>
-		<th>Club</th>
+		
 		<th>Amount</th>
 		<th>Date</th>
 		<th>Receipt Nos</th>
 		<th>Donor Name</th>
-		<th>Donor Address</th>
+		
 		<th>Donor IC</th>
-		<th>Purpose</th>
-		<th>Created</th>
-		<th>Updated</th>
+		
+		<th>Details</th>
 		<th>Status</th>
 
 		<th>Edit</th>
@@ -60,16 +59,19 @@
 	<%end%>
 		<td><%=c.id%></td>
 		<td><%= c.userid%></td>
-		<td><%= c.clubid%></td>
+		
 		<td><%= c.amount%></td>
 		<td><%= c.date%></td>
 		<td><%= c.receipts%></td>
 		<td><%= c.donorname%></td>
-		<td><%= c.donoradd%></td>
+		
 		<td><%= c.donoric%></td>
-		<td><%= c.purpose%></td>
-		<td><%= c.created_at%></td>
-		<td><%= c.updated_at%></td>
+		
+		<td>
+			<div class="bs-example-tooltips">
+										<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Purpose:</b><br /><%= c.purpose%><br /><b>Donor Address:</b><br /><%= c.donoradd%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">Details</button>
+									</div>
+		</td>
 		<td><%= statuscode[c.status]%></td>
 	
 		<%if status == 0 || status == 12 || status == 6%>
@@ -110,3 +112,16 @@ function viewremark(a){
 	
 }
 <%end%>
+<script type="text/javascript">
+	$('[data-toggle="popover-with-html"]').popover({ html : true });
+	
+	$('body').on('click', function (e) {
+	    $('[data-toggle="popover"]').each(function () {
+	        //the 'is' for buttons that trigger popups
+	        //the 'has' for icons within a button that triggers a popup
+	        if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+	            $(this).popover('hide');
+	        }
+	    });
+	});
+</script>
