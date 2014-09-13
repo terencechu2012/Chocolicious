@@ -32,7 +32,7 @@
 							<%= f.hidden_field(:clubid, :value => session[:club])%>
 							<label>Enter amount</label>
 							<br />
-							<%= f.number_field(:amount, :step => 0.01, :min => 0, :required => true) %>
+							<%= f.number_field(:amount, :step => 0.01, :min => 0, :class=>"form-control",:required => true) %>
 						</div>
 
 						<%if role.include? 'clubfinsec'%>
@@ -46,19 +46,24 @@
 						<div class='form-group'>
 							<label>Enter purpose</label>
 							<br />
-							<%= f.text_field :purpose, :required => true%>
+							<%= f.text_area :purpose, :class=>"form-control",:required => true%>
 						</div>
 						<hr />
 						<h3>Deposit Information</h3>
 						<div class='form-group'>
 							<label>Enter date</label>
 							<br />
-							<%= f.date_field(:date, :required => true)%>
+							<div class="input-group">
+							<%= f.date_field(:date, :class=>"form-control",:required => true)%>
+							<span class='input-group-addon' id='daterange2'>
+                            <i class='icon-calendar'></i>
+                          </span>
+                          </div>
 						</div>
 						<div class='form-group'>
 							<label>Enter receipt number</label>
 							<br />
-							<%= f.text_field :receipts, :required => true%>
+							<%= f.text_field :receipts, :class=>"form-control",:required => true%>
 						</div>
 						
 						<hr />
@@ -66,17 +71,17 @@
 						<div class='form-group'>
 							<label>Enter donor name</label>
 							<br />
-							<%= f.text_field :donorname%>
+							<%= f.text_field :donorname, :class=>"form-control"%>
 						</div>
 						<div class='form-group'>
 							<label>Enter donor address</label>
 							<br />
-							<%= f.text_field :donoradd%>
+							<%= f.text_field :donoradd, :class=>"form-control"%>
 						</div>
 						<div class='form-group'>
 							<label>Enter donor IC</label>
 							<br />
-							<%= f.text_field :donoric%>
+							<%= f.text_field :donoric, :class=>"form-control"%>
 						</div>
 				</fieldset>
 				<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>

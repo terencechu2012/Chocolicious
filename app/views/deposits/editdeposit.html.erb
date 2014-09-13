@@ -1,201 +1,197 @@
 <div class='row'>
 	<div class='col-sm-12'>
 		<div class='page-header'>
-			<h1 class='pull-left'><i class='icon-edit'></i><span>Edit Deposit</span></h1>
+			<h1 class='pull-left'><i class='icon-edit'></i><span> Edit Deposit</span></h1>
 		</div>
 	</div>
 </div>
 
 <%if @own=='true'%>
 <div class='row'>
-	<div class='col-sm-12'>
-		<div class='box'>
-			<div class='box-content box-padding'>
-				<div class='fuelux'>
-					<div class='wizard'>
-						<ul class='steps'>
-							<li class='active' data-target='#step1'>
-								<span class='step'>1</span>
-							</li>
-							<li data-target='#step2'>
-								<span class='step'>2</span>
-							</li>
-							<li data-target='#step3'>
-								<span class='step'>3</span>
-							</li>
-						</ul>
-						<div class='actions'>
-							<button class='btn btn-xs btn-prev'>
-								<i class='icon-arrow-left'></i>Prev
-							</button>
-							<button class='btn btn-xs btn-success btn-next' data-last='Click Save'>
-								Next
-								<i class='icon-arrow-right'></i>
-							</button>
+	<div class='col-sm-12 col-lg-12'>
+		<div class='box bordered-box'>
+			<div class='box-content box-double-padding'>
+				<%= form_for @deposit, :url => { :action => "editown" }, :method => :POST, :html => { :multipart => true }  do |f|  %>
+				<fieldset>
+					<div class='col-sm-4'>
+						<div class='lead'>
+							<i class='icon-file-alt text-contrast'></i>
+							Notes On Editing Deposit
+						</div>
+						<small class='text-muted'> Values preloaded into input fields are from the selected deposit. Do check with your receipts if the amount is correct before you make any edits. </small>
+					</div>
+					<div class='col-sm-7 col-sm-offset-1'>
+						<h2>Application Information</h2>
+						<div class='form-group'>
+							<div class='controls'>
+								<%= f.hidden_field(:id, :value => @deposit.id)%>
+								<label>Enter amount</label>
+								<br />
+								<%= f.number_field(:amount, :step => 'any', :min => 0, :class=>"form-control",:required => true) %>
+							</div>
+							<div class='controls'>
+								<label>Enter purpose</label>
+								<br />
+								<%= f.text_area :purpose, :class=>"form-control",:required => true%>
+							</div>
 						</div>
 					</div>
-					<div class='step-content'>
-						<hr class='hr-normal'>
-						<%= form_for @deposit, :url => { :action => "editown" }, :method => :POST, :html => { :multipart => true }  do |f|  %>
-						<div class='step-pane active' id='step1'>
-							<h2>Application Information</h2>
-							<div class='form-group'>
-								<div class='controls'>
-									<%= f.hidden_field(:id, :value => @deposit.id)%>
-									<label>Enter amount</label>
-									<br />
-									<%= f.number_field(:amount, :step => 'any', :min => 0, :required => true) %>
-								</div>
-								<div class='controls'>
-									<label>Enter purpose</label>
-									<br />
-									<%= f.text_field :purpose, :required => true%>
-								</div>
+					<hr />
+					<div class='col-sm-4'>
+						
+					</div>
+					<div class='col-sm-7 col-sm-offset-1'>
+						<h2>Deposit Information</h2>
+						<div class='form-group'>
+							<div class='controls'>
+								<label>Enter date</label>
+								<br />
+								<div class="input-group">
+								<%= f.date_field(:date, :class=>"form-control",:required => true)%>
+								<span class='input-group-addon' id='daterange2'>
+                            <i class='icon-calendar'></i>
+                          </span>
+                          </div>
+							</div>
+							<div class='controls'>
+								<label>Enter receipt number</label>
+								<br />
+								<%= f.text_field :receipts, :class=>"form-control",:required => true%>
 							</div>
 						</div>
-						<div class='step-pane' id='step2'>
-							<h2>Deposit Information</h2>
-							<div class='form-group'>
-								<div class='controls'>
-									<label>Enter date</label>
-									<br />
-									<%= f.date_field(:date, :required => true)%>
-								</div>
-								<div class='controls'>
-									<label>Enter receipt number</label>
-									<br />
-									<%= f.text_field :receipts, :required => true%>
-								</div>
+					</div>
+					<hr />
+					<div class='col-sm-4'>
+						<small class='text-muted'> Wrong entry of donor information can lead to rejection of deposits. After editing the fields, check to make sure all fields are correct. </small>
+					</div>
+					<div class='col-sm-7 col-sm-offset-1'>
+						<h2>Donor Information</h2>
+						<div class='form-group'>
+							<div class='controls'>
+								<label>Enter donor's name</label>
+								<br />
+								<%= f.text_field :donorname, :class=>"form-control"%>
+							</div>
+							<div class='controls'>
+								<label>Enter donor's address</label>
+								<br />
+								<%= f.text_field :donoradd, :class=>"form-control"%>
+							</div>
+							<div class='controls'>
+								<label>Enter donor's IC</label>
+								<br />
+								<%= f.text_field :donoric, :class=>"form-control"%>
 							</div>
 						</div>
-						<div class='step-pane' id='step3'>
-							<h2>Donor Information</h2>
-							<div class='form-group'>
-								<div class='controls'>
-									<label>Enter donor's name</label>
-									<br />
-									<%= f.text_field :donorname%>
-								</div>
-								<div class='controls'>
-									<label>Enter donor's address</label>
-									<br />
-									<%= f.text_field :donoradd%>
-								</div>
-								<div class='controls'>
-									<label>Enter donor's IC</label>
-									<br />
-									<%= f.text_field :donoric%>
-								</div>
-							</div>
-							<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
-								<div class='text-right'>
-									<%= f.submit("Save", :class=>"btn btn-primary btn-lg blue-background")%>
-								</div>
-							</div>
-						</div>
-						<%end%>
+					</div>
+				</fieldset>
+				<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
+					<div class='text-right'>
+						<%= button_tag(type: 'submit', class: "btn btn-primary") do %>
+						<i class="icon-save"></i> Save
+						<% end %>
 					</div>
 				</div>
 			</div>
+			<%end%>
 		</div>
 	</div>
 </div>
-
-
+</div>
+</div>
+</div>
 
 <%else%>
 <div class='row'>
-	<div class='col-sm-12'>
-		<div class='box'>
-			<div class='box-content box-padding'>
-				<div class='fuelux'>
-					<div class='wizard'>
-						<ul class='steps'>
-							<li class='active' data-target='#step1'>
-								<span class='step'>1</span>
-							</li>
-							<li data-target='#step2'>
-								<span class='step'>2</span>
-							</li>
-							<li data-target='#step3'>
-								<span class='step'>3</span>
-							</li>
-						</ul>
-						<div class='actions'>
-							<button class='btn btn-xs btn-prev'>
-								<i class='icon-arrow-left'></i>Prev
-							</button>
-							<button class='btn btn-xs btn-success btn-next' data-last='Click Save'>
-								Next
-								<i class='icon-arrow-right'></i>
-							</button>
+	<div class='col-sm-12 col-lg-12'>
+		<div class='box bordered-box'>
+			<div class='box-content box-double-padding'>
+				<%= form_for @deposit, :url => { :action => "edit" }, :method => :POST, :html => { :multipart => true }  do |f|  %>
+				<fieldset>
+					<div class='col-sm-4'>
+						<div class='lead'>
+							<i class='icon-file-alt text-contrast'></i>
+							Notes On Editing Deposit
+						</div>
+						<small class='text-muted'> Values preloaded into input fields are from the selected deposit. Do check with your receipts if the amount is correct before you make any edits. </small>
+					</div>
+					<div class='col-sm-7 col-sm-offset-1'>
+						<h2>Application Information</h2>
+						<div class='form-group'>
+							<div class='controls'>
+								<%= f.hidden_field(:id, :value => @deposit.id)%>
+								<label>Enter amount</label>
+								<br />
+								<%= f.number_field(:amount, :step => 'any', :min => 0, :class=>"form-control",:required => true) %>
+							</div>
+							<div class='controls'>
+								<label>Enter purpose</label>
+								<br />
+								<%= f.text_area :purpose, :class=>"form-control",:required => true%>
+							</div>
 						</div>
 					</div>
-					<div class='step-content'>
-						<hr class='hr-normal'>
-						<%= form_for @deposit, :url => { :action => "edit" }, :method => :POST, :html => { :multipart => true }  do |f|  %>
-						<div class='step-pane active' id='step1'>
-							<h2>Application Information</h2>
-							<div class='form-group'>
-								<div class='controls'>
-									<%= f.hidden_field(:id, :value => @deposit.id)%>
-									<label>Enter amount</label>
-									<br />
-									<%= f.number_field(:amount, :step => 'any', :min => 0, :required => true) %>
-								</div>
-								<div class='controls'>
-									<label>Enter purpose</label>
-									<br />
-									<%= f.text_field :purpose, :required => true%>
-								</div>
+					<hr />
+					<div class='col-sm-4'>
+						
+					</div>
+					<div class='col-sm-7 col-sm-offset-1'>
+						<h2>Deposit Information</h2>
+						<div class='form-group'>
+							<div class='controls'>
+								<label>Enter date</label>
+								<br />
+								<div class="input-group">
+								<%= f.date_field(:date, :class=>"form-control",:required => true)%>
+								<span class='input-group-addon' id='daterange2'>
+                            <i class='icon-calendar'></i>
+                          </span>
+                          </div>
+							</div>
+							<div class='controls'>
+								<label>Enter receipt number</label>
+								<br />
+								<%= f.text_field :receipts, :class=>"form-control",:required => true%>
 							</div>
 						</div>
-						<div class='step-pane' id='step2'>
-							<h2>Deposit Information</h2>
-							<div class='form-group'>
-								<div class='controls'>
-									<label>Enter date</label>
-									<br />
-									<%= f.date_field(:date, :required => true)%>
-								</div>
-								<div class='controls'>
-									<label>Enter receipt number</label>
-									<br />
-									<%= f.text_field :receipts, :required => true%>
-								</div>
+					</div>
+					<hr />
+					<div class='col-sm-4'>
+						<small class='text-muted'> Wrong entry of donor information can lead to rejection of deposits. After editing the fields, check to make sure all fields are correct. </small>
+					</div>
+					<div class='col-sm-7 col-sm-offset-1'>
+						<h2>Donor Information</h2>
+						<div class='form-group'>
+							<div class='controls'>
+								<label>Enter donor's name</label>
+								<br />
+								<%= f.text_field :donorname, :class=>"form-control"%>
+							</div>
+							<div class='controls'>
+								<label>Enter donor's address</label>
+								<br />
+								<%= f.text_field :donoradd, :class=>"form-control"%>
+							</div>
+							<div class='controls'>
+								<label>Enter donor's IC</label>
+								<br />
+								<%= f.text_field :donoric, :class=>"form-control"%>
 							</div>
 						</div>
-						<div class='step-pane' id='step3'>
-							<h2>Donor Information</h2>
-							<div class='form-group'>
-								<div class='controls'>
-									<label>Enter donor's name</label>
-									<br />
-									<%= f.text_field :donorname%>
-								</div>
-								<div class='controls'>
-									<label>Enter donor's address</label>
-									<br />
-									<%= f.text_field :donoradd%>
-								</div>
-								<div class='controls'>
-									<label>Enter donor's IC</label>
-									<br />
-									<%= f.text_field :donoric%>
-								</div>
-							</div>
-							<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
-								<div class='text-right'>
-									<%= f.submit("Save", :class=>"btn btn-primary btn-lg blue-background")%>
-								</div>
-							</div>
-						</div>
-						<%end%>
+					</div>
+				</fieldset>
+				<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
+					<div class='text-right'>
+						<%= button_tag(type: 'submit', class: "btn btn-primary") do %>
+						<i class="icon-save"></i> Save
+						<% end %>
 					</div>
 				</div>
 			</div>
+			<%end%>
 		</div>
 	</div>
 </div>
+
 <%end%>
 

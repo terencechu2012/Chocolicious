@@ -196,6 +196,33 @@ class AdminController < ApplicationController
   end
 
   def home
+    role = session[:role]
+    if role.include? 'clubfinsec'
+      @normalclaims = Claim.where(:clubid => session[:club], :status => 1)
+      @normaldeposits = Deposit.where(:clubid => session[:club], :status => 1)
+    elsif role.include? 'cbdfinsec'
+      @normalclaims = Claim.where(['clubid in (select clubid from clubs where clubtype = ?) and status = 3', session[:club]])
+      @cbdmcclaims = Claim.where(clubid:session[:club], status: 7)
+      @normaldeposits = Deposit.where(['clubid in (select clubid from clubs where clubtype = ?) and status = 3', session[:club]])
+      @cbdmcdeposits = Deposit.where(clubid:session[:club], status: 7)
+    elsif role.include? 'president'
+      @normalclaims = Claim.where(clubid:session[:club], status: 2)
+      @cbdmcclaims = Claim.where(clubid:session[:club], status: 8)
+      @claims = @normalclaims + @cbdmcclaims
+      if session[:club] == 'smusa'
+        @thirdclaims = Claim.where(['clubid in (select clubid from clubs where clubtype = ?) and status = 13', 'smusa'])
+        @claims = @normalclaims + @cbdmcclaims + @thirdclaims
+      end
+      @normaldeposits = Deposit.where(clubid:session[:club], status: 2)
+      @cbdmcdeposits = Deposit.where(clubid:session[:club], status: 8)
+      @thirddeposits = Deposit.where(['clubid in (select clubid from clubs where clubtype = ?) and status = 13', 'smusa'])
+      @deposits = @normaldeposits + @cbdmcdeposits + @thirddeposits
+    elsif role.include? 'smusafinsec'
+      @cbdmcclaims = Claim.where(status: 9)
+      @smusasecclaims = Claim.where(status: 14)
+      @cbdmcdeposits = Deposit.where(status: 9)
+      @smusasecdeposits = Deposit.where(status: 14)
+    end
   end
 
   def newrequest

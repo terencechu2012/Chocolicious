@@ -36,3 +36,138 @@
 	<strong>AIS</strong>
 	- We are still working on the project to serve you better. <span class="pull-right"><i class='icon-wrench'></i> ~ Chocolicious, IS480'2014  Term 1</span>
 </div>
+<% role = session[:role]%>
+
+<%if role.include? 'clubfinsec'%>
+
+	<div class='col-sm-12 col-md-6'>
+		<div class='box'>
+			<div class='box-header'>
+				<div class='title'>
+					<div class='icon-inbox'></div>
+					Pending your approval
+				</div>
+			</div>
+			<div class='row'>
+				<div class='col-sm-6'>
+					<div class='box-content box-statistic'>
+						<h3 class='title text-error'><%= @normalclaims.size%></h3>
+						<small>Claims</small>
+						<div class='text-error icon-file-text align-right'></div>
+					</div>
+					<div class='box-content box-statistic'>
+						<h3 class='title text-warning'><%= @normaldeposits.size%></h3>
+						<small>Deposits</small>
+						<div class='text-warning icon-book align-right'></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<%end%>
+<%if role.include? 'cbdfinsec'%>
+
+	<div class='col-sm-12 col-md-6'>
+		<div class='box'>
+			<div class='box-header'>
+				<div class='title'>
+					<div class='icon-inbox'></div>
+					Pending your approval
+				</div>
+			</div>
+			<div class='row'>
+				<div class='col-sm-6'>
+					<div class='box-content box-statistic'>
+						<h3 class='title text-error'><%= @normalclaims.size%></h3>
+						<small>Claims</small>
+						<div class='text-error icon-file-text align-right'></div>
+					</div>
+					<div class='box-content box-statistic'>
+						<h3 class='title text-warning'><%= @cbdmcclaims.size%></h3>
+						<small>CBd MC Claims</small>
+						<div class='text-warning icon-copy align-right'></div>
+					</div>
+					<div class='box-content box-statistic'>
+						<h3 class='title text-info'><%= @normaldeposits.size%></h3>
+						<small>Deposits</small>
+						<div class='text-info icon-book align-right'></div>
+					</div>
+					<div class='box-content box-statistic'>
+						<h3 class='title text-muted'><%= @cbdmcdeposits.size%></h3>
+						<small>CBd MC Deposits</small>
+						<div class='text-muted icon-briefcase align-right'></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<%end%>
+<%if role.include? 'president'%>
+
+	<div class='col-sm-12 col-md-6'>
+		<div class='box'>
+			<div class='box-header'>
+				<div class='title'>
+					<div class='icon-inbox'></div>
+					Pending your approval
+				</div>
+			</div>
+			<div class='row'>
+				<div class='col-sm-6'>
+					<div class='box-content box-statistic'>
+						<h3 class='title text-error'><%= @claims.size%></h3>
+						<small>Claims</small>
+						<div class='text-error icon-file-text align-right'></div>
+					</div>
+
+					<div class='box-content box-statistic'>
+						<h3 class='title text-warning'><%= @deposits.size%></h3>
+						<small>Deposits</small>
+						<div class='text-warning icon-book align-right'></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<%end%>
+<%if role.include? 'smusafinsec'%>
+
+	<div class='col-sm-12 col-md-6'>
+		<div class='box'>
+			<div class='box-header'>
+				<div class='title'>
+					<div class='icon-inbox'></div>
+					Pending your approval
+				</div>
+			</div>
+			<div class='row'>
+				<div class='col-sm-6'>
+					<div class='box-content box-statistic'>
+						<h3 class='title text-error'><%= @smusasecclaims.size%></h3>
+						<small>SMUSA Sec Claims</small>
+						<div class='text-error icon-file-text align-right'></div>
+					</div>
+					<div class='box-content box-statistic'>
+						<h3 class='title text-warning'><%= @cbdmcclaims.size%></h3>
+						<small>CBd MC Claims</small>
+						<div class='text-warning icon-copy align-right'></div>
+					</div>
+					<div class='box-content box-statistic'>
+						<h3 class='title text-info'><%= @smusasecdeposits.size%></h3>
+						<small>SMUSA Sec Deposits</small>
+						<div class='text-info icon-book align-right'></div>
+					</div>
+					<div class='box-content box-statistic'>
+						<h3 class='title text-muted'><%= @cbdmcdeposits.size%></h3>
+						<small>CBd MC Deposits</small>
+						<div class='text-muted icon-briefcase align-right'></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<%end%>
