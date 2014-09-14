@@ -1,509 +1,512 @@
-<% if flash[:error] %>
-<font color="red"><%= flash[:error]%></font>
-<%end%>
-<%statuscode = ['Unsubmitted', 'With Club Finsec', 'With Club Pres', 'With CBD Finsec', 'With OFIN', 'Done', 'Unsubmitted', 'With CBD Finsec', 'With CBD Pres', 'With SMUSA Finsec', 'With OFIN', 'Done', 'Unsubmitted', 'With SMUSA Pres','With SMUSA Finsec', 'With OFIN', 'Done']%>
-<%role = session[:role]%>
-
+<% statuscode = ['Unsubmitted', 'With Club Finsec', 'With Club Pres', 'With CBD Finsec', 'With OFIN', 'Done', 'Unsubmitted', 'With CBD Finsec', 'With CBD Pres', 'With SMUSA Finsec', 'With OFIN', 'Done', 'Unsubmitted', 'With SMUSA Pres','With SMUSA Finsec', 'With OFIN', 'Done']%>
+<% role = session[:role]%>
 
 <div class='row'>
-                            <div class='col-sm-12'>
-                                <div class='page-header'>
-                                    <h1 class='pull-left'>
-                      <i class='icon-file-alt'></i>
-                      <span>Manage Club Claims</span>
-                    </h1>
-                                    
-                                </div>
-                            </div>
-                        </div>
-<%if role.include? 'clubfinsec'%>                        
+	<div class='col-sm-12'>
+		<div class='page-header'>
+			<h1 class='pull-left'><i class='icon-file-alt'></i><span>Manage Club Claims</span></h1>
+
+		</div>
+	</div>
+</div>
+<%if role.include? 'clubfinsec'%>
 
 <div class='row'>
 
-                            <div class="col-sm-12">
-                                <div class="box bordered-box blue-border">
-                                    <div class="box-header blue-background">
-                                        <div class="title">Club Claims</div>
-                                        <div class="actions">
-                                            
+	<div class="col-sm-12">
+		<div class="box bordered-box blue-border">
+			<div class="box-header blue-background">
+				<div class="title">
+					Club Claims
+				</div>
+				<div class="actions">
 
-                                            <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
-                        </a>
-                                        </div>
-                                    </div>
-                                    <div class="box-content box-no-padding">
-                                        <div class="responsive-table">
-                                            <div class="scrollable-area">
-                                                
-                                              <table class="table table-striped" style="margin-bottom:0;">
-	<tr>
-		<th>Claim ID</th>
-		<th>Claim By</th>
-		
-		<th>Amount</th>
-		
-		<th>Event</th>
-		<th>Details</th>
-		<th>Status</th>
-		<th>Supporting Doc</th>
-		<th>Action</th>
-		
-	</tr>
-	<% @normalclaims.each do |c|%>
-	<%status = c.status%>
-	<%if c.remarks.nil?%>
-	<tr>
-	<%else%>
-	<tr class = 'warning'>
-	<%end%>
-		<td><%=c.id%></td>
-		<td><%= c.userid%></td>
-		
-		<td><%= c.amount%></td>
-		
-		<td><%= c.event%></td>
-		<td>
-			<div class="bs-example-tooltips">
-				<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Claim Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">Details</button>
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
 			</div>
-		</td>
-		<td><%= statuscode[c.status]%></td>
-		<td> <a href="<%= c.supportdoc.url%>" class="btn btn-success btn-xs"><i class="icon-download"></i> Download</a></td>
-		<td>
-		<%if status == 1%>
-		<a href="/claims/editclaim?id=<%=c.id%>" class="btn btn-warning btn-xs"><i class="icon-pencil"></i>Edit</a>
-		<%if c.remarks.nil?%>
-		<a href="/claims/submitclaim?id=<%=c.id%>" class="btn btn-danger btn-xs">Submit</a>
-		<%else%>
-		<a href="/claims/resubmitclaim?id=<%=c.id%>" class="btn btn-danger btn-xs">ReSubmit</a>
-		<a href="#", onclick="viewremark('<%=c.remarks%>')" class="btn btn-success btn-xs"><i class="icon-eye-open"></i> View Remarks</a>
-		<%end%>
-		<%end%></td>
-	</tr>
-	<%end%>
+			<div class="box-content box-no-padding">
+				<div class="responsive-table">
+					<div class="scrollable-area">
 
-</table>
+						<table class="data-table table table-striped" style="margin-bottom:0;">
+							<thead>
+								<th>Claim ID</th>
+								<th>Claim By</th>
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+								<th>Amount</th>
 
+								<th>Event</th>
+								<th>Details</th>
+								<th>Status</th>
+								<th>Supporting Doc</th>
+								<th>Action</th>
 
-                        </div>
-                        
+							</thead>
+							<tbody>
+							<% @normalclaims.each do |c|%>
+							<% status = c.status%>
+							<%if c.remarks.nil?%>
+							<tr>
+								<%else%>
+							<tr class = 'warning'>
+								<%end%>
+								<td><%= c.id%></td>
+								<td><%= c.userid%></td>
+
+								<td><%= c.amount%></td>
+
+								<td><%= c.event%></td>
+								<td>
+								<div class="bs-example-tooltips">
+									<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Claim Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
+										Details
+									</button>
+								</div></td>
+								<td><%= statuscode[c.status]%></td>
+								<td><a href="<%= c.supportdoc.url%>" class="btn btn-success btn-xs"><i class="icon-download"></i> Download</a></td>
+								<td> <%if status == 1%> <a href="/claims/editclaim?id=<%= c.id%>" class="btn btn-warning btn-xs"><i class="icon-pencil"></i>Edit</a> <%if c.remarks.nil?%> <a href="/claims/submitclaim?id=<%= c.id%>" class="btn btn-danger btn-xs">Submit</a> <%else%> <a href="/claims/resubmitclaim?id=<%= c.id%>" class="btn btn-danger btn-xs">ReSubmit</a><a href="#", onclick="viewremark('<%= c.remarks%>')" class="btn btn-success btn-xs"><i class="icon-eye-open"></i> View Remarks</a> <%end%>
+								<%end%></td>
+							</tr>
+							<%end%>
+						</tbody>
+						</table>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
 <%elsif role.include? 'cbdfinsec'%>
 <div class='row'>
 
-                            <div class="col-sm-12">
-                                <div class="box bordered-box blue-border">
-                                    <div class="box-header blue-background">
-                                        <div class="title">Club Claims</div>
-                                        <div class="actions">
-                                            
-                                            <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
-                        </a>
-                                        </div>
-                                    </div>
-                                    <div class="box-content box-no-padding">
-                                        <div class="responsive-table">
-                                            <div class="scrollable-area">
-                                                
-                                              <table class="table table-striped" style="margin-bottom:0;">
-	<tr>
-		<th>Claim ID</th>
-		<th>Claim By</th>
-		<th>Club</th>
-		<th>Amount</th>
-		
-		<th>Event</th>
-		<th>Details</th>
-		<th>Status</th>
-		<th>Supporting Doc</th>
-		<th>Action</th>
-		
-	</tr>
-	<% @normalclaims.each do |c|%>
-	<%status = c.status%>
-	<%if c.remarks.nil?%>
-	<tr>
-	<%else%>
-	<tr class = 'warning'>
-	<%end%>
-		<td><%=c.id%></td>
-		<td><%= c.userid%></td>
-		<td><%= c.clubid%></td>
-		<td><%= c.amount%></td>
-		
-		<td><%= c.event%></td>
-		
-		<td>
-			<div class="bs-example-tooltips">
-				<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Claim Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">Details</button>
+	<div class="col-sm-12">
+		<div class="box bordered-box blue-border">
+			<div class="box-header blue-background">
+				<div class="title">
+					Club Claims
+				</div>
+				<div class="actions">
+
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
 			</div>
-		</td>
-		<td><%= statuscode[c.status]%></td>
-		<td><a href="<%= c.supportdoc.url%>" class="btn btn-sm btn-primary">Download</td>
-		<%if status == 3%>
-		<td><a href="/claims/endorseclub?id=<%=c.id%>" class="btn btn-sm btn-primary">Endorse</td>
-		<td><a href="/claims/addremark?id=<%=c.id%>&status=1" class="btn btn-sm btn-primary">Reject</td>
-		<%elsif status == 4%>
-		<td><a href="/claims/endorseclub?id=<%=c.id%>" class="btn btn-sm btn-primary">Endorsed. View form</td>
-		<td><a href="/claims/addremark?id=<%=c.id%>&status=1" class="btn btn-sm btn-primary">Reject</td>
-		<td><a href="/claims/completeclaim?id=<%=c.id%>" class="btn btn-sm btn-primary">Claim complete</td>
-		<%elsif status == 5%>
-		<td>Claim completed</td>
-		<%end%>
-	</tr>
-	<%end%>
+			<div class="box-content box-no-padding">
+				<div class="responsive-table">
+					<div class="scrollable-area">
 
-</table>
+						<table class="data-table table table-striped" style="margin-bottom:0;">
+							<thead>
+								<th>Claim ID</th>
+								<th>Claim By</th>
+								<th>Club</th>
+								<th>Amount</th>
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+								<th>Event</th>
+								<th>Details</th>
+								<th>Status</th>
+								<th>Supporting Doc</th>
+								<th>Action</th>
 
+							</thead>
+							<tbody>
+							<% @normalclaims.each do |c|%>
+							<% status = c.status%>
+							<%if c.remarks.nil?%>
+							<tr>
+								<%else%>
+							<tr class = 'warning'>
+								<%end%>
+								<td><%= c.id%></td>
+								<td><%= c.userid%></td>
+								<td><%= c.clubid%></td>
+								<td><%= c.amount%></td>
 
-                        </div>
-          <!-- CBD claims from here               -->
+								<td><%= c.event%></td>
+
+								<td>
+								<div class="bs-example-tooltips">
+									<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Claim Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
+										Details
+									</button>
+								</div></td>
+								<td><%= statuscode[c.status]%></td>
+								<td><a href="<%= c.supportdoc.url%>" class="btn btn-sm btn-primary">Download</td>
+								<td>
+									<%if status == 3%>
+									<a href="/claims/endorseclub?id=<%= c.id%>" class="btn btn-sm btn-primary">Endorse</a>
+									<a href="/claims/addremark?id=<%= c.id%>&status=1" class="btn btn-sm btn-primary">Reject</a>
+									<%elsif status == 4%>
+									<a href="/claims/endorseclub?id=<%= c.id%>" class="btn btn-sm btn-primary">Endorsed. View form</a>
+									<a href="/claims/addremark?id=<%= c.id%>&status=1" class="btn btn-sm btn-primary">Reject</a>
+									<a href="/claims/completeclaim?id=<%= c.id%>" class="btn btn-sm btn-primary">Claim complete</a>
+									<%elsif status == 5%>
+									<span class="label label-success">Claim Completed</span>
+									<%end%>
+								</td>
+							</tr>
+							<%end%>
+</tbody>
+						</table>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+<!-- CBD claims from here               -->
 <div class='row'>
 
-                            <div class="col-sm-12">
-                                <div class="box bordered-box blue-border">
-                                    <div class="box-header blue-background">
-                                        <div class="title">CBD Claims</div>
-                                        <div class="actions">
-                                           
+	<div class="col-sm-12">
+		<div class="box bordered-box blue-border">
+			<div class="box-header blue-background">
+				<div class="title">
+					CBD Claims
+				</div>
+				<div class="actions">
 
-                                            <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
-                        </a>
-                                        </div>
-                                    </div>
-                                    <div class="box-content box-no-padding">
-                                        <div class="responsive-table">
-                                            <div class="scrollable-area">
-                                                
-                                              <table class="table table-striped" style="margin-bottom:0;">
-	<tr>
-		<th>Claim ID</th>
-		<th>Claim By</th>
-		<th>Club</th>
-		<th>Amount</th>
-		
-		<th>Event</th>
-		<th>Details</th>
-		
-		<th>Status</th>
-		<th>Supporting Doc</th>
-		<th>Action</th>
-		
-	</tr>
-	<% @cbdmcclaims.each do |c|%>
-	<%status = c.status%>
-	<%if c.remarks.nil?%>
-	<tr>
-	<%else%>
-	<tr class = 'warning'>
-	<%end%>
-		<td><%=c.id%></td>
-		<td><%= c.userid%></td>
-		<td><%= c.clubid%></td>
-		<td><%= c.amount%></td>
-		
-		<td><%= c.event%></td>
-		
-		<td><div class="bs-example-tooltips">
-				<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Claim Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">Details</button>
-			</div></td>
-		<td><%= statuscode[c.status]%></td>
-		<td><a href="<%= c.supportdoc.url%>" class="btn btn-sm btn-primary">Download</td>
-		<%if status == 7%>
-		<td><a href="/claims/editclaim?id=<%=c.id%>" class="btn btn-sm btn-primary">Edit</td>
-		<%if c.remarks.nil?%>
-		<td><a href="/claims/submitclaim?id=<%=c.id%>" class="btn btn-sm btn-primary">Submit</td>
-		<%else%>
-		<td><a href="/claims/resubmitclaim?id=<%=c.id%>" class="btn btn-sm btn-primary">ReSubmit</td>
-		<td><a href="#", onclick="viewremark('<%=c.remarks%>')" class="btn btn-sm btn-primary">View Remarks</a></td>
-		<%end%>
-		<%end%>
-	</tr>
-	<%end%>
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class="box-content box-no-padding">
+				<div class="responsive-table">
+					<div class="scrollable-area">
 
-</table>
+						<table class="data-table table table-striped" style="margin-bottom:0;">
+							<thead>
+								<th>Claim ID</th>
+								<th>Claim By</th>
+								<th>Club</th>
+								<th>Amount</th>
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+								<th>Event</th>
+								<th>Details</th>
 
+								<th>Status</th>
+								<th>Supporting Doc</th>
+								<th>Action</th>
 
-                        </div>
+							</thead>
+							<tbody>
+							<% @cbdmcclaims.each do |c|%>
+							<% status = c.status%>
+							<%if c.remarks.nil?%>
+							<tr>
+								<%else%>
+							<tr class = 'warning'>
+								<%end%>
+								<td><%= c.id%></td>
+								<td><%= c.userid%></td>
+								<td><%= c.clubid%></td>
+								<td><%= c.amount%></td>
+
+								<td><%= c.event%></td>
+
+								<td>
+								<div class="bs-example-tooltips">
+									<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Claim Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
+										Details
+									</button>
+								</div></td>
+								<td><%= statuscode[c.status]%></td>
+								<td><a href="<%= c.supportdoc.url%>" class="btn btn-sm btn-primary">Download</td>
+								<td>
+								<%if status == 7%>
+									<a href="/claims/editclaim?id=<%= c.id%>" class="btn btn-sm btn-primary">Edit</a>
+									<%if c.remarks.nil?%>
+									<a href="/claims/submitclaim?id=<%= c.id%>" class="btn btn-sm btn-primary">Submit</a>
+									<%else%>
+									<a href="/claims/resubmitclaim?id=<%= c.id%>" class="btn btn-sm btn-primary">ReSubmit</a>
+									<a href="#", onclick="viewremark('<%= c.remarks%>')" class="btn btn-sm btn-primary">View Remarks</a>
+									<%end%>
+								<%end%>
+								</td>
+							</tr>
+							<%end%>
+							</tbody>
+						</table>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
 
 <%elsif role.include? 'president'%>
 <div class='row'>
 
-                            <div class="col-sm-12">
-                                <div class="box bordered-box blue-border">
-                                    <div class="box-header blue-background">
-                                        <div class="title">Club Claims</div>
-                                        <div class="actions">
-                                            
+	<div class="col-sm-12">
+		<div class="box bordered-box blue-border">
+			<div class="box-header blue-background">
+				<div class="title">
+					Club Claims
+				</div>
+				<div class="actions">
 
-                                            <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
-                        </a>
-                                        </div>
-                                    </div>
-                                    <div class="box-content box-no-padding">
-                                        <div class="responsive-table">
-                                            <div class="scrollable-area">
-                                                
-                                              <table class="table table-striped" style="margin-bottom:0;">
-	<tr>
-		<th>Claim ID</th>
-		<th>Claim By</th>
-		
-		<th>Amount</th>
-		
-		<th>Event</th>
-		
-		<th>Details</th>
-		<th>Status</th>
-		<th>Supporting Doc</th>
-		<th>Action</th>
-		
-	</tr>
-	<% @claims.each do |c|%>
-	<%status = c.status%>
-	<%if c.remarks.nil?%>
-	<tr>
-	<%else%>
-	<tr class = 'warning'>
-	<%end%>
-		<td><%=c.id%></td>
-		<td><%= c.userid%></td>
-		
-		<td><%= c.amount%></td>
-		
-		<td><%= c.event%></td>
-		
-		<td>
-			<div class="bs-example-tooltips">
-				<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Claim Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">Details</button>
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
 			</div>
-		</td>
-		<td><%= statuscode[c.status]%></td>
-		<td><a href="<%= c.supportdoc.url%>" class="btn btn-sm btn-primary">Download</td>
-		<%if status == 2 || status == 8 || status == 13%>
-		<td><a href="#", onclick="pres(<%=c.id%>)" class="btn btn-sm btn-primary">Acknowledge</a></td>
-		<%if status == 2%>
-		<td><a href="/claims/addremark?id=<%=c.id%>&status=1" class="btn btn-sm btn-primary">Reject</td>
-		<%elsif status == 8%>
-		<td><a href="/claims/addremark?id=<%=c.id%>&status=7" class="btn btn-sm btn-primary">Reject</td>
-		<%elsif status == 13%>
-		<td><a href="/claims/addremark?id=<%=c.id%>&status=12" class="btn btn-sm btn-primary">Reject</td>
-		<%end%>
-		<p id ="pres"> </p>
-		<%end%>
-		
-	</tr>
-	<%end%>
+			<div class="box-content box-no-padding">
+				<div class="responsive-table">
+					<div class="scrollable-area">
 
-</table>
+						<table class="data-table table table-striped" style="margin-bottom:0;">
+							<thead>
+								<th>Claim ID</th>
+								<th>Claim By</th>
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+								<th>Amount</th>
 
+								<th>Event</th>
 
-                        </div>
+								<th>Details</th>
+								<th>Status</th>
+								<th>Supporting Doc</th>
+								<th>Action</th>
+
+							</thead>
+							<tbody>
+							<% @claims.each do |c|%>
+							<% status = c.status%>
+							<%if c.remarks.nil?%>
+							<tr>
+								<%else%>
+							<tr class = 'warning'>
+								<%end%>
+								<td><%= c.id%></td>
+								<td><%= c.userid%></td>
+
+								<td><%= c.amount%></td>
+
+								<td><%= c.event%></td>
+
+								<td>
+								<div class="bs-example-tooltips">
+									<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Claim Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
+										Details
+									</button>
+								</div></td>
+								<td><%= statuscode[c.status]%></td>
+								<td><a href="<%= c.supportdoc.url%>" class="btn btn-sm btn-primary">Download</td>
+								<td>
+								<%if status == 2 || status == 8 || status == 13%>
+								<a href="#", onclick="pres(<%= c.id%>)" class="btn btn-sm btn-primary">Acknowledge</a>
+								<%if status == 2%>
+								<a href="/claims/addremark?id=<%= c.id%>&status=1" class="btn btn-sm btn-primary">Reject</a>
+								<%elsif status == 8%>
+								<a href="/claims/addremark?id=<%= c.id%>&status=7" class="btn btn-sm btn-primary">Reject</a>
+								<%elsif status == 13%>
+								<a href="/claims/addremark?id=<%= c.id%>&status=12" class="btn btn-sm btn-primary">Reject</a>
+								<%end%>
+								<p id ="pres"></p>
+								<%end%>
+</td>
+							</tr>
+							<%end%>
+</tbody>
+						</table>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
 <%elsif role.include? 'smusafinsec'%>
 <div class='row'>
 
-                            <div class="col-sm-12">
-                                <div class="box bordered-box blue-border">
-                                    <div class="box-header blue-background">
-                                        <div class="title">CBD MC Claims</div>
-                                        <div class="actions">
-                                           
-                                            <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
-                        </a>
-                                        </div>
-                                    </div>
-                                    <div class="box-content box-no-padding">
-                                        <div class="responsive-table">
-                                            <div class="scrollable-area">
-                                                
-                                              <table class="table table-striped" style="margin-bottom:0;">
-	<tr>
-		<th>Claim ID</th>
-		<th>Claim By</th>
-		<th>Club</th>
-		<th>Amount</th>
-		
-		<th>Event</th>
-		<th>Details</th>
-		<th>Status</th>
-		<th>Supporting Doc</th>
-		<th>Action</th>
-		
-	</tr>
-	<% @cbdmcclaims.each do |c|%>
-	<%status = c.status%>
-	<%if c.remarks.nil?%>
-	<tr>
-	<%else%>
-	<tr class = 'warning'>
-	<%end%>
-		<td><%=c.id%></td>
-		<td><%= c.userid%></td>
-		<td><%= c.clubid%></td>
-		<td><%= c.amount%></td>
-		
-		<td><%= c.event%></td>
-		
-		<td><div class="bs-example-tooltips">
-				<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Claim Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">Details</button>
-			</div></td>
-		<td><%= statuscode[c.status]%></td>
-		<td><a href="<%= c.supportdoc.url%>" class="btn btn-sm btn-primary">Download</td>
-		<%if status == 9%>
-		<td><a href="/claims/endorsecbdmc?id=<%=c.id%>" class="btn btn-sm btn-primary">Endorse</td>
-		<td><a href="/claims/addremark?id=<%=c.id%>&status=7" class="btn btn-sm btn-primary">Reject</td>
-		<%elsif status == 10%>
-		<td><a href="/claims/endorsecbdmc?id=<%=c.id%>" class="btn btn-sm btn-primary">Endorsed. View form</td>
-		<td><a href="/claims/addremark?id=<%=c.id%>&status=7" class="btn btn-sm btn-primary">Reject</td>
-		<td><a href="/claims/completeclaim?id=<%=c.id%>" class="btn btn-sm btn-primary">Claim complete</td>
-		<%elsif status == 11%>
-		<td>Claim complete</td>
-		<%end%>
-	</tr>
-	<%end%>
+	<div class="col-sm-12">
+		<div class="box bordered-box blue-border">
+			<div class="box-header blue-background">
+				<div class="title">
+					CBD MC Claims
+				</div>
+				<div class="actions">
 
-</table>
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class="box-content box-no-padding">
+				<div class="responsive-table">
+					<div class="scrollable-area">
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+						<table class="data-table table table-striped" style="margin-bottom:0;">
+							<thead>
+								<th>Claim ID</th>
+								<th>Claim By</th>
+								<th>Club</th>
+								<th>Amount</th>
 
+								<th>Event</th>
+								<th>Details</th>
+								<th>Status</th>
+								<th>Supporting Doc</th>
+								<th>Action</th>
 
-                        </div>
-                        
-                        
+							</thead>
+							<tbody>
+							<% @cbdmcclaims.each do |c|%>
+							<% status = c.status%>
+							<%if c.remarks.nil?%>
+							<tr>
+								<%else%>
+							<tr class = 'warning'>
+								<%end%>
+								<td><%= c.id%></td>
+								<td><%= c.userid%></td>
+								<td><%= c.clubid%></td>
+								<td><%= c.amount%></td>
+
+								<td><%= c.event%></td>
+
+								<td>
+								<div class="bs-example-tooltips">
+									<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Claim Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
+										Details
+									</button>
+								</div></td>
+								<td><%= statuscode[c.status]%></td>
+								<td><a href="<%= c.supportdoc.url%>" class="btn btn-sm btn-primary">Download</td>
+								<td>
+								<%if status == 9%>
+								<a href="/claims/endorsecbdmc?id=<%= c.id%>" class="btn btn-sm btn-primary">Endorse</a>
+								<a href="/claims/addremark?id=<%= c.id%>&status=7" class="btn btn-sm btn-primary">Reject</a>
+								<%elsif status == 10%>
+								<a href="/claims/endorsecbdmc?id=<%= c.id%>" class="btn btn-sm btn-primary">Endorsed. View form</a>
+								<a href="/claims/addremark?id=<%= c.id%>&status=7" class="btn btn-sm btn-primary">Reject</a>
+								<a href="/claims/completeclaim?id=<%= c.id%>" class="btn btn-sm btn-primary">Claim complete</a>
+								<%elsif status == 11%>
+								<span class="label label-success">Claim Completed</span>
+								<%end%>
+							</td></tr>
+							<%end%>
+</tbody>
+						</table>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
 <div class='row'>
 
-                            <div class="col-sm-12">
-                                <div class="box bordered-box blue-border">
-                                    <div class="box-header blue-background">
-                                        <div class="title">SMUSA Secretary Claims</div>
-                                        <div class="actions">
-                                           
+	<div class="col-sm-12">
+		<div class="box bordered-box blue-border">
+			<div class="box-header blue-background">
+				<div class="title">
+					SMUSA Secretary Claims
+				</div>
+				<div class="actions">
 
-                                            <a class="btn box-collapse btn-xs btn-link" href="#"><i></i>
-                        </a>
-                                        </div>
-                                    </div>
-                                    <div class="box-content box-no-padding">
-                                        <div class="responsive-table">
-                                            <div class="scrollable-area">
-                                                
-                                              <table class="table table-striped" style="margin-bottom:0;">
-	<tr>
-		<th>Claim ID</th>
-		<th>Claim By</th>
-		<th>Department</th>
-		<th>Amount</th>
-		
-		<th>Event</th>
-		
-		<th>Details</th>
-		<th>Status</th>
-		<th>Supporting Doc</th>
-		<th>Action</th>
-		
-	</tr>
-	<% @smusasecclaims.each do |c|%>
-	<%status = c.status%>
-	<%if c.remarks.nil?%>
-	<tr>
-	<%else%>
-	<tr class = 'warning'>
-	<%end%>
-		<td><%=c.id%></td>
-		<td><%= c.userid%></td>
-		<td><%= c.clubid%></td>
-		<td><%= c.amount%></td>
-		
-		<td><%= c.event%></td>
-		
-		<td><div class="bs-example-tooltips">
-				<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Claim Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">Details</button>
-			</div></td>
-		<td><%= statuscode[c.status]%></td>
-		<td><a href="<%= c.supportdoc.url%>" class="btn btn-sm btn-primary">Download</td>
-		<%if status == 14%>
-		<td><a href="/claims/endorsesmusasec?id=<%=c.id%>" class="btn btn-sm btn-primary">Endorse</td>
-		<td><a href="/claims/addremark?id=<%=c.id%>&status=12" class="btn btn-sm btn-primary">Reject</td>
-		<%elsif status == 15%>
-		<td><a href="/claims/endorsesmusasec?id=<%=c.id%>" class="btn btn-sm btn-primary">Endorsed. View form</td>
-		<td><a href="/claims/addremark?id=<%=c.id%>&status=12" class="btn btn-sm btn-primary">Reject</td>
-		<td><a href="/claims/completeclaim?id=<%=c.id%>" class="btn btn-sm btn-primary">Claim complete</td>
-		<%elsif status == 16%>
-		<td>Claim complete</td>
-		<%end%>
-	</tr>
-	<%end%>
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class="box-content box-no-padding">
+				<div class="responsive-table">
+					<div class="scrollable-area">
 
-</table>
+						<table class="data-table table table-striped" style="margin-bottom:0;">
+							<thead>
+								<th>Claim ID</th>
+								<th>Claim By</th>
+								<th>Department</th>
+								<th>Amount</th>
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+								<th>Event</th>
 
+								<th>Details</th>
+								<th>Status</th>
+								<th>Supporting Doc</th>
+								<th>Action</th>
 
-                        </div>
+							</thead>
+							<tbody>
+							<% @smusasecclaims.each do |c|%>
+							<% status = c.status%>
+							<%if c.remarks.nil?%>
+							<tr>
+								<%else%>
+							<tr class = 'warning'>
+								<%end%>
+								<td><%= c.id%></td>
+								<td><%= c.userid%></td>
+								<td><%= c.clubid%></td>
+								<td><%= c.amount%></td>
 
+								<td><%= c.event%></td>
+
+								<td>
+								<div class="bs-example-tooltips">
+									<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Claim Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
+										Details
+									</button>
+								</div></td>
+								<td><%= statuscode[c.status]%></td>
+								<td><a href="<%= c.supportdoc.url%>" class="btn btn-sm btn-primary">Download</td>
+								<td>
+								<%if status == 14%>
+								<a href="/claims/endorsesmusasec?id=<%= c.id%>" class="btn btn-sm btn-primary">Endorse</a>
+								<a href="/claims/addremark?id=<%= c.id%>&status=12" class="btn btn-sm btn-primary">Reject</a>
+								<%elsif status == 15%>
+								<a href="/claims/endorsesmusasec?id=<%= c.id%>" class="btn btn-sm btn-primary">Endorsed. View form</a>
+								<a href="/claims/addremark?id=<%= c.id%>&status=12" class="btn btn-sm btn-primary">Reject</a>
+								<a href="/claims/completeclaim?id=<%= c.id%>" class="btn btn-sm btn-primary">Claim complete</a>
+								<%elsif status == 16%>
+								<span class="label label-success">Claim Completed</span>
+								<%end%>
+							</td></tr>
+							<%end%>
+</tbody>
+						</table>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
 
 <%end%>
 
-
-
 <script type="text/javascript">
-	$('[data-toggle="popover-with-html"]').popover({ html : true });
-	
-	$('body').on('click', function (e) {
-	    $('[data-toggle="popover"]').each(function () {
-	        //the 'is' for buttons that trigger popups
-	        //the 'has' for icons within a button that triggers a popup
-	        if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
-	            $(this).popover('hide');
-	        }
-	    });
+	$('[data-toggle="popover-with-html"]').popover({
+		html : true
 	});
+
+	$('body').on('click', function(e) {
+		$('[data-toggle="popover"]').each(function() {
+			//the 'is' for buttons that trigger popups
+			//the 'has' for icons within a button that triggers a popup
+			if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+				$(this).popover('hide');
+			}
+		});
+	}); 
 </script>
 
-
 <%=javascript_tag do%>
- 
+
 function pres(a){
-	<!-- var x; -->
-	if (confirm("You are going to acknowledge the claim!")==true){
-		window.location = "/claims/submitclaim?id="+a;
-	}
-	<!-- document.getElementById("pres").innerHTML = x; -->
+<!-- var x; -->
+if (confirm("You are going to acknowledge the claim!")==true){
+window.location = "/claims/submitclaim?id="+a;
+}
+<!-- document.getElementById("pres").innerHTML = x; -->
 }
 function viewremark(a){
-	
-		alert(a);
-	
+
+alert(a);
+
 }
 <%end%>

@@ -32,8 +32,8 @@
                                         <div class="responsive-table">
                                             <div class="scrollable-area">
                                                 
-                                              <table class="table table-striped" style="margin-bottom:0;">
-	<tr>
+                                              <table class="data-table table table-striped" style="margin-bottom:0;">
+	<thead>
 		<th>deposit ID</th>
 		<th>deposit By</th>
 		
@@ -47,9 +47,9 @@
 		<th>Details</th>
 		<th>Status</th>
 
-		<th>Edit</th>
-		<th>Submit</th>
-	</tr>
+		<th>Action</th>
+	</thead>
+	<tbody>
 	<% @normaldeposits.each do |c|%>
 	<%status = c.status%>
 	<%if c.remarks.nil?%>
@@ -73,19 +73,19 @@
 									</div>
 		</td>
 		<td><%= statuscode[c.status]%></td>
-	
+		<td>
 		<%if status == 0 || status == 12 || status == 6%>
-		<td><a href="/deposits/editdeposit?id=<%=c.id%>&own=true" class="btn btn-sm btn-primary">Edit</td>
+		<a href="/deposits/editdeposit?id=<%=c.id%>&own=true" class="btn btn-sm btn-primary">Edit</a>
 		<%if c.remarks.nil?%>
-		<td><a href="/deposits/submitdeposit?id=<%=c.id%>" class="btn btn-sm btn-primary">Submit</td>
+		<a href="/deposits/submitdeposit?id=<%=c.id%>" class="btn btn-sm btn-primary">Submit</a>
 		<%else%>
-		<td><a href="/deposits/resubmitdeposit?id=<%=c.id%>" class="btn btn-sm btn-primary">ReSubmit</td>
-		<td><a href="#", onclick="viewremark('<%=c.remarks%>')" class="btn btn-sm btn-primary">View Remarks</a></td>
+		<a href="/deposits/resubmitdeposit?id=<%=c.id%>" class="btn btn-sm btn-primary">ReSubmit</a>
+		<a href="#", onclick="viewremark('<%=c.remarks%>')" class="btn btn-sm btn-primary">View Remarks</a>
 		<%end%>
 		<%end%>
-	</tr>
+	</td></tr>
 	<%end%>
-
+</tbody>
 </table>
 
                                             </div>

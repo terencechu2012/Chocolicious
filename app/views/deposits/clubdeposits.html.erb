@@ -31,8 +31,8 @@
 				<div class="responsive-table">
 					<div class="scrollable-area">
 
-						<table class="table table-striped" style="margin-bottom:0;">
-							<tr>
+						<table class="data-table table table-striped" style="margin-bottom:0;">
+							<thead>
 								<th>deposit ID</th>
 								<th>deposit By</th>
 								<th>Club</th>
@@ -48,7 +48,8 @@
 
 								<th>Action</th>
 
-							</tr>
+							</thead>
+							<tbody>
 							<% @normaldeposits.each do |c|%>
 							<% status = c.status%>
 							<%if c.remarks.nil?%>
@@ -73,19 +74,19 @@
 									</div>
 								</td>
 								<td><%= statuscode[c.status]%></td>
-
+								<td>
 								<%if status == 1%>
-								<td><a href="/deposits/editdeposit?id=<%= c.id%>" class="btn btn-sm btn-primary">Edit</td>
+								<a href="/deposits/editdeposit?id=<%= c.id%>" class="btn btn-sm btn-primary">Edit</a>
 								<%if c.remarks.nil?%>
-								<td><a href="/deposits/submitdeposit?id=<%= c.id%>" class="btn btn-sm btn-primary">Submit</td>
+								<a href="/deposits/submitdeposit?id=<%= c.id%>" class="btn btn-sm btn-primary">Submit</a>
 								<%else%>
-								<td><a href="/deposits/resubmitdeposit?id=<%= c.id%>" class="btn btn-sm btn-primary">ReSubmit</td>
-								<td><a href="#", onclick="viewremark('<%= c.remarks%>')" class="btn btn-sm btn-primary">View Remarks</a></td>
+								<a href="/deposits/resubmitdeposit?id=<%= c.id%>" class="btn btn-sm btn-primary">ReSubmit</a>
+								<a href="#", onclick="viewremark('<%= c.remarks%>')" class="btn btn-sm btn-primary">View Remarks</a>
 								<%end%>
 								<%end%>
-							</tr>
+							</td></tr>
 							<%end%>
-
+</tbody>
 						</table>
 
 					</div>
@@ -116,8 +117,8 @@
 				<div class="responsive-table">
 					<div class="scrollable-area">
 
-						<table class="table table-striped" style="margin-bottom:0;">
-							<tr>
+						<table class="data-table table table-striped" style="margin-bottom:0;">
+							<thead>
 								<th>deposit ID</th>
 								<th>deposit By</th>
 								<th>Club</th>
@@ -133,7 +134,8 @@
 
 								<th>Action</th>
 
-							</tr>
+							</thead>
+							<tbody>
 							<% @normaldeposits.each do |c|%>
 							<% status = c.status%>
 							<%if c.remarks.nil?%>
@@ -158,20 +160,20 @@
 									</div>
 								</td>
 								<td><%= statuscode[c.status]%></td>
-
+								<td>
 								<%if status == 3%>
-								<td><a href="/deposits/endorseclub?id=<%= c.id%>" class="btn btn-sm btn-primary">Endorse</td>
-								<td><a href="/deposits/addremark?id=<%= c.id%>&status=1" class="btn btn-sm btn-primary">Reject</td>
+								<a href="/deposits/endorseclub?id=<%= c.id%>" class="btn btn-sm btn-primary">Endorse</a>
+								<a href="/deposits/addremark?id=<%= c.id%>&status=1" class="btn btn-sm btn-primary">Reject</a>
 								<%elsif status == 4%>
-								<td><a href="/deposits/endorseclub?id=<%= c.id%>" class="btn btn-sm btn-primary">Endorsed. View form</td>
-								<td><a href="/deposits/addremark?id=<%= c.id%>&status=1" class="btn btn-sm btn-primary">Reject</td>
-								<td><a href="/deposits/completedeposit?id=<%= c.id%>" class="btn btn-sm btn-primary">deposit complete</td>
+								<a href="/deposits/endorseclub?id=<%= c.id%>" class="btn btn-sm btn-primary">Endorsed. View form</a>
+								<a href="/deposits/addremark?id=<%= c.id%>&status=1" class="btn btn-sm btn-primary">Reject</a>
+								<a href="/deposits/completedeposit?id=<%= c.id%>" class="btn btn-sm btn-primary">Deposit Complete</a>
 								<%elsif status == 5%>
-								<td>deposit completed</td>
+								<span class="label label-success">Deposit Completed</span>
 								<%end%>
-							</tr>
+							</td></tr>
 							<%end%>
-
+</tbody>
 						</table>
 
 					</div>
@@ -200,8 +202,8 @@
 				<div class="responsive-table">
 					<div class="scrollable-area">
 
-						<table class="table table-striped" style="margin-bottom:0;">
-							<tr>
+						<table class="data-table table table-striped" style="margin-bottom:0;">
+							<thead>
 								<th>deposit ID</th>
 								<th>deposit By</th>
 								<th>Club</th>
@@ -217,7 +219,8 @@
 
 								<th>Action</th>
 
-							</tr>
+							</thead>
+							<tbody>
 							<% @cbdmcdeposits.each do |c|%>
 							<% status = c.status%>
 							<%if c.remarks.nil?%>
@@ -241,19 +244,19 @@
 									</div>
 								</td>
 								<td><%= statuscode[c.status]%></td>
-
+								<td>
 								<%if status == 7%>
-								<td><a href="/deposits/editdeposit?id=<%= c.id%>" class="btn btn-sm btn-primary">Edit</td>
+								<a href="/deposits/editdeposit?id=<%= c.id%>" class="btn btn-sm btn-primary">Edit</a>
 								<%if c.remarks.nil?%>
-								<td><a href="/deposits/submitdeposit?id=<%= c.id%>" class="btn btn-sm btn-primary">Submit</td>
+								<a href="/deposits/submitdeposit?id=<%= c.id%>" class="btn btn-sm btn-primary">Submit</a>
 								<%else%>
-								<td><a href="/deposits/resubmitdeposit?id=<%= c.id%>" class="btn btn-sm btn-primary">ReSubmit</td>
-								<td><a href="#", onclick="viewremark('<%= c.remarks%>')" class="btn btn-sm btn-primary">View Remarks</a></td>
+								<a href="/deposits/resubmitdeposit?id=<%= c.id%>" class="btn btn-sm btn-primary">ReSubmit</a>
+								<a href="#", onclick="viewremark('<%= c.remarks%>')" class="btn btn-sm btn-primary">View Remarks</a>
 								<%end%>
 								<%end%>
-							</tr>
+							</td></tr>
 							<%end%>
-
+</tbody>
 						</table>
 
 					</div>
@@ -282,10 +285,10 @@
 				<div class="responsive-table">
 					<div class="scrollable-area">
 
-						<table class="table table-striped" style="margin-bottom:0;">
-							<tr>
-								<th>deposit ID</th>
-								<th>deposit By</th>
+						<table class="data-table table table-striped" style="margin-bottom:0;">
+							<thead>
+								<th>Deposit ID</th>
+								<th>Deposit By</th>
 								<th>Club</th>
 								<th>Amount</th>
 								<th>Date</th>
@@ -299,7 +302,8 @@
 
 								<th>Action</th>
 
-							</tr>
+							</thead>
+							<tbody>
 							<% @deposits.each do |c|%>
 							<% status = c.status%>
 							<%if c.remarks.nil?%>
@@ -323,21 +327,21 @@
 									</div>
 								</td>
 								<td><%= statuscode[c.status]%></td>
-
+								<td>
 								<%if status == 2 || status == 8 || status == 13%>
-								<td><a href="#", onclick="pres(<%= c.id%>)" class="btn btn-sm btn-primary">Acknowledge</a></td>
+								<a href="#", onclick="pres(<%= c.id%>)" class="btn btn-sm btn-primary">Acknowledge</a>
 								<%if status == 2%>
-								<td><a href="/claims/addremark?id=<%=c.id%>&status=1" class="btn btn-sm btn-primary">Reject</td>
+								<a href="/claims/addremark?id=<%=c.id%>&status=1" class="btn btn-sm btn-primary">Reject</a>
 								<%elsif status == 8%>
-								<td><a href="/claims/addremark?id=<%=c.id%>&status=7" class="btn btn-sm btn-primary">Reject</td>
+								<a href="/claims/addremark?id=<%=c.id%>&status=7" class="btn btn-sm btn-primary">Reject</a>
 								<%elsif status == 13%>
-								<td><a href="/claims/addremark?id=<%=c.id%>&status=12" class="btn btn-sm btn-primary">Reject</td>
+								<a href="/claims/addremark?id=<%=c.id%>&status=12" class="btn btn-sm btn-primary">Reject</a>
 								<%end%>
 								<p id ="pres"></p>
 								<%end%>
-							</tr>
+							</td></tr>
 							<%end%>
-
+</tbody>
 						</table>
 
 					</div>
@@ -366,8 +370,8 @@
 				<div class="responsive-table">
 					<div class="scrollable-area">
 
-						<table class="table table-striped" style="margin-bottom:0;">
-							<tr>
+						<table class="data-table table table-striped" style="margin-bottom:0;">
+							<thead>
 								<th>deposit ID</th>
 								<th>deposit By</th>
 								<th>Club</th>
@@ -383,7 +387,8 @@
 
 								<th>Action</th>
 
-							</tr>
+							</thead>
+							<tbody>
 							<% @cbdmcdeposits.each do |c|%>
 							<% status = c.status%>
 							<%if c.remarks.nil?%>
@@ -407,20 +412,20 @@
 									</div>
 								</td>
 								<td><%= statuscode[c.status]%></td>
-
+								<td>
 								<%if status == 9%>
-								<td><a href="/deposits/endorsecbdmc?id=<%= c.id%>" class="btn btn-sm btn-primary">Endorse</td>
-								<td><a href="/deposits/addremark?id=<%= c.id%>&status=7" class="btn btn-sm btn-primary">Reject</td>
+								<a href="/deposits/endorsecbdmc?id=<%= c.id%>" class="btn btn-sm btn-primary">Endorse</a>
+								<a href="/deposits/addremark?id=<%= c.id%>&status=7" class="btn btn-sm btn-primary">Reject</a>
 								<%elsif status == 10%>
-								<td><a href="/deposits/endorsecbdmc?id=<%= c.id%>" class="btn btn-sm btn-primary">Endorsed. View form</td>
-								<td><a href="/deposits/addremark?id=<%= c.id%>&status=7" class="btn btn-sm btn-primary">Reject</td>
-								<td><a href="/deposits/completedeposit?id=<%= c.id%>" class="btn btn-sm btn-primary">deposit complete</td>
+								<a href="/deposits/endorsecbdmc?id=<%= c.id%>" class="btn btn-sm btn-primary">Endorsed. View form</a>
+								<a href="/deposits/addremark?id=<%= c.id%>&status=7" class="btn btn-sm btn-primary">Reject</a>
+								<a href="/deposits/completedeposit?id=<%= c.id%>" class="btn btn-sm btn-primary">deposit complete</a>
 								<%elsif status == 11%>
-								<td>deposit complete</td>
+								<span class="label label-success">Deposit Completed</span>
 								<%end%>
-							</tr>
+							</td></tr>
 							<%end%>
-
+</tbody>
 						</table>
 
 					</div>
@@ -449,8 +454,8 @@
 				<div class="responsive-table">
 					<div class="scrollable-area">
 
-						<table class="table table-striped" style="margin-bottom:0;">
-							<tr>
+						<table class="data-table table table-striped" style="margin-bottom:0;">
+							<thead>
 								<th>deposit ID</th>
 								<th>deposit By</th>
 								<th>Club</th>
@@ -466,7 +471,8 @@
 
 								<th>Action</th>
 
-							</tr>
+							</thead>
+							<tbody>
 							<% @smusasecdeposits.each do |c|%>
 							<% status = c.status%>
 							<%if c.remarks.nil?%>
@@ -490,20 +496,20 @@
 									</div>
 								</td>
 								<td><%= statuscode[c.status]%></td>
-
+								<td>
 								<%if status == 14%>
-								<td><a href="/deposits/endorsesmusasec?id=<%= c.id%>" class="btn btn-sm btn-primary">Endorse</td>
-								<td><a href="/deposits/addremark?id=<%= c.id%>&status=12" class="btn btn-sm btn-primary">Reject</td>
+								<a href="/deposits/endorsesmusasec?id=<%= c.id%>" class="btn btn-sm btn-primary">Endorse</a>
+								<a href="/deposits/addremark?id=<%= c.id%>&status=12" class="btn btn-sm btn-primary">Reject</a>
 								<%elsif status == 15%>
-								<td><a href="/deposits/endorsesmusasec?id=<%= c.id%>" class="btn btn-sm btn-primary">Endorsed. View form</td>
-								<td><a href="/deposits/addremark?id=<%= c.id%>&status=12" class="btn btn-sm btn-primary">Reject</td>
-								<td><a href="/deposits/completedeposit?id=<%= c.id%>" class="btn btn-sm btn-primary">deposit complete</td>
+								<a href="/deposits/endorsesmusasec?id=<%= c.id%>" class="btn btn-sm btn-primary">Endorsed. View form</a>
+								<a href="/deposits/addremark?id=<%= c.id%>&status=12" class="btn btn-sm btn-primary">Reject</a>
+								<a href="/deposits/completedeposit?id=<%= c.id%>" class="btn btn-sm btn-primary">deposit complete</a>
 								<%elsif status == 16%>
-								<td>deposit complete</td>
+								<span class="label label-success">Deposit Completed</span>
 								<%end%>
-							</tr>
+							</td></tr>
 							<%end%>
-
+</tbody>
 						</table>
 
 					</div>

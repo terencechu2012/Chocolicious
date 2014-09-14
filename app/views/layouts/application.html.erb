@@ -25,6 +25,7 @@
             <a class='toggle-nav btn pull-left' href='#'>
                 <i class='icon-reorder'></i>
             </a>
+            
 			<% if session[:userid] !=nil %>
 			<!-- If user is on this layout because he/she forgets password and led here by devise passwordController -->
             <ul class='nav'>
@@ -122,16 +123,7 @@
                         </a>
                     </li>
                     <%end%>
-                    
-                    <%if (role.include?'clubfinsec') || (role.include? 'cbdmc') || (role.include? 'smusasec')%>
-					<li class=''>
-                        <a href='/deposits/newdeposit'>
-                            <i class='icon-file-alt'></i>
-                            <span>New Deposit</span>
-                        </a>
-                    </li>
-					<%end%>
-					<%if(role.include? 'cbdmc') || (role.include? 'smusasec')%>
+                    <%if(role.include? 'cbdmc') || (role.include? 'smusasec')%>
 					<li class=''>
                         <a href='/deposits/viewdeposit'>
                             <i class='icon-file-alt'></i>
@@ -139,6 +131,15 @@
                         </a>
                     </li>
 					<%end%>
+                    <%if (role.include?'clubfinsec') || (role.include? 'cbdmc') || (role.include? 'smusasec')%>
+					<li class=''>
+                        <a href='/deposits/newdeposit'>
+                            <i class='icon-plus-sign'></i>
+                            <span>New Deposit</span>
+                        </a>
+                    </li>
+					<%end%>
+					
 
                     <%if role.include? 'clubfinsec'%>
                     <li>
@@ -523,7 +524,9 @@
                         </ul>
                     </li>
                     <%end%>
-
+                    <li class=''>
+						<a href="javascript:history.back()"><i class="icon-step-backward"></i><span style="font-weight:bold;">Back</span></a>
+					</li>
                 </ul>
             </div>
         </nav>
@@ -600,6 +603,8 @@
       <% end %>
       
       <%= yield %>
+      
+      	
       
     </div>
   </div>
