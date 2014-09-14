@@ -56,11 +56,26 @@
 							<b>Total request from reserves: </b><%= @totalreserves%>
 						</p>
 					</div>
+					<hr class='hr-normal'>
+					<div class='form-group'>
+						<div class='controls'>
+							<div class='checkbox'>
+								<label>
+									<input data-target='#budgetmgmt' data-toggle='collapse' id='allocatepullback' type='checkbox' value='option1'>
+									Allocate/Pullback options</label>
+							</div>
+						</div>
+					</div>
+					<div class='collapse' id='budgetmgmt'>
+						<p><small>Please make sure all budget proposals have been approved before allocating funds to the clubs. For the Pullback function, refer to SMUSA Finance Guidelines on the formulae and the procedure.</small></p>
+						<a href="/chief/allocate?year=<%=@year%>&semester=<%=@semester%>" class="btn btn-success btn-xs pull-left"><i class="icon-code-fork"></i> Allocate</a><a href="/chief/pullback" class="btn btn-danger btn-xs pull-right"><i class="icon-exchange"></i> Pullback</a>
+					</div>
 				</div>
+				
 			</div>
 			<br />
 			
-			
+			<!-- 
 			<div class='box bordered-box orange-border' style='margin-bottom:0;'>
 				<div class='box-header orange-background'>
 					<div class='title'>
@@ -85,7 +100,7 @@
 				</div>
 			</div>
 			<br />
-			
+			 -->
 			
 			
 			<div class='box bordered-box orange-border' style='margin-bottom:0;'>

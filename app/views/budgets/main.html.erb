@@ -79,9 +79,10 @@
 	</div>
 	
 </div>
-<a class='btn btn-info btn-lg blue-background' data-toggle='modal' href='#modal-example2' role='button'>Add new Event</a>
-<div class='modal fade' id='modal-example2' tabindex='-1'>
-                      <div class='modal-dialog'><%=form_tag '/budgets/additem', :method => 'post', :multipart => true do%>
+<a class='btn btn-info btn-lg blue-background' data-toggle='modal' href='#modal-newitem' role='button'>Add new Event</a>
+<div class='modal fade' id='modal-newitem' tabindex='-1'>
+                      <div class='modal-dialog'>
+                      	<%=form_tag '/budgets/additem', :method => 'post', :multipart => true do%>
                         <div class='modal-content'>
                           <div class='modal-header'>
                             <button aria-hidden='true' class='close' data-dismiss='modal' type='button'>×</button>
@@ -126,7 +127,7 @@
                       </div>
                     </div>
                     </div>
-                  
+                  <hr />
 <!-- <div class='row'>
 	<div class='col-sm-12 box' style='margin-bottom: 0'>
 		<div class="box bordered-red red-border">
@@ -176,7 +177,7 @@
 		</div>
 	</div>
 </div> -->
-<hr />
+
 <div class="row">
 
 	<div class="col-sm-12">
