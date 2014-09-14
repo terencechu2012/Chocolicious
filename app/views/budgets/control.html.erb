@@ -1,7 +1,7 @@
 <div class='row'>
 	<div class='col-sm-12'>
 		<div class='page-header'>
-			<h1 class='pull-left'><i class='icon-cog'></i> <span>Control Panel</span></h1>
+			<h1 class='pull-left'><i class='icon-cog'></i><span>Control Panel</span></h1>
 		</div>
 	</div>
 </div>
@@ -107,8 +107,38 @@
 		</div>
 	</div>
 </div>
-			
+
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='box bordered-box blue-border'>
+			<div class='box-header blue-background'>
+				<div class='title'>
+					<i class='icon-cog'></i>
+					Set contribution rate
+				</div>
+				<div class='actions'>
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class='box-content box-double-padding'>
+				<h3> Current contribution rate:</h3>
+				<p>
+					<%= @contribution.rate%>%
+				</p>
+				<%=form_for @contribution,  :url => {:action => 'setrate', :controller => 'chief'} do |f| %>
+				
+				<div class='form-group'>
+					<label>Set rate:</label>
+					<%= f.number_field(:rate, :step => 0.01, :min => 0, :max => 100)%>
+				</div>
+				<%= f.submit 'Set', :class => 'btn btn-primary'%>
+				<%end%>
+
+			</div>
+		</div>
+	</div>
+
+</div>
+
 <%end%>
 
-
-			

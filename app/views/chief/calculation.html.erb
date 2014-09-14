@@ -1,0 +1,50 @@
+<%if session[:role].include? 'smusafinsec'%>
+
+<%=form_tag '/chief/calculation', :method => 'post' do%>
+<div class='form-group'>
+	<label>Choose year:</label>
+	<%= select_tag :year, options_for_select(@a)%>
+</div>
+<%= submit_tag 'Go', :class => 'btn btn-primary'%>
+<%end%>
+
+<%if @test%>
+
+<table class='table table-bordered'>
+	<tr>
+		<th>Income</th><th>Amount</th>
+	</tr>
+	<tr>
+		<td>Club collections/Incidental profits</td>
+		<td><%=@clubprofits%></td>
+	</tr>
+	<tr>
+		<td>Donations/Sponsorships</td>
+		<td><%=@clubdonations%></td>
+	</tr>
+</table>
+
+<table class='table table-bordered'>
+	<tr>
+		<th>Expenditure (Category)</th><th>Amount</th>
+	</tr>
+	<%for i in 65..71 do%>
+		<tr>
+			<td><%=i.chr%></td>
+			<td><%=@hash[i]%></td>
+		</tr>
+	<%end%>
+</table>
+<table class='table table-bordered'>
+	<tr>
+		<th>Expenditure (Code)</th><th>Amount</th>
+	</tr>
+	<%for i in 1..13 do%>
+		<tr>
+			<td><%=i%></td>
+			<td><%=@arr[i]%></td>
+		</tr>
+	<%end%>
+</table>
+<%end%>
+<%end%>

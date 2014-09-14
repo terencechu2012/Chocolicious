@@ -26,6 +26,7 @@ class BudgetsController < ApplicationController
   def control
     @control = BudgetControl.find_by_id(1)
     @control2 = BudgetControl.find_by_id(2)
+    @contribution = Contribution.find_by_id(1)
   end
   def allow
     c = BudgetControl.find_by_id(1)

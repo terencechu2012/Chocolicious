@@ -419,4 +419,57 @@ class ChiefController < ApplicationController
     flash.alert = 'New rate has been set'
     redirect_to :back
   end
+  
+  def calculation
+    today = Date.today
+    @a = Array(today.year-5..today.year).reverse
+    if !params[:year].nil? && !params[:year].empty?
+      @test = true
+      incomes = Deposit.where(['(status = 5 or status = 11 or status = 16) and year(date) = ?', params[:year]])
+      @clubprofits = 0.0
+      @clubdonations = 0.0
+      incomes.each do |i|
+        if i.donorname.nil? || i.donorname.empty?
+          @clubprofits += i.amount
+        else
+          @clubdonations += i.amount
+        end
+      end
+      
+      claims = Claim.where(['(status = 5 or status = 11 or status = 16) and year(created_at) = ?', params[:year]])
+      @hash = Hash.new
+      @arr = Array.new(14,0.0)
+      @hash[65]=0.0
+      @hash[66]=0.0
+      @hash[67]=0.0
+      @hash[68]=0.0
+      @hash[69]=0.0
+      @hash[70]=0.0
+      @hash[71]=0.0
+      claims.each do |c|
+        if c.category == 'A'
+          @hash[65] += c.amount
+        elsif c.category == 'B'
+           @hash[66] += c.amount
+        elsif c.category == 'C'
+           @hash[67] += c.amount
+        elsif c.category == 'D'
+           @hash[68] += c.amount
+        elsif c.category == 'E'
+           @hash[69] += c.amount
+        elsif c.category == 'F'
+           @hash[70] += c.amount
+        elsif c.category == 'G'
+           @hash[71] += c.amount
+        end
+        
+        expense = c.expense
+        if !expense.nil?
+          @arr[expense.to_i] += c.amount
+        end
+      end
+      
+      
+    end
+  end
 end

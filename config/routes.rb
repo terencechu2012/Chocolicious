@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   get 'claims/completeclaim'
   get 'chief/setcontributionrate'
   patch 'chief/setrate'
+  get 'chief/calculation'
+  post 'chief/calculation'
   get 'deposits/editdeposit'
 
   get 'deposits/newdeposit'
