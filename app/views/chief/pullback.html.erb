@@ -1,15 +1,69 @@
-After pullback, amounts returned to the following accounts:<br>
-<table class='table table-bordered'>
-	<tr><th>Account</th><th>Amount</th></tr>
-	<%i = 1%>
-	<%@report.each do |r|%>
-	<tr>
-		<td>R00<%=i%></td>
-		<td><%=r%></td>
-	</tr>
-	<%i += 1%>
-	<%end%>
-</table>
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='page-header'>
+			<h1 class='pull-left'><i class='icon-exchange'></i><span> Pullback</span></h1>
+		</div>
+	</div>
+</div>
+<div class='row'>
+	<div class='col-sm-12 col-lg-12'>
+		<div class='box bordered-box'>
+			<div class="box-content box-double-padding">
+                                        <div class="responsive-table">
+                                            <div class="scrollable-area">
+					<div class='col-sm-4'>
+						<div class='lead'>
+							<i class='icon-file-alt text-contrast'></i>
+							Notes On Pullback of Unutilised Budget into Reserves Account
+						</div>
+						<small class='text-muted'>
+							Surplus monies will be transferred from the Expense Account into the Reserves Account at the end of every budgeting term and shall be carried out in the following manner:
+							<ol>
+								<li>
+									Surplus shall be calculated as follows:
+									<ul>
+										<li>If expenditure per budget term is more than the allocated budget, surplus is as follows:
+											<br />Surplus = Allocated Budget – Expenditure + Revenue</li>
+										<li>If expenditure per budget term is less than the allocated budget:
+											<br />Surplus = Revenue Earned</li>
+										<li>If the allocated budget comprised of club reserves, the surplus will be the revenue earned and unspent reserves calculated as follows:
+											<br />Unspent budget = Allocated Budget – Expenditure
+											<br />Unspent Reserves = Proportion of club reserves used in allocated budget x unspent budget</li>
+									</ul>
+								</li>
+								<li>
+									Revenue earned shall comprise of only (What are defined as revenues):
+									<ul>
+										<li>All incidental profits</li>
+										<li>All unspent monies from donations</li>
+										<li>All unspent monies from sponsorships not tied to a specific event or activity</li>
+										<li>Prize money/awards achieved by the club</li>
+										<li>Membership fees</li>
+									</ul>
+								</li>
+								<li>Calculations of revenue, surplus and unspent budget amounts shall be accompanied by supporting documents, i.e. SAP records from the Office of Finance, photocopies of invoices and/or claims, official receipts of the Students’ Association, and documentation from donors and/or sponsors</li>
+								<li>Any other monies not deemed as surplus will be returned to the SAC Reserves</li>
+							</ol>
+						</small>
+					</div>
+					<div class='col-sm-7 col-sm-offset-1'>
+						<h4>Funds will be returned to the accounts listed below:</h4>
+						<table class='table table-striped'>
+							<tr><th>Account</th><th>Amount</th></tr>
+							<%i = 1%>
+							<%@report.each do |r|%>
+							<tr>
+								<td>R00<%=i%></td>
+								<td><%=r%></td>
+							</tr>
+							<%i += 1%>
+							<%end%>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 <%if false%>
 <!-- <%@arr.each do |a|%>
 <h2><%=a['clubname']%></h2>

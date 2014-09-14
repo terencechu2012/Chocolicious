@@ -534,10 +534,69 @@
   <div class='row' id='content-wrapper'>
     <div class='col-xs-12'>
       <% if !notice.nil? && !notice.empty? %>
-      <span class="alert alert-info"><%= notice %></span>
+      <!-- <span class="alert alert-info"><%= notice %></span> -->
+      <div class='modal fade' id='modal-notice' tabindex='-1'>
+      	<div class='modal-dialog'>
+        	<div class='modal-content'>
+            	<div class='modal-header'>
+                	<button aria-hidden='true' class='close' data-dismiss='modal' type='button'>×</button>
+                    <h4 class='modal-title' id='myModalLabel'>Notice</h4>
+                </div>      
+                <div class='modal-body'>
+                	<%= notice %>
+                    <div class='modal-footer'>
+                    	<button class='btn btn-default' data-dismiss='modal' type='button'>Close</button>
+                    </div>
+                </div>
+            </div>
+       	</div>
+      </div>
+      <script>
+      	$('#modal-notice').modal('show');
+	  </script>
       <% end %>
       <% if !alert.nil? && !alert.empty? %>
-      <span class="alert alert-warning"><%= alert %></span>
+      <!-- <span class="alert alert-warning"><%= alert %></span> -->
+		<div class='modal fade' id='modal-alert' tabindex='-1'>
+			<div class='modal-dialog'>
+				<div class='modal-content'>
+					<div class='modal-header'>
+						<button aria-hidden='true' class='close' data-dismiss='modal' type='button'>×</button>
+						<h4 class='modal-title' id='myModalLabel'>Alert!</h4>
+					</div>
+					<div class='modal-body'>
+						<%= alert %>
+						<div class='modal-footer'>
+							<button class='btn btn-default' data-dismiss='modal' type='button'>Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+		$('#modal-alert').modal('show');
+		</script>
+      <% end %>
+      <% if flash[:error] %>
+      	<div class='modal fade' id='modal-error' tabindex='-1'>
+			<div class='modal-dialog'>
+				<div class='modal-content'>
+					<div class='modal-header'>
+						<button aria-hidden='true' class='close' data-dismiss='modal' type='button'>×</button>
+						<h4 class='modal-title' id='myModalLabel'>Error in processing!</h4>
+					</div>
+					<div class='modal-body'>
+						<%= flash[:error] %>
+						<div class='modal-footer'>
+							<button class='btn btn-default' data-dismiss='modal' type='button'>Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+		$('#modal-error').modal('show');
+		</script>
       <% end %>
       
       <%= yield %>
