@@ -8,56 +8,42 @@
 	</div>
 </div>
 <!-- Any permissions required: insert here -->
-<h1>Edit Balances in <%=@clubid%></h1>
-<%= form_tag("/accounts/update/", :method => "post") do %>
-<table>
-	<tr>
-		<th align="right">Category 1 Balance: </th><td><%= number_field_tag(:cat1, @clubexpAcc.Category1Balance, :step => 0.01, :min => 0, :max => 99999999) %></td>
-	</tr>
-	<tr>
-		<th align="right">Category 2 Balance: </th><td><%= number_field_tag(:cat2, @clubexpAcc.Category2Balance, :step => 0.01, :min => 0, :max => 99999999) %></td>
-	</tr>
-	<% if false%>
-	<!-- <tr>
-		<th align="right">Categoy 3 Balance: </th><td><%= number_field_tag(:cat3, @clubexpAcc.Category3Balance, :step => 0.01) %></td>
-	</tr>
-	<tr>
-		<th align="right">Categoy 4 Balance: </th><td><%= number_field_tag(:cat4, @clubexpAcc.Category4Balance, :step => 0.01) %></td>
-	</tr>
-	<tr>
-		<th align="right">Categoy 5 Balance: </th><td><%= number_field_tag(:cat5, @clubexpAcc.Category5Balance, :step => 0.01) %></td>
-	</tr>
-	<tr>
-		<th align="right">Categoy 6 Balance: </th><td><%= number_field_tag(:cat6, @clubexpAcc.Category6Balance, :step => 0.01) %></td>
-	</tr>
-	<tr>
-		<th align="right">Categoy 7 Balance: </th><td><%= number_field_tag(:cat7, @clubexpAcc.Category7Balance, :step => 0.01) %></td>
-	</tr>
-	<tr>
-		<th align="right">Categoy 8 Balance: </th><td><%= number_field_tag(:cat8, @clubexpAcc.Category8Balance, :step => 0.01) %></td>
-	</tr>
-	<tr>
-		<th align="right">Categoy 9 Balance: </th><td><%= number_field_tag(:cat9, @clubexpAcc.Category9Balance, :step => 0.01) %></td>
-	</tr>
-	<tr>
-		<th align="right">Categoy 10 Balance: </th><td><%= number_field_tag(:cat10, @clubexpAcc.Category10Balance, :step => 0.01) %></td>
-	</tr>
-	<tr>
-		<th align="right">Categoy 11 Balance: </th><td><%= number_field_tag(:cat11, @clubexpAcc.Category11Balance, :step => 0.01) %></td>
-	</tr>
-	<tr>
-		<th align="right">Categoy 12 Balance: </th><td><%= number_field_tag(:cat12, @clubexpAcc.Category12Balance, :step => 0.01) %></td>
-	</tr>
-	<tr>
-		<th align="right">Categoy 13 Balance: </th><td><%= number_field_tag(:cat13, @clubexpAcc.Category13Balance, :step => 0.01) %></td>
-	</tr>
-	<tr>
-		<th align="right">Miscellaneous Balance: </th><td><%= number_field_tag(:misc, @clubexpAcc.MiscellaneousBalance, :step => 0.01) %></td>
-	</tr> -->
-	<%end%>
-</table>
-<%= hidden_field_tag(:id, @clubexpAcc.clubid)%>
-<%= hidden_field_tag(:destination, @destination)%>
-<br />
-<%= submit_tag("Update Record", :class=>"btn btn-primary btn-lg") %></th>
-<%end%>
+<div class='row'>
+	<div class='col-sm-12 col-lg-12'>
+		<div class='box bordered-box'>
+			<div class='box-content box-double-padding'>
+				<%= form_tag("/accounts/update/", :method => "post") do %>
+				<fieldset>
+					<div class='col-sm-4'>
+						<div class='lead'>
+							<i class='icon-file-alt text-contrast'></i>
+							Notes On Editing Account
+						</div>
+						<small class='text-muted'> Do not make changes to account balance unecessarily as wrong edits can affect the club negatively. </small>
+					</div>
+					<div class='col-sm-7 col-sm-offset-1'>
+						<div class='form-group'>
+							<label>Category 1 Balance</label>
+							<br />
+							<%= number_field_tag(:cat1, @clubexpAcc.Category1Balance, :step => 0.01, :min => 0, :max => 99999999, class:"form-control") %>
+						</div>
+						<div class='form-group'>
+							<label>Category 2 Balance</label>
+							<br />
+							<%= number_field_tag(:cat2, @clubexpAcc.Category2Balance, :step => 0.01, :min => 0, :max => 99999999, class:"form-control") %>
+						 
+							<%= hidden_field_tag(:id, @clubexpAcc.clubid)%>
+							<%= hidden_field_tag(:destination, @destination)%>
+						</div>
+					</fieldset>
+					<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
+						<div class='text-right'>
+							<%= submit_tag("Update Record", :class=>"btn btn-primary btn-lg") %>
+						</div>
+					</div>
+					<%end%>	
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

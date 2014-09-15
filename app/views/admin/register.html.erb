@@ -84,7 +84,7 @@
 										<tr>
 											<th>Name</th>
 											<th>Requested Date</th>
-											<th><%= select_tag(:choice, "<option>Add</option><option>Reject</option>".html_safe) %>
+											<th><%= select_tag(:choice, "<option>Add</option><option>Reject</option>".html_safe, :class=>"select2 form-control") %>
 											<br />
 											<%= submit_tag("Go!", :class=>"btn orange-background") %></th>
 										</tr>
@@ -293,12 +293,12 @@ $(document).ready(function() {
 									<div class='form-group'>
 										<label>Select User</label>
 										<br />
-										<%= select_tag(:userid, options_from_collection_for_select(@users, "userid", "userid"))%>
+										<%= select_tag(:userid, options_from_collection_for_select(@users, "userid", "userid"), class:"select2 form-control")%>
 										<br />
 										<br />
 										<label>Select CBd</label>
 										<br />
-										<%= select_tag(:club, options_from_collection_for_select(@cbds, "clubid", "clubname"))%>
+										<%= select_tag(:club, options_from_collection_for_select(@cbds, "clubid", "clubname"), class:"select2 form-control")%>
 										<%= hidden_field_tag(:role,'cbdfinsec')%>
 									</div>
 							</fieldset>
@@ -362,12 +362,12 @@ $(document).ready(function() {
 									<div class='form-group'>
 										<label>Select User</label>
 										<br />
-										<%= select_tag(:userid, options_from_collection_for_select(@users, "userid", "userid"))%>
+										<%= select_tag(:userid, options_from_collection_for_select(@users, "userid", "userid"), class:"select2 form-control")%>
 										<br />
 										<br />
 										<label>Select department</label>
 										<br />
-										<%= select_tag(:club, options_from_collection_for_select(@departments, "clubid", "clubname"))%>
+										<%= select_tag(:club, options_from_collection_for_select(@departments, "clubid", "clubname"), class:"select2 form-control")%>
 										<%= hidden_field_tag(:role,'smusasec')%>
 									</div>
 							</fieldset>
@@ -411,7 +411,7 @@ $(document).ready(function() {
 									<div class='col-sm-7 col-sm-offset-1'>
 										<div class='form-group'>
 											<label>Select User</label>
-											<%= select_tag(:userid, options_from_collection_for_select(@allexceptme, "userid", "userid"))%>
+											<%= select_tag(:userid, options_from_collection_for_select(@allexceptme, "userid", "userid"), class:"select2 form-control")%>
 											<%= hidden_field_tag(:role,'president')%>
 											<%= hidden_field_tag(:club, session[:club])%>
 										</div>
@@ -527,12 +527,12 @@ $(document).ready(function() {
 									<div class='form-group'>
 										<label>Select User</label>
 										<br />
-										<%= select_tag(:userid, options_from_collection_for_select(@users, "userid", "userid"))%>
+										<%= select_tag(:userid, options_from_collection_for_select(@users, "userid", "userid"), class:"select2 form-control")%>
 										<br />
 										<br />
 										<label>Select CBd</label>
 										<br />
-										<%= select_tag(:club, options_from_collection_for_select(@clubsUnderCbd, "clubid", "clubname"))%>
+										<%= select_tag(:club, options_from_collection_for_select(@clubsUnderCbd, "clubid", "clubname"), class:"select2 form-control")%>
 										<%= hidden_field_tag(:role,'clubfinsec')%>
 									</div>
 							</fieldset>
@@ -595,7 +595,7 @@ $(document).ready(function() {
 									<div class='form-group'>
 										<label>Select User</label>
 										<br />
-										<%= select_tag(:userid, options_from_collection_for_select(@users, "userid", "userid"))%>
+										<%= select_tag(:userid, options_from_collection_for_select(@users, "userid", "userid"), class:"select2 form-control")%>
 										<%= hidden_field_tag(:club, session[:club])%>
 										<%= hidden_field_tag(:role,'cbdmc')%>
 									</div>
@@ -639,7 +639,7 @@ $(document).ready(function() {
 									<div class='form-group'>
 										<label>Select User</label>
 										<br />
-										<%= select_tag(:userid, options_from_collection_for_select(@allexceptme, "userid", "userid"))%>
+										<%= select_tag(:userid, options_from_collection_for_select(@allexceptme, "userid", "userid"), class:"select2 form-control")%>
 										<%= hidden_field_tag(:club, session[:club])%>
 										<%= hidden_field_tag(:role,'president')%>
 									</div>

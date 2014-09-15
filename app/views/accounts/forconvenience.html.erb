@@ -24,17 +24,17 @@
 				<%=form_for @new, :url => { :action => "add" } do |f|%>
 				<label>Club</label>
 				<br />
-				<%= f.select(:clubid, options_from_collection_for_select(@cbds, 'clubid', 'clubid'))%>
+				<%= f.select(:clubid, options_from_collection_for_select(@cbds, 'clubid', 'clubid') {}, {:class=>"select2 form-control"})%>
 				<br />
 				<br />
 				<label>Balance</label>
 				<br />
-				<%= f.number_field(:balance)%>
+				<%= f.number_field(:balance, :class=>"form-control")%>
 				<br />
 				<br />
 				<label>Limit</label>
 				<br />
-				<%= f.number_field(:limit)%>
+				<%= f.number_field(:limit, :class=>"form-control")%>
 				<br />
 				<br />
 				<%= f.submit("Save", :class=>"btn red-background")%>

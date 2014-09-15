@@ -115,7 +115,7 @@
 				<fieldset>
 					<div class="form-group">
 						
-						<%= f.text_area :justification%>
+						<%= f.text_area :justification, :class=>"autosize form-control"%>
 						<%= f.hidden_field :clubid, :value => @reserve.clubid%>
 					</div>
 				</fieldset>

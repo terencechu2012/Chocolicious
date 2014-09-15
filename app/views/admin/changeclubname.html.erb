@@ -1,7 +1,47 @@
-<h2>Change club name</h2>
-<%=form_for @club, :url => { :action => "changename" }  do |f|%>
-<%=f.text_field :clubname%>Clubname<br>
-<%=f.text_field :clubcode%>Clubcode<br>
-<%=f.hidden_field :clubid, :value=> @club.clubid%>
-<%=f.submit 'Change'%>
-<%end%>
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='page-header'>
+			<h1 class='pull-left'><i class='icon-group'></i>
+				<!-- span has to be on next line to create that space between the logo and the words -->
+				<span>Edit Club Details</span></h1>
+		</div>
+	</div>
+</div>
+<div class='row'>
+	<div class='col-sm-12 col-lg-12'>
+		<div class='box bordered-box'>
+			<div class='box-content box-double-padding'>
+				<%=form_for @club, :url => { :action => "changename" }  do |f|%>
+				<fieldset>
+					<div class='col-sm-4'>
+						<div class='lead'>
+							<i class='icon-file-alt text-contrast'></i>
+							Notes On Editing Club
+						</div>
+						<small class='text-muted'> The original Club Name and Club Code are preloaded into the fields, modify the fields to change the name and code. </small>
+					</div>
+					<div class='col-sm-7 col-sm-offset-1'>
+						<div class='form-group'>
+							<label>Modify Club Name</label>
+							<br />
+							<%=f.text_field :clubname, :class=>"form-control"%>
+						</div>
+						<div class='form-group'>
+							<label>Modify Club Code</label>
+							<br />
+							<%=f.text_field :clubcode, :class=>"form-control"%>
+							<%=f.hidden_field :clubid, :value=> @club.clubid%>
+						</div>
+						</fieldset>
+						<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
+							<div class='text-right'>
+								<%= f.submit("Change", :class=>"btn btn-primary btn-lg blue-background")%>
+							</div>
+						</div>
+						<%end%>	
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+

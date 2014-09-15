@@ -28,7 +28,7 @@
 							<%= f.hidden_field(:clubid, :value => session[:club])%>
 							<label>Enter amount</label>(e.g. 100.90)
 							<br />
-							<%= f.number_field(:amount, :step => 0.01, :min => 0, :required => true) %>
+							<%= f.number_field(:amount, :step => 0.01, :min => 0, :class=>"form-control", :required => true) %>
 						</div>
 
 						<%if role.include? 'clubfinsec'%>
@@ -41,7 +41,7 @@
 						<div class='form-group'>
 							<label>Enter purpose</label>
 							<br />
-							<%= f.text_area :purpose, :required => true%>
+							<%= f.text_area :purpose, :class=>"autosize form-control", :required => true%>
 						</div>
 						
 				</fieldset>
