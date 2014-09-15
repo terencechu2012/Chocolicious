@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'deposits/clubdeposits'
   get 'deposits/completedeposit'
   get 'claims/completeclaim'
+  get 'claims/submitosl'
   get 'chief/setcontributionrate'
   patch 'chief/setrate'
   get 'chief/calculation'

@@ -454,7 +454,7 @@
                     <li>
                         <a class="dropdown-collapse in" href="#">
                             <i class="icon-circle-blank"></i>
-                            <span style="font-weight:bold;">ClUB SECTION</span>
+                            <span style="font-weight:bold;">CLUB SECTION</span>
                             <i class="icon-angle-down angle-down"></i>
                         </a>
                         <ul class="nav nav-stacked in" style="display: block;">
@@ -496,6 +496,33 @@
                         </ul>
                     </li>
                     <%end%>
+                    
+                    
+                    <%if role.include? 'osl'%>
+                    <li>
+                        <a class="dropdown-collapse in" href="#">
+                            <i class="icon-circle-blank"></i>
+                            <span style="font-weight:bold;">CLUB SECTION</span>
+                            <i class="icon-angle-down angle-down"></i>
+                        </a>
+                        <ul class="nav nav-stacked in" style="display: block;">
+                            <li class=''>
+                                <a href='/claims/clubclaims'>
+                                    <i class='icon-copy'></i>
+                                    <span>Claims</span>
+                                </a>
+                            </li>
+                            
+
+                            
+
+                            
+                          
+                        </ul>
+                    </li>
+                    <%end%>
+                    
+                    
                     <%if role.include? 'smusasec'%>
                     <li>
                         <a class="dropdown-collapse in" href="#">

@@ -35,22 +35,24 @@ class ClaimsController < ApplicationController
   def clubclaims
     role = session[:role]
     if role.include? 'clubfinsec'
-      @normalclaims = Claim.where(:clubid => session[:club], :status => 1..5)
+      @normalclaims = Claim.where(:clubid => session[:club], :status => [1..5, 17..19])
     elsif role.include? 'cbdfinsec'
-      @normalclaims = Claim.where(['clubid in (select clubid from clubs where clubtype = ?) and status > 2 and status < 6', session[:club]])
-      @cbdmcclaims = Claim.where(clubid:session[:club], status: 7..11)
+      @normalclaims = Claim.where(['clubid in (select clubid from clubs where clubtype = ?) and ((status > 2 and status < 6) or (status>16 and status<20))', session[:club]])
+      @cbdmcclaims = Claim.where(clubid:session[:club], status: [7..11, 20..22])
     elsif role.include? 'president'
-      @normalclaims = Claim.where(clubid:session[:club], status: 2..5)
-      @cbdmcclaims = Claim.where(clubid:session[:club], status: 8..11)
+      @normalclaims = Claim.where(clubid:session[:club], status: [2..5, 17..19])
+      @cbdmcclaims = Claim.where(clubid:session[:club], status: [8..11, 20..22])
       @claims = @normalclaims + @cbdmcclaims
       if session[:club] == 'smusa'
-        @thirdclaims = Claim.where(['clubid in (select clubid from clubs where clubtype = ?) and status > 12 and status < 17', 'smusa'])
+        @thirdclaims = Claim.where(['clubid in (select clubid from clubs where clubtype = ?) and ((status > 12 and status < 17) or (status > 22 and status < 26))', 'smusa'])
         @claims = @normalclaims + @cbdmcclaims + @thirdclaims
       end
       
     elsif role.include? 'smusafinsec'
-      @cbdmcclaims = Claim.where(status: 9..11)
-      @smusasecclaims = Claim.where(status: 14..16)
+      @cbdmcclaims = Claim.where(status: [9..11, 20..22])
+      @smusasecclaims = Claim.where(status: [14..16, 23..25])
+    elsif role.include? 'osl'
+      @oslclaims = Claim.where(status: [17..25])
     end
   end
 
@@ -240,6 +242,22 @@ class ClaimsController < ApplicationController
       table([['Prepared and verified by', 'Certified by','Endorsed/Approved by'], [smusasec, smusapres, smusafinsec], [clubname,cbdname, cbdname], ['SMUSA honourary secretary', 'SMUSA President','SMUSA finance secretary']], :cell_style => {:borders => []})
     end
     redirect_to '/toprint.pdf'
+  end
+  
+  def submitosl
+    c = Claim.find_by_id(params[:id])
+    status = c.status
+    if status == 3
+      newstatus = 17
+    elsif status == 9
+      newstatus = 20
+    elsif status == 14
+      newstatus = 23
+    end
+
+    c.update_attribute(:status, newstatus)
+    # redirect_to :action => 'viewclaim'
+    redirect_to :back
   end
 
 end
