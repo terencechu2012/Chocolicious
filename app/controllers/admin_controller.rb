@@ -4,7 +4,7 @@ class AdminController < ApplicationController
     # @users=User.where.not(userid: session[:userid])
     @users=User.all
     @allexceptme = User.where.not(userid: session[:userid])
-    @allClubs = Club.where("clubtype != 'cbd' and clubtype <> 'smusa' and clubtype != 'infinite'")
+    @allClubs = Club.where("clubtype != 'cbd' and clubtype <> 'smusa' and clubtype != 'infinity'")
     @clubsUnderCbd = Club.where(clubtype: session[:club])
     @cbds = Club.where(clubtype: 'cbd')
     @clubRequests = Request.where(clubid:session[:club])
