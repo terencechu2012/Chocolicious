@@ -1,0 +1,36 @@
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='page-header'>
+			<h1 class='pull-left'><i class='icon-edit'></i><span>Reject Funds Transfer</span></h1>
+		</div>
+	</div>
+</div>
+
+<div class='row'>
+	<div class='col-sm-12 col-lg-12'>
+		<div class='box bordered-box'>
+			<div class='box-content box-double-padding'>
+				<%= form_for @rejecttransfer, :url => { :action => "confirmreject" }, :method => :POST  do |f|  %>
+				<fieldset>
+					<%= f.hidden_field(:id, :value => @rejecttransfer.id)%>
+					<div>
+						<b>You are rejecting the funds transfer request submmited by <u><%= @rejecttransfer.userid %></u> from <u><%= @rejecttransfer.clubidfrom %></u> with amount <u><%= @rejecttransfer.amount %></u>.</b>
+					</div>
+					<div>
+						Please provide a reason for the rejection:
+					</div>
+					<div class='form-group'>
+						<%= f.hidden_field(:status, :value => @status)%>
+						<%= f.text_area :remarks, size: "100 x 5" %>
+					</div>
+				</fieldset>
+				<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
+					<div class='text-right'>
+						<%= f.submit("Confirm", :class=>"btn btn-primary btn-lg red-background")%>
+					</div>
+				</div>
+				<%end%>
+			</div>
+		</div>
+	</div>
+</div>

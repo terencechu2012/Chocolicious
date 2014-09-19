@@ -1,0 +1,167 @@
+<% if flash[:error] %> <font color="red"><%= flash[:error]%></font>
+<%end%>
+<% statuscode = ['Unsubmitted', 'With Club Finsec', 'With Club Pres', 'With CBD Finsec', 'With SMUSA Finsec', 'Done', 'Unsubmitted', 'With CBD Finsec', 'With CBD Pres', 'With SMUSA Finsec', 'Done']%>
+<% role = session[:role]%>
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='page-header'>
+			<h1 class='pull-left'><i class='icon-file-alt'></i><span> Funds Transfer Requests</span></h1>
+
+		</div>
+	</div>
+</div>
+<%if (role.include?'clubfinsec') || (role.include?'cbdfinsec') || (role.include?'smusasec')%>
+<div class='row'>
+
+	<div class="col-sm-12">
+		<div class="box bordered-box blue-border">
+			<div class="box-header blue-background">
+				<div class="title">
+					My requests
+				</div>
+				<div class="actions">
+					</a>
+
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class="box-content box-no-padding">
+				<div class="responsive-table">
+					<div class="scrollable-area">
+
+						<table class="table table-striped" style="margin-bottom:0;">
+							<tr>
+								<th>Request ID</th>
+								<th>Club From</th>
+								<th>Club To</th>
+								<th>Amount</th>
+								<th>Purpose</th>
+								<th>Created</th>
+								<th>Updated</th>
+								<th>Status</th>
+
+								<th>Action</th>
+							</tr>
+							<% @fundsrequests.each do |c|%>
+							<% status = c.status%>
+							<%if c.remarks.nil?%>
+							<tr>
+								<%else%>
+							<tr class = 'warning'>
+								<%end%>
+								<td><%= c.id%></td>
+								<td><%= c.clubidfrom%></td>
+								<td><%= c.clubidto%></td>
+								<td><%= c.amount%></td>
+								<td><%= c.purpose%></td>
+								<td><%= c.created_at%></td>
+								<td><%= c.updated_at%></td>
+								<td><%= statuscode[c.status]%></td>
+
+								<%if status == 0%>
+								<td><a href="/funds/editrequest?id=<%= c.id%>&own=true" class="btn btn-sm btn-primary blue-background">Edit</a> <%if c.remarks.nil?%> <a href="/funds/submitrequest?id=<%= c.id%>" class="btn btn-sm btn-primary green-background">Submit</a><a href="/funds/deleterequest?id=<%= c.id%>" class="btn btn-sm btn-primary red-background">X</a></td>
+								<%end%>
+								<%end%>
+
+								<%if (status == 0)&& !c.remarks.nil? %>
+								<td><a href="#", onclick="viewremark('<%= c.remarks%>')" class="btn btn-sm btn-primary">View Remarks</a><a href="/funds/resubmitrequest?id=<%= c.id%>" class="btn btn-sm btn-primary green-background">ReSubmit</a><a href="/funds/deleterequest?id=<%= c.id%>" class="btn btn-sm btn-primary red-background">X</a></td>
+								<%end%>
+							</tr>
+							<%end%>
+
+						</table>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<%end%>
+
+<%if (role.include? 'smusafinsec')%>
+<div class='row'>
+	<div class="col-sm-12">
+		<div class="box bordered-box blue-border">
+			<div class="box-header blue-background">
+				<div class="title">
+					Funds Transfer Requests
+				</div>
+				<div class="actions">
+					</a>
+
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class="box-content box-no-padding">
+				<div class="responsive-table">
+					<div class="scrollable-area">
+
+						<table class="table table-striped" style="margin-bottom:0;">
+							<tr>
+								<th>Request ID</th>
+								<th>Club From</th>
+								<th>Club To</th>
+								<th>Amount</th>
+								<th>Purpose</th>
+								<th>Created</th>
+								<th>Updated</th>
+								<th>Status</th>
+
+								<th>Action</th>
+							</tr>
+							<% @fundsrequnderall.each do |c|%>
+							<% status = c.status%>
+
+							<%if c.remarks.nil?%>
+							<tr>
+								<%else%>
+							<tr class = 'warning'>
+								<%end%>
+								<td><%= c.id%></td>
+								<td><%= c.clubidfrom%></td>
+								<td><%= c.clubidto%></td>
+								<td><%= c.amount%></td>
+								<td><%= c.purpose%></td>
+								<td><%= c.created_at%></td>
+								<td><%= c.updated_at%></td>
+								<td><%= statuscode[c.status]%></td>
+								<%if status == 4%>
+								<td><a href="#", onclick="smuasaapprove(<%= c.id%>)" class="btn btn-sm btn-primary green-background">Approve</a><a href="#", onclick="smusareject(<%= c.id%>)" class="btn btn-sm btn-primary red-background">Reject</a><p id ="smusa"></p> <%end%>
+								<%end%>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+<%end%>
+
+<%=javascript_tag do%>
+
+function smusareject(a){
+var x;
+if (confirm("Sure to reject?")==true){
+window.location = "/funds/addremark?id="+a+"&status=0";
+}
+}
+
+function smuasaapprove(a){
+var x;
+if (confirm("Sure to approve?")==true){
+window.location = "/funds/approverequest?id="+a+"&status=0";
+}
+}
+<%end%>
+
+<%=javascript_tag do%>
+
+function viewremark(a){
+
+alert(a);
+
+}
+<%end%>

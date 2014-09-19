@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140911092539) do
+ActiveRecord::Schema.define(version: 20140919141741) do
 
   create_table "archive_budget_expenses", force: true do |t|
     t.integer  "budget_id"
@@ -282,6 +282,18 @@ ActiveRecord::Schema.define(version: 20140911092539) do
   end
 
   add_index "expenditure_accounts", ["clubid"], name: "EA_fk", using: :btree
+
+  create_table "funds_transfers", force: true do |t|
+    t.string   "userid"
+    t.string   "clubidfrom"
+    t.string   "clubidto"
+    t.decimal  "amount",     precision: 10, scale: 2
+    t.string   "remarks"
+    t.integer  "status"
+    t.string   "purpose"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "requests", force: true do |t|
     t.string   "userid"

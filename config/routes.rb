@@ -189,6 +189,20 @@ Rails.application.routes.draw do
   get 'reserve_withdrawals/approverequest'
   post 'reserve_withdrawals/approverequest'
   get 'reserve_withdrawals/viewbalance'
+  
+  get 'funds/newrequest'
+  post 'funds/add'
+  get 'funds/viewrequest'
+  get 'funds/editrequest'
+  post 'funds/edit'
+  get 'funds/submitrequest'
+  get 'funds/deleterequest'
+  get 'funds/approverequest'
+  get 'funds/addremark'
+  post 'funds/addremark'
+  post 'funds/confirmreject'
+  get 'funds/confirmreject'
+  get 'funds/resubmitrequest'
  
 # The priority is based upon order of creation: first created -> highest priority.
 # See how all your routes lay out with "rake routes".
