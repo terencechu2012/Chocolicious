@@ -472,4 +472,44 @@ class ChiefController < ApplicationController
       
     end
   end
+  
+  def claimtimes
+    if !params[:year].nil? && !params[:month].nil?
+      @test = true
+      claims = Claim.where(['year(created_at)=? and month(created_at)=?',params[:year], params[:month]])
+      @clubhash = []
+      @cbdhash = []
+      
+      @smusahash = []
+      claims.each do |c|
+        id = c.id
+        minimum = ClaimTime.where(claimid:id).minimum(:status)
+        timings = ClaimTime.where(claimid:id)
+        hash = Hash.new
+        hash['id']=c
+        if minimum == 1
+          timings.each do |t|
+            
+            hash[t.status]=t.date
+          end
+          @clubhash << hash
+        elsif minimum == 7
+          timings.each do |t|
+            
+            
+            hash[t.status]=t.date
+          end
+          @cbdhash << hash
+        elsif minimum ==13
+          timings.each do |t|
+            
+            hash[t.status]=t.date
+          end
+          @smusahash << hash
+        end
+        
+      end
+    end
+  end
+  
 end

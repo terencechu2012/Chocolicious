@@ -14,8 +14,12 @@ class DepositsController < ApplicationController
     elsif role.include? 'president'
       @normaldeposits = Deposit.where(clubid:session[:club], status: 2..5)
       @cbdmcdeposits = Deposit.where(clubid:session[:club], status: 8..11)
-      @thirddeposits = Deposit.where(['clubid in (select clubid from clubs where clubtype = ?) and status > 12 and status < 17', 'smusa'])
-      @deposits = @normaldeposits + @cbdmcdeposits + @thirddeposits
+      @deposits = @normaldeposits+ @cbdmcdeposits
+      if session[:club] == 'smusa'
+        @thirddeposits = Deposit.where(['clubid in (select clubid from clubs where clubtype = ?) and status > 12 and status < 17', 'smusa'])
+        @deposits = @normaldeposits + @cbdmcdeposits + @thirddeposits
+      end
+      
     elsif role.include? 'smusafinsec'
       @cbdmcdeposits = Deposit.where(status: 9..11)
       @smusasecdeposits = Deposit.where(status: 14..16)

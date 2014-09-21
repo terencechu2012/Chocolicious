@@ -203,6 +203,7 @@ Rails.application.routes.draw do
   post 'funds/confirmreject'
   get 'funds/confirmreject'
   get 'funds/resubmitrequest'
+  get 'chief/claimtimes'
  
 # The priority is based upon order of creation: first created -> highest priority.
 # See how all your routes lay out with "rake routes".

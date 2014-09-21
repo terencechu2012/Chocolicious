@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140919141741) do
+ActiveRecord::Schema.define(version: 20140921014704) do
 
   create_table "archive_budget_expenses", force: true do |t|
     t.integer  "budget_id"
@@ -209,6 +209,14 @@ ActiveRecord::Schema.define(version: 20140919141741) do
     t.string   "poster_content_type"
     t.integer  "poster_file_size"
     t.datetime "poster_updated_at"
+  end
+
+  create_table "claim_times", force: true do |t|
+    t.integer  "claimid"
+    t.integer  "status"
+    t.date     "date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "claims", force: true do |t|

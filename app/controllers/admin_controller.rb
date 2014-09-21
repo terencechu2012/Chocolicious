@@ -337,7 +337,12 @@ class AdminController < ApplicationController
   def setnric2
     current_user.update(user_params)
     flash.notice = 'Details have been updated.'
-    redirect_to :action => 'home'
+    if session[:club].nil?
+      redirect_to :action => 'register'
+    else
+      redirect_to :action => 'home'
+    end
+    
   end
 
   def user_params

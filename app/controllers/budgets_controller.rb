@@ -124,6 +124,9 @@ class BudgetsController < ApplicationController
     b = Budget.find_by_id(params[:budget_income][:budget_id])
     requestsac = b.requestsac
     requestsac -= params[:budget_income][:income].to_f
+    if requestsac < 0
+      requestsac = 0
+    end
     projectedincome = b.projectedincome
     projectedincome += params[:budget_income][:income].to_f
     b.update_attribute(:requestsac, requestsac)

@@ -96,7 +96,7 @@ class ClaimsController < ApplicationController
   def submitclaim
     c = Claim.find_by_id(params[:id])
     newstatus = c.status + 1
-
+    ClaimTime.create(claimid: c.id, status: newstatus,date: Date.today)
     c.update_attribute(:status, newstatus)
     # redirect_to :action => 'viewclaim'
     redirect_to :back
@@ -105,7 +105,7 @@ class ClaimsController < ApplicationController
   def completeclaim
     c = Claim.find_by_id(params[:id])
     newstatus = c.status + 1
-
+    ClaimTime.create(claimid: c.id, status: newstatus,date: Date.today)
     c.update_attribute(:status, newstatus)
     # redirect_to :action => 'viewclaim'
     club = c.clubid
@@ -143,6 +143,7 @@ class ClaimsController < ApplicationController
     require 'prawn'
     claim = Claim.find_by_id(params[:id])
     claim.update_attribute(:status, 4)
+    ClaimTime.create(claimid: claim.id, status: 4,date: Date.today)
     claimant = User.find_by_userid(claim.userid)
     fullname = claimant.fullname
     contact = claimant.contactno
@@ -178,6 +179,7 @@ class ClaimsController < ApplicationController
     require 'prawn'
     claim = Claim.find_by_id(params[:id])
     claim.update_attribute(:status, 10)
+    ClaimTime.create(claimid: claim.id, status: 10,date: Date.today)
     claimant = User.find_by_userid(claim.userid)
     fullname = claimant.fullname
     contact = claimant.contactno
@@ -213,6 +215,7 @@ class ClaimsController < ApplicationController
     require 'prawn'
     claim = Claim.find_by_id(params[:id])
     claim.update_attribute(:status, 15)
+    ClaimTime.create(claimid: claim.id, status: 15,date: Date.today)
     claimant = User.find_by_userid(claim.userid)
     fullname = claimant.fullname
     contact = claimant.contactno

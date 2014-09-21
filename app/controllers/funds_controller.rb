@@ -71,11 +71,13 @@ class FundsController < ApplicationController
       eFrom.update_attribute(:Category1Balance, minus)
 
       clubto = r.clubidto
-      eTo = ExpenditureAccount.find_by_clubid(clubto)
-      plus1 = eTo.Category1Balance + ramount
-      eTo.update_attribute(:Category1Balance, plus1)
-      plus2 = eTo.Category2Balance + ramount
-      eTo.update_attribute(:Category2Balance, plus2)
+      if clubto != 'external'
+        eTo = ExpenditureAccount.find_by_clubid(clubto)
+        plus1 = eTo.Category1Balance + ramount
+        eTo.update_attribute(:Category1Balance, plus1)
+        plus2 = eTo.Category2Balance + ramount
+        eTo.update_attribute(:Category2Balance, plus2)
+      end
     else
     
     #prompt insufficient error message

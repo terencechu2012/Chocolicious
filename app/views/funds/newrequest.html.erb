@@ -18,7 +18,7 @@
 							<i class='icon-file-alt text-contrast'></i>
 							Notes On New Funds Transfer Request
 						</div>
-						<small class='text-muted'> Please justify your request for a funds transfer. Invalid reasons will lead to rejection of your funds transfer request. </small>
+						<small class='text-muted'> Please justify your request for a funds transfer. Invalid reasons will lead to rejection of your funds transfer request. <br>If transferring to an external party, please choose 'External Transfer' and state the party in 'Enter purpose'.</small>
 					</div>
 					<div class='col-sm-7 col-sm-offset-1'>
 						<div class='form-group'>
@@ -26,7 +26,7 @@
 							<%= f.hidden_field(:clubidfrom, :value => session[:club])%>
 							<label>Enter amount</label>(e.g. 100.90)
 							<br />
-							<%= f.number_field(:amount, :step => 0.01, :min => 0, :class => "form-control", :required => true) %>
+							<%= f.number_field(:amount, :step => 0.01, :min => 0, :max => 99999999, :class => "form-control", :required => true) %>
 						</div>
 
 						<%= f.hidden_field(:status, :value => 0)%>
@@ -34,7 +34,7 @@
 						<div class='form-group'>
 							<fieldset>
 								<label>Select club to transfer to</label>
-								<%= select_tag(:cName, options_from_collection_for_select(@allClubs, "clubid", "clubname"), prompt: "---Please select---", class:"select2 form-control")%>
+								<%= select_tag(:cName, content_tag(:option,'External Transfer',:value=>"external")+options_from_collection_for_select(@allClubs, "clubid", "clubname"), prompt: "---Please select---", class:"select2 form-control")%>
 							</fieldset>
 						</div>
 
