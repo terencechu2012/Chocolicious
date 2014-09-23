@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'ereceipts/newreceipt'
+
+  get 'ereceipts/viewsentreceipt'
+
   get 'deposits/addremark'
   post 'deposits/addremark'
   get 'deposits/clubdeposits'
@@ -204,6 +208,13 @@ Rails.application.routes.draw do
   get 'funds/confirmreject'
   get 'funds/resubmitrequest'
   get 'chief/claimtimes'
+  
+  get 'ereceipts/newreceipt'
+  post 'ereceipts/newreceipt' 
+  get 'ereceipts/viewsentreceipt'
+  post 'ereceipts/viewsentreceipt'
+  get 'ereceipts/add'
+  post 'ereceipts/add'
  
 # The priority is based upon order of creation: first created -> highest priority.
 # See how all your routes lay out with "rake routes".

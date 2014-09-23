@@ -32,7 +32,7 @@
 							<%= f.hidden_field(:clubid, :value => session[:club])%>
 							<label>Enter amount</label>
 							<br />
-							<%= f.number_field(:amount, :step => 0.01, :min => 0, :max => 99999999:class=>"form-control",:required => true) %>
+							<%= f.number_field(:amount, :step => 0.01, :min => 0, :max => 99999999,:class=>"form-control",:required => true) %>
 						</div>
 
 						<%if role.include? 'clubfinsec'%>

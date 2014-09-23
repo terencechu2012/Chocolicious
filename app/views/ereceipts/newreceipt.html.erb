@@ -1,0 +1,77 @@
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='page-header'>
+			<h1 class='pull-left'><i class='icon-plus-sign'></i><span>Issue New Receipt</span></h1>
+		</div>
+	</div>
+</div>
+
+<% role = session[:role]%>
+<div class='row'>
+	<div class='col-sm-12 col-lg-12'>
+		<div class='box bordered-box'>
+			<div class='box-content box-double-padding'>
+				<%= form_for Ereceipt.new, :url => { :action => "add" }, :method => :POST  do |f|  %>
+				<fieldset>
+					<div class='col-sm-4'>
+						<div class='lead'>
+							<i class='icon-file-alt text-contrast'></i>
+							Notes On Issuing New Receipt
+						</div>
+						<small class='text-muted'> Please input the necessary fields in the form. When you click "Send", copies of receipt will be sent to both you and the receipient's emails. </small>
+					</div>
+					<div class='col-sm-7 col-sm-offset-1'>
+						<h3>Receipt Information</h3>
+
+						<div class='form-group'>
+							<label>Receipient Name* </label>
+							<br />
+							<%= f.text_field :payeename, :class=>"form-control",:required => true%>
+							<br/>
+							<label>Receipient Email Address*</label>
+							<br />
+							<%= f.text_field :payeemail, :class=>"form-control",:required => true%>
+							<br/>
+							<%= f.hidden_field(:issuerid, :value => session[:userid])%>
+							<%= f.hidden_field(:clubid, :value => session[:club])%>
+							<label>Received Amount (SGD)* </label><i>(e.g. 10.20)</i>
+							<br />
+							<%= f.number_field(:amount, :step => 0.01, :min => 0, :max => 99999999,:class=>"form-control",:required => true) %>
+						</div>
+					
+
+						<% a = ['Cash','Cheque']%>
+						<div class='form-group'>
+						<label>Select Payment Type</label>
+
+						<%= f.select(:paytype, options_for_select(a), {}, {:class=>"select2 form-control"})%>
+						</div>
+
+						<div class='form-group'>
+							<label>Payment Description </label><i>(e.g. SMU T-shirt)</i>
+							<br />
+							<%= f.text_area :description, :class=>"form-control",:required => true%>
+						</div>
+
+						<label>Inclusive of GST (optional)</label>
+						<br />
+						<%= f.number_field(:gst, :step => 0.01, :min => 0, :max=>99999999,:class=>"form-control", :required => true) %>
+						<br />
+						<div class='form-group'>
+							<label>Issued By</label>
+							<br />
+							<%= f.text_field :issuername, :class=>"form-control",:required => true%>
+						</div>
+
+				</fieldset>
+				<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
+					<div class='text-right'>
+
+						<%= f.submit("Send", :class=>"btn btn-primary btn-lg blue-background")%>
+					</div>
+				</div>
+				<%end%>
+			</div>
+		</div>
+	</div>
+</div>

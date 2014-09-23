@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140921014704) do
+ActiveRecord::Schema.define(version: 20140923073525) do
 
   create_table "archive_budget_expenses", force: true do |t|
     t.integer  "budget_id"
@@ -277,6 +277,20 @@ ActiveRecord::Schema.define(version: 20140921014704) do
     t.string   "donoradd"
     t.string   "donoric"
     t.string   "purpose"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "ereceipts", force: true do |t|
+    t.string   "issuerid"
+    t.string   "issuername"
+    t.string   "payeename"
+    t.string   "payeemail"
+    t.decimal  "amount",      precision: 10, scale: 0
+    t.decimal  "gst",         precision: 10, scale: 0
+    t.string   "paytype"
+    t.string   "description"
+    t.string   "clubid"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
