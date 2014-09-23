@@ -16,6 +16,7 @@ class EreceiptsController < ApplicationController
   end
   
   def viewsentreceipt
+     @receipt = Ereceipt.all
   end
   
   def ereceipt_params

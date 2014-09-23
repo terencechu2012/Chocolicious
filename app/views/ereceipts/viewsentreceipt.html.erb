@@ -1,2 +1,58 @@
-<h1>Ereceipts#viewsentreceipt</h1>
-<p>Find me in app/views/ereceipts/viewsentreceipt.html.erb</p>
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='page-header'>
+			<h1 class='pull-left'><i class='icon-dollar'></i>
+				<!-- span has to be on next line to create that space between the logo and the words -->
+				<span>View Change Reserve-limit Request </span></h1>
+		</div>
+	</div>
+</div>
+<% role = session[:role]%>
+<div class='row'>
+
+	<div class="col-sm-12">
+		<div class="box bordered-box blue-border">
+			<div class="box-header blue-background">
+				<div class="title">
+					View E-receipts
+				</div>
+				<div class="actions">
+
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class="box-content box-no-padding">
+				<div class="responsive-table">
+					<div class="scrollable-area">
+
+						<table class="data-table table table-striped" style="margin-bottom:0;">
+							<thead>
+								<th>Description</th>
+								<th>Receipient Name</th>
+								<th>Receipient Email</th>
+								<th>Received Amount</th>
+								<th>Received Date</th>
+								<th>Issuer</th>	
+
+							</thead>
+							<tbody>
+							<% @receipt.each do|x| %>
+							<tr>
+								<th><%= x.description%></th>
+								<th><%= x.payeename%></th> 
+								<th><%= x.payeemail%></th>
+								<th><%= x.amount%></th>
+								<th><%= x.created_at.to_date%></th>
+								<th><%= x.issuerid%></th>
+							<%end%>
+						</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
