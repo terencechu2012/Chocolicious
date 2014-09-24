@@ -27,6 +27,7 @@
 
 						<table class="data-table table table-striped" style="margin-bottom:0;">
 							<thead>
+								<th>Receipt No.</th>
 								<th>Description</th>
 								<th>Receipient Name</th>
 								<th>Receipient Email</th>
@@ -38,6 +39,7 @@
 							<tbody>
 							<% @receipt.each do|x| %>
 							<tr>
+								<th>SA-<%= x.id%></th>
 								<th><%= x.description%></th>
 								<th><%= x.payeename%></th> 
 								<th><%= x.payeemail%></th>
