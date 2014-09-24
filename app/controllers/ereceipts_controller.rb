@@ -6,12 +6,9 @@ class EreceiptsController < ApplicationController
   def add
     Ereceipt.create(ereceipt_params)
     
-    if params[:ereceipt][:payeename].nil? 
-      flash[:error] = "There was a problem adding your claim. Have you updated your NRIC?"
-    else 
       flash[:success] = "Receipt is recorded. An email is sent to receipient's email address."
       redirect_to :back
-    end
+    
     
   end
   
