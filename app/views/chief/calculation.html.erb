@@ -1,50 +1,112 @@
-<%if session[:role].include? 'smusafinsec'%>
 
-<%=form_tag '/chief/calculation', :method => 'post' do%>
-<div class='form-group'>
-	<label>Choose year:</label>
-	<%= select_tag :year, options_for_select(@a)%>
+
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='page-header'>
+			<h1 class='pull-left'><i class='icon-bar-chart'></i><span> Calculation</span></h1>
+		</div>
+	</div>
 </div>
-<%= submit_tag 'Go', :class => 'btn btn-primary'%>
-<%end%>
+<%if session[:role].include? 'smusafinsec'%>
+<div class='row'>
+	<div class='col-sm-12 col-lg-12'>
+		<div class='box bordered-box'>
+			<div class='box-content box-double-padding'>
+				<%=form_tag '/chief/calculation', :method => 'post' do%>
+
+				<label>Choose year:</label>
+				<%= select_tag :year, options_for_select(@a)%>
+
+				<%= submit_tag 'Go', :class=>"btn btn-success btn-xs"%>
+				<%end%>
+			</div>
+		</div>
+	</div>
+</div>
 
 <%if @test%>
+<div class='row'>
+	<div class="col-sm-12">
+		<div class="box bordered-box blue-border">
+			<div class="box-header blue-background">
+				<div class="title">
+					Total Calculation
+				</div>
+				<div class="actions">
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class="box-content box-no-padding">
+				<div class="responsive-table">
+					<div class="scrollable-area">
 
-<table class='table table-bordered'>
-	<tr>
-		<th>Income</th><th>Amount</th>
-	</tr>
-	<tr>
-		<td>Club collections/Incidental profits</td>
-		<td><%=@clubprofits%></td>
-	</tr>
-	<tr>
-		<td>Donations/Sponsorships</td>
-		<td><%=@clubdonations%></td>
-	</tr>
-</table>
+						<table class="data-table table table-striped" style="margin-bottom:0;">
 
-<table class='table table-bordered'>
-	<tr>
-		<th>Expenditure (Category)</th><th>Amount</th>
-	</tr>
-	<%for i in 65..71 do%>
-		<tr>
-			<td><%=i.chr%></td>
-			<td><%=@hash[i]%></td>
-		</tr>
-	<%end%>
-</table>
-<table class='table table-bordered'>
-	<tr>
-		<th>Expenditure (Code)</th><th>Amount</th>
-	</tr>
-	<%for i in 1..13 do%>
-		<tr>
-			<td><%=i%></td>
-			<td><%=@arr[i]%></td>
-		</tr>
-	<%end%>
-</table>
-<%end%>
+							<thead>
+
+								<th>Income</th><th>Amount</th>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Club collections/Incidental profits</td>
+									<td><%= @clubprofits%></td>
+								</tr>
+								<tr>
+									<td>Donations/Sponsorships</td>
+									<td><%= @clubdonations%></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class='row'>
+	<div class="col-sm-12">
+		<div class="box bordered-box blue-border">
+			<div class="box-header blue-background">
+				<div class="title">
+					Expenditure Calculation
+				</div>
+				<div class="actions">
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class="box-content box-no-padding">
+				<div class="responsive-table">
+					<div class="scrollable-area">
+
+						<table class="table table-striped" style="margin-bottom:0;">
+
+							<tr>
+								<th width="60%">Expenditure (Category)</th><th>Amount</th>
+							</tr>
+							<%for i in 65..71 do%>
+							<tr>
+								<td><%= i.chr%></td>
+								<td><%= @hash[i]%></td>
+							</tr>
+							<%end%>
+						</table>
+						<br/>
+						<table class='table table-striped'>
+							<tr>
+								<th width="60%">Expenditure (Code)</th><th>Amount</th>
+							</tr>
+							<%for i in 1..13 do%>
+							<tr>
+								<td><%= i%></td>
+								<td><%= @arr[i]%></td>
+							</tr>
+							<%end%>
+						</table>
+						<%end%>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 <%end%>

@@ -1,184 +1,241 @@
-<h2>Claim timings</h2>
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='page-header'>
+			<h1 class='pull-left'><i class='icon-time'></i><span> Claim Timings</span></h1>
+		</div>
+	</div>
+</div>
+
 <%
  thisyear = Date.today.year
   a = Array(thisyear-5..thisyear).reverse
   b = Array(1..12)
 %>
+<div class='row'>
+	<div class='col-sm-12 col-lg-12'>
+		<div class='box bordered-box'>
+			<div class='box-content box-double-padding'>
+				<%=form_tag '/chief/claimtimes', :method => 'get' do%>
 
-<%=form_tag '/chief/claimtimes', :method => 'get' do%>
+				<label>Select year:</label> <%= select_tag :year, options_for_select(a)%> <label>Select month:</label> <%= select_tag :month, options_for_select(b)%>
 
-Select year: <%= select_tag :year, options_for_select(a)%>
-Select month: <%= select_tag :month, options_for_select(b)%>
-<%= submit_tag 'Go'%>
-<%end%>
+				<%= submit_tag 'Go', :class=>"btn btn-success btn-xs"%>
+				<%end%>
+			</div>
+		</div>
+	</div>
+</div>
 
 <%if @test%>
-Claims by clubs:
-<table class='table table-bordered'>
-	<tr>
-		<th>Claim Details</th>
-		<th>Submitted to club finsec</th>
-		<th>Submitted to cbd finsec</th>
-		<th>Submitted to OFIN</th>
-		<th>Date completed</th>
-		<th>Overall claim time</th>
-	</tr>
-	<%@clubhash.each do |ch|%>
-	<%c = ch['id']%>
-	<tr>
-		<td>
-		<div class="bs-example-tooltips">
-			<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Claim ID:</b><br /><%= c.id%><br /><b>Claimant</b><br /><%= c.userid%><br /><b>Event:</b><br /><%= c.event%><br /><b>Amount:</b><br /><%= c.amount%>" data-original-title="" title="Details (<%= c.clubid%>)">
-				Details
-			</button>
-		</div></td>
-		<td>
-			<%if ch[1].nil?%>
-			Pending
-			<%else%>
-			<%=ch[1]%>
-			<%end%>
-		</td>
-		<td>
-			<%if ch[3].nil?%>
-			Pending
-			<%else%>
-			<%=ch[3]%>
-			<%end%>
-		</td>
-		<td>
-			<%if ch[4].nil?%>
-			Pending
-			<%else%>
-			<%=ch[4]%>
-			<%end%>
-		</td>
-		<td>
-			<%if ch[5].nil?%>
-			Pending
-			<%else%>
-			<%=ch[5]%>
-			<%end%>
-		</td>
-		<td>
-			<%if ch[5].nil?%>
-			Pending
-			<%else%>
-			<%=(ch[5]-ch[1]).to_i%> days
-			<%end%>
-		</td>
-	</tr>
-	<%end%>
-</table>
+<div class='row'>
+	<div class="col-sm-12">
+		<div class="box bordered-box blue-border">
+			<div class="box-header blue-background">
+				<div class="title">
+					Club Claims
+				</div>
+				<div class="actions">
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class="box-content box-no-padding">
+				<div class="responsive-table">
+					<div class="scrollable-area">
 
-Claims by CBDMC:
-<table class='table table-bordered'>
-	<tr>
-		<th>Claim Details</th>
-		<th>Submitted to cbd finsec</th>
-		<th>Submitted to smusa finsec</th>
-		<th>Submitted to OFIN</th>
-		<th>Date completed</th>
-		<th>Overall claim time</th>
-	</tr>
-	<%@cbdhash.each do |ch|%>
-	<%c = ch['id']%>
-	<tr>
-		<td>
-		<div class="bs-example-tooltips">
-			<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Claim ID:</b><br /><%= c.id%><br /><b>Claimant</b><br /><%= c.userid%><br /><b>Event:</b><br /><%= c.event%><br /><b>Amount:</b><br /><%= c.amount%>" data-original-title="" title="Details (<%= c.clubid%>)">
-				Details
-			</button>
-		</div></td>
-		<td>
-			<%if ch[7].nil?%>
-			Pending
-			<%else%>
-			<%=ch[7]%>
-			<%end%>
-		</td>
-		<td>
-			<%if ch[9].nil?%>
-			Pending
-			<%else%>
-			<%=ch[9]%>
-			<%end%>
-		</td>
-		<td>
-			<%if ch[10].nil?%>
-			Pending
-			<%else%>
-			<%=ch[10]%>
-			<%end%>
-		</td>
-		<td>
-			<%if ch[11].nil?%>
-			Pending
-			<%else%>
-			<%=ch[11]%>
-			<%end%>
-		</td>
-		<td>
-			<%if ch[11].nil?%>
-			Pending
-			<%else%>
-			<%=(ch[11]-ch[7]).to_i%> days
-			<%end%>
-		</td>
-	</tr>
-	<%end%>
-</table>
+						<table class="data-table table table-striped" style="margin-bottom:0;">
 
-Claims by SMUSA Secretaries:
-<table class='table table-bordered'>
-	<tr>
-		<th>Claim Details</th>
-		<th>Submitted to smusa finsec</th>
-		<th>Submitted to OFIN</th>
-		<th>Date completed</th>
-		<th>Overall claim time</th>
-	</tr>
-	<%@smusahash.each do |ch|%>
-	<%c = ch['id']%>
-	<tr>
-		<td>
-		<div class="bs-example-tooltips">
-			<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Claim ID:</b><br /><%= c.id%><br /><b>Claimant</b><br /><%= c.userid%><br /><b>Event:</b><br /><%= c.event%><br /><b>Amount:</b><br /><%= c.amount%>" data-original-title="" title="Details (<%= c.clubid%>)">
-				Details
-			</button>
-		</div></td>
-		<td>
-			<%if ch[14].nil?%>
-			Pending
-			<%else%>
-			<%=ch[14]%>
-			<%end%>
-		</td>
-		<td>
-			<%if ch[15].nil?%>
-			Pending
-			<%else%>
-			<%=ch[15]%>
-			<%end%>
-		</td>
-		<td>
-			<%if ch[16].nil?%>
-			Pending
-			<%else%>
-			<%=ch[16]%>
-			<%end%>
-		</td>
-	
-		<td>
-			<%if ch[16].nil?%>
-			Pending
-			<%else%>
-			<%=(ch[16]-ch[14]).to_i%> days
-			<%end%>
-		</td>
-	</tr>
-	<%end%>
-</table>
+							<thead>
+
+								<th>Claim Details</th>
+								<th>Submitted to club finsec</th>
+								<th>Submitted to cbd finsec</th>
+								<th>Submitted to OFIN</th>
+								<th>Date completed</th>
+								<th>Overall claim time</th>
+
+							</thead>
+							<tbody>
+								<%@clubhash.each do |ch|%>
+								<% c = ch['id']%>
+								<tr>
+									<td>
+									<div class="bs-example-tooltips">
+										<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Claim ID:</b><br /><%= c.id%><br /><b>Claimant</b><br /><%= c.userid%><br /><b>Event:</b><br /><%= c.event%><br /><b>Amount:</b><br /><%= c.amount%>" data-original-title="" title="Details (<%= c.clubid%>)">
+											Details
+										</button>
+									</div></td>
+									<td> <%if ch[1].nil?%>
+									Pending
+									<%else%>
+									<%= ch[1]%>
+									<%end%> </td>
+									<td> <%if ch[3].nil?%>
+									Pending
+									<%else%>
+									<%= ch[3]%>
+									<%end%> </td>
+									<td> <%if ch[4].nil?%>
+									Pending
+									<%else%>
+									<%= ch[4]%>
+									<%end%> </td>
+									<td> <%if ch[5].nil?%>
+									Pending
+									<%else%>
+									<%= ch[5]%>
+									<%end%> </td>
+									<td> <%if ch[5].nil?%>
+									Pending
+									<%else%>
+									<%= (ch[5]-ch[1]).to_i%> days
+									<%end%> </td>
+								</tr>
+								<%end%>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class='row'>
+	<div class="col-sm-12">
+		<div class="box bordered-box blue-border">
+			<div class="box-header blue-background">
+				<div class="title">
+					CBd MC Claims
+				</div>
+				<div class="actions">
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class="box-content box-no-padding">
+				<div class="responsive-table">
+					<div class="scrollable-area">
+
+						<table class="data-table table table-striped" style="margin-bottom:0;">
+
+							<thead>
+								<th>Claim Details</th>
+								<th>Submitted to cbd finsec</th>
+								<th>Submitted to smusa finsec</th>
+								<th>Submitted to OFIN</th>
+								<th>Date completed</th>
+								<th>Overall claim time</th>
+							</thead>
+							<tbody>
+								<%@cbdhash.each do |ch|%>
+								<% c = ch['id']%>
+								<tr>
+									<td>
+									<div class="bs-example-tooltips">
+										<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Claim ID:</b><br /><%= c.id%><br /><b>Claimant</b><br /><%= c.userid%><br /><b>Event:</b><br /><%= c.event%><br /><b>Amount:</b><br /><%= c.amount%>" data-original-title="" title="Details (<%= c.clubid%>)">
+											Details
+										</button>
+									</div></td>
+									<td> <%if ch[7].nil?%>
+									Pending
+									<%else%>
+									<%= ch[7]%>
+									<%end%> </td>
+									<td> <%if ch[9].nil?%>
+									Pending
+									<%else%>
+									<%= ch[9]%>
+									<%end%> </td>
+									<td> <%if ch[10].nil?%>
+									Pending
+									<%else%>
+									<%= ch[10]%>
+									<%end%> </td>
+									<td> <%if ch[11].nil?%>
+									Pending
+									<%else%>
+									<%= ch[11]%>
+									<%end%> </td>
+									<td> <%if ch[11].nil?%>
+									Pending
+									<%else%>
+									<%= (ch[11]-ch[7]).to_i%> days
+									<%end%> </td>
+								</tr>
+								<%end%>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class='row'>
+	<div class="col-sm-12">
+		<div class="box bordered-box blue-border">
+			<div class="box-header blue-background">
+				<div class="title">
+					SMUSA Sec Claims
+				</div>
+				<div class="actions">
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class="box-content box-no-padding">
+				<div class="responsive-table">
+					<div class="scrollable-area">
+
+						<table class="data-table table table-striped" style="margin-bottom:0;">
+
+							<thead>
+								<th>Claim Details</th>
+								<th>Submitted to smusa finsec</th>
+								<th>Submitted to OFIN</th>
+								<th>Date completed</th>
+								<th>Overall claim time</th>
+							</thead>
+							<tbody>
+								<%@smusahash.each do |ch|%>
+								<% c = ch['id']%>
+								<tr>
+									<td>
+									<div class="bs-example-tooltips">
+										<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Claim ID:</b><br /><%= c.id%><br /><b>Claimant</b><br /><%= c.userid%><br /><b>Event:</b><br /><%= c.event%><br /><b>Amount:</b><br /><%= c.amount%>" data-original-title="" title="Details (<%= c.clubid%>)">
+											Details
+										</button>
+									</div></td>
+									<td> <%if ch[14].nil?%>
+									Pending
+									<%else%>
+									<%= ch[14]%>
+									<%end%> </td>
+									<td> <%if ch[15].nil?%>
+									Pending
+									<%else%>
+									<%= ch[15]%>
+									<%end%> </td>
+									<td> <%if ch[16].nil?%>
+									Pending
+									<%else%>
+									<%= ch[16]%>
+									<%end%> </td>
+
+									<td> <%if ch[16].nil?%>
+									Pending
+									<%else%>
+									<%= (ch[16]-ch[14]).to_i%> days
+									<%end%> </td>
+								</tr>
+								<%end%>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
 <%end%>
 
