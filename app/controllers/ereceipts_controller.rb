@@ -4,8 +4,8 @@ class EreceiptsController < ApplicationController
   end
   
   def add
-    Ereceipt.create(ereceipt_params)
-    
+      @ereceipt = Ereceipt.create(ereceipt_params)
+      ReceiptMailer.send_email(@ereceipt).deliver
       flash[:success] = "Receipt is recorded. An email is sent to receipient's email address."
       redirect_to :back
     

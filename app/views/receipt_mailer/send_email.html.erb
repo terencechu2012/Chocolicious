@@ -1,0 +1,43 @@
+<html>
+	Hi here is your fantastic e receipt.
+	Your receipt details:
+	<table>
+		<tr>
+			<td>Issuer ID:</td>
+			<td><%=@ereceipt.issuerid%></td>
+		</tr>
+		<tr>
+			<td>Issuer Name:</td>
+			<td><%=@ereceipt.issuername%></td>
+		</tr>
+		<tr>
+			<td>Club ID:</td>
+			<td><%=@ereceipt.clubid%></td>
+		</tr>
+		<tr>
+			<td>Amount:</td>
+			<td><%=@ereceipt.issuerid%></td>
+		</tr>
+		<tr>
+			<td>GST:</td>
+			<%gst = @ereceipt.gst
+			if !gst.nil?%>
+			<td><%=@ereceipt.gst%></td>
+			<%else%>
+			<td>No GST specified</td>
+			<%end%>
+		</tr>
+		<tr>
+			<td>Payment type:</td>
+			<td><%=@ereceipt.paytype%></td>
+		</tr>
+		<tr>
+			<td>Description:</td>
+			<td><%=@ereceipt.description%></td>
+		</tr>
+		<tr>
+			<td>Date of transaction:</td>
+			<td><%=@ereceipt.created_at%></td>
+		</tr>
+	</table>
+</html>
