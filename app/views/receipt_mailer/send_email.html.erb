@@ -1,43 +1,57 @@
 <html>
-	Hi here is your fantastic e receipt.
-	Your receipt details:
-	<table>
-		<tr>
-			<td>Issuer ID:</td>
-			<td><%=@ereceipt.issuerid%></td>
+	<table bgcolor='#f4f7f9' border='0' cellpadding='0' cellspacing='0' id='backgroundTable' style='background: #f4f7f9;' width='100%'>
+		<tr  align='center'>
+			<td width="30%" colspan="3"><h1>AIS<font color="#999999"> e-Receipts</font></h1></td>
+		</tr>
+		<tr align='center'>
+			<table bgcolor="white" width="80%" cellpadding="10px">
+				<tr>
+					<td width="33%"><h1><font color="red">From</font></h1></td><td width="33%"><h1><font color="red">To</font></h1></td><td><h1><font color="#999999">Info</font></h1></td>
+				</tr>
+				<tr>
+					<td valign="top"><strong><%= @ereceipt.issuername%></strong>
+					<br />
+					<%= @ereceipt.issuerid%>
+					<br />
+					<%= @ereceipt.clubid%>
+					<br />
+					<br />
+					</td>
+					<td valign="top"><strong><%= @ereceipt.payeename%></strong>
+					<br />
+					<br />
+					<small><%= @ereceipt.payeemail%></small></td>
+					<td valign="top">Transaction Date:
+					<br />
+					<strong><%= @ereceipt.created_at%></strong></td>
+				</tr>
+				<tr>
+					<td colspan="3">
+					<table style="border: 1px solid #dce1e5;" width="100%" cellpadding="3px">
+						<tr bgcolor="#dce1e5">
+							<th width="20%" align="center">Choice of Payment</th>
+							<th align="left">Description</th>
+							<th align="right" width="20%"> Amount </th>
+							<th align="right" width="20%"> GST </th>
+						</tr>
+						<tr>
+							<td align="center"><%= @ereceipt.paytype%></td>
+							<td align="left"><%= @ereceipt.description%></td>
+							<td align="right"> $ <%= @ereceipt.amount%></td>
+							<td align="right"> <%gst = @ereceipt.gst
+							if !gst.nil?%>
+							$ <%= @ereceipt.gst%>
+							<%else%>
+							No GST specified
+							<%end%> </td>
+						</tr>
+					</table></td>
+				</tr>
+			</table>
 		</tr>
 		<tr>
-			<td>Issuer Name:</td>
-			<td><%=@ereceipt.issuername%></td>
+			<td align="center" colspan="3"> <h4>e-Receipt generated using SMUSA Accounting Information System (AIS) </h4></td>
 		</tr>
-		<tr>
-			<td>Club ID:</td>
-			<td><%=@ereceipt.clubid%></td>
-		</tr>
-		<tr>
-			<td>Amount:</td>
-			<td><%=@ereceipt.issuerid%></td>
-		</tr>
-		<tr>
-			<td>GST:</td>
-			<%gst = @ereceipt.gst
-			if !gst.nil?%>
-			<td><%=@ereceipt.gst%></td>
-			<%else%>
-			<td>No GST specified</td>
-			<%end%>
-		</tr>
-		<tr>
-			<td>Payment type:</td>
-			<td><%=@ereceipt.paytype%></td>
-		</tr>
-		<tr>
-			<td>Description:</td>
-			<td><%=@ereceipt.description%></td>
-		</tr>
-		<tr>
-			<td>Date of transaction:</td>
-			<td><%=@ereceipt.created_at%></td>
-		</tr>
+
 	</table>
 </html>
