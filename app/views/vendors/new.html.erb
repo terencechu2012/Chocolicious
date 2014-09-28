@@ -1,0 +1,46 @@
+<h2>Add new vendor review</h2>
+
+<%=form_for @new_vendor, :url => { :action => "add" } do |f| %>
+<%a = Array(1..9)
+b = Array(1..5)%>
+Enter the vendor's name:
+<%=f.text_field :name%>
+Enter the vendor's contact:
+<%=f.text_field :contact%>
+Enter the vendor's address:
+<%=f.text_field :address%>
+Enter the vendor's category:
+<%=f.select :category, options_for_select(a)%>
+<br><br />
+<h3>Ratings</h3>
+Price:
+<%=f.select :price, options_for_select(b)%>
+Quality:
+<%=f.select :quality, options_for_select(b)%>
+Punctuality:
+<%=f.select :punctuality, options_for_select(b)%>
+Customer Service:
+<%=f.select :customerservice, options_for_select(b)%>
+Overall:
+<%=f.select :overall, options_for_select(b)%>
+<%=f.hidden_field :reviewers, :value => 1%>
+<%=f.submit 'Add vendor'%>
+<%end%>
+
+<br><br>
+<table>
+<tr><th>Logistics</th><th>&nbsp;</th></tr>
+ <tr><td>1</td><td>Assets</td></tr>
+ <tr><td>2</td><td>PA Systems</td></tr>
+ <tr><td>3</td><td>Sports equipments</td></tr>
+ <tr><td>4</td><td>Arts equipments</td></tr>
+ <tr><td>Food</td><td>&nbsp;</td></tr>
+ <tr><td>5</td><td>Catering</td></tr>
+ <tr><td>6</td><td>Packed meals</td></tr>
+ <tr><td>Transport</td><td>&nbsp;</td></tr>
+ <tr><td>7</td><td>Vehicle to transport logistics</td></tr>
+ <tr><td>8</td><td>Vehicle to transport people</td></tr>
+ <tr><td>External Venues</td><td>&nbsp;</td></tr>
+ <tr><td>9</td><td>Booking of spaces for events</td></tr>
+</table>
+

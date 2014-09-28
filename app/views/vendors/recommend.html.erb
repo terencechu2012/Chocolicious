@@ -1,0 +1,42 @@
+<h2>Recommendation page</h2>
+<%=form_tag '/vendors/recommend2', :method=> 'get' do%>
+Select category:
+<%a = Array(1..9)
+b = Array(1..10)%>
+<%=select_tag :category, options_for_select(a)%>
+<br>Input weights:
+<br>
+Price:
+<%=select_tag :price, options_for_select(b)%>
+Quality:
+<%=select_tag :quality, options_for_select(b)%>
+Punctuality:
+<%=select_tag :punctuality, options_for_select(b)%>
+Customer Service:
+<%=select_tag :customerservice, options_for_select(b)%>
+Overall:
+<%=select_tag :overall, options_for_select(b)%>
+
+<br>
+Number of results:
+<%=number_field_tag :results, :min => 1, :max => 500%>
+
+<%=submit_tag 'View recommendations'%>
+<%end%>
+
+<table class="tableizer-table">
+<tr class="tableizer-firstrow"><th>Logistics</th><th>&nbsp;</th></tr>
+ <tr><td>1</td><td>Assets</td></tr>
+ <tr><td>2</td><td>PA Systems</td></tr>
+ <tr><td>3</td><td>Sports equipments</td></tr>
+ <tr><td>4</td><td>Arts equipments</td></tr>
+ <tr><td>Food</td><td>&nbsp;</td></tr>
+ <tr><td>5</td><td>Catering</td></tr>
+ <tr><td>6</td><td>Packed meals</td></tr>
+ <tr><td>Transport</td><td>&nbsp;</td></tr>
+ <tr><td>7</td><td>Vehicle to transport logistics</td></tr>
+ <tr><td>8</td><td>Vehicle to transport people</td></tr>
+ <tr><td>External Venues</td><td>&nbsp;</td></tr>
+ <tr><td>9</td><td>Booking of spaces for events</td></tr>
+</table>
+

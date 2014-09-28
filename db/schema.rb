@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140923073525) do
+ActiveRecord::Schema.define(version: 20140928083238) do
 
   create_table "archive_budget_expenses", force: true do |t|
     t.integer  "budget_id"
@@ -392,6 +392,21 @@ ActiveRecord::Schema.define(version: 20140923073525) do
     t.string   "unconfirmed_email"
     t.string   "fullname"
     t.string   "contactno"
+  end
+
+  create_table "vendors", force: true do |t|
+    t.string   "name"
+    t.string   "contact"
+    t.string   "address"
+    t.integer  "category"
+    t.decimal  "price",           precision: 5, scale: 4
+    t.decimal  "quality",         precision: 5, scale: 4
+    t.decimal  "punctuality",     precision: 5, scale: 4
+    t.decimal  "customerservice", precision: 5, scale: 4
+    t.decimal  "overall",         precision: 5, scale: 4
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "reviewers"
   end
 
 end

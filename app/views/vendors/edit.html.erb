@@ -1,0 +1,22 @@
+<h2>Add review for existing vendor</h2>
+<%=form_for @new_vendor, :url => { :action => "edit2" } do |f| %>
+<%a = Array(1..9)
+b = Array(1..5)%>
+Select the vendor's name:
+<%=f.select :id, options_from_collection_for_select(@vendors, 'id', 'name')%>
+
+<br><br />
+<h3>Ratings</h3>
+Price:
+<%=f.select :price, options_for_select(b)%>
+Quality:
+<%=f.select :quality, options_for_select(b)%>
+Punctuality:
+<%=f.select :punctuality, options_for_select(b)%>
+Customer Service:
+<%=f.select :customerservice, options_for_select(b)%>
+Overall:
+<%=f.select :overall, options_for_select(b)%>
+
+<%=f.submit 'Add review'%>
+<%end%>

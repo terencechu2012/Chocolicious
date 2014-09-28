@@ -149,6 +149,11 @@ class ClaimsController < ApplicationController
     contact = claimant.contactno
     nric = claim.nric
     eventname = claim.event
+    if eventname.nil?
+      eventname = '#'+claim.id.to_s+'#'
+    else
+      eventname = eventname+'#'+claim.id.to_s+'#'
+    end
     amount = claim.amount
     category = claim.category
     expense = claim.expense
@@ -252,6 +257,11 @@ class ClaimsController < ApplicationController
     contact = claimant.contactno
     nric = claim.nric
     eventname = claim.event
+    if eventname.nil?
+      eventname = '#'+claim.id.to_s+'#'
+    else
+      eventname = eventname+'#'+claim.id.to_s+'#'
+    end
     amount = claim.amount
     category = claim.category
     expense = claim.expense
@@ -355,6 +365,11 @@ class ClaimsController < ApplicationController
     contact = claimant.contactno
     nric = claim.nric
     eventname = claim.event
+    if eventname.nil?
+      eventname = '#'+claim.id.to_s+'#'
+    else
+      eventname = eventname+'#'+claim.id.to_s+'#'
+    end
     amount = claim.amount
     category = claim.category
     expense = claim.expense

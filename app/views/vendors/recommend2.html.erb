@@ -1,0 +1,22 @@
+<h2>Recommendation page</h2>
+
+<h3>Here are your results:</h3>
+<table class='table table-bordered'>
+	<tr>
+		<th>Rank</th>
+		<th>Name</th>
+		<th>Contact</th>
+		<th>Address</th>
+	</tr>
+	<%for i in 0..@number-1 do%>
+		<%v = @result[i]%>
+		<%if !v.nil?%>
+			<tr>
+				<td><%=i+1%></td>
+				<td><%=v.name%></td>
+				<td><%=v.contact%></td>
+				<td><%=v.address%></td>
+			</tr>
+		<%end%>
+	<%end%>
+</table>

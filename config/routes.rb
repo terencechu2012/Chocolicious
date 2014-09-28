@@ -215,6 +215,13 @@ Rails.application.routes.draw do
   post 'ereceipts/viewsentreceipt'
   get 'ereceipts/add'
   post 'ereceipts/add'
+  
+  get 'vendors/new'
+  post 'vendors/add'
+  get 'vendors/edit'
+  post 'vendors/edit2'
+  get 'vendors/recommend'
+  get 'vendors/recommend2'
  
 # The priority is based upon order of creation: first created -> highest priority.
 # See how all your routes lay out with "rake routes".
