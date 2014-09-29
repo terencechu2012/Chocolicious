@@ -1,30 +1,70 @@
-<h2>Recommendation page</h2>
-<%=form_tag '/vendors/recommend2', :method=> 'get' do%>
-Select category:
-<%a = Array(1..9)
-b = Array(1..10)%>
-<%=select_tag :category, options_for_select(a)%>
-<br>Input weights:
-<br>
-Price:
-<%=select_tag :price, options_for_select(b)%>
-Quality:
-<%=select_tag :quality, options_for_select(b)%>
-Punctuality:
-<%=select_tag :punctuality, options_for_select(b)%>
-Customer Service:
-<%=select_tag :customerservice, options_for_select(b)%>
-Overall:
-<%=select_tag :overall, options_for_select(b)%>
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='page-header'>
+			<h1 class='pull-left'><i class='icon-search'></i><span> Get Recommendation</span></h1>
+		</div>
+	</div>
+</div>
+<div class='row'>
+	<div class='col-sm-12 col-lg-12'>
+		<div class='box bordered-box'>
+			<div class='box-content box-double-padding'>
+				<%=form_tag '/vendors/recommend2', :method=> 'get' do%>
+				<fieldset>
+					<div class='col-sm-4'>
+						<div class='lead'>
+							<i class='icon-file-alt text-contrast'></i>
+							Notes On Searching for Vendor
+						</div>
+						<small class='text-muted'>The Vendor Search algorithm uses weightages assigned by you to the different aspects of Vendors, to rank the vendors and return the top X number of results (where X is specified by you when you request for search).</small>
+					</div>
+					<div class='col-sm-7 col-sm-offset-1'>
+						<h3>Vendor Information</h3>
+						<div class="form-group">
+							<label>Select category</label>
+							<%a = Array(1..9)
+							b = Array(1..10)%>
+							<%=select_tag :category, "<optgroup label='Logistics'><option value='1'>Assets</option><option value='2'>PA Systems</option><option value='3'>Sports Equipments</option><option value='4'>Arts Equipments</option></optgroup><optgroup label='Food'><option value='5'>Catering</option><option value='6'>Packed Meals</option></optgroup><optgroup label='Transport'><option value='7'>Vehicle to transport logistics</option><option value='8'>Vehicle to transport people</option></optgroup><optgroup label='External Venues'><option value='9'>Booking of spaces for events</option></optgroup>".html_safe, :class=>"select2 form-control"%>
+						</div>
+						<hr />
+						<h3>Input weights</h3>
+						<div class="form-group">
+							<label>Price</label>
+							<%=select_tag :price, options_for_select(b), :class=>"select2 form-control"%>
+						</div>
+						<div class="form-group">
+							<label>Quality</label>
+							<%=select_tag :quality, options_for_select(b), :class=>"select2 form-control"%>
+						</div>
+						<div class="form-group">
+							<label>Punctuality</label>
+							<%=select_tag :punctuality, options_for_select(b), :class=>"select2 form-control"%>
+						</div>
+						<div class="form-group">
+							<label>Customer Service</label>
+							<%=select_tag :customerservice, options_for_select(b), :class=>"select2 form-control"%>
+						</div>
+						<div class="form-group">
+							<label>Overall</label>
+							<%=select_tag :overall, options_for_select(b), :class=>"select2 form-control"%>
+						</div>
+						<div class="form-group">
+							<label>Number of results</label>
+							<%=number_field_tag :results, :min => 1, :max => 500,:class=>"form-control"%>
+						</div>
+					</fieldset>
+					<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
+						<div class='text-right'>
+							<%=submit_tag 'View recommendations'%>
+						</div>
+					</div>
+				</div>
+			<%end%>
+		</div>
+	</div>
+</div>
 
-<br>
-Number of results:
-<%=number_field_tag :results, :min => 1, :max => 500%>
-
-<%=submit_tag 'View recommendations'%>
-<%end%>
-
-<table class="tableizer-table">
+<!-- <table class="tableizer-table">
 <tr class="tableizer-firstrow"><th>Logistics</th><th>&nbsp;</th></tr>
  <tr><td>1</td><td>Assets</td></tr>
  <tr><td>2</td><td>PA Systems</td></tr>
@@ -38,5 +78,4 @@ Number of results:
  <tr><td>8</td><td>Vehicle to transport people</td></tr>
  <tr><td>External Venues</td><td>&nbsp;</td></tr>
  <tr><td>9</td><td>Booking of spaces for events</td></tr>
-</table>
-
+</table> -->

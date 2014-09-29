@@ -1,22 +1,62 @@
-<h2>Add review for existing vendor</h2>
-<%=form_for @new_vendor, :url => { :action => "edit2" } do |f| %>
-<%a = Array(1..9)
-b = Array(1..5)%>
-Select the vendor's name:
-<%=f.select :id, options_from_collection_for_select(@vendors, 'id', 'name')%>
-
-<br><br />
-<h3>Ratings</h3>
-Price:
-<%=f.select :price, options_for_select(b)%>
-Quality:
-<%=f.select :quality, options_for_select(b)%>
-Punctuality:
-<%=f.select :punctuality, options_for_select(b)%>
-Customer Service:
-<%=f.select :customerservice, options_for_select(b)%>
-Overall:
-<%=f.select :overall, options_for_select(b)%>
-
-<%=f.submit 'Add review'%>
-<%end%>
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='page-header'>
+			<h1 class='pull-left'><i class='icon-plus-sign'></i><span> Add Review for Existing Vendor</span></h1>
+		</div>
+	</div>
+</div>
+<div class='row'>
+	<div class='col-sm-12 col-lg-12'>
+		<div class='box bordered-box'>
+			<div class='box-content box-double-padding'>
+				<%=form_for @new_vendor, :url => { :action => "edit2" } do |f| %>
+				<fieldset>
+					<div class='col-sm-4'>
+						<div class='lead'>
+							<i class='icon-file-alt text-contrast'></i>
+							Notes On Adding <strong>New</strong> Review to <strong>Existing</strong> Vendor
+						</div>
+						<small class='text-muted'> Think through the ratings carefully as reviews will be used to rank vendors in the system. Giving a poorly thought out review will result in less accurate search results in the future when searching for a vendor for your future events. <br /><br /><strong>5 is the highest rating while 1 is the lowest.</strong></small>
+					</div>
+					<div class='col-sm-7 col-sm-offset-1'>
+						<h3>Review Ratings</h3>
+		
+							<%a = Array(1..9)
+							b = Array(1..5)%>
+							<div class='form-group'>
+								<label>Select the vendor's name</label>
+								<%=f.select :id, options_from_collection_for_select(@vendors, 'id', 'name'), {}, {:class=>"select2 form-control"}%>
+							</div>
+							<h3>Ratings</h3>
+							<div class='form-group'>
+								<label>Price</label>
+								<%=f.select :price, options_for_select(b), {}, {:class=>"select2 form-control"}%>
+							</div>
+							<div class='form-group'>
+								<label>Quality</label>
+								<%=f.select :quality, options_for_select(b), {}, {:class=>"select2 form-control"}%>
+							</div>
+							<div class='form-group'>
+								<label>Punctuality</label>
+								<%=f.select :punctuality, options_for_select(b), {}, {:class=>"select2 form-control"}%>
+							</div>
+							<div class='form-group'>
+								<label>Customer Service</label>
+								<%=f.select :customerservice, options_for_select(b), {}, {:class=>"select2 form-control"}%>
+							</div>
+							<div class='form-group'>
+								<label>Overall</label>
+								<%=f.select :overall, options_for_select(b), {}, {:class=>"select2 form-control"}%>
+							</div>
+						</fieldset>
+						<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
+							<div class='text-right'>
+								<%=f.submit 'Add review', :class=>"btn btn-primary btn-lg blue-background"%>
+							</div>
+						</div>
+					</div>
+				<%end%>
+			</div>
+		</div>
+	</div>
+</div>
