@@ -20,7 +20,8 @@
 						</div>
 						<small class='text-muted'>
 							<p>
-								The preloaded values are those that you have input previously. Edit the inputs to change your claim details.
+								There are 7 Categories and 13 Expense Categories for claims, do make sure you look through all the choices before editing your claim, this will greatly help us in processing your claims. Thank you for your consideration!
+								<br />Edit the inputs to change your claim details.
 							</p>
 						</small>
 					</div>
@@ -33,15 +34,16 @@
 						</div>
 						<% a = Array(1..13)%>
 						<% b = ['A','B','C','D','E','F']%>
+						
 						<div class='form-group'>
 							<label>Select Category</label>
 							<br />
-							<%= f.select(:category, options_for_select(b), {}, {:class=>"select2 form-control"})%>
+							<%= f.select(:category, grouped_options_for_select(@grouped_category,@claim.category), {}, {:class=>"select2 form-control"})%>
 						</div>
 						<div class='form-group'>
 							<label>Select Expense Category</label>
 							<br />
-							<%= f.select(:expense, options_for_select(a), {}, {:class=>"select2 form-control"})%>
+							<%= f.select(:expense, grouped_options_for_select(@grouped_expense,@claim.expense), {}, {:class=>"select2 form-control"})%>
 						</div>
 
 						<div class='form-group'>
@@ -81,9 +83,7 @@
 						</div>
 						<small class='text-muted'>
 							<p>
-								Please look through the values that you have input, and make the changes where necessary.
-								<br />
-								are 13 Categories for claims, do make sure you look through all 13 in the table below before making your claim, this will greatly help us in processing your claims. Thank you for your consideration!
+								There are 13 Categories for claims, do make sure you look through all 13 in the choices before editing your claim, this will greatly help us in processing your claims. Thank you for your consideration!
 							</p> </small>
 					</div>
 					<div class='col-sm-7 col-sm-offset-1'>
@@ -97,7 +97,7 @@
 						<div class='form-group'>
 							<label>Select Category</label>
 							<br />
-							<%= f.select(:category, options_for_select(a))%>
+							<%= f.select(:category, grouped_options_for_select(@grouped_category,@claim.category), {}, {:class=>"select2 form-control"})%>
 						</div>
 
 						<div class='form-group'>

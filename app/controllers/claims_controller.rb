@@ -11,6 +11,25 @@ class ClaimsController < ApplicationController
     year = control.year
     semester = control.semester
     @events = Budget.where(clubid:clubid, year:year, semester:semester)
+    @grouped_expense = {
+      'Assets maintenance and repair' => [['Equipment with life-span of > 1 year','1']],
+      'Assets purchases (Equipment with life-span of > 1 year)' => [['Assets purchases <= $100','2'],['Assets purchases $100 < X < $500','3'],['Assets purchases > $500','4']],
+      'Attire' => [['Attire used for competitive purposes or authorized by the SMUSA Finance Secretary','5']],
+      'Coaching Fees' => [['Fees to trainers/coaches','6']],
+      'Facilities booking/clubs membership payment to organisation' => [['Rent Fees/Membership Payment','7']],
+      'Gifts' => [['Gifts/Prizes/Awards','8']],
+      'Publicity' => [['General costs of marketing materials etc','9']],
+      'Stationery' => [['Stationery material for club administrative purposes','10']],
+      'Food and Beverages' => [['Welfare events such as BBQ, food gathering, FOR MEMBERS OF CLUB ONLY','11']],
+      'Transport' => [['Fees for transportation','12']],
+      'Miscellaneous' => [['Any misc. expenses that do not fall into the above cateogories','13']]
+    }
+    @grouped_category = {
+      'Internal' => [['Within SMU only/SMU events&competitions (e.g Vivace, school held competitions)','A']],
+      'External' => [['Inter-uni/with external organisations (Competitions e.g. taking part in IVP)','B'],['Inter-uni/with external organisations (Non-competitive e.g. tri-uni conferences)','C']],
+      'Club-organised activties' => [['Training/Lessons/Internal club events','D'],['Events open to SMU Students only (e.g expeditions, runabout, Waikiki)','E'],['Events open to SMU Students and/or external participants (e.g IVPs, Women football clinics)','F']],
+      'Administrative Operations' => [['Meetings, noticeboard decorating etc','G']]
+    }
   end
 
   def editclaim
@@ -21,6 +40,25 @@ class ClaimsController < ApplicationController
     semester = control.semester
     @events = Budget.where(clubid:clubid, year:year, semester:semester)
     @own = params[:own]
+    @grouped_expense = {
+      'Assets maintenance and repair' => [['Equipment with life-span of > 1 year','1']],
+      'Assets purchases (Equipment with life-span of > 1 year)' => [['Assets purchases <= $100','2'],['Assets purchases $100 < X < $500','3'],['Assets purchases > $500','4']],
+      'Attire' => [['Attire used for competitive purposes or authorized by the SMUSA Finance Secretary','5']],
+      'Coaching Fees' => [['Fees to trainers/coaches','6']],
+      'Facilities booking/clubs membership payment to organisation' => [['Rent Fees/Membership Payment','7']],
+      'Gifts' => [['Gifts/Prizes/Awards','8']],
+      'Publicity' => [['General costs of marketing materials etc','9']],
+      'Stationery' => [['Stationery material for club administrative purposes','10']],
+      'Food and Beverages' => [['Welfare events such as BBQ, food gathering, FOR MEMBERS OF CLUB ONLY','11']],
+      'Transport' => [['Fees for transportation','12']],
+      'Miscellaneous' => [['Any misc. expenses that do not fall into the above cateogories','13']]
+    }
+    @grouped_category = {
+      'Internal' => [['Within SMU only/SMU events&competitions (e.g Vivace, school held competitions)','A']],
+      'External' => [['Inter-uni/with external organisations (Competitions e.g. taking part in IVP)','B'],['Inter-uni/with external organisations (Non-competitive e.g. tri-uni conferences)','C']],
+      'Club-organised activties' => [['Training/Lessons/Internal club events','D'],['Events open to SMU Students only (e.g expeditions, runabout, Waikiki)','E'],['Events open to SMU Students and/or external participants (e.g IVPs, Women football clinics)','F']],
+      'Administrative Operations' => [['Meetings, noticeboard decorating etc','G']]
+    }
   end
   
   def deleteclaim

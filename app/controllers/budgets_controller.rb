@@ -10,7 +10,19 @@ class BudgetsController < ApplicationController
     year = c.year
     semester = c.semester
     @budgets = Budget.where(:clubid => session[:club], :year => year, :semester => semester)
-    
+    @grouped_expense = {
+      'Assets maintenance and repair' => [['Equipment with life-span of > 1 year','1']],
+      'Assets purchases (Equipment with life-span of > 1 year)' => [['Assets purchases <= $100','2'],['Assets purchases $100 < X < $500','3'],['Assets purchases > $500','4']],
+      'Attire' => [['Attire used for competitive purposes or authorized by the SMUSA Finance Secretary','5']],
+      'Coaching Fees' => [['Fees to trainers/coaches','6']],
+      'Facilities booking/clubs membership payment to organisation' => [['Rent Fees/Membership Payment','7']],
+      'Gifts' => [['Gifts/Prizes/Awards','8']],
+      'Publicity' => [['General costs of marketing materials etc','9']],
+      'Stationery' => [['Stationery material for club administrative purposes','10']],
+      'Food and Beverages' => [['Welfare events such as BBQ, food gathering, FOR MEMBERS OF CLUB ONLY','11']],
+      'Transport' => [['Fees for transportation','12']],
+      'Miscellaneous' => [['Any misc. expenses that do not fall into the above cateogories','13']]
+    }
   end
   
   def reviewmain
@@ -22,6 +34,20 @@ class BudgetsController < ApplicationController
       
     end
     @budgets = Budget.where(:clubid => session[:tempclub], :year => session[:tempyear], :semester => session[:tempsem])
+    @grouped_expense = {
+      'Assets maintenance and repair' => [['Equipment with life-span of > 1 year','1']],
+      'Assets purchases (Equipment with life-span of > 1 year)' => [['Assets purchases <= $100','2'],['Assets purchases $100 < X < $500','3'],['Assets purchases > $500','4']],
+      'Attire' => [['Attire used for competitive purposes or authorized by the SMUSA Finance Secretary','5']],
+      'Coaching Fees' => [['Fees to trainers/coaches','6']],
+      'Facilities booking/clubs membership payment to organisation' => [['Rent Fees/Membership Payment','7']],
+      'Gifts' => [['Gifts/Prizes/Awards','8']],
+      'Publicity' => [['General costs of marketing materials etc','9']],
+      'Stationery' => [['Stationery material for club administrative purposes','10']],
+      'Food and Beverages' => [['Welfare events such as BBQ, food gathering, FOR MEMBERS OF CLUB ONLY','11']],
+      'Transport' => [['Fees for transportation','12']],
+      'Miscellaneous' => [['Any misc. expenses that do not fall into the above cateogories','13']]
+    }
+ 
   end
   def control
     @control = BudgetControl.find_by_id(1)
