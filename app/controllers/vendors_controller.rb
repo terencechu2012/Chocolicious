@@ -30,7 +30,7 @@ class VendorsController < ApplicationController
     params.require(:vendor).permit!
   end
   def recommend
-    
+   
   end
   def recommend2
     category = params[:category]
