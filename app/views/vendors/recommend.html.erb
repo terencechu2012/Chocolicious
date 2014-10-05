@@ -17,7 +17,7 @@
 							<i class='icon-file-alt text-contrast'></i>
 							Notes On Searching for Vendor
 						</div>
-						<small class='text-muted'>The Vendor Search algorithm uses weightages assigned by you to the different aspects of Vendors, to rank the vendors and return the top X number of results (where X is specified by you when you request for search).</small>
+						<small class='text-muted'>The Vendor Search algorithm uses weightages assigned by you to the different aspects of Vendors, to rank the vendors and return the top X number of results (where X is specified by you when you request for search). <br/><br/>You have 10 tokens to ditribute to the various categories, you have to use all 10, no more, no less. <br/><br/>The objective of which is to help you really think through which category is of more importance to you. There is a counter in the purple box, it will record the number oftokens left available for weightage as you select more choices.</small>
 					</div>
 					<div class='col-sm-7 col-sm-offset-1'>
 						<h3>Vendor Information</h3>
@@ -29,33 +29,34 @@
 						</div>
 						<hr />
 						<h3>Input weights</h3>
+						<label>Tokens left </label> <input id="tokensLeft" class="btn btn-info btn-lg" value="10" type="button" disabled="true"/>
 						<div class="form-group">
 							<label>Price</label>
 							
-							<select class="select2 form-control" id="price" name="price"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select>
+							<select class="select2 form-control" id="price" name="price" onchange="tokenCheck()"><option value='0'>0</option><option value='1'>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select>
 						</div>
 						<div class="form-group">
 							<label>Quality</label>
 					
-							<select class="select2 form-control" id="quality" name="quality"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select>
+							<select class="select2 form-control" id="quality" name="quality" onchange="tokenCheck()"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select>
 
 						</div>
 						<div class="form-group">
 							<label>Punctuality</label>
 							
-							<select class="select2 form-control" id="punctuality" name="punctuality"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select>
+							<select class="select2 form-control" id="punctuality" name="punctuality" onchange="tokenCheck()"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select>
 
 						</div>
 						<div class="form-group">
 							<label>Customer Service</label>
 							
-							<select class="select2 form-control" id="customerservice" name="customerservice"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select>
+							<select class="select2 form-control" id="customerservice" name="customerservice" onchange="tokenCheck()"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select>
 
 						</div>
 						<div class="form-group">
 							<label>Overall</label>
 							
-							<select class="select2 form-control" id="overall" name="overall"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select>
+							<select class="select2 form-control" id="overall" name="overall" onchange="tokenCheck()"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select>
 
 						</div>
 						<div class="form-group">
@@ -78,24 +79,42 @@
 	</div>
 </div>
 
-<%=javascript_tag do%>
+<script>
 
-function validate(){
-<!-- var x; -->
-	var sum = 0;
-	sum += parseInt(document.getElementById('price').value);
-	sum += parseInt(document.getElementById('quality').value);
-	sum += parseInt(document.getElementById('punctuality').value);
-	sum += parseInt(document.getElementById('customerservice').value);
-	sum += parseInt(document.getElementById('overall').value);
-	if(  sum != 10){
-        alert('Sum of weights must be 10');
-        return false;
-    }
-<!-- document.getElementById("pres").innerHTML = x; -->
-}
+	function tokenCheck(){
+		var sum = 0;
+		sum += parseInt(document.getElementById('price').value);
+		sum += parseInt(document.getElementById('quality').value);
+		sum += parseInt(document.getElementById('punctuality').value);
+		sum += parseInt(document.getElementById('customerservice').value);
+		sum += parseInt(document.getElementById('overall').value);
+		var max = 10;
+		var left = max - sum;
+		if(left < 0){
+			alert("Not enough weightage tokens for the last weightage assigned, please revise your choice!");
+		}else{
+			document.getElementById("tokensLeft").value=left;
+		}
+		
+	}
+	document.load(tokenCheck());
+	function validate(){
+	
+		var sum = 0;
+		sum += parseInt(document.getElementById('price').value);
+		sum += parseInt(document.getElementById('quality').value);
+		sum += parseInt(document.getElementById('punctuality').value);
+		sum += parseInt(document.getElementById('customerservice').value);
+		sum += parseInt(document.getElementById('overall').value);
+		if(  sum != 10){
+	        alert('Sum of weights must be 10');
+	        return false;
+	    }
+	    
+	
+	}
+</script>
 
-<%end%>
 
 
 <!-- <table class="tableizer-table">
