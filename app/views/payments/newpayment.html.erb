@@ -1,0 +1,88 @@
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='page-header'>
+			<h1 class='pull-left'><i class='icon-plus-sign'></i><span>Make Payment to Vendor</span></h1>
+		</div>
+	</div>
+</div>
+
+<% role = session[:role]%>
+<%if current_user.nric.nil? || current_user.nric.empty? || current_user.fullname.nil? || current_user.fullname.empty? || current_user.contactno.nil? || current_user.contactno.empty?%>
+<p>
+	Please set your user details before making a Payment!
+</p>
+<%else%>
+<div class='row'>
+	<div class='col-sm-12 col-lg-12'>
+		<div class='box bordered-box'>
+			<div class='box-content box-double-padding'>
+				<%= form_for @new_payment, :url => { :action => "add" }, :method => :POST, :html => { :multipart => true }  do |f|  %>
+				<fieldset>
+					<div class='col-sm-4'>
+						<div class='lead'>
+							<i class='icon-file-alt text-contrast'></i>
+							Notes On New Payment
+						</div>
+						<small class='text-muted'> There are 7 categories and 13 expense categories for payments, do make sure you look through all 13 in the table below before making your payment, this will greatly help us in processing your payments. Thank you for your consideration! </small>
+					</div>
+					<div class='col-sm-7 col-sm-offset-1'>
+						<h3>Payment Information</h3>
+						<div class='form-group'>
+
+							<%= f.hidden_field(:userid, :value => session[:userid])%>
+							<%= f.hidden_field(:clubid, :value => session[:club])%>
+							<label>Payment Amount (SGD)*</label> <i>(e.g. 40.90)</i>
+							<br />
+							<%= f.number_field(:amount, :step => 0.01, :min => 0, :max=>99999999,:class=>"form-control", :required => true) %>
+						</div>
+
+						<% a = Array(1..13)%>
+						<% b = ['A','B','C','D','E','F','G']%>
+
+						<%if role.include? 'normal'%>
+						<%= f.hidden_field(:status, :value => 0)%>
+						<%elsif role.include? 'cbdmc'%>
+						<%= f.hidden_field(:status, :value => 6)%>
+						<%elsif role.include? 'smusasec'%>
+						<%= f.hidden_field(:status, :value => 12)%>
+						<%end%>
+
+						<div class='form-group'>
+							<label>Select Category</label>
+							<br />
+							<%= f.select(:category, grouped_options_for_select(@grouped_category), {}, {:class=>"select2 form-control"})%>
+						</div>
+						<div class='form-group'>
+							<label>Select Expense Category*</label>
+							<br />
+							<%= f.select(:expense, grouped_options_for_select(@grouped_expense), {}, {:class=>"select2 form-control"})%>
+						</div>
+
+						<div class='form-group'>
+							<label>Select Event to Payment*</label>
+							<br />
+							<%= f.select(:event, options_from_collection_for_select(@events, 'event', 'event'),{}, {:class=>"select2 form-control"})%>
+						</div>
+
+						<div class='form-group'>
+							<label>Attach Receipt*</label>
+							<br />
+							<%= f.file_field(:receiptname)%>
+
+							<%= f.hidden_field :nric, :value => current_user.nric%> <!-- If no file attached, to display error -->
+						</div>
+				</fieldset>
+				<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
+					<div class='text-right'>
+						<%= f.submit("Save", :class=>"btn btn-primary btn-lg blue-background")%>
+					</div>
+				</div>
+				<%end%>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<%end%>
+

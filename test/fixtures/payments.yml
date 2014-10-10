@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  userid: MyString
+  clubid: MyString
+  amount: 9.99
+  status: 1
+  category: MyString
+  receiptname: MyString
+  receipttype: MyString
+  receiptsize: 1
+  remark: MyString
+  nric: MyString
+  event: MyString
+  expense: MyString
+
+two:
+  userid: MyString
+  clubid: MyString
+  amount: 9.99
+  status: 1
+  category: MyString
+  receiptname: MyString
+  receipttype: MyString
+  receiptsize: 1
+  remark: MyString
+  nric: MyString
+  event: MyString
+  expense: MyString

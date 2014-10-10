@@ -8,7 +8,7 @@
                                 <div class='page-header'>
                                     <h1 class='pull-left'>
                       <i class='icon-file-alt'></i>
-                      <span>My Claims</span>
+                      <span>My Payments</span>
                     </h1>
                                     
                                 </div>
@@ -20,7 +20,7 @@
                             <div class="col-sm-12">
                                 <div class="box bordered-box blue-border">
                                     <div class="box-header blue-background">
-                                        <div class="title">My Claims</div>
+                                        <div class="title">My Payments</div>
                                         <div class="actions">
                                             <a class="btn box-remove btn-xs btn-link" href="#"><i class="icon-remove"></i>
                         </a>
@@ -35,8 +35,8 @@
                                                 
                                               <table class="data-table table table-striped" style="margin-bottom:0;">
 	<thead>
-		<th>Claim ID</th>
-		<th>Claim By</th>
+		<th>Payment ID</th>
+		<th>Payment By</th>
 		
 		<th>Amount</th>
 		
@@ -49,9 +49,9 @@
 		
 	</thead>
 	<tbody>
-	<% @normalclaims.each do |c|%>
+	<% @normalpayments.each do |c|%>
 	<%status = c.status%>
-	<%if c.remarks.nil?%>
+	<%if c.remark.nil?%>
 	<tr>
 	<%else%>
 	<tr class = 'warning'>
@@ -64,21 +64,21 @@
 		<td><%= c.event%></td>
 		
 		<td><div class="bs-example-tooltips">
-				<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Claim Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">Details</button>
+				<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>payment Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">Details</button>
 			</div></td>
 		<td><%= statuscode[c.status]%></td>
-		<td><a href="<%= c.supportdoc.url%>" class="btn btn-success btn-xs"><i class="icon-download"></i> Download</a></td>
+		<td><a href="<%= c.receiptname.url%>" class="btn btn-success btn-xs"><i class="icon-download"></i> Download</a></td>
 		<td>
 		<%if status == 0 || status == 12 || status == 6%>
-		<a href="/claims/editclaim?id=<%=c.id%>&own=true" class="btn btn-warning btn-xs"><i class="icon-pencil"></i> Edit</a>
-		<%if c.remarks.nil?%>
-		<a href="/claims/submitclaim?id=<%=c.id%>" class="btn btn-danger btn-xs">Submit</a>
+		<a href="/payments/editpayment?id=<%=c.id%>&own=true" class="btn btn-warning btn-xs"><i class="icon-pencil"></i> Edit</a>
+		<%if c.remark.nil?%>
+		<a href="/payments/submitpayment?id=<%=c.id%>" class="btn btn-danger btn-xs">Submit</a>
 		<%else%>
-		<a href="/claims/resubmitclaim?id=<%=c.id%>" class="btn btn-danger btn-xs">ReSubmit</a>
-		<a href="#", onclick="viewremark('<%=c.remarks%>')" class="btn btn-success btn-xs"><i class="icon-eye-open"></i> View Remarks</a>
+		<a href="/payments/resubmitpayment?id=<%=c.id%>" class="btn btn-danger btn-xs">ReSubmit</a>
+		<a href="#", onclick="viewremark('<%=c.remark%>')" class="btn btn-success btn-xs"><i class="icon-eye-open"></i> View remark</a>
 		<%end%>
 		
-		<a href="/claims/deleteclaim?id=<%=c.id%>&own=true" class="btn btn-danger btn-xs"><i class="icon-remove"></i> Delete</a>
+		<a href="/payments/deletepayment?id=<%=c.id%>&own=true" class="btn btn-danger btn-xs"><i class="icon-remove"></i> Delete</a>
 		<%end%>
 		</td>
 	</tr>
@@ -101,7 +101,7 @@
 		<div class="box bordered-box green-border" style="margin-bottom:0;">
 			<div class="box-header green-background">
 				<div class="title">
-					Claim Categories
+					Payment Categories
 				</div>
 				<div class="actions">
 					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
@@ -175,7 +175,7 @@
 		<div class="box bordered-box green-border" style="margin-bottom:0;">
 			<div class="box-header green-background">
 				<div class="title">
-					Claim Expense Categories
+					Payment Expense Categories
 				</div>
 				<div class="actions">
 					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
@@ -272,8 +272,8 @@
  
 function pres(a){
 	var x;
-	if (confirm("You have acknowleged the claim!")==true){
-		window.location = "/claims/submitclaim?id="+a;
+	if (confirm("You have acknowleged the payment!")==true){
+		window.location = "/payments/submitpayment?id="+a;
 	}
 	document.getElementById("pres").innerHTML = x;
 }

@@ -1,6 +1,23 @@
 Rails.application.routes.draw do
-  get 'ereceipts/newreceipt'
+  get 'payments/newpayment'  
+  get 'payments/editpayment'
+  get 'payments/viewpayment'
+  post 'payments/newpayment'  
+  post 'payments/editpayment'
+  post 'payments/viewpayment'
+  get 'payments/addremark'
+  post 'payments/addremark'
+  post 'payments/confirmrejectpayment'
+  get 'payments/confirmrejectpayment'
+  post 'payments/edit'
+  get 'payments/edit'
+  post 'payments/add'
+  get 'payments/add'
+  post '/payments/clubpayments'
+  get '/payments/clubpayments'
+  
 
+  get 'ereceipts/newreceipt'
   get 'ereceipts/viewsentreceipt'
 
   get 'deposits/addremark'
@@ -13,14 +30,11 @@ Rails.application.routes.draw do
   patch 'chief/setrate'
   get 'chief/calculation'
   post 'chief/calculation'
+  
   get 'deposits/editdeposit'
-
-  get 'deposits/newdeposit'
-  
-  get 'deposits/viewdeposit'
-  
-  post 'deposits/add'
-  
+  get 'deposits/newdeposit' 
+  get 'deposits/viewdeposit'  
+  post 'deposits/add'  
   post 'deposits/edit'
   post 'deposits/editown'
   get 'deposits/submitdeposit'
@@ -43,8 +57,7 @@ Rails.application.routes.draw do
   post 'admin/setnric2'
   post 'admin/addLeader'
   get 'admin/selectClub'
-  get 'claims/clubclaims'
-  get 'claims/deleteclaim'
+  
   post 'admin/requestClub'
   
   post 'admin/deleteclub'
@@ -114,40 +127,26 @@ Rails.application.routes.draw do
   get 'reserve_limit/viewallreservelimitchangerequest'
   get 'reserve_limit/accept'
   get 'reserve_limit/reject'
-  
-  
-  get 'claims/newclaim'
-
-  get 'claims/editclaim'
-
-  get 'claims/viewclaim'
-  post 'claims/viewclaim'
-  
 
   get 'admin/register'
-
   get 'admin/login'
-
   get 'admin/chooserole'
-  
   post 'admin/chooserole'
-
   get 'admin/home'
-
   get 'admin/newrequest'
-
   get 'admin/viewrequests'
-
   post 'admin/loginProcess'
-
   get 'admin/loginProcess'
-
   post 'admin/chooseroleProcess'
-
   get 'admin/logout'
-
+  
+  get 'claims/clubclaims'
+  get 'claims/deleteclaim'
+  get 'claims/newclaim'
+  get 'claims/editclaim'
+  get 'claims/viewclaim'
+  post 'claims/viewclaim'
   post 'claims/add'
-
   post 'claims/edit'
   post 'claims/editown'
   get 'claims/submitclaim'
@@ -157,8 +156,8 @@ Rails.application.routes.draw do
   get 'claims/endorseclub'
   get 'claims/endorsecbdmc'
   get 'claims/endorsesmusasec'
-  
   post 'claims/confirmrejectclaim'
+  
   get 'budgets/control'
   get 'budgets/disallow'
   post 'budgets/allow'

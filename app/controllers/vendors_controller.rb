@@ -1,19 +1,27 @@
 class VendorsController < ApplicationController
   def new
-    
+
     @new_vendor = Vendor.new
   end
-  
+
   def edit
     @new_vendor = Vendor.new
     @vendors = Vendor.all
   end
-  def add
-    Vendor.create(vendor_params)
-    redirect_to :back
-    flash.alert = 'Vendor successfully added'
+
+  def add 
+    companyname = params[:vendor][:name]
+    
+    if companyname.nil?
+      flash[:error] = "Please enter the vendor's name (company name)"
+    else
+      Vendor.create(vendor_params).valid?
+      redirect_to :back
+      flash[:success] = 'Vendor successfully added'
+    end
+
   end
-  
+
   def edit2
     v = Vendor.find_by_id(params[:vendor][:id])
     reviewers = v.reviewers
@@ -24,15 +32,18 @@ class VendorsController < ApplicationController
     overall = (v.overall * reviewers + params[:vendor][:overall].to_d)/(reviewers+1)
     v.update_attributes(:price=>price, :quality=>quality, :punctuality=>punctuality, :customerservice=>customerservice,:overall=>overall, :reviewers=>reviewers+1)
     redirect_to :back
-    flash.alert = 'Vendor review successfully added'
-    
+    flash[:success] = 'Vendor review successfully added'
+
   end
+
   def vendor_params
     params.require(:vendor).permit!
   end
+
   def recommend
-   
+
   end
+
   def recommend2
     creditlimit = params[:creditlimit]
     category = params[:category]
