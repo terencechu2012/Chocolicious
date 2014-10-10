@@ -11,19 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141005102744) do
-
-  create_table "algos", force: true do |t|
-    t.integer  "category"
-    t.integer  "price"
-    t.integer  "quality"
-    t.integer  "punctuality"
-    t.integer  "customerservice"
-    t.integer  "overall"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "results"
-  end
+ActiveRecord::Schema.define(version: 20141010030453) do
 
   create_table "archive_budget_expenses", force: true do |t|
     t.integer  "budget_id"
@@ -419,6 +407,7 @@ ActiveRecord::Schema.define(version: 20141005102744) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "reviewers"
+    t.string   "creditlimit"
   end
 
 end

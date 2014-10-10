@@ -24,7 +24,7 @@
 							<%a = Array(1..9)
 							b = Array(1..5)%>
 							<div class='form-group'>
-								<label>Select the vendor's name</label>
+								<label>Select Company</label>
 								<%=f.select :id, options_from_collection_for_select(@vendors, 'id', 'name'), {}, {:class=>"select2 form-control"}%>
 							</div>
 							<h3>Ratings</h3>

@@ -16,36 +16,40 @@
 							<i class='icon-file-alt text-contrast'></i>
 							Notes On Adding <strong>New</strong> Vendor
 						</div>
-						<small class='text-muted'> Add a new Vendor and an accompanying review. Please be responisble in entering Vendor Information as these details will be used for contacting vendor in the future when other students are looking for vendors for their events.<br /><br /> Think through the ratings carefully as reviews will be used to rank vendors in the system. Giving a poorly thought out review will result in less accurate search results in the future when searching for a vendor for your future events. <br /><br /><strong>5 is the highest rating while 1 is the lowest.</strong></small>
+						<small class='text-muted'> Add a new Vendor and an accompanying review. Please be responisble in entering Vendor Information as these details will be used for contacting vendor in the future when other students are looking for vendors for their events.<br /><br /> Think through the ratings carefully as reviews will be used to rank vendors in the system. Giving a poorly thought out review will result in less accurate search results in the future when searching for a vendor for your future events.</small>
 					</div>
 					<div class='col-sm-7 col-sm-offset-1'>
 						<h3>Vendor Information</h3>
 						<%a = Array(1..9)
 						b = Array(1..5)%>
 						<div class="form-group">
-							<label>Enter the vendor's name</label>
+							<label>Company Name</label> 
 							<%=f.text_field :name,:class=>"form-control"%>
 						</div>
 						<div class="form-group">
-							<label>Enter the vendor's contact</label>
+							<label>Contact Number</label>
 							<%=f.text_field :contact,:class=>"form-control"%>
 						</div>
 						<div class="form-group">
-							<label>Enter the vendor's address</label>
+							<label>Address</label>
 							<%=f.text_field :address,:class=>"form-control"%>
 						</div>
 						<div class="form-group">
-							<label>Enter the vendor's category</label>
+							<label>Select Category</label>
 							<%=f.select :category, "<optgroup label='Logistics'><option value='1'>Assets</option><option value='2'>PA Systems</option><option value='3'>Sports Equipments</option><option value='4'>Arts Equipments</option></optgroup><optgroup label='Food'><option value='5'>Catering</option><option value='6'>Packed Meals</option></optgroup><optgroup label='Transport'><option value='7'>Vehicle to transport logistics</option><option value='8'>Vehicle to transport people</option></optgroup><optgroup label='External Venues'><option value='9'>Booking of spaces for events</option></optgroup>".html_safe, {}, {:class=>"select2 form-control"}%>
 						</div>
-						<hr />
-						<h3>Ratings</h3>
 						<div class="form-group">
-							<label>Price</label>
+							<label>Does vendor offer credit limit?</label> <i>(e.g. minimum 30 days of credit limit)</i>
+							<%=f.select :creditlimit,"<option value='Yes'>Yes</option><option value='No'>No</option>".html_safe, {}, {:class=>"select2 form-control"}%>
+						</div>
+						<hr />
+						<h3>Ratings <font color="blue", size='2'>(1-very poor;  2-poor; 3-expected; 4-good; 5-extremely good)</font></h3> 
+						<div class="form-group">
+							<label>Price</label> <i>(e.g. 1 - too expesive; 5 - very affordable)</i>
 							<%=f.select :price, options_for_select(b), {}, {:class=>"select2 form-control"}%>
 						</div>
 						<div class="form-group">
-							<label>Quality</label>
+							<label>Quality</label> 
 							<%=f.select :quality, options_for_select(b), {}, {:class=>"select2 form-control"}%>
 						</div>
 						<div class="form-group">
