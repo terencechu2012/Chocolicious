@@ -18,17 +18,17 @@
 							<i class='icon-file-alt text-contrast'></i>
 							Notes On Issuing New Receipt
 						</div>
-						<small class='text-muted'> Please input the necessary fields in the form. When you click "Send", copies of receipt will be sent to both you and the receipient's emails. </small>
+						<small class='text-muted'> Please input the necessary fields in the form. When you click "Send", copies of receipt will be sent to both you and the recipient's emails. </small>
 					</div>
 					<div class='col-sm-7 col-sm-offset-1'>
 						<h3>Receipt Information</h3>
 
 						<div class='form-group'>
-							<label>Receipient Name* </label>
+							<label>Recipient Name* </label>
 							<br />
 							<%= f.text_field :payeename, :class=>"form-control",:required => true%>
 							<br/>
-							<label>Receipient Email Address*</label>
+							<label>Recipient Email Address*</label>
 							<br />
 							<%= f.text_field :payeemail, :class=>"form-control",:required => true%>
 							<br/>

@@ -27,7 +27,7 @@
 						<table class="data-table table table-striped" style="margin-bottom:0;">
 							<thead>
 								<tr>
-									<th>Event</th>
+									<th>Event / Item</th>
 									<th>Start date</th>
 									<th>End date</th>
 									<th>Est no. of participants</th>
@@ -79,14 +79,14 @@
 	</div>
 	
 </div>
-<a class='btn btn-info btn-lg blue-background' data-toggle='modal' href='#modal-newitem' role='button'>Add new Event</a>
+<a class='btn btn-info btn-lg blue-background' data-toggle='modal' href='#modal-newitem' role='button'>Add new Event / Item</a>
 <div class='modal fade' id='modal-newitem' tabindex='-1'>
                       <div class='modal-dialog'>
                       	<%=form_tag '/budgets/additem', :method => 'post', :multipart => true do%>
                         <div class='modal-content'>
                           <div class='modal-header'>
                             <button aria-hidden='true' class='close' data-dismiss='modal' type='button'>×</button>
-                            <h4 class='modal-title' id='myModalLabel'>Add New Event</h4>
+                            <h4 class='modal-title' id='myModalLabel'>Add New Event / Item</h4>
                           </div>
                           
                           <div class='modal-body'>
@@ -120,7 +120,7 @@
                           </div>
                           <div class='modal-footer'>
                             <button class='btn btn-default' data-dismiss='modal' type='button'>Close</button>
-                            <%= submit_tag 'Add Item', :class => 'btn btn-primary'%>
+                            <%= submit_tag 'Add Event / Item', :class => 'btn btn-primary'%>
                           </div>
                           <%end%>
                         </div>
