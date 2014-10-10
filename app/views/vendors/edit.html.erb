@@ -1,7 +1,7 @@
 <div class='row'>
 	<div class='col-sm-12'>
 		<div class='page-header'>
-			<h1 class='pull-left'><i class='icon-plus-sign'></i><span> Add Review for Existing Vendor</span></h1>
+			<h1 class='pull-left'><i class='icon-plus-sign'></i><span> Add Rating for Existing Vendor</span></h1>
 		</div>
 	</div>
 </div>
@@ -14,12 +14,12 @@
 					<div class='col-sm-4'>
 						<div class='lead'>
 							<i class='icon-file-alt text-contrast'></i>
-							Notes On Adding <strong>New</strong> Review to <strong>Existing</strong> Vendor
+							Notes On Rating for <strong>Existing</strong> Vendor
 						</div>
-						<small class='text-muted'> Think through the ratings carefully as reviews will be used to rank vendors in the system. Giving a poorly thought out review will result in less accurate search results in the future when searching for a vendor for your future events. <br /><br /><strong>5 is the highest rating while 1 is the lowest.</strong></small>
+						<small class='text-muted'> Think through the ratings carefully as reviews will be used to rank vendors in the system. Giving a poorly thought out review will result in less accurate search results in the future when searching for a vendor for your future events.</small>
 					</div>
 					<div class='col-sm-7 col-sm-offset-1'>
-						<h3>Review Ratings</h3>
+						<h3>Review Ratings </h3>
 		
 							<%a = Array(1..9)
 							b = Array(1..5)%>
@@ -27,7 +27,7 @@
 								<label>Select Company</label>
 								<%=f.select :id, options_from_collection_for_select(@vendors, 'id', 'name'), {}, {:class=>"select2 form-control"}%>
 							</div>
-							<h3>Ratings</h3>
+							<h3>Ratings <font color="blue", size='2'>(1-very poor;  2-poor; 3-expected; 4-good; 5-extremely good)</font></h3>
 							<div class='form-group'>
 								<label>Price</label>
 								<%=f.select :price, options_for_select(b), {}, {:class=>"select2 form-control"}%>

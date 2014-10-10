@@ -39,13 +39,13 @@
 							<tbody>
 							<% @receipt.each do|x| %>
 							<tr>
-								<th>SA-<%= x.id%></th>
-								<th><%= x.description%></th>
-								<th><%= x.payeename%></th> 
-								<th><%= x.payeemail%></th>
-								<th><%= x.amount%></th>
-								<th><%= x.created_at.to_date%></th>
-								<th><%= x.issuerid%></th>
+								<td>SA-<%= x.id%></td>
+								<td><%= x.description%></td>
+								<td><%= x.payeename%></td> 
+								<td><%= x.payeemail%></td>
+								<td><%= x.amount%></td>
+								<td><%= x.created_at.to_date%></td>
+								<td><%= x.issuerid%></td>
 							<%end%>
 						</tbody>
 						</table>

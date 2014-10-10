@@ -1,7 +1,7 @@
 <div class='row'>
 	<div class='col-sm-12'>
 		<div class='page-header'>
-			<h1 class='pull-left'><i class='icon-file-alt'></i><span> New Request</span></h1>
+			<h1 class='pull-left'><i class='icon-file-alt'></i><span> New Request for Funds Transfer</span></h1>
 		</div>
 	</div>
 </div>
@@ -21,10 +21,11 @@
 						<small class='text-muted'> Please justify your request for a funds transfer. Invalid reasons will lead to rejection of your funds transfer request. <br>If transferring to an external party, please choose 'External Transfer' and state the party in 'Enter purpose'.</small>
 					</div>
 					<div class='col-sm-7 col-sm-offset-1'>
+						<h3>Funds Transfer Information</h3>
 						<div class='form-group'>
 							<%= f.hidden_field(:userid, :value => session[:userid])%>
 							<%= f.hidden_field(:clubidfrom, :value => session[:club])%>
-							<label>Enter amount</label>(e.g. 100.90)
+							<label>Funds Amount (SGD)*</label> <i>(e.g. 100.90)</i>
 							<br />
 							<%= f.number_field(:amount, :step => 0.01, :min => 0, :max => 99999999, :class => "form-control", :required => true) %>
 						</div>
@@ -39,7 +40,7 @@
 						</div>
 
 						<div class='form-group'>
-							<label>Enter purpose</label>
+							<label>Fund Transfer Purpose*</label>
 							<br />
 							<%= f.text_area :purpose, :class => "autosize form-control", :required => true%>
 						</div>

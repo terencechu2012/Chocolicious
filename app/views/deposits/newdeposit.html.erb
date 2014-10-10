@@ -26,11 +26,11 @@
 						<small class='text-muted'> Please be careful when entering details such as the receipt number and donor IC. Wrong entry of details can lead to rejection of deposits. </small>
 					</div>
 					<div class='col-sm-7 col-sm-offset-1'>
-						<h3>Application Information</h3>
+						<h3>Deposit Information</h3>
 						<div class='form-group'>
 							<%= f.hidden_field(:userid, :value => session[:userid])%>
 							<%= f.hidden_field(:clubid, :value => session[:club])%>
-							<label>Enter amount</label>
+							<label>Deposit Amount (SGD)*</label> <i>(e.g. 40.90)</i>
 							<br />
 							<%= f.number_field(:amount, :step => 0.01, :min => 0, :max => 99999999,:class=>"form-control",:required => true) %>
 						</div>
@@ -44,14 +44,12 @@
 						<%end%>
 						
 						<div class='form-group'>
-							<label>Enter purpose</label>
+							<label>Deposit Description*</label>
 							<br />
 							<%= f.text_area :purpose, :class=>"form-control",:required => true%>
 						</div>
-						<hr />
-						<h3>Deposit Information</h3>
 						<div class='form-group'>
-							<label>Enter date</label>
+							<label>Select Date*</label>
 							<br />
 							<div class="input-group">
 							<%= f.date_field(:date, :class=>"form-control",:required => true)%>
@@ -61,7 +59,7 @@
                           </div>
 						</div>
 						<div class='form-group'>
-							<label>Enter receipt number</label>
+							<label>Receipt Number*</label>
 							<br />
 							<%= f.text_field :receipts, :class=>"form-control",:required => true%>
 						</div>
@@ -69,17 +67,17 @@
 						<hr />
 						<h3>Donor Information (Only for sponsorships and donations)</h3>
 						<div class='form-group'>
-							<label>Enter donor name</label>
+							<label>Donor Name</label>
 							<br />
 							<%= f.text_field :donorname, :class=>"form-control"%>
 						</div>
 						<div class='form-group'>
-							<label>Enter donor address</label>
+							<label>Donor Address</label>
 							<br />
 							<%= f.text_field :donoradd, :class=>"form-control"%>
 						</div>
 						<div class='form-group'>
-							<label>Enter donor IC</label>
+							<label>Donor IC</label>
 							<br />
 							<%= f.text_field :donoric, :class=>"form-control"%>
 						</div>

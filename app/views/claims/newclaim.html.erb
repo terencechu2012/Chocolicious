@@ -26,11 +26,12 @@
 						<small class='text-muted'> There are 7 categories and 13 expense categories for claims, do make sure you look through all 13 in the table below before making your claim, this will greatly help us in processing your claims. Thank you for your consideration! </small>
 					</div>
 					<div class='col-sm-7 col-sm-offset-1'>
+						<h3>Claim Information</h3>
 						<div class='form-group'>
 
 							<%= f.hidden_field(:userid, :value => session[:userid])%>
 							<%= f.hidden_field(:clubid, :value => session[:club])%>
-							<label>Enter amount</label>
+							<label>Claim Amount (SGD)*</label> <i>(e.g. 40.90)</i>
 							<br />
 							<%= f.number_field(:amount, :step => 0.01, :min => 0, :max=>99999999,:class=>"form-control", :required => true) %>
 						</div>
@@ -52,19 +53,19 @@
 							<%= f.select(:category, grouped_options_for_select(@grouped_category), {}, {:class=>"select2 form-control"})%>
 						</div>
 						<div class='form-group'>
-							<label>Select Expense Category</label>
+							<label>Select Expense Category*</label>
 							<br />
 							<%= f.select(:expense, grouped_options_for_select(@grouped_expense), {}, {:class=>"select2 form-control"})%>
 						</div>
 
 						<div class='form-group'>
-							<label>Select event to claim for</label>
+							<label>Select Event to Claim*</label>
 							<br />
 							<%= f.select(:event, options_from_collection_for_select(@events, 'event', 'event'),{}, {:class=>"select2 form-control"})%>
 						</div>
 
 						<div class='form-group'>
-							<label>Attach Receipt</label>
+							<label>Attach Receipt*</label>
 							<br />
 							<%= f.file_field(:supportdoc)%>
 
