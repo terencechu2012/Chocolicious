@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   patch 'chief/setrate'
   get 'chief/calculation'
   post 'chief/calculation'
+  get 'chief/allocationreports'
   
   get 'deposits/editdeposit'
   get 'deposits/newdeposit' 

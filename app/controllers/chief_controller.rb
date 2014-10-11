@@ -13,6 +13,8 @@ class ChiefController < ApplicationController
 
   def pullback
     control = BudgetControl.find_by_id(2)
+    bigarray = []
+    bigarray<<['Transfer from', 'Transfer to', 'Amount']
     year = control.year
     semester = control.semester
     # clubs = Club.where("clubtype NOT IN ('smusa','infinity')")
@@ -32,9 +34,12 @@ class ChiefController < ApplicationController
       returnr1 = returnr1 + balance1 - balance2
       returnr2 += balance2
       racf.update_attribute(:balance, racf.balance + balance2)
+      bigarray<<[Club.find_by_clubid('ACF').clubcode, 'R001', '$'+(balance1-balance2).to_s]
+      bigarray<<[Club.find_by_clubid('ACF').clubcode, 'R002', '$'+(balance2).to_s]
     else
       returnr2 += balance1
       racf.update_attribute(:balance, racf.balance + balance1)
+      bigarray<<[Club.find_by_clubid('ACF').clubcode, 'R002', '$'+(balance1).to_s]
     end
     
     acf.update_attribute(:Category1Balance, 0)
@@ -51,9 +56,13 @@ class ChiefController < ApplicationController
         returnr1 = returnr1 + balance1 - balance2
         returnr2 += balance2
         ra.update_attribute(:balance, ra.balance + balance2)
+        bigarray<<[Club.find_by_clubid(a.clubid).clubcode, 'R001', '$'+(balance1-balance2).to_s]
+        bigarray<<[Club.find_by_clubid(a.clubid).clubcode, 'R002', '$'+(balance2).to_s]
+        
       else
         returnr2 += balance1
         ra.update_attribute(:balance, ra.balance + balance1)
+        bigarray<<[Club.find_by_clubid(a.clubid).clubcode, 'R002', '$'+(balance1).to_s]
       end
       a.update_attribute(:Category1Balance, 0)
       a.update_attribute(:Category2Balance, 0)
@@ -67,9 +76,13 @@ class ChiefController < ApplicationController
       returnr1 = returnr1 + balance1 - balance2
       returnr3 += balance2
       racf.update_attribute(:balance, racf.balance + balance2)
+      bigarray<<[Club.find_by_clubid('SICS').clubcode, 'R001', '$'+(balance1-balance2).to_s]
+      bigarray<<[Club.find_by_clubid('SICS').clubcode, 'R003', '$'+(balance2).to_s]
+
     else
       returnr3 += balance1
       racf.update_attribute(:balance, racf.balance + balance1)
+      bigarray<<[Club.find_by_clubid('SICS').clubcode, 'R003', '$'+(balance1).to_s]
     end
     
     acf.update_attribute(:Category1Balance, 0)
@@ -86,9 +99,13 @@ class ChiefController < ApplicationController
         returnr1 = returnr1 + balance1 - balance2
         returnr3 += balance2
         ra.update_attribute(:balance, ra.balance + balance2)
+        bigarray<<[Club.find_by_clubid(a.clubid).clubcode, 'R001', '$'+(balance1-balance2).to_s]
+        bigarray<<[Club.find_by_clubid(a.clubid).clubcode, 'R003', '$'+(balance2).to_s]
+
       else
         returnr3 += balance1
         ra.update_attribute(:balance, ra.balance + balance1)
+        bigarray<<[Club.find_by_clubid(a.clubid).clubcode, 'R003', '$'+(balance1).to_s]
       end
       a.update_attribute(:Category1Balance, 0)
       a.update_attribute(:Category2Balance, 0)
@@ -102,9 +119,12 @@ class ChiefController < ApplicationController
       returnr1 = returnr1 + balance1 - balance2
       returnr4 += balance2
       racf.update_attribute(:balance, racf.balance + balance2)
+      bigarray<<[Club.find_by_clubid('SMUX').clubcode, 'R001', '$'+(balance1-balance2).to_s]
+      bigarray<<[Club.find_by_clubid('SMUX').clubcode, 'R004', '$'+(balance2).to_s]
     else
       returnr4 += balance1
       racf.update_attribute(:balance, racf.balance + balance1)
+      bigarray<<[Club.find_by_clubid('SMUX').clubcode, 'R004', '$'+(balance1).to_s]
     end
     
     acf.update_attribute(:Category1Balance, 0)
@@ -121,9 +141,12 @@ class ChiefController < ApplicationController
         returnr1 = returnr1 + balance1 - balance2
         returnr4 += balance2
         ra.update_attribute(:balance, ra.balance + balance2)
+        bigarray<<[Club.find_by_clubid(a.clubid).clubcode, 'R001', '$'+(balance1-balance2).to_s]
+        bigarray<<[Club.find_by_clubid(a.clubid).clubcode, 'R004', '$'+(balance2).to_s]
       else
         returnr4 += balance1
         ra.update_attribute(:balance, ra.balance + balance1)
+        bigarray<<[Club.find_by_clubid(a.clubid).clubcode, 'R004', '$'+(balance1).to_s]
       end
       a.update_attribute(:Category1Balance, 0)
       a.update_attribute(:Category2Balance, 0)
@@ -137,6 +160,8 @@ class ChiefController < ApplicationController
       returnr1 = returnr1 + balance1 - balance2
       returnr5 += balance2
       racf.update_attribute(:balance, racf.balance + balance2)
+      bigarray<<[Club.find_by_clubid('SSU').clubcode, 'R001', '$'+(balance1-balance2).to_s]
+      bigarray<<[Club.find_by_clubid('SSU').clubcode, 'R005', '$'+(balance2).to_s]
     else
       returnr5 += balance1
       racf.update_attribute(:balance, racf.balance + balance1)
@@ -156,9 +181,12 @@ class ChiefController < ApplicationController
         returnr1 = returnr1 + balance1 - balance2
         returnr5 += balance2
         ra.update_attribute(:balance, ra.balance + balance2)
+        bigarray<<[Club.find_by_clubid(a.clubid).clubcode, 'R001', '$'+(balance1-balance2).to_s]
+        bigarray<<[Club.find_by_clubid(a.clubid).clubcode, 'R005', '$'+(balance2).to_s]
       else
         returnr5 += balance1
         ra.update_attribute(:balance, ra.balance + balance1)
+        bigarray<<[Club.find_by_clubid(a.clubid).clubcode, 'R005', '$'+(balance1).to_s]
       end
       a.update_attribute(:Category1Balance, 0)
       a.update_attribute(:Category2Balance, 0)
@@ -172,9 +200,12 @@ class ChiefController < ApplicationController
       returnr1 = returnr1 + balance1 - balance2
       returnr6 += balance2
       racf.update_attribute(:balance, racf.balance + balance2)
+      bigarray<<[Club.find_by_clubid('ICON').clubcode, 'R001', '$'+(balance1-balance2).to_s]
+      bigarray<<[Club.find_by_clubid('ICON').clubcode, 'R006', '$'+(balance2).to_s]
     else
       returnr6 += balance1
       racf.update_attribute(:balance, racf.balance + balance1)
+      bigarray<<[Club.find_by_clubid('ICON').clubcode, 'R006', '$'+(balance1).to_s]
     end
     
     acf.update_attribute(:Category1Balance, 0)
@@ -191,9 +222,12 @@ class ChiefController < ApplicationController
         returnr1 = returnr1 + balance1 - balance2
         returnr6 += balance2
         ra.update_attribute(:balance, ra.balance + balance2)
+        bigarray<<[Club.find_by_clubid(a.clubid).clubcode, 'R001', '$'+(balance1-balance2).to_s]
+        bigarray<<[Club.find_by_clubid(a.clubid).clubcode, 'R006', '$'+(balance2).to_s]
       else
         returnr6 += balance1
         ra.update_attribute(:balance, ra.balance + balance1)
+        bigarray<<[Club.find_by_clubid(a.clubid).clubcode, 'R006', '$'+(balance1).to_s]
       end
       a.update_attribute(:Category1Balance, 0)
       a.update_attribute(:Category2Balance, 0)
@@ -289,9 +323,12 @@ class ChiefController < ApplicationController
         returnr1 = returnr1 + balance1 - balance2
         returnr6 += balance2
         ra.update_attribute(:balance, ra.balance + balance2)
+        bigarray<<[Club.find_by_clubid(a.clubid).clubcode, 'R001', '$'+(balance1-balance2).to_s]
+        bigarray<<[Club.find_by_clubid(a.clubid).clubcode, 'R006', '$'+(balance2).to_s]
       else
         returnr6 += balance1
         ra.update_attribute(:balance, ra.balance + balance1)
+        bigarray<<[Club.find_by_clubid(a.clubid).clubcode, 'R006', '$'+(balance1).to_s]
       end
       a.update_attribute(:Category1Balance, 0)
       a.update_attribute(:Category2Balance, 0)
@@ -300,7 +337,7 @@ class ChiefController < ApplicationController
     acfclubs = ExpenditureAccount.where(["clubid in (SELECT clubid from clubs where clubtype = ?)", "smusa"])
     acfclubs.each do |a|
       returnr1 += a.Category1Balance
-      
+      bigarray<<[Club.find_by_clubid(a.clubid).clubcode, 'R001', '$'+(a.Category1Balance).to_s]
       
       
       a.update_attribute(:Category1Balance, 0)
@@ -308,7 +345,44 @@ class ChiefController < ApplicationController
     end
     smusaacc = ExpenditureAccount.find_by_clubid('smusa')
     smusaacc.update_attribute(:Category1Balance, smusaacc.Category1Balance + returnr1)
-    @report = [returnr1, returnr2, returnr3, returnr4, returnr5, returnr6]
+    Prawn::Document.generate("public/allocate.pdf") do
+      # header
+      bounding_box [bounds.left - 40, bounds.top + 40], :width  => bounds.width + 80 do
+        cell :background_color => 'EEEEEE',
+             :width => bounds.width,
+             :height => 100,
+             :align => :center,
+             :text_color => "EEEEEE",
+             :borders => [:bottom],
+             :border_width => 2,
+             :border_color => "rgb(1, 99, 172)",
+             :padding => 12
+        move_down 20
+        image "#{Rails.root}/app/assets/images/smusa-new-logo.png", :at => [35, cursor], :width => 150
+      end
+      move_down 90
+      text 'Pullback done on '+Date.today.to_s
+      move_down 20
+      text 'Total to:'
+      text 'R001: '+returnr1.to_s
+      text 'R002: '+returnr2.to_s
+      text 'R003: '+returnr3.to_s
+      text 'R004: '+returnr4.to_s
+      text 'R005: '+returnr5.to_s
+      text 'R006: '+returnr6.to_s
+      move_down 20
+      #Body
+      #Applicant Data
+      data = bigarray
+      table(data, :width => bounds.width, :cell_style => { :border_color => "rgb(1, 99, 172)", :padding => 8, :size=>10, :inline_format => true}, :row_colors => ["EEEEEE", "FFFFFF"])
+      move_down 20
+    end
+    file = File.open('public/allocate.pdf')
+    ar = AllocationReport.new(report: file, reporttype: "Pullback")
+    ar.save
+    # @report = [returnr1, returnr2, returnr3, returnr4, returnr5, returnr6]
+    flash.notice = 'Pullback of funds completed'
+    redirect_to :action => 'allocationreports'
     # @arr = []
     # clubs.each do |c|
       # clubid = c.clubid
@@ -362,11 +436,16 @@ class ChiefController < ApplicationController
   end
 
   def allocate
-    
+    bigarray = []
+    summaryhash = {'R001' => 0.0, 'R002' => 0.0,'R003' => 0.0,'R004' => 0.0,'R005' => 0.0,'R006' => 0.0}
+    bigarray<<['Transfer from', 'Transfer to', 'Amount']
     uniqbudgets = Budget.where(year: params[:year], semester: params[:semester]).uniq.pluck(:clubid)
     smusaaccount = ExpenditureAccount.find_by_clubid('smusa')
     uniqbudgets.each do |u|
       clubid = u
+      clubtype = Club.find_by_clubid(clubid).clubtype
+      reservecode = {'ACF'=>'R002', 'SICS' => 'R003', 'SMUX' => 'R004', 'SSU' => 'R005', 'ASOC'=>'R006', 'BONDUE'=>'R006', 'ICON'=>'R006', 'OIKOS'=>'R006', 'SISS'=>'R006', 'SOSCIETY'=>'R006', 'THE BAR'=>'R006'}
+      tocode = Club.find_by_clubid(clubid).clubcode
       budgets = Budget.where(year: params[:year], semester: params[:semester], clubid: clubid)
       reserveaccount = ReserveAccount.find_by_clubid(clubid)
       expenditureaccount = ExpenditureAccount.find_by_clubid(clubid)
@@ -382,7 +461,7 @@ class ChiefController < ApplicationController
         balance = reserveaccount.balance
         newbalance = balance - requestreserves
         contributionrate = Contribution.find_by_id(1).rate
-        amounttocontribute = contributionrate/100*requestsac
+        amounttocontribute = (contributionrate/100*requestsac).round(2)
         if amounttocontribute <= newbalance && clubid != 'ise' && clubid != 'eurhythmix' && clubid != 'sambam'
           requestsac -= amounttocontribute
           requestreserves += amounttocontribute
@@ -392,15 +471,59 @@ class ChiefController < ApplicationController
         expenditureaccount.update_attribute(:Category1Balance, originalcat1 + requestreserves)
         originalcat2 = expenditureaccount.Category2Balance
         expenditureaccount.update_attribute(:Category2Balance, originalcat2 + requestreserves)
+        if clubtype == 'cbd'
+          fromcode = reservecode[clubid]
+        else
+          fromcode = reservecode[clubtype]
+        end
+        bigarray<<[fromcode, tocode, '$'+requestreserves.to_s]
+        summaryhash[fromcode] += requestreserves
       end
       originalcat1 = expenditureaccount.Category1Balance
       expenditureaccount.update_attribute(:Category1Balance, originalcat1 + requestsac)
       originalsmusa = smusaaccount.Category1Balance
       smusaaccount.update_attribute(:Category1Balance, originalsmusa - requestsac)
-      
+      bigarray<<['R001', tocode, '$'+requestsac.to_s]
+      summaryhash['R001'] += requestsac
     end
+    require 'prawn'
+    Prawn::Document.generate("public/allocate.pdf") do
+      # header
+      bounding_box [bounds.left - 40, bounds.top + 40], :width  => bounds.width + 80 do
+        cell :background_color => 'EEEEEE',
+             :width => bounds.width,
+             :height => 100,
+             :align => :center,
+             :text_color => "EEEEEE",
+             :borders => [:bottom],
+             :border_width => 2,
+             :border_color => "rgb(1, 99, 172)",
+             :padding => 12
+        move_down 20
+        image "#{Rails.root}/app/assets/images/smusa-new-logo.png", :at => [35, cursor], :width => 150
+      end
+      move_down 90
+      text 'Allocation done on '+Date.today.to_s
+      move_down 20
+      text 'Total from:'
+      text 'R001: ' + summaryhash['R001'].to_s 
+      text 'R002: ' + summaryhash['R002'].to_s 
+      text 'R003: ' + summaryhash['R003'].to_s 
+      text 'R004: ' + summaryhash['R004'].to_s 
+      text 'R005: ' + summaryhash['R005'].to_s 
+      text 'R006: ' + summaryhash['R006'].to_s 
+      #Body
+      #Applicant Data
+      move_down 20
+      data = bigarray
+      table(data, :width => bounds.width, :cell_style => { :border_color => "rgb(1, 99, 172)", :padding => 8, :size=>10, :inline_format => true}, :row_colors => ["EEEEEE", "FFFFFF"])
+      move_down 20
+    end
+    file = File.open('public/allocate.pdf')
+    ar = AllocationReport.new(report: file, reporttype: 'Allocation')
+    ar.save
     flash.notice = 'Budgeted funds have been allocated'
-    redirect_to :controller => 'accounts', :action => 'viewcbdaccounts'
+    redirect_to :action => 'allocationreports'
     
   end
   
@@ -510,6 +633,16 @@ class ChiefController < ApplicationController
         
       end
     end
+  end
+  
+  def allocationreports
+    @reports = AllocationReport.all
+  end
+  
+  def deleteallocationreport
+    c = AllocationReport.find_by_id(params[:id])
+    c.delete
+    redirect_to :back
   end
   
 end

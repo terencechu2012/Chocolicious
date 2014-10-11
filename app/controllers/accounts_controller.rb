@@ -42,7 +42,7 @@ class AccountsController < ApplicationController
       @CBD.each do|x|
         budget = 0
         cbd = ReserveAccount.find_by_clubid(x.clubid)
-        budget += cbd.balance
+        budget += cbd.balance if !cbd.nil?
         clubsUnder = ReserveAccount.where(['clubid in (select clubid from clubs where clubtype = ?)', x.clubid])
         clubsUnder.each do |cu|
           budget += cu.balance

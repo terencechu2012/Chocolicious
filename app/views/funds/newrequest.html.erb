@@ -35,7 +35,7 @@
 						<div class='form-group'>
 							<fieldset>
 								<label>Select club to transfer to</label>
-								<%= select_tag(:cName, content_tag(:option,'External Transfer',:value=>"external")+options_from_collection_for_select(@allClubs, "clubid", "clubname"), prompt: "---Please select---", class:"select2 form-control")%>
+								<%= select_tag(:cName, content_tag(:option,'Other Entity',:value=>"external")+options_from_collection_for_select(@allClubs, "clubid", "clubname"), prompt: "---Please select---", class:"select2 form-control")%>
 							</fieldset>
 						</div>
 

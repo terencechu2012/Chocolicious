@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141010063904) do
+ActiveRecord::Schema.define(version: 20141011125007) do
+
+  create_table "allocation_reports", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "report_file_name"
+    t.string   "report_content_type"
+    t.integer  "report_file_size"
+    t.datetime "report_updated_at"
+    t.string   "reporttype"
+  end
 
   create_table "archive_budget_expenses", force: true do |t|
     t.integer  "budget_id"

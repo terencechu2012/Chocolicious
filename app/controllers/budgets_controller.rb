@@ -270,10 +270,11 @@ class BudgetsController < ApplicationController
       allbudgets = Budget.where(:year => year, :semester => semester)
       @totalsac = 0.0
       @totalreserves = 0.0
-      allbudgets.each do |a|
-        @totalsac += a.requestsac
-        @totalreserves += a.requestreserves
-      end
+      @totalcontribute = 0.0
+      # allbudgets.each do |a|
+        # @totalsac += a.requestsac
+        # @totalreserves += a.requestreserves
+      # end
       cbds = Club.where(clubtype: 'cbd')
       @cbdtotal = []
       @superhash = Hash.new
@@ -284,12 +285,32 @@ class BudgetsController < ApplicationController
         cbdbudgets = cbdbudgets + cbditself
         subtotalsac = 0.0
         subtotalreserves = 0.0
+        subtotalcontribute = 0.0
         smallarray = []
         cbdbudgets.each do |d|
-          subtotalsac += d.sum1
-          subtotalreserves += d.sum2
           r = ReserveAccount.find_by_clubid(d.clubid)
-          smallarray << [d.clubid, d.sum1, d.sum2, r.balance, r.justification]
+          clubid = d.clubid
+          sum1 = d.sum1
+          sum2 = d.sum2
+          balance = r.balance
+          newbalance = balance - d.sum2
+          contributionrate = Contribution.find_by_id(1).rate
+          amounttocontribute = (contributionrate/100*d.sum1).round(2)
+          if amounttocontribute <= newbalance && clubid != 'ise' && clubid != 'eurhythmix' && clubid != 'sambam'
+            sum1 -= amounttocontribute
+            
+          else
+            amounttocontribute = 0
+          end
+          
+          
+          subtotalsac += sum1
+          subtotalreserves += sum2
+          subtotalcontribute += amounttocontribute
+          @totalsac += sum1
+          @totalreserves += sum2
+          @totalcontribute += amounttocontribute
+          smallarray << [d.clubid, sum1, sum2, r.balance, r.justification, amounttocontribute]
         end
         if (session[:role].include? 'cbdfinsec') && (session[:club].include? c.clubid)
           @superhash[c.clubid] = smallarray
@@ -298,7 +319,7 @@ class BudgetsController < ApplicationController
         end
         
        
-        @cbdtotal << {'name' => c.clubid, 'totalsac' => subtotalsac, 'totalreserves' => subtotalreserves}
+        @cbdtotal << {'name' => c.clubid, 'totalsac' => subtotalsac, 'totalreserves' => subtotalreserves, 'totalcontribute' => subtotalcontribute}
         
       end
       
@@ -310,6 +331,7 @@ class BudgetsController < ApplicationController
         departmentbudget.each do |e|
           totalsac += e.requestsac
         end
+        @totalsac += totalsac
         @departmenttotal << {'name' => d.clubid, 'totalsac' => totalsac}
       end
       
