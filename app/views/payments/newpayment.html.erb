@@ -9,7 +9,7 @@
 <% role = session[:role]%>
 <%if current_user.nric.nil? || current_user.nric.empty? || current_user.fullname.nil? || current_user.fullname.empty? || current_user.contactno.nil? || current_user.contactno.empty?%>
 <p>
-	Please set your user details before making a Payment!
+	Please set your user details before making a payment!
 </p>
 <%else%>
 <div class='row'>
@@ -67,7 +67,7 @@
 						<div class='form-group'>
 							<label>Attach Receipt*</label>
 							<br />
-							<%= f.file_field(:receiptname)%>
+							<%= f.file_field(:supportdoc)%>
 
 							<%= f.hidden_field :nric, :value => current_user.nric%> <!-- If no file attached, to display error -->
 						</div>

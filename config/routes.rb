@@ -15,6 +15,12 @@ Rails.application.routes.draw do
   get 'payments/add'
   post '/payments/clubpayments'
   get '/payments/clubpayments'
+  get '/payments/submitpayment'
+  post 'payments/editown'
+  get '/payments/deletepayment'
+  get '/payments/resubmitpayment'
+  get 'payments/endorseclub'
+get 'payments/completepayment'
   
 
   get 'ereceipts/newreceipt'

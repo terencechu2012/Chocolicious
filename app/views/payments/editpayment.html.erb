@@ -11,7 +11,7 @@
 	<div class='col-sm-12 col-lg-12'>
 		<div class='box bordered-box'>
 			<div class='box-content box-double-padding'>
-				<%= form_for @new_payment, :url => { :action => "editown" }, :method => :POST, :html => { :multipart => true }  do |f|  %>
+				<%= form_for @payment, :url => { :action => "editown" }, :method => :POST, :html => { :multipart => true }  do |f|  %>
 				<fieldset>
 					<div class='col-sm-4'>
 						<div class='lead'>
@@ -27,7 +27,7 @@
 					</div>
 					<div class='col-sm-7 col-sm-offset-1'>
 						<div class='form-group'>
-							<%= f.hidden_field(:id, :value => @new_payment.id)%>
+							<%= f.hidden_field(:id, :value => @payment.id)%>
 							<label>Enter amount</label>
 							<br />
 							<%= f.number_field(:amount, :step => 0.01, :min => 0, :max=>99999999,:class=>"form-control", :required => true) %>
@@ -38,12 +38,12 @@
 						<div class='form-group'>
 							<label>Select Category</label>
 							<br />
-							<%= f.select(:category, grouped_options_for_select(@grouped_category,@new_payment.category), {}, {:class=>"select2 form-control"})%>
+							<%= f.select(:category, grouped_options_for_select(@grouped_category,@payment.category), {}, {:class=>"select2 form-control"})%>
 						</div>
 						<div class='form-group'>
 							<label>Select Expense Category</label>
 							<br />
-							<%= f.select(:expense, grouped_options_for_select(@grouped_expense,@new_payment.expense), {}, {:class=>"select2 form-control"})%>
+							<%= f.select(:expense, grouped_options_for_select(@grouped_expense,@payment.expense), {}, {:class=>"select2 form-control"})%>
 						</div>
 
 						<div class='form-group'>
@@ -74,7 +74,7 @@
 	<div class='col-sm-12 col-lg-12'>
 		<div class='box bordered-box'>
 			<div class='box-content box-double-padding'>
-				<%= form_for @new_payment, :url => { :action => "edit" }, :method => :POST, :html => { :multipart => true }  do |f|  %>
+				<%= form_for @payment, :url => { :action => "edit" }, :method => :POST, :html => { :multipart => true }  do |f|  %>
 				<fieldset>
 					<div class='col-sm-4'>
 						<div class='lead'>
@@ -88,7 +88,7 @@
 					</div>
 					<div class='col-sm-7 col-sm-offset-1'>
 						<div class='form-group'>
-							<%= f.hidden_field(:id, :value => @new_payment.id)%>
+							<%= f.hidden_field(:id, :value => @payment.id)%>
 							<label>Enter amount</label>
 							<br />
 							<%= f.number_field(:amount, :step => 0.01, :min => 0, :max=>99999999,:class=>"form-control", :required => true) %>
@@ -97,7 +97,7 @@
 						<div class='form-group'>
 							<label>Select Category</label>
 							<br />
-							<%= f.select(:category, grouped_options_for_select(@grouped_category,@new_payment.category), {}, {:class=>"select2 form-control"})%>
+							<%= f.select(:category, grouped_options_for_select(@grouped_category,@payment.category), {}, {:class=>"select2 form-control"})%>
 						</div>
 
 						<div class='form-group'>

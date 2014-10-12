@@ -70,6 +70,7 @@ class PaymentsController < ApplicationController
   def viewpayment
       @normalpayments = Payment.where(userid:session[:userid], clubid:session[:club])
   end
+  
   def clubpayments
     role = session[:role]
     if role.include? 'clubfinsec'
@@ -80,7 +81,8 @@ class PaymentsController < ApplicationController
     elsif role.include? 'president'
       @normalpayments = Payment.where(clubid:session[:club], status: [2..5, 17..19])
       @cbdmcpayments = Payment.where(clubid:session[:club], status: [8..11, 20..22])
-      @payments = @normalPayments + @cbdmcpayments
+      @payments = @normalpayments + @cbdmcpayments
+      
       if session[:club] == 'smusa'
         @thirdpayments = Payment.where(['clubid in (select clubid from clubs where clubtype = ?) and ((status > 12 and status < 17) or (status > 22 and status < 26))', 'smusa'])
         @payments = @normalpayments + @cbdmcpayments + @thirdpayments
@@ -101,6 +103,7 @@ class PaymentsController < ApplicationController
     amount = params[:payment][:amount]
     if current_user.nric.nil? || current_user.nric.empty?
       flash[:error] = 'There was a problem adding your payment. Have you updated your NRIC?'
+      
     elsif amount.to_d > balance
       flash[:error] = 'There are insufficient funds in the expenditure account'
     else
@@ -108,10 +111,10 @@ class PaymentsController < ApplicationController
       test = Payment.create(payment_params).valid?
       if !test
         flash[:error] = 'There was a problem adding your payment. Have you attached a supporting document?'
+       
       end
     end
-
-    
+  
     redirect_to :action => 'viewpayment'
   end
 
@@ -134,7 +137,7 @@ class PaymentsController < ApplicationController
   def submitpayment
     c = Payment.find_by_id(params[:id])
     newstatus = c.status + 1
-    PaymentTime.create(paymentid: c.id, status: newstatus,date: Date.today)
+    # PaymentTime.create(paymentid: c.id, status: newstatus, date: Date.today)
     c.update_attribute(:status, newstatus)
     # redirect_to :action => 'viewpayment'
     redirect_to :back
@@ -143,7 +146,7 @@ class PaymentsController < ApplicationController
   def completepayment
     c = Payment.find_by_id(params[:id])
     newstatus = c.status + 1
-    PaymentTime.create(paymentid: c.id, status: newstatus,date: Date.today)
+    # PaymentTime.create(paymentid: c.id, status: newstatus,date: Date.today)
     c.update_attribute(:status, newstatus)
     # redirect_to :action => 'viewpayment'
     club = c.clubid
@@ -181,7 +184,7 @@ class PaymentsController < ApplicationController
     require 'prawn'
     payment = Payment.find_by_id(params[:id])
     payment.update_attribute(:status, 4)
-    PaymentTime.create(paymentid: payment.id, status: 4,date: Date.today)
+    # PaymentTime.create(paymentid: payment.id, status: 4,date: Date.today)
     paymentV = User.find_by_userid(payment.userid)
     fullname = paymentV.fullname
     contact = paymentV.contactno
@@ -195,9 +198,9 @@ class PaymentsController < ApplicationController
     amount = payment.amount
     category = payment.category
     expense = payment.expense
-    clubfinsec = Club.find_by_clubid(Payment.clubid).finsecid
-    clubcode = Club.find_by_clubid(Payment.clubid).clubcode
-    clubpres = Club.find_by_clubid(Payment.clubid).presidentid
+    clubfinsec = Club.find_by_clubid(payment.clubid).finsecid
+    clubcode = Club.find_by_clubid(payment.clubid).clubcode
+    clubpres = Club.find_by_clubid(payment.clubid).presidentid
     cbdfinsec = current_user.userid
     paymentid = payment.id
     clubname = Club.find_by_clubid(payment.clubid).clubname
@@ -289,7 +292,7 @@ class PaymentsController < ApplicationController
     require 'prawn'
     payment = Payment.find_by_id(params[:id])
     payment.update_attribute(:status, 10)
-    PaymentTime.create(paymentid: payment.id, status: 10,date: Date.today)
+    # PaymentTime.create(paymentid: payment.id, status: 10,date: Date.today)
     paymentV = User.find_by_userid(payment.userid)
     fullname = paymentV.fullname
     contact = paymentV.contactno
@@ -397,7 +400,7 @@ class PaymentsController < ApplicationController
     require 'prawn'
     payment = Payment.find_by_id(params[:id])
     Payment.update_attribute(:status, 15)
-    PaymentTime.create(Paymentid: Payment.id, status: 15,date: Date.today)
+    # PaymentTime.create(Paymentid: Payment.id, status: 15,date: Date.today)
     paymentV = User.find_by_userid(Payment.userid)
     fullname = paymentV.fullname
     contact = paymentV.contactno

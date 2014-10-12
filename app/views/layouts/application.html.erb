@@ -113,7 +113,7 @@
 								</li>
 
 								<li>
-									<a class="dropdown-collapse in" href="#"> <i class="icon-circle-blank"></i> <span style="font-weight:bold;">Claims/Deposits</span> <i class="icon-angle-down angle-down"></i> </a>
+									<a class="dropdown-collapse in" href="#"> <i class="icon-circle-blank"></i> <span style="font-weight:bold;">Claims/Deposits/Payments</span> <i class="icon-angle-down angle-down"></i> </a>
 									<ul class="nav nav-collapse">
 										<li class=''>
 											<a href='/claims/clubclaims'> <i class='icon-copy'></i> <span>Club Claims</span> </a>
@@ -246,13 +246,16 @@
 									<a href='/admin/register'> <i class='icon-group'></i> <span>Manage Users</span> </a>
 								</li>
 								<li>
-									<a class="dropdown-collapse in" href="#"> <i class="icon-circle-blank"></i> <span style="font-weight:bold;">Claims/Deposits</span> <i class="icon-angle-down angle-down"></i> </a>
+									<a class="dropdown-collapse in" href="#"> <i class="icon-circle-blank"></i> <span style="font-weight:bold;">Claims/Deposits/Payments</span> <i class="icon-angle-down angle-down"></i> </a>
 									<ul class="nav nav-collapse">
 										<li class=''>
 											<a href='/claims/clubclaims'> <i class='icon-copy'></i> <span>CBD Claims</span> </a>
 										</li>
 										<li class=''>
 											<a href='/deposits/clubdeposits'> <i class='icon-copy'></i> <span>CBD Deposits</span> </a>
+										</li>
+										<li class=''>
+											<a href='/payments/clubpayments'> <i class='icon-copy'></i> <span>CBD Payments</span> </a>
 										</li>
 									</ul>
 								</li>
@@ -379,10 +382,12 @@
 						<li>
 							<a class="dropdown-collapse in" href="#"> <i class="icon-circle-blank"></i> <span style="font-weight:bold;">VENDOR SECTION</span> <i class="icon-angle-down angle-down"></i> </a>
 							<ul class="nav nav-stacked in" style="display: block;">
+								<%if (role.include?'normal') || (role.include? 'cbdmc') || (role.include? 'smusasec')%>
 								<li class=''>
 									<a href='/payments/newpayment'><i class='icon-dollar'></i>Make Payment to Vendor</a>
+									<a href='/payments/viewpayment'><i class='icon-dollar'></i>My Payments</a>
 								</li>
-
+								<%end%>
 								<li class=''>
 									<a href='/vendors/new'><i class='icon-plus-sign'></i>Add Rating for New Vendor</a>
 								</li>

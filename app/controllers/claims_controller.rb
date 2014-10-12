@@ -79,7 +79,7 @@ class ClaimsController < ApplicationController
       @cbdmcclaims = Claim.where(clubid:session[:club], status: [7..11, 20..22])
     elsif role.include? 'president'
       @normalclaims = Claim.where(clubid:session[:club], status: [2..5, 17..19])
-      @cbdmcclaims = Claim.where(clubid:session[:club], status: [8..11, 20..22])
+      @cbdmcclaims = Claim.where(clubid:session[:club], status: [8..11, 20..22]) 
       @claims = @normalclaims + @cbdmcclaims
       if session[:club] == 'smusa'
         @thirdclaims = Claim.where(['clubid in (select clubid from clubs where clubtype = ?) and ((status > 12 and status < 17) or (status > 22 and status < 26))', 'smusa'])

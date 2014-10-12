@@ -45,7 +45,7 @@
 							<tbody>
 							<% @normalpayments.each do |c|%>
 							<% status = c.status%>
-							<%if c.remarks.nil?%>
+							<%if c.remark.nil?%>
 							<tr>
 								<%else%>
 							<tr class = 'warning'>
@@ -64,7 +64,7 @@
 								</div></td>
 								<td><%= statuscode[c.status]%></td>
 								<td><a href="<%= c.supportdoc.url%>" class="btn btn-success btn-xs"><i class="icon-download"></i> Download</a></td>
-								<td> <%if status == 1%> <a href="/payments/editpayment?id=<%= c.id%>" class="btn btn-warning btn-xs"><i class="icon-pencil"></i>Edit</a> <%if c.remarks.nil?%> <a href="/payments/submitpayment?id=<%= c.id%>" class="btn btn-danger btn-xs">Submit</a> <%else%> <a href="/payments/resubmitpayment?id=<%= c.id%>" class="btn btn-danger btn-xs">ReSubmit</a><a href="#", onclick="viewremark('<%= c.remarks%>')" class="btn btn-success btn-xs"><i class="icon-eye-open"></i> View Remarks</a> <%end%>
+								<td> <%if status == 1%> <a href="/payments/editpayment?id=<%= c.id%>" class="btn btn-warning btn-xs"><i class="icon-pencil"></i>Edit</a> <%if c.remark.nil?%> <a href="/payments/submitpayment?id=<%= c.id%>" class="btn btn-danger btn-xs">Submit</a> <%else%> <a href="/payments/resubmitpayment?id=<%= c.id%>" class="btn btn-danger btn-xs">ReSubmit</a><a href="#", onclick="viewremark('<%= c.remark%>')" class="btn btn-success btn-xs"><i class="icon-eye-open"></i> View Remarks</a> <%end%>
 								<%end%></td>
 							</tr>
 							<%end%>
@@ -114,7 +114,7 @@
 							<tbody>
 							<% @normalpayments.each do |c|%>
 							<% status = c.status%>
-							<%if c.remarks.nil?%>
+							<%if c.remark.nil?%>
 							<tr>
 								<%else%>
 							<tr class = 'warning'>
@@ -197,7 +197,7 @@
 							<tbody>
 							<% @cbdmcpayments.each do |c|%>
 							<% status = c.status%>
-							<%if c.remarks.nil?%>
+							<%if c.remark.nil?%>
 							<tr>
 								<%else%>
 							<tr class = 'warning'>
@@ -220,11 +220,11 @@
 								<td>
 								<%if status == 7%>
 									<a href="/payments/editpayment?id=<%= c.id%>" class="btn btn-sm btn-primary">Edit</a>
-									<%if c.remarks.nil?%>
+									<%if c.remark.nil?%>
 									<a href="/payments/submitpayment?id=<%= c.id%>" class="btn btn-sm btn-primary">Submit</a>
 									<%else%>
 									<a href="/payments/resubmitpayment?id=<%= c.id%>" class="btn btn-sm btn-primary">ReSubmit</a>
-									<a href="#", onclick="viewremark('<%= c.remarks%>')" class="btn btn-sm btn-primary">View Remarks</a>
+									<a href="#", onclick="viewremark('<%= c.remark%>')" class="btn btn-sm btn-primary">View Remarks</a>
 									<%end%>
 								<%end%>
 								</td>
@@ -277,7 +277,7 @@
 							<tbody>
 							<% @payments.each do |c|%>
 							<% status = c.status%>
-							<%if c.remarks.nil?%>
+							<%if c.remark.nil?%>
 							<tr>
 								<%else%>
 							<tr class = 'warning'>
@@ -362,7 +362,7 @@
 							<tbody>
 							<% @oslpayments.each do |c|%>
 							<% status = c.status%>
-							<%if c.remarks.nil?%>
+							<%if c.remark.nil?%>
 							<tr>
 								<%else%>
 							<tr class = 'warning'>
@@ -447,7 +447,7 @@
 							<tbody>
 							<% @cbdmcpayments.each do |c|%>
 							<% status = c.status%>
-							<%if c.remarks.nil?%>
+							<%if c.remark.nil?%>
 							<tr>
 								<%else%>
 							<tr class = 'warning'>
@@ -529,7 +529,7 @@
 							<tbody>
 							<% @smusasecpayments.each do |c|%>
 							<% status = c.status%>
-							<%if c.remarks.nil?%>
+							<%if c.remark.nil?%>
 							<tr>
 								<%else%>
 							<tr class = 'warning'>

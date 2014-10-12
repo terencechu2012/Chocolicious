@@ -1,0 +1,57 @@
+Claim statuses for club claiming
+0 - unsubmitted
+1 - awaiting club fin sec approval
+2 - awaiting club pres approval
+3 - awaiting cbd fin sec approval
+4 - awaiting ofin approval
+5 - done
+17 - with osl
+18 - with cbd fin sec
+19 - with ofin
+
+
+claim statuses for cbd claiming
+6 - unsubmitted
+7 - awaiting cbd fin sec approval
+8 - awaiting cbd pres approval
+9 - awaiting smusa fin sec approval
+10 - awaiting ofin approval
+11 - done
+20 - with osl
+21 - with smusa fin sec
+22 - with ofin
+
+new >>>>
+claim statuses for smusa sec claiming
+12 - unsubmitted
+13 - awaiting smusa pres approval
+14 - awaiting smusa fin sec approval
+15 - awaiting ofin approval
+16 - done
+23 - with osl
+24 - with smusa finsec
+25 - with ofin
+
+old >>>>
+claim statuses for smusa sec claiming
+12 - unsubmitted
+13 - awaiting smusa fin sec approval
+14 - awaiting ofin approval
+15 - done
+
+
+=========reserve withdrawals====================
+0 - unsubmitted
+1 - awaiting club fin sec approval
+2 - awaiting club pres approval
+3 - awaiting cbd fin sec approval
+4 - awaiting smusafinsec approval
+5 - done
+
+withdrawal statuses for cbd 
+6 - unsubmitted
+7 - awaiting cbd fin sec approval
+8 - awaiting cbd pres approval
+9 - awaiting smusa fin sec approval
+10 - done
+

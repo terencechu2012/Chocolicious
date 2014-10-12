@@ -67,7 +67,7 @@
 				<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>payment Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">Details</button>
 			</div></td>
 		<td><%= statuscode[c.status]%></td>
-		<td><a href="<%= c.receiptname.url%>" class="btn btn-success btn-xs"><i class="icon-download"></i> Download</a></td>
+		<td><a href="<%= c.supportdoc.url%>" class="btn btn-success btn-xs"><i class="icon-download"></i> Download</a></td>
 		<td>
 		<%if status == 0 || status == 12 || status == 6%>
 		<a href="/payments/editpayment?id=<%=c.id%>&own=true" class="btn btn-warning btn-xs"><i class="icon-pencil"></i> Edit</a>
