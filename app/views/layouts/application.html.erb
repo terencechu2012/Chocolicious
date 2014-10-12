@@ -103,6 +103,15 @@
 						</li>
 						<%end%>
 
+						<%if (role.include?'smusafinsec') || (role.include? 'smusasec')%>
+						<li class="">
+							<a href='/claims/viewrejectedclaim'> <i class='icon-copy'></i> <span>Rejected Claims</span> </a>
+						</li>
+						<li class="">
+							<a href='/deposits/viewrejecteddeposit'> <i class='icon-copy'></i> <span>Rejected Deposits</span> </a>
+						</li>
+						<%end%>
+
 						<%if role.include? 'clubfinsec'%>
 						<li>
 							<a class="dropdown-collapse in" href="#"> <i class="icon-circle-blank"></i> <span style="font-weight:bold;">CLUB SECTION</span> <i class="icon-angle-down angle-down"></i> </a>

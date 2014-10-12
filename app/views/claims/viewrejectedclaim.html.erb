@@ -1,0 +1,81 @@
+<!-- <% if flash[:error] %>
+<font color="red"><%= flash[:error]%></font>
+<%end%> -->
+<% statuscode = ['Unsubmitted', 'With Club Finsec', 'With Club Pres', 'With CBD Finsec', 'With OFIN', 'Done', 'Unsubmitted', 'With CBD Finsec', 'With CBD Pres', 'With SMUSA Finsec', 'With OFIN', 'Done', 'Unsubmitted', 'With SMUSA Pres','With SMUSA Finsec', 'With OFIN', 'Done', 'With OSL', 'With CBD Finsec', 'With OFIN', 'With OSL', 'With SMUSA Finsec', 'With OFIN', 'With OSL', 'With SMUSA Finsec', 'With OFIN']%>
+<!-- <%statuscode = ['Unsubmitted', 'With Club Finsec', 'With Club Pres', 'With CBD Finsec', 'With OFIN', 'Done', 'Unsubmitted', 'With CBD Finsec', 'With CBD Pres', 'With SMUSA Finsec', 'With OFIN', 'Done', 'Unsubmitted','With SMUSA Pres', 'With SMUSA Finsec', 'With OFIN', 'Done']%> -->
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='page-header'>
+			<h1 class='pull-left'><i class='icon-file-alt'></i><span>Rejected Claims</span></h1>
+
+		</div>
+	</div>
+</div>
+
+<div class='row'>
+
+	<div class="col-sm-12">
+		<div class="box bordered-box blue-border">
+			<div class="box-header blue-background">
+				<div class="title">
+					Rejected Claims
+				</div>
+				<div class="actions">
+					<a class="btn box-remove btn-xs btn-link" href="#"><i class="icon-remove"></i> </a>
+
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class="box-content box-no-padding">
+				<div class="responsive-table">
+					<div class="scrollable-area">
+
+						<table class="data-table table table-striped" style="margin-bottom:0;">
+							<thead>
+								<th>Claim ID</th>
+								<th>Club</th>
+								<th>Made By</th>
+								<th>Rejected By</th>
+								<th>Amount</th>
+								<th>Status</th>
+								<th>Remarks</th>
+								<th>Rejected At</th>
+
+							</thead>
+							<tbody>
+								<% @rejectedclaims.each do |c|%>
+								<% status = c.status%>
+								<%if c.remarks.nil?%>
+								<tr>
+									<%else%>
+								<tr class = 'warning'>
+									<%end%>
+									<td><%= c.claimid%></td>
+									<td><%= c.clubid%></td>
+									<td><%= c.madeby%></td>
+									<td><%= c.rejectedby%></td>
+									<td>$<%= c.amount%></td>
+									<td><%= c.status%></td>
+									<td><%= c.remarks%></td>
+									<td><%= c.created_at%></td>
+
+								</tr>
+								<%end%>
+							</tbody>
+						</table>
+
+						<script type="text/javascript">
+							$('[data-toggle="popover-with-html"]').popover({
+								html : true
+							});
+
+							$('body').on('click', function(e) {
+								$('[data-toggle="popover"]').each(function() {
+									//the 'is' for buttons that trigger popups
+									//the 'has' for icons within a button that triggers a popup
+									if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+										$(this).popover('hide');
+									}
+								});
+							});
+						</script>

@@ -177,6 +177,7 @@ class PaymentsController < ApplicationController
 
     c.update_attribute(:remark, params[:payment][:remark])
     c.update_attribute(:status, params[:payment][:status])
+       
     redirect_to :action => 'clubpayments'
   end
 

@@ -331,11 +331,11 @@
 								<%if status == 2 || status == 8 || status == 13%>
 								<a href="#", onclick="pres(<%= c.id%>)" class="btn btn-sm btn-primary">Acknowledge</a>
 								<%if status == 2%>
-								<a href="/claims/addremark?id=<%=c.id%>&status=1" class="btn btn-sm btn-primary">Reject</a>
+								<a href="/deposits/addremark?id=<%=c.id%>&status=1" class="btn btn-sm btn-primary">Reject</a>
 								<%elsif status == 8%>
-								<a href="/claims/addremark?id=<%=c.id%>&status=7" class="btn btn-sm btn-primary">Reject</a>
+								<a href="/deposits/addremark?id=<%=c.id%>&status=7" class="btn btn-sm btn-primary">Reject</a>
 								<%elsif status == 13%>
-								<a href="/claims/addremark?id=<%=c.id%>&status=12" class="btn btn-sm btn-primary">Reject</a>
+								<a href="/deposits/addremark?id=<%=c.id%>&status=12" class="btn btn-sm btn-primary">Reject</a>
 								<%end%>
 								<p id ="pres"></p>
 								<%end%>

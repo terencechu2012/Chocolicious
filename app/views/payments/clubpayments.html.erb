@@ -30,8 +30,8 @@
 
 						<table class="data-table table table-striped" style="margin-bottom:0;">
 							<thead>
-								<th>payment ID</th>
-								<th>payment By</th>
+								<th>Payment ID</th>
+								<th>Payment By</th>
 
 								<th>Amount</th>
 
@@ -58,7 +58,7 @@
 								<td><%= c.event%></td>
 								<td>
 								<div class="bs-example-tooltips">
-									<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>payment Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
+									<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
 										Details
 									</button>
 								</div></td>
@@ -99,8 +99,8 @@
 
 						<table class="data-table table table-striped" style="margin-bottom:0;">
 							<thead>
-								<th>payment ID</th>
-								<th>payment By</th>
+								<th>Payment ID</th>
+								<th>Payment By</th>
 								<th>Club</th>
 								<th>Amount</th>
 
@@ -128,7 +128,7 @@
 
 								<td>
 								<div class="bs-example-tooltips">
-									<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>payment Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
+									<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
 										Details
 									</button>
 								</div></td>
@@ -144,9 +144,9 @@
 									<%elsif status == 4%>
 									<a href="/payments/endorseclub?id=<%= c.id%>" class="btn btn-sm btn-primary">Endorsed. View form</a>
 									<a href="/payments/addremark?id=<%= c.id%>&status=1" class="btn btn-sm btn-primary">Reject</a>
-									<a href="/payments/completepayment?id=<%= c.id%>" class="btn btn-sm btn-primary">payment complete</a>
+									<a href="/payments/completepayment?id=<%= c.id%>" class="btn btn-sm btn-primary">Complete payment</a>
 									<%elsif status == 5%>
-									<span class="label label-success">payment Completed</span>
+									<span class="label label-success">Completed</span>
 									<%end%>
 								</td>
 							</tr>
@@ -211,7 +211,7 @@
 
 								<td>
 								<div class="bs-example-tooltips">
-									<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>payment Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
+									<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
 										Details
 									</button>
 								</div></td>
@@ -261,8 +261,8 @@
 
 						<table class="data-table table table-striped" style="margin-bottom:0;">
 							<thead>
-								<th>payment ID</th>
-								<th>payment By</th>
+								<th>Payment ID</th>
+								<th>Payment By</th>
 
 								<th>Amount</th>
 
@@ -291,7 +291,7 @@
 
 								<td>
 								<div class="bs-example-tooltips">
-									<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>payment Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
+									<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
 										Details
 									</button>
 								</div></td>
@@ -333,7 +333,7 @@
 		<div class="box bordered-box blue-border">
 			<div class="box-header blue-background">
 				<div class="title">
-					payments
+					Payments
 				</div>
 				<div class="actions">
 
@@ -346,8 +346,8 @@
 
 						<table class="data-table table table-striped" style="margin-bottom:0;">
 							<thead>
-								<th>payment ID</th>
-								<th>payment By</th>
+								<th>Payment ID</th>
+								<th>Payment By</th>
 
 								<th>Amount</th>
 
@@ -376,7 +376,7 @@
 
 								<td>
 								<div class="bs-example-tooltips">
-									<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>payment Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
+									<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
 										Details
 									</button>
 								</div></td>
@@ -432,8 +432,8 @@
 
 						<table class="data-table table table-striped" style="margin-bottom:0;">
 							<thead>
-								<th>payment ID</th>
-								<th>payment By</th>
+								<th>Payment ID</th>
+								<th>Payment By</th>
 								<th>Club</th>
 								<th>Amount</th>
 
@@ -461,7 +461,7 @@
 
 								<td>
 								<div class="bs-example-tooltips">
-									<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>payment Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
+									<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
 										Details
 									</button>
 								</div></td>
@@ -477,9 +477,9 @@
 								<%elsif status == 10%>
 								<a href="/payments/endorsecbdmc?id=<%= c.id%>" class="btn btn-sm btn-primary">Endorsed. View form</a>
 								<a href="/payments/addremark?id=<%= c.id%>&status=7" class="btn btn-sm btn-primary">Reject</a>
-								<a href="/payments/completepayment?id=<%= c.id%>" class="btn btn-sm btn-primary">payment complete</a>
+								<a href="/payments/completepayment?id=<%= c.id%>" class="btn btn-sm btn-primary">Complete payment</a>
 								<%elsif status == 11%>
-								<span class="label label-success">payment Completed</span>
+								<span class="label label-success">Completed</span>
 								<%end%>
 							</td></tr>
 							<%end%>
@@ -543,7 +543,7 @@
 
 								<td>
 								<div class="bs-example-tooltips">
-									<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>payment Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
+									<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
 										Details
 									</button>
 								</div></td>
@@ -559,9 +559,9 @@
 								<%elsif status == 15%>
 								<a href="/payments/endorsesmusasec?id=<%= c.id%>" class="btn btn-sm btn-primary">Endorsed. View form</a>
 								<a href="/payments/addremark?id=<%= c.id%>&status=12" class="btn btn-sm btn-primary">Reject</a>
-								<a href="/payments/completepayment?id=<%= c.id%>" class="btn btn-sm btn-primary">payment complete</a>
+								<a href="/payments/completepayment?id=<%= c.id%>" class="btn btn-sm btn-primary">Complete payment</a>
 								<%elsif status == 16%>
-								<span class="label label-success">payment Completed</span>
+								<span class="label label-success">Completed</span>
 								<%end%>
 							</td></tr>
 							<%end%>

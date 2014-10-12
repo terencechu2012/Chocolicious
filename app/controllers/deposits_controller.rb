@@ -50,6 +50,11 @@ class DepositsController < ApplicationController
     
   end
   
+    def viewrejecteddeposit
+    @rejecteddeposits = RejectedDeposit.all
+  end
+
+  
   def deposit_params
     params.require(:deposit).permit!
   end
@@ -104,6 +109,18 @@ class DepositsController < ApplicationController
 
     c.update_attribute(:status, newstatus)
     c.update_attribute(:remarks, nil)
+    
+    rc = RejectedDeposit.find_by_depositid(params[:id])
+    if rc.status == 12
+    newstatus = rc.status + 2
+    else
+    newstatus = rc.status + 2
+    end
+
+    rc.update_attribute(:status, newstatus)
+    rc.update_attribute(:remarks, nil)
+    
+    
     # redirect_to :action => 'viewclaim'
     redirect_to :back
   end
@@ -113,6 +130,7 @@ class DepositsController < ApplicationController
 
     c.update_attribute(:remarks, params[:deposit][:remarks])
     c.update_attribute(:status, params[:deposit][:status])
+    RejectedDeposit.create(depositid: c.id, clubid: c.clubid, madeby: c.userid, rejectedby: current_user.userid, amount: c.amount, status: params[:deposit][:status], remarks: params[:deposit][:remarks])
     redirect_to :action => 'clubdeposits'
   end
   
