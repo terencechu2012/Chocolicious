@@ -203,71 +203,80 @@ class ClaimsController < ApplicationController
     clubname = Club.find_by_clubid(claim.clubid).clubname
     cbdname = session[:club]
     date = Date.today
-    Prawn::Document.generate("public/toprint.pdf") do
+    Prawn::Document.generate("public/toprint.pdf",
+                             :page_size => "EXECUTIVE",
+                             :page_layout => :landscape) do
+      define_grid(:columns => 8, :rows => 8, :gutter => 10)
       # header
       bounding_box [bounds.left - 40, bounds.top + 40], :width  => bounds.width + 80 do
         cell :background_color => 'EEEEEE',
              :width => bounds.width,
-             :height => 100,
+             :height => 60,
              :align => :center,
              :text_color => "EEEEEE",
              :borders => [:bottom],
              :border_width => 2,
              :border_color => "rgb(1, 99, 172)",
              :padding => 12
-        move_down 20
-        image "#{Rails.root}/app/assets/images/smusa-new-logo.png", :at => [35, cursor], :width => 150
+        move_down 10
+        image "#{Rails.root}/app/assets/images/smusa-new-logo.png", :at => [35, cursor], :width => 90
       end
-      move_down 90
-      #Body
-      #Applicant Data
-      data = [
-                ["<b>Claim ID</b>"," : "+claimid.to_s],
-                ['<b>Club Code</b>'," : "+clubcode.to_s],
-                [" "," "],
-                ['<b>Payee Name</b>'," : "+fullname.to_s],
-                ['<b>Contact Number</b>'," : "+contact.to_s],
-                ['<b>NRIC</b>'," : "+nric.to_s],
-                [" "," "],
-                ["<b>Date</b>"," : "+date.to_s]
-              ]
-      table(data, :cell_style => { :border_color => "FFFFFF", :padding => 2, :size=>10, :inline_format => true})
-      move_down 20
-      #Application Details
-      details = [
-                  ["<b>Event Name</b>","<b>Amount</b>","<b>Category</b>","<b>Expense</b>"],
-                  [eventname.to_s, "$ "+amount.to_s, category.to_s, expense.to_s]
+      grid([0,0],[1,4]).bounding_box do
+        move_down 30
+        #Body
+        #Applicant Data
+        data = [
+                  ["<b>Claim ID</b>"," : "+claimid.to_s,"<b>Date</b>"," : "+date.to_s],
+                  ['<b>Club Code</b>'," : "+clubcode.to_s," "," "],
+                  ['<b>Payee Name</b>'," : "+fullname.to_s,'<b>NRIC</b>'," : "+nric.to_s],
+                  ['<b>Contact Number</b>'," : "+contact.to_s," "," "]
                 ]
-      table(details, :width => bounds.width, :cell_style => { :border_color => "rgb(1, 99, 172)", :padding => 8, :size=>10, :inline_format => true}, :row_colors => ["EEEEEE", "FFFFFF"])
-      move_down 30
-      #Approval Details
-      approval = [
-                  ["<b>Prepared and verified by</b>","<b>Certified by</b>","<b>Endorsed/Approved by</b>"],
-                  [clubfinsec.to_s, clubpres.to_s,cbdfinsec.to_s],
-                  [clubname.to_s+", Club Finance Secretary",clubname.to_s+", Club President", cbdname.to_s+", CBd Finance Secretary"]
+        table(data, :cell_style => { :border_color => "FFFFFF", :padding => 2, :size=>10, :inline_format => true})
+      end
+      grid([1,5],[1,7]).bounding_box do
+        pvsNo = [
+                  ["<b>PVS No.</b>"," : _________________________"],
+                  ['<b>Date</b>'," : _________________________"]
                 ]
-      table(approval, :width => bounds.width, :cell_style => { :border_color => "FFFFFF", :padding => 10, :inline_format => true})
-      move_down 50
-      #Payment Approval
-      paymentapprove = [
-                          [{:content=>"<b>Payment Approval for Official Use</b>", :colspan=>3}],
-                          ["<b>Purchase Order</b>", {:content=>" ", :colspan=>2}],
-                          ["<b>SAP Vendor No.</b>", {:content=>" ", :colspan=>2}],
-                          ["<b>Cost Center</b>", {:content=>"C110 ", :colspan=>2}],
-                          ["<b>Amount Code</b>","<b>Amount (S$)</b>","<b>GST (S$)</b>"],
-                          ["1800020", " ", " "],
-                          [" ", " ", " "],
-                          [" ", " ", " "],
-                          [" ", " ", " "],
-                          [" ", " ", " "],
-                          ["<b>Total Amount Payable</b>", {:content=>" ", :colspan=>2}],
-                          ["<b>Approval</b>", {:content=>" ", :colspan=>2}],
-                          ["<b>Document No.</b>", {:content=>" ", :colspan=>2}],
-                          ["<b>Posting Date</b>", {:content=>" ", :colspan=>2}],
-                          ["<b>Cheque No.</b>", {:content=>" ", :colspan=>2}]
-                       ]
-      table(paymentapprove, :cell_style => { :border_color => "rgb(1, 99, 172)", :padding => 6, :size=>10, :inline_format => true}, :row_colors => ["EEEEEE", "FFFFFF", "FFFFFF","FFFFFF", "EEEEEE", "FFFFFF", "FFFFFF","FFFFFF", "FFFFFF", "FFFFFF", "C8C8C8 ", "C8C8C8", "C8C8C8", "C8C8C8", "C8C8C8"])
-      
+        table(pvsNo, :cell_style => { :border_color => "FFFFFF", :padding => 2, :size=>10, :inline_format => true})
+      end
+      grid([2,0],[7,4]).bounding_box do
+        #Application Details
+        details = [
+                    ["<b>Event Name</b>","<b>Amount</b>","<b>Category</b>","<b>Expense</b>"],
+                    [eventname.to_s, "$ "+amount.to_s, category.to_s, expense.to_s]
+                  ]
+        table(details, :width => bounds.width, :cell_style => { :border_color => "rgb(1, 99, 172)", :padding => 6, :size=>10, :inline_format => true}, :row_colors => ["EEEEEE", "FFFFFF"])
+        move_down 30
+        #Approval Details
+        approval = [
+                    ["<b>Prepared and verified by</b>","<b>Certified by</b>","<b>Endorsed/Approved by</b>"],
+                    [clubfinsec.to_s, clubpres.to_s,cbdfinsec.to_s],
+                    [clubname.to_s+", Club Finance Secretary",clubname.to_s+", Club President", cbdname.to_s+", CBd Finance Secretary"]
+                  ]
+        table(approval, :width => bounds.width, :cell_style => { :border_color => "FFFFFF", :padding => 6, :size=>10, :inline_format => true})
+      end
+      grid([2,5],[7,7]).bounding_box do
+        #Payment Approval
+        paymentapprove = [
+                            [{:content=>"<b>Payment Approval for Official Use</b>", :colspan=>3}],
+                            ["<b>Purchase Order</b>", {:content=>" ", :colspan=>2}],
+                            ["<b>SAP Vendor No.</b>", {:content=>" ", :colspan=>2}],
+                            ["<b>Cost Center</b>", {:content=>"C110 ", :colspan=>2}],
+                            ["<b>Amount Code</b>","<b>Amount (S$)</b>","<b>GST (S$)</b>"],
+                            ["1800020", " ", " "],
+                            [" ", " ", " "],
+                            [" ", " ", " "],
+                            [" ", " ", " "],
+                            [" ", " ", " "],
+                            ["<b>Total Amount Payable</b>", {:content=>" ", :colspan=>2}],
+                            ["<b>Approval</b>", {:content=>" ", :colspan=>2}],
+                            ["<b>Document No.</b>", {:content=>" ", :colspan=>2}],
+                            ["<b>Posting Date</b>", {:content=>" ", :colspan=>2}],
+                            ["<b>Cheque No.</b>", {:content=>" ", :colspan=>2}]
+                         ]
+        table(paymentapprove, :cell_style => { :border_color => "rgb(1, 99, 172)", :padding => 5, :size=>8, :inline_format => true}, :row_colors => ["EEEEEE", "FFFFFF", "FFFFFF","FFFFFF", "EEEEEE", "FFFFFF", "FFFFFF","FFFFFF", "FFFFFF", "FFFFFF", "C8C8C8 ", "C8C8C8", "C8C8C8", "C8C8C8", "C8C8C8"])
+      end  
       #Footer
       bounding_box [bounds.left-40, bounds.bottom], :width  => bounds.width+80 do
         cell :content => 'Generated Report using the SMUSA Accounting Information System',
@@ -311,71 +320,80 @@ class ClaimsController < ApplicationController
     clubname = Club.find_by_clubid(claim.clubid).clubname
     cbdname = session[:club]
     date = Date.today
-    Prawn::Document.generate("public/toprint.pdf") do
+    Prawn::Document.generate("public/toprint.pdf",
+                             :page_size => "EXECUTIVE",
+                             :page_layout => :landscape) do
+      define_grid(:columns => 8, :rows => 8, :gutter => 10)
       # header
       bounding_box [bounds.left - 40, bounds.top + 40], :width  => bounds.width + 80 do
         cell :background_color => 'EEEEEE',
              :width => bounds.width,
-             :height => 100,
+             :height => 60,
              :align => :center,
              :text_color => "EEEEEE",
              :borders => [:bottom],
              :border_width => 2,
              :border_color => "rgb(1, 99, 172)",
              :padding => 12
-        move_down 20
-        image "#{Rails.root}/app/assets/images/smusa-new-logo.png", :at => [35, cursor], :width => 150
+        move_down 10
+        image "#{Rails.root}/app/assets/images/smusa-new-logo.png", :at => [35, cursor], :width => 90
       end
-      move_down 90
-      #Body
-      #Applicant Data
-      data = [
-                ["<b>Claim ID</b>"," : "+claimid.to_s],
-                ['<b>Club Code</b>'," : "+clubcode.to_s],
-                [" "," "],
-                ['<b>Payee Name</b>'," : "+fullname.to_s],
-                ['<b>Contact Number</b>'," : "+contact.to_s],
-                ['<b>NRIC</b>'," : "+nric.to_s],
-                [" "," "],
-                ["<b>Date</b>"," : "+date.to_s]
-              ]
-      table(data, :cell_style => { :border_color => "FFFFFF", :padding => 2, :size=>10, :inline_format => true})
-      move_down 20
-      #Application Details
-      details = [
-                  ["<b>Event Name</b>","<b>Amount</b>","<b>Category</b>","<b>Expense</b>"],
-                  [eventname.to_s, "$ "+amount.to_s, category.to_s, expense.to_s]
+      grid([0,0],[1,4]).bounding_box do
+        move_down 30
+        #Body
+        #Applicant Data
+        data = [
+                  ["<b>Claim ID</b>"," : "+claimid.to_s,"<b>Date</b>"," : "+date.to_s],
+                  ['<b>Club Code</b>'," : "+clubcode.to_s," "," "],
+                  ['<b>Payee Name</b>'," : "+fullname.to_s,'<b>NRIC</b>'," : "+nric.to_s],
+                  ['<b>Contact Number</b>'," : "+contact.to_s," "," "]
                 ]
-      table(details, :width => bounds.width, :cell_style => { :border_color => "rgb(1, 99, 172)", :padding => 8, :size => 10,:inline_format => true}, :row_colors => ["EEEEEE", "FFFFFF"])
-      move_down 30
-      #Approval Details
-      approval = [
-                  ["<b>Prepared and verified by</b>","<b>Certified by</b>","<b>Endorsed/Approved by</b>"],
-                  [cbdfinsec.to_s, cbdpres.to_s, smusafinsec.to_s],
-                  [clubname.to_s+", CBd Finance Secretary",clubname.to_s+", CBd President", cbdname.to_s+", SMUSA Finance Secretary"]
+        table(data, :cell_style => { :border_color => "FFFFFF", :padding => 2, :size=>10, :inline_format => true})
+      end
+      grid([1,5],[1,7]).bounding_box do
+        pvsNo = [
+                  ["<b>PVS No.</b>"," : _________________________"],
+                  ['<b>Date</b>'," : _________________________"]
                 ]
-      table(approval, :width => bounds.width, :cell_style => { :border_color => "FFFFFF", :padding => 6, :size=>10,  :inline_format => true})
-      move_down 50
-      #Payment Approval
-      paymentapprove = [
-                          [{:content=>"<b>Payment Approval for Official Use</b>", :colspan=>3}],
-                          ["<b>Purchase Order</b>", {:content=>" ", :colspan=>2}],
-                          ["<b>SAP Vendor No.</b>", {:content=>" ", :colspan=>2}],
-                          ["<b>Cost Center</b>", {:content=>"C110 ", :colspan=>2}],
-                          ["<b>Amount Code</b>","<b>Amount (S$)</b>","<b>GST (S$)</b>"],
-                          ["1800020", " ", " "],
-                          [" ", " ", " "],
-                          [" ", " ", " "],
-                          [" ", " ", " "],
-                          [" ", " ", " "],
-                          ["<b>Total Amount Payable</b>", {:content=>" ", :colspan=>2}],
-                          ["<b>Approval</b>", {:content=>" ", :colspan=>2}],
-                          ["<b>Document No.</b>", {:content=>" ", :colspan=>2}],
-                          ["<b>Posting Date</b>", {:content=>" ", :colspan=>2}],
-                          ["<b>Cheque No.</b>", {:content=>" ", :colspan=>2}]
-                       ]
-      table(paymentapprove, :cell_style => { :border_color => "rgb(1, 99, 172)", :padding => 5, :size=>8, :inline_format => true}, :row_colors => ["EEEEEE", "FFFFFF", "FFFFFF","FFFFFF", "EEEEEE", "FFFFFF", "FFFFFF","FFFFFF", "FFFFFF", "FFFFFF", "C8C8C8 ", "C8C8C8", "C8C8C8", "C8C8C8", "C8C8C8"])
-      
+        table(pvsNo, :cell_style => { :border_color => "FFFFFF", :padding => 2, :size=>10, :inline_format => true})
+      end
+      grid([2,0],[7,4]).bounding_box do
+        #Application Details
+        details = [
+                    ["<b>Event Name</b>","<b>Amount</b>","<b>Category</b>","<b>Expense</b>"],
+                    [eventname.to_s, "$ "+amount.to_s, category.to_s, expense.to_s]
+                  ]
+        table(details, :width => bounds.width, :cell_style => { :border_color => "rgb(1, 99, 172)", :padding => 6, :size => 10,:inline_format => true}, :row_colors => ["EEEEEE", "FFFFFF"])
+        move_down 30
+        #Approval Details
+        approval = [
+                    ["<b>Prepared and verified by</b>","<b>Certified by</b>","<b>Endorsed/Approved by</b>"],
+                    [cbdfinsec.to_s, cbdpres.to_s, smusafinsec.to_s],
+                    [clubname.to_s+", CBd Finance Secretary",clubname.to_s+", CBd President", cbdname.to_s+", SMUSA Finance Secretary"]
+                  ]
+        table(approval, :width => bounds.width, :cell_style => { :border_color => "FFFFFF", :padding => 6, :size=>10,  :inline_format => true})
+      end
+      grid([2,5],[7,7]).bounding_box do
+        #Payment Approval
+        paymentapprove = [
+                            [{:content=>"<b>Payment Approval for Official Use</b>", :colspan=>3}],
+                            ["<b>Purchase Order</b>", {:content=>" ", :colspan=>2}],
+                            ["<b>SAP Vendor No.</b>", {:content=>" ", :colspan=>2}],
+                            ["<b>Cost Center</b>", {:content=>"C110 ", :colspan=>2}],
+                            ["<b>Amount Code</b>","<b>Amount (S$)</b>","<b>GST (S$)</b>"],
+                            ["1800020", " ", " "],
+                            [" ", " ", " "],
+                            [" ", " ", " "],
+                            [" ", " ", " "],
+                            [" ", " ", " "],
+                            ["<b>Total Amount Payable</b>", {:content=>" ", :colspan=>2}],
+                            ["<b>Approval</b>", {:content=>" ", :colspan=>2}],
+                            ["<b>Document No.</b>", {:content=>" ", :colspan=>2}],
+                            ["<b>Posting Date</b>", {:content=>" ", :colspan=>2}],
+                            ["<b>Cheque No.</b>", {:content=>" ", :colspan=>2}]
+                         ]
+        table(paymentapprove, :cell_style => { :border_color => "rgb(1, 99, 172)", :padding => 5, :size=>8, :inline_format => true}, :row_colors => ["EEEEEE", "FFFFFF", "FFFFFF","FFFFFF", "EEEEEE", "FFFFFF", "FFFFFF","FFFFFF", "FFFFFF", "FFFFFF", "C8C8C8 ", "C8C8C8", "C8C8C8", "C8C8C8", "C8C8C8"])
+      end  
       #Footer
       bounding_box [bounds.left-40, bounds.bottom], :width  => bounds.width+80 do
         cell :content => 'Generated Report using the SMUSA Accounting Information System',
@@ -419,69 +437,80 @@ class ClaimsController < ApplicationController
     clubname = Club.find_by_clubid(claim.clubid).clubname
     cbdname = session[:club]
     date = Date.today
-    Prawn::Document.generate("public/toprint.pdf") do
+    Prawn::Document.generate("public/toprint.pdf",
+                             :page_size => "EXECUTIVE",
+                             :page_layout => :landscape) do
+      define_grid(:columns => 8, :rows => 8, :gutter => 10)
       # header
       bounding_box [bounds.left - 40, bounds.top + 40], :width  => bounds.width + 80 do
         cell :background_color => 'EEEEEE',
              :width => bounds.width,
-             :height => 100,
+             :height => 60,
              :align => :center,
              :text_color => "EEEEEE",
              :borders => [:bottom],
              :border_width => 2,
              :border_color => "rgb(1, 99, 172)",
              :padding => 12
-        move_down 20
-        image "#{Rails.root}/app/assets/images/smusa-new-logo.png", :at => [35, cursor], :width => 150
+        move_down 10
+        image "#{Rails.root}/app/assets/images/smusa-new-logo.png", :at => [35, cursor], :width => 90
       end
-      move_down 90
-      #Body
-      #Applicant Data
-      data = [
-                ["<b>Claim ID</b>"," : "+claimid.to_s],
-                ['<b>Club Code</b>'," : "+clubcode.to_s],
-                ['<b>Payee Name</b>'," : "+fullname.to_s],
-                ['<b>Contact Number</b>'," : "+contact.to_s],
-                ['<b>NRIC</b>'," : "+nric.to_s],
-                ["<b>Date</b>"," : "+date.to_s]
-              ]
-      table(data, :cell_style => { :border_color => "FFFFFF", :padding => 2, :size=>10, :inline_format => true})
-      move_down 20
-      #Application Details
-      details = [
-                  ["<b>Event Name</b>","<b>Amount</b>","<b>Category</b>","<b>Expense</b>"],
-                  [eventname.to_s, "$ "+amount.to_s, category.to_s, expense.to_s]
+      grid([0,0],[1,4]).bounding_box do
+        move_down 30
+        #Body
+        #Applicant Data
+        data = [
+                  ["<b>Claim ID</b>"," : "+claimid.to_s,"<b>Date</b>"," : "+date.to_s],
+                  ['<b>Club Code</b>'," : "+clubcode.to_s, " ", " "],
+                  ['<b>Payee Name</b>'," : "+fullname.to_s,'<b>NRIC</b>'," : "+nric.to_s],
+                  ['<b>Contact Number</b>'," : "+contact.to_s, " ", " "]
                 ]
-      table(details, :width => bounds.width, :cell_style => { :border_color => "rgb(1, 99, 172)", :padding => 8, :size=>10, :inline_format => true}, :row_colors => ["EEEEEE", "FFFFFF"])
-      move_down 30
-      #Approval Details
-      approval = [
-                  ["<b>Prepared and verified by</b>","<b>Certified by</b>","<b>Endorsed/Approved by</b>"],
-                  [smusasec.to_s, smusapres.to_s, smusafinsec.to_s],
-                  [clubname.to_s+", SMUSA Honourary Secretary",cbdname.to_s+", SMUSA President", cbdname.to_s+", SMUSA Finance Secretary"]
+        table(data, :cell_style => { :border_color => "FFFFFF", :padding => 2, :size=>10, :inline_format => true})
+      end
+      grid([1,5],[1,7]).bounding_box do
+        pvsNo = [
+                  ["<b>PVS No.</b>"," : _________________________"],
+                  ['<b>Date</b>'," : _________________________"]
                 ]
-      table(approval, :width => bounds.width, :cell_style => { :border_color => "FFFFFF", :padding => 6, :size=>10, :inline_format => true})
-      move_down 50
-      #Payment Approval
-      paymentapprove = [
-                          [{:content=>"<b>Payment Approval for Official Use</b>", :colspan=>3}],
-                          ["<b>Purchase Order</b>", {:content=>" ", :colspan=>2}],
-                          ["<b>SAP Vendor No.</b>", {:content=>" ", :colspan=>2}],
-                          ["<b>Cost Center</b>", {:content=>"C110 ", :colspan=>2}],
-                          ["<b>Amount Code</b>","<b>Amount (S$)</b>","<b>GST (S$)</b>"],
-                          ["1800020", " ", " "],
-                          [" ", " ", " "],
-                          [" ", " ", " "],
-                          [" ", " ", " "],
-                          [" ", " ", " "],
-                          ["<b>Total Amount Payable</b>", {:content=>" ", :colspan=>2}],
-                          ["<b>Approval</b>", {:content=>" ", :colspan=>2}],
-                          ["<b>Document No.</b>", {:content=>" ", :colspan=>2}],
-                          ["<b>Posting Date</b>", {:content=>" ", :colspan=>2}],
-                          ["<b>Cheque No.</b>", {:content=>" ", :colspan=>2}]
-                       ]
-      table(paymentapprove, :cell_style => { :border_color => "rgb(1, 99, 172)", :padding => 5, :size=>8, :inline_format => true}, :row_colors => ["EEEEEE", "FFFFFF", "FFFFFF","FFFFFF", "EEEEEE", "FFFFFF", "FFFFFF","FFFFFF", "FFFFFF", "FFFFFF", "C8C8C8 ", "C8C8C8", "C8C8C8", "C8C8C8", "C8C8C8"])
+        table(pvsNo, :cell_style => { :border_color => "FFFFFF", :padding => 2, :size=>10, :inline_format => true})
+      end
+      grid([2,0],[7,4]).bounding_box do
+        #Application Details
+        details = [
+                    ["<b>Event Name</b>","<b>Amount</b>","<b>Category</b>","<b>Expense</b>"],
+                    [eventname.to_s, "$ "+amount.to_s, category.to_s, expense.to_s]
+                  ]
+        table(details, :width => bounds.width, :cell_style => { :border_color => "rgb(1, 99, 172)", :padding => 6, :size=>10, :inline_format => true}, :row_colors => ["EEEEEE", "FFFFFF"])
+        #Approval Details
+        approval = [
+                    ["<b>Prepared and verified by</b>","<b>Certified by</b>","<b>Endorsed/Approved by</b>"],
+                    [smusasec.to_s, smusapres.to_s, smusafinsec.to_s],
+                    [clubname.to_s+", SMUSA Honourary Secretary",cbdname.to_s+", SMUSA President", cbdname.to_s+", SMUSA Finance Secretary"]
+                  ]
+        table(approval, :width => bounds.width, :cell_style => { :border_color => "FFFFFF", :padding => 6, :size=>10, :inline_format => true})
+      end
       
+      grid([2,5],[7,7]).bounding_box do
+        #Payment Approval
+        paymentapprove = [
+                            [{:content=>"<b>Payment Approval for Official Use</b>", :colspan=>3}],
+                            ["<b>Purchase Order</b>", {:content=>" ", :colspan=>2}],
+                            ["<b>SAP Vendor No.</b>", {:content=>" ", :colspan=>2}],
+                            ["<b>Cost Center</b>", {:content=>"C110 ", :colspan=>2}],
+                            ["<b>Amount Code</b>","<b>Amount (S$)</b>","<b>GST (S$)</b>"],
+                            ["1800020", " ", " "],
+                            [" ", " ", " "],
+                            [" ", " ", " "],
+                            [" ", " ", " "],
+                            [" ", " ", " "],
+                            ["<b>Total Amount Payable</b>", {:content=>" ", :colspan=>2}],
+                            ["<b>Approval</b>", {:content=>" ", :colspan=>2}],
+                            ["<b>Document No.</b>", {:content=>" ", :colspan=>2}],
+                            ["<b>Posting Date</b>", {:content=>" ", :colspan=>2}],
+                            ["<b>Cheque No.</b>", {:content=>" ", :colspan=>2}]
+                         ]
+        table(paymentapprove, :cell_style => { :border_color => "rgb(1, 99, 172)", :padding => 5, :size=>8, :inline_format => true}, :row_colors => ["EEEEEE", "FFFFFF", "FFFFFF","FFFFFF", "EEEEEE", "FFFFFF", "FFFFFF","FFFFFF", "FFFFFF", "FFFFFF", "C8C8C8 ", "C8C8C8", "C8C8C8", "C8C8C8", "C8C8C8"])
+      end
       #Footer
       bounding_box [bounds.left-40, bounds.bottom], :width  => bounds.width+80 do
         cell :content => 'Generated Report using the SMUSA Accounting Information System',
