@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141012090407) do
+ActiveRecord::Schema.define(version: 20141018015547) do
 
   create_table "allocation_reports", force: true do |t|
     t.datetime "created_at"
@@ -343,6 +343,9 @@ ActiveRecord::Schema.define(version: 20141012090407) do
     t.string   "supportdoc_content_type"
     t.integer  "supportdoc_file_size"
     t.datetime "supportdoc_updated_at"
+    t.string   "address"
+    t.string   "vendorpayeename"
+    t.string   "vendorcontact"
   end
 
   create_table "rejected_claims", force: true do |t|

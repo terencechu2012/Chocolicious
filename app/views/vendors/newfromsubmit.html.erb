@@ -1,7 +1,7 @@
 <div class='row'>
 	<div class='col-sm-12'>
 		<div class='page-header'>
-			<h1 class='pull-left'><i class='icon-plus-sign'></i><span> Add Rating for New Vendor</span></h1>
+			<h1 class='pull-left'><i class='icon-plus-sign'></i><span> Please take a moment to rate the vendor</span></h1>
 		</div>
 	</div>
 </div>
@@ -9,6 +9,7 @@
 	<div class='col-sm-12 col-lg-12'>
 		<div class='box bordered-box'>
 			<div class='box-content box-double-padding'>
+				<%if @type == 'new'%>
 				<%=form_for @new_vendor, :url => { :action => "add" } do |f| %>
 				<fieldset>
 					<div class='col-sm-4'>
@@ -22,7 +23,7 @@
 						<h3>Vendor Information</h3>
 						<%a = Array(1..9)
 						b = Array(1..5)%>
-						<div class="form-group">
+						<!-- <div class="form-group">
 							<label>Company Name*</label> 
 							<%=f.text_field :name,:class=>"form-control"%>
 						</div>
@@ -33,7 +34,10 @@
 						<div class="form-group">
 							<label>Address</label>
 							<%=f.text_field :address,:class=>"form-control"%>
-						</div>
+						</div> -->
+						<%=f.hidden_field :name, :value => @name%>
+						<%=f.hidden_field :contact, :value => @contact%>
+						<%=f.hidden_field :address, :value => @address%>
 						<div class="form-group">
 							<label>Select Category</label>
 							<%=f.select :category, "<optgroup label='Logistics'><option value='1'>Assets</option><option value='2'>PA Systems</option><option value='3'>Sports Equipments</option><option value='4'>Arts Equipments</option></optgroup><optgroup label='Food'><option value='5'>Catering</option><option value='6'>Packed Meals</option></optgroup><optgroup label='Transport'><option value='7'>Vehicle to transport logistics</option><option value='8'>Vehicle to transport people</option></optgroup><optgroup label='External Venues'><option value='9'>Booking of spaces for events</option></optgroup>".html_safe, {}, {:class=>"select2 form-control"}%>
@@ -73,43 +77,73 @@
 					</div>
 				</div>
 			<%end%>
+			<%else%>
+			<%=form_for @new_vendor, :url => { :action => "edit2" } do |f| %>
+				<fieldset>
+					<div class='col-sm-4'>
+						<div class='lead'>
+							<i class='icon-file-alt text-contrast'></i>
+							Notes On Adding Rating for <strong>New</strong> Vendor
+						</div>
+						<small class='text-muted'> Add a new Vendor and an accompanying review. Please be responsible in entering Vendor Information as these details will be used for contacting vendor in the future when other students are looking for vendors for their events.<br /><br /> Think through the ratings carefully as reviews will be used to rank vendors in the system. Giving a poorly thought out review will result in less accurate search results in the future when searching for a vendor for your future events.</small>
+					</div>
+					<div class='col-sm-7 col-sm-offset-1'>
+						<h3>Vendor Information</h3>
+						<%a = Array(1..9)
+						b = Array(1..5)%>
+						<!-- <div class="form-group">
+							<label>Company Name*</label> 
+							<%=f.text_field :name,:class=>"form-control"%>
+						</div>
+						<div class="form-group">
+							<label>Contact Number</label>
+							<%=f.text_field :contact,:class=>"form-control"%>
+						</div>
+						<div class="form-group">
+							<label>Address</label>
+							<%=f.text_field :address,:class=>"form-control"%>
+						</div> -->
+						<%=f.hidden_field :id, :value => @id%>
+						
+						<div class="form-group">
+							<label>Credit Limit</label> <i>(e.g. Does vendor offer credit limit? - minimum 30 days)</i>
+							<%=f.select :creditlimit,"<option value='Yes'>Yes</option><option value='No'>No</option>".html_safe, {}, {:class=>"select2 form-control"}%>
+						</div>
+						<hr />
+						<h3>Ratings <font color="blue", size='2'>(1-very poor;  2-poor; 3-expected; 4-good; 5-extremely good)</font></h3> 
+						<div class="form-group">
+							<label>Price</label>
+							<%=f.select :price, options_for_select(b), {}, {:class=>"select2 form-control"}%>
+						</div>
+						<div class="form-group">
+							<label>Quality</label> 
+							<%=f.select :quality, options_for_select(b), {}, {:class=>"select2 form-control"}%>
+						</div>
+						<div class="form-group">
+							<label>Punctuality</label>
+							<%=f.select :punctuality, options_for_select(b), {}, {:class=>"select2 form-control"}%>
+						</div>
+						<div class="form-group">
+							<label>Customer Service</label>
+							<%=f.select :customerservice, options_for_select(b), {}, {:class=>"select2 form-control"}%>
+						</div>
+						<div class="form-group">
+							<label>Overall</label>
+							<%=f.select :overall, options_for_select(b), {}, {:class=>"select2 form-control"}%>
+							<%=f.hidden_field :reviewers, :value => 1%>
+						</div>
+					</fieldset>
+					<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
+						<div class='text-right'>
+							<%=f.submit 'Add review', :class=>"btn btn-primary btn-lg blue-background"%>
+						</div>
+					</div>
+				</div>
+			<%end%>
+			
+			<%end%>
+			
 		</div>
 	</div>
 </div>
 
-<!-- <div class="row">
-	<div class="col-sm-12">
-		<div class="box bordered-box green-border" style="margin-bottom:0;">
-			<div class="box-header green-background">
-				<div class="title">
-					Type of Vendors Categories
-				</div>
-				<div class="actions">
-					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
-				</div>
-			</div>
-			<div class="box-content box-no-padding">
-				<div class="responsive-table">
-					<div class="scrollable-area">
-						<table class="table table-striped" style="margin-bottom:0;">
-								<tr><th colspan="2">Logistics</th></tr>
-								 <tr><td>1</td><td>Assets</td></tr>
-								 <tr><td>2</td><td>PA Systems</td></tr>
-								 <tr><td>3</td><td>Sports equipments</td></tr>
-								 <tr><td>4</td><td>Arts equipments</td></tr>
-								 <tr><th colspan="2">Food</th></tr>
-								 <tr><td>5</td><td>Catering</td></tr>
-								 <tr><td>6</td><td>Packed meals</td></tr>
-								 <tr><th colspan="2">Transport</th></tr>
-								 <tr><td>7</td><td>Vehicle to transport logistics</td></tr>
-								 <tr><td>8</td><td>Vehicle to transport people</td></tr>
-								 <tr><th colspan="2">External Venues</th></tr>
-								 <tr><td>9</td><td>Booking of spaces for events</td></tr>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-				 -->

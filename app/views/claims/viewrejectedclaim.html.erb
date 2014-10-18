@@ -1,6 +1,7 @@
 <!-- <% if flash[:error] %>
 <font color="red"><%= flash[:error]%></font>
 <%end%> -->
+<%if session[:role].include? 'smusafinsec'%>
 <% statuscode = ['Unsubmitted', 'With Club Finsec', 'With Club Pres', 'With CBD Finsec', 'With OFIN', 'Done', 'Unsubmitted', 'With CBD Finsec', 'With CBD Pres', 'With SMUSA Finsec', 'With OFIN', 'Done', 'Unsubmitted', 'With SMUSA Pres','With SMUSA Finsec', 'With OFIN', 'Done', 'With OSL', 'With CBD Finsec', 'With OFIN', 'With OSL', 'With SMUSA Finsec', 'With OFIN', 'With OSL', 'With SMUSA Finsec', 'With OFIN']%>
 <!-- <%statuscode = ['Unsubmitted', 'With Club Finsec', 'With Club Pres', 'With CBD Finsec', 'With OFIN', 'Done', 'Unsubmitted', 'With CBD Finsec', 'With CBD Pres', 'With SMUSA Finsec', 'With OFIN', 'Done', 'Unsubmitted','With SMUSA Pres', 'With SMUSA Finsec', 'With OFIN', 'Done']%> -->
 <div class='row'>
@@ -79,3 +80,4 @@
 								});
 							});
 						</script>
+<%end%>

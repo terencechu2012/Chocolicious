@@ -16,7 +16,7 @@ class VendorsController < ApplicationController
       flash[:error] = "Please enter the vendor's name (company name)"
     else
       Vendor.create(vendor_params).valid?
-      redirect_to :back
+      redirect_to :controller => 'admin', :action => 'home'
       flash[:success] = 'Vendor successfully added'
     end
 
@@ -31,7 +31,7 @@ class VendorsController < ApplicationController
     customerservice = (v.customerservice * reviewers + params[:vendor][:customerservice].to_d)/(reviewers+1)
     overall = (v.overall * reviewers + params[:vendor][:overall].to_d)/(reviewers+1)
     v.update_attributes(:price=>price, :quality=>quality, :punctuality=>punctuality, :customerservice=>customerservice,:overall=>overall, :reviewers=>reviewers+1)
-    redirect_to :back
+    redirect_to :controller => 'admin', :action => 'home'
     flash[:success] = 'Vendor review successfully added'
 
   end
@@ -49,5 +49,23 @@ class VendorsController < ApplicationController
     category = params[:category]
     @result = Vendor.find_by_sql(['select * from vendors where creditlimit =? and category = ? order by price * ? + quality*?+punctuality*?+customerservice*?+overall*? desc', creditlimit, category, params[:price], params[:quality], params[:punctuality],params[:customerservice],params[:overall]])
     @number = params[:results].to_i
+  end
+  
+  def newfromsubmit
+    id = params[:id]
+    p = Payment.find_by_id(id)
+    vendorname = p.vendorpayeename
+    vendor = Vendor.find_by_name(vendorname)
+    if vendor.nil?
+      @type = 'new'
+      @new_vendor = Vendor.new
+      @name = vendorname
+      @contact = p.vendorcontact
+      @address = p.address
+    else
+      @type = 'existing'
+      @new_vendor = Vendor.new
+      @id = vendor.id
+    end
   end
 end

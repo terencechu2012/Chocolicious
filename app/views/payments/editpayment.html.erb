@@ -47,13 +47,28 @@
 						</div>
 
 						<div class='form-group'>
-							<label>Select event to payment for</label>
+							<label>Select event for payment</label>
 							<br />
 							<%= f.select(:event, options_from_collection_for_select(@events, 'event', 'event'), {}, {:class=>"select2 form-control"})%>
 						</div>
+						<div class='form-group'>
+							<label>Enter Vendor Payee Name*</label>
+							<br />
+							<%= f.text_field :vendorpayeename, :required => true, :class => "select2 form-control"%>
+						</div>
+						<div class='form-group'>
+							<label>Enter Vendor Payee Contact No*</label>
+							<br />
+							<%= f.text_field :vendorcontact, :required => true, :class => "select2 form-control"%>
+						</div>
+						<div class='form-group'>
+							<label>Enter Vendor Mailing Address*</label>
+							<br />
+							<%= f.text_field :address, :required => true, :class => "select2 form-control"%>
+						</div>
 
 						<div class='form-group'>
-							<label>Upload receipt</label>
+							<label>Upload invoice</label>
 							<br />
 
 							<%= f.file_field(:supportdoc)%>

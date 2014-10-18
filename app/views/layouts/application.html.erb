@@ -103,7 +103,7 @@
 						</li>
 						<%end%>
 
-						<%if (role.include?'smusafinsec') || (role.include? 'smusasec')%>
+						<%if (role.include?'smusafinsec') %>
 						<li class="">
 							<a href='/claims/viewrejectedclaim'> <i class='icon-copy'></i> <span>Rejected Claims</span> </a>
 						</li>
@@ -178,13 +178,16 @@
 									<a href="/admin/register"> <i class="icon-group"></i> <span>Manage User Roles</span> </a>
 								</li>
 								<li>
-									<a class="dropdown-collapse in" href="#"> <i class="icon-circle-blank"></i> <span style="font-weight:bold;">Claims/Deposits</span> <i class="icon-angle-down angle-down"></i> </a>
+									<a class="dropdown-collapse in" href="#"> <i class="icon-circle-blank"></i> <span style="font-weight:bold;">Claims/Deposits/Payments</span> <i class="icon-angle-down angle-down"></i> </a>
 									<ul class="nav nav-collapse">
 										<li class=''>
 											<a href='/claims/clubclaims'> <i class='icon-copy'></i> <span>Manage Claims</span> </a>
 										</li>
 										<li class="">
 											<a href='/deposits/clubdeposits'> <i class='icon-copy'></i> <span>Manage Deposits</span> </a>
+										</li>
+										<li class="">
+											<a href='/payments/clubpayments'> <i class='icon-copy'></i> <span>Manage Payments</span> </a>
 										</li>
 										<li class="">
 											<a href='/chief/claimtimes'> <i class='icon-copy'></i> <span>Claims Tracker</span> </a>
@@ -347,6 +350,9 @@
 							<ul class="nav nav-stacked in" style="display: block;">
 								<li class=''>
 									<a href='/claims/clubclaims'> <i class='icon-copy'></i> <span>Claims</span> </a>
+								</li>
+								<li class=''>
+									<a href='/payments/clubpayments'> <i class='icon-copy'></i> <span>Payments</span> </a>
 								</li>
 
 							</ul>

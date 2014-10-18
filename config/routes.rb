@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   get '/payments/deletepayment'
   get '/payments/resubmitpayment'
   get 'payments/endorseclub'
+  get 'payments/endorsesmusasec'
+  get 'payments/endorsecbdmc'
 get 'payments/completepayment'
   
 
@@ -230,6 +232,7 @@ get 'payments/completepayment'
   post 'vendors/edit2'
   get 'vendors/recommend'
   get 'vendors/recommend2'
+  get 'vendors/newfromsubmit'
  
 # The priority is based upon order of creation: first created -> highest priority.
 # See how all your routes lay out with "rake routes".
