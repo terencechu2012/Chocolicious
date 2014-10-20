@@ -75,12 +75,12 @@
 		<td><%= statuscode[c.status]%></td>
 		<td>
 		<%if status == 0 || status == 12 || status == 6%>
-		<a href="/deposits/editdeposit?id=<%=c.id%>&own=true" class="btn btn-sm btn-primary">Edit</a>
+		<a href="/deposits/editdeposit?id=<%=c.id%>&own=true" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Edit'><i class="icon-pencil"></i></a> 
 		<%if c.remarks.nil?%>
-		<a href="/deposits/submitdeposit?id=<%=c.id%>" class="btn btn-sm btn-primary">Submit</a>
+		<a href="/deposits/submitdeposit?id=<%=c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Submit'><i class="icon-share-alt"></i></a>
 		<%else%>
-		<a href="/deposits/resubmitdeposit?id=<%=c.id%>" class="btn btn-sm btn-primary">ReSubmit</a>
-		<a href="#", onclick="viewremark('<%=c.remarks%>')" class="btn btn-sm btn-primary">View Remarks</a>
+		<a href="/deposits/resubmitdeposit?id=<%=c.id%>" class="btn btn-info btn-xs has-tooltip" data-placement='top' title='Resubmit'><i class="icon-share-alt"></i></a>
+		<a href="#", onclick="viewremark('<%=c.remarks%>')" class="btn btn-warning btn-xs has-tooltip" data-placement='top' title='View Remarks'><i class="icon-eye-open"></i></a>
 		<%end%>
 		<%end%>
 	</td></tr>

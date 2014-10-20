@@ -41,10 +41,10 @@
 		<th>Amount</th>
 		
 		<th>Event</th>
+		<th>Date</th>
 		
-		<th>Details</th>
 		<th>Status</th>
-		<th>Attached Receipt</th>
+		<th>Details</th>
 		<th>Actions</th>
 		
 	</thead>
@@ -62,23 +62,27 @@
 		<td>$<%= c.amount%></td>
 		
 		<td><%= c.event%></td>
+		<td><%= c.created_at%></td>
 		
-		<td><div class="bs-example-tooltips">
-				<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Claim Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">Details</button>
-			</div></td>
+			
 		<td><%= statuscode[c.status]%></td>
-		<td><a href="<%= c.supportdoc.url%>" class="btn btn-success btn-xs"><i class="icon-download"></i> Download</a></td>
+		<td>
+			<button type="button" class="btn btn-warning btn-xs bs-example-tooltips" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Claim Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
+				Details
+			</button>
+			<a href="<%= c.supportdoc.url%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Download Receipt'><i class="icon-arrow-down"></i></a>
+		</td>
 		<td>
 		<%if status == 0 || status == 12 || status == 6%>
-		<a href="/claims/editclaim?id=<%=c.id%>&own=true" class="btn btn-warning btn-xs"><i class="icon-pencil"></i> Edit</a>
+		<a href="/claims/editclaim?id=<%=c.id%>&own=true" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Edit'><i class="icon-pencil"></i></a> 
 		<%if c.remarks.nil?%>
-		<a href="/claims/submitclaim?id=<%=c.id%>" class="btn btn-danger btn-xs">Submit</a>
+		<a href="/claims/submitclaim?id=<%=c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Submit'><i class="icon-share-alt"></i></a>
 		<%else%>
-		<a href="/claims/resubmitclaim?id=<%=c.id%>" class="btn btn-danger btn-xs">ReSubmit</a>
-		<a href="#", onclick="viewremark('<%=c.remarks%>')" class="btn btn-success btn-xs"><i class="icon-eye-open"></i> View Remarks</a>
+		<a href="/claims/resubmitclaim?id=<%=c.id%>" class="btn btn-info btn-xs has-tooltip" data-placement='top' title='Resubmit'><i class="icon-share-alt"></i></a>
+		<a href="#", onclick="viewremark('<%=c.remarks%>')" class="btn btn-warning btn-xs has-tooltip" data-placement='top' title='View Remarks'><i class="icon-eye-open"></i></a>
 		<%end%>
 		
-		<a href="/claims/deleteclaim?id=<%=c.id%>&own=true" class="btn btn-danger btn-xs"><i class="icon-remove"></i> Delete</a>
+		<a href="/claims/deleteclaim?id=<%=c.id%>&own=true" class="btn btn-danger btn-xs has-tooltip" data-placement='top' title='Delete'><i class="icon-remove"></i></a>
 		<%end%>
 		</td>
 	</tr>

@@ -30,15 +30,15 @@
 
 						<table class="data-table table table-striped" style="margin-bottom:0;">
 							<thead>
-								<th>Payment ID</th>
+								<th>ID</th>
 								<th>Payment By</th>
 
 								<th>Amount</th>
 
 								<th>Event</th>
-								<th>Details</th>
+								<th>Date</th>
 								<th>Status</th>
-								<th>Attached Receipt</th>
+								<th>Details</th>
 								<th>Action</th>
 
 							</thead>
@@ -56,16 +56,25 @@
 								<td>$<%= c.amount%></td>
 
 								<td><%= c.event%></td>
+								<td><%= c.created_at%></td>
+								<td><%= statuscode[c.status]%></td>
 								<td>
-								<div class="bs-example-tooltips">
-									<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
+									<button type="button" class="btn btn-warning btn-xs bs-example-tooltips" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
 										Details
 									</button>
-								</div></td>
-								<td><%= statuscode[c.status]%></td>
-								<td><a href="<%= c.supportdoc.url%>" class="btn btn-success btn-xs"><i class="icon-download"></i> Download</a></td>
-								<td> <%if status == 1%> <a href="/payments/editpayment?id=<%= c.id%>" class="btn btn-warning btn-xs"><i class="icon-pencil"></i>Edit</a> <%if c.remark.nil?%> <a href="/payments/submitpayment?id=<%= c.id%>" class="btn btn-danger btn-xs">Submit</a> <%else%> <a href="/payments/resubmitpayment?id=<%= c.id%>" class="btn btn-danger btn-xs">ReSubmit</a><a href="#", onclick="viewremark('<%= c.remark%>')" class="btn btn-success btn-xs"><i class="icon-eye-open"></i> View Remarks</a> <%end%>
-								<%end%></td>
+									<a href="<%= c.supportdoc.url%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Download Receipt'><i class="icon-arrow-down"></i></a>
+								</td>
+								<td> 
+									<%if status == 1%> 
+										<a href="/payments/editpayment?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Edit'><i class="icon-pencil"></i></a>  
+										<%if c.remark.nil?%> 
+											<a href="/payments/submitpayment?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Submit'><i class="icon-share-alt"></i></a> 
+										<%else%> 
+											<a href="/payments/resubmitpayment?id=<%= c.id%>" class="btn btn-info btn-xs has-tooltip" data-placement='top' title='Resubmit'><i class="icon-share-alt"></i></a>
+											<a href="#", onclick="viewremark('<%= c.remark%>')" class="btn btn-warning btn-xs has-tooltip" data-placement='top' title='View Remarks'><i class="icon-eye-open"></i></a>
+										<%end%>
+									<%end%>
+								</td>
 							</tr>
 							<%end%>
 						</tbody>
@@ -99,15 +108,15 @@
 
 						<table class="data-table table table-striped" style="margin-bottom:0;">
 							<thead>
-								<th>Payment ID</th>
+								<th>ID</th>
 								<th>Payment By</th>
 								<th>Club</th>
 								<th>Amount</th>
 
 								<th>Event</th>
-								<th>Details</th>
+								<th>Date</th>
 								<th>Status</th>
-								<th>Attached Receipt</th>
+								<th>Details</th>
 								<th>Action</th>
 
 							</thead>
@@ -125,28 +134,27 @@
 								<td>$<%= c.amount%></td>
 
 								<td><%= c.event%></td>
-
+								<td><%= c.created_at%></td>
+								<td><%= statuscode[c.status]%></td>
 								<td>
-								<div class="bs-example-tooltips">
-									<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
+									<button type="button" class="btn btn-warning btn-xs bs-example-tooltips" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
 										Details
 									</button>
-								</div></td>
-								<td><%= statuscode[c.status]%></td>
-								<td><a href="<%= c.supportdoc.url%>" class="btn btn-sm btn-primary">Download</td>
+									<a href="<%= c.supportdoc.url%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Download Receipt'><i class="icon-arrow-down"></i></a>
+								</td>
 								<td>
 									<%if (status == 3 && c.amount <= 750) || status == 18%>
-									<a href="/payments/endorseclub?id=<%= c.id%>" class="btn btn-sm btn-primary">Endorse</a>
-									<a href="/payments/addremark?id=<%= c.id%>&status=1" class="btn btn-sm btn-primary">Reject</a>
+										<a href="/payments/endorseclub?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Endorse'><i class="icon-thumbs-up-alt"></i></a>
+										<a href="/payments/addremark?id=<%= c.id%>&status=1" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a>
 									<%elsif status == 3 && c.amount > 750%>
-									<a href="/payments/submitosl?id=<%= c.id%>" class="btn btn-sm btn-primary">Submit to OSL</a>
-									<a href="/payments/addremark?id=<%= c.id%>&status=1" class="btn btn-sm btn-primary">Reject</a>
+										<a href="/payments/submitosl?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Submit to OSL'><i class="icon-share-alt"> OSL</i></a>
+										<a href="/payments/addremark?id=<%= c.id%>&status=1" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a>
 									<%elsif status == 4%>
-									<a href="/payments/endorseclub?id=<%= c.id%>" class="btn btn-sm btn-primary">Endorsed. View form</a>
-									<a href="/payments/addremark?id=<%= c.id%>&status=1" class="btn btn-sm btn-primary">Reject</a>
-									<a href="/payments/completepayment?id=<%= c.id%>" class="btn btn-sm btn-primary">Complete payment</a>
+										<a href="/payments/endorseclub?id=<%= c.id%>" class="btn btn-warning btn-xs has-tooltip" data-placement='top' title='View Endorsed Form'><i class="icon-eye-open"></i></a>
+										<a href="/payments/addremark?id=<%= c.id%>&status=1" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a>
+										<a href="/payments/completepayment?id=<%= c.id%>" class="btn btn-success btn-xs">Complete payment</a>  
 									<%elsif status == 5%>
-									<span class="label label-success">Completed</span>
+										<span class="label label-success">Completed</span>
 									<%end%>
 								</td>
 							</tr>
@@ -181,16 +189,16 @@
 
 						<table class="data-table table table-striped" style="margin-bottom:0;">
 							<thead>
-								<th>Payment ID</th>
+								<th>ID</th>
 								<th>Payment By</th>
 								<th>Club</th>
 								<th>Amount</th>
 
 								<th>Event</th>
-								<th>Details</th>
+								<th>Date</th>
 
 								<th>Status</th>
-								<th>Attached Receipt</th>
+								<th>Details</th>
 								<th>Action</th>
 
 							</thead>
@@ -208,23 +216,23 @@
 								<td>$<%= c.amount%></td>
 
 								<td><%= c.event%></td>
+								<td><%= c.created_at%></td>
 
+								<td><%= statuscode[c.status]%></td>
 								<td>
-								<div class="bs-example-tooltips">
-									<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
+									<button type="button" class="btn btn-warning btn-xs bs-example-tooltips" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
 										Details
 									</button>
-								</div></td>
-								<td><%= statuscode[c.status]%></td>
-								<td><a href="<%= c.supportdoc.url%>" class="btn btn-sm btn-primary">Download</td>
+									<a href="<%= c.supportdoc.url%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Download Receipt'><i class="icon-arrow-down"></i></a>
+								</td>
 								<td>
 								<%if status == 7%>
-									<a href="/payments/editpayment?id=<%= c.id%>" class="btn btn-sm btn-primary">Edit</a>
+									<a href="/payments/editpayment?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Edit'><i class="icon-pencil"></i></a>
 									<%if c.remark.nil?%>
-									<a href="/payments/submitpayment?id=<%= c.id%>" class="btn btn-sm btn-primary">Submit</a>
+									<a href="/payments/submitpayment?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Submit'><i class="icon-share-alt"></i></a>
 									<%else%>
-									<a href="/payments/resubmitpayment?id=<%= c.id%>" class="btn btn-sm btn-primary">ReSubmit</a>
-									<a href="#", onclick="viewremark('<%= c.remark%>')" class="btn btn-sm btn-primary">View Remarks</a>
+									<a href="/payments/resubmitpayment?id=<%= c.id%>" class="btn btn-info btn-xs has-tooltip" data-placement='top' title='Resubmit'><i class="icon-share-alt"></i></a>
+									<a href="#", onclick="viewremark('<%= c.remark%>')" class="btn btn-warning btn-xs has-tooltip" data-placement='top' title='View Remarks'><i class="icon-eye-open"></i></a>
 									<%end%>
 								<%end%>
 								</td>
@@ -261,16 +269,16 @@
 
 						<table class="data-table table table-striped" style="margin-bottom:0;">
 							<thead>
-								<th>Payment ID</th>
+								<th>ID</th>
 								<th>Payment By</th>
 
 								<th>Amount</th>
 
 								<th>Event</th>
 
-								<th>Details</th>
+								<th>Date</th>
 								<th>Status</th>
-								<th>Attached Receipt</th>
+								<th>Details</th>
 								<th>Action</th>
 
 							</thead>
@@ -288,24 +296,24 @@
 								<td>$<%= c.amount%></td>
 
 								<td><%= c.event%></td>
+								<td><%= c.created_at%></td>
 
+								<td><%= statuscode[c.status]%></td>
 								<td>
-								<div class="bs-example-tooltips">
-									<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
+									<button type="button" class="btn btn-warning btn-xs bs-example-tooltips" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
 										Details
 									</button>
-								</div></td>
-								<td><%= statuscode[c.status]%></td>
-								<td><a href="<%= c.supportdoc.url%>" class="btn btn-sm btn-primary">Download</td>
+									<a href="<%= c.supportdoc.url%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Download Receipt'><i class="icon-arrow-down"></i></a>
+								</td>
 								<td>
 								<%if status == 2 || status == 8 || status == 13%>
-								<a href="#", onclick="pres(<%= c.id%>)" class="btn btn-sm btn-primary">Acknowledge</a>
+								<a href="#", onclick="pres(<%= c.id%>)" class="btn btn-success btn-xs">Acknowledge</a> 
 								<%if status == 2%>
-								<a href="/payments/addremark?id=<%= c.id%>&status=1" class="btn btn-sm btn-primary">Reject</a>
+								<a href="/payments/addremark?id=<%= c.id%>&status=1" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a> 
 								<%elsif status == 8%>
-								<a href="/payments/addremark?id=<%= c.id%>&status=7" class="btn btn-sm btn-primary">Reject</a>
+								<a href="/payments/addremark?id=<%= c.id%>&status=7" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a> 
 								<%elsif status == 13%>
-								<a href="/payments/addremark?id=<%= c.id%>&status=12" class="btn btn-sm btn-primary">Reject</a>
+								<a href="/payments/addremark?id=<%= c.id%>&status=12" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a> 
 								<%end%>
 								<p id ="pres"></p>
 								<%end%>
@@ -353,9 +361,9 @@
 
 								<th>Event</th>
 
-								<th>Details</th>
+								<th>Date</th>
 								<th>Status</th>
-								<th>Attached Receipt</th>
+								<th>Details</th>
 								<th>Action</th>
 
 							</thead>
@@ -373,26 +381,25 @@
 								<td>$<%= c.amount%></td>
 
 								<td><%= c.event%></td>
-
+								<td><%= c.created_at%></td>
+								<td><%= statuscode[c.status]%></td>
 								<td>
-								<div class="bs-example-tooltips">
-									<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
+									<button type="button" class="btn btn-warning btn-xs bs-example-tooltips" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
 										Details
 									</button>
-								</div></td>
-								<td><%= statuscode[c.status]%></td>
-								<td><a href="<%= c.supportdoc.url%>" class="btn btn-sm btn-primary">Download</td>
+									<a href="<%= c.supportdoc.url%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Download Receipt'><i class="icon-arrow-down"></i></a>
+								</td>
 								<td>
 								<%if status == 17 || status == 20 || status == 23%>
-								<a href="#", onclick="pres(<%= c.id%>)" class="btn btn-sm btn-primary">Acknowledge</a>
-								<%if status == 17%>
-								<a href="/payments/addremark?id=<%= c.id%>&status=1" class="btn btn-sm btn-primary">Reject</a>
-								<%elsif status == 20%>
-								<a href="/payments/addremark?id=<%= c.id%>&status=7" class="btn btn-sm btn-primary">Reject</a>
-								<%elsif status == 23%>
-								<a href="/payments/addremark?id=<%= c.id%>&status=12" class="btn btn-sm btn-primary">Reject</a>
-								<%end%>
-								<p id ="pres"></p>
+									<a href="#", onclick="pres(<%= c.id%>)" class="btn btn-success btn-xs">Acknowledge</a>
+									<%if status == 17%>
+										<a href="/payments/addremark?id=<%= c.id%>&status=1" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a> 
+									<%elsif status == 20%>
+										<a href="/payments/addremark?id=<%= c.id%>&status=7" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a> 
+									<%elsif status == 23%>
+										<a href="/payments/addremark?id=<%= c.id%>&status=12" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a> 
+									<%end%>
+									<p id ="pres"></p>
 								<%end%>
 </td>
 							</tr>
@@ -438,9 +445,9 @@
 								<th>Amount</th>
 
 								<th>Event</th>
-								<th>Details</th>
+								<th>Date</th>
 								<th>Status</th>
-								<th>Attached Receipt</th>
+								<th>Details</th>
 								<th>Action</th>
 
 							</thead>
@@ -458,28 +465,27 @@
 								<td>$<%= c.amount%></td>
 
 								<td><%= c.event%></td>
-
+								<td><%= c.created_at%></td>
+								<td><%= statuscode[c.status]%></td>
 								<td>
-								<div class="bs-example-tooltips">
-									<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
+									<button type="button" class="btn btn-warning btn-xs bs-example-tooltips" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
 										Details
 									</button>
-								</div></td>
-								<td><%= statuscode[c.status]%></td>
-								<td><a href="<%= c.supportdoc.url%>" class="btn btn-sm btn-primary">Download</td>
+									<a href="<%= c.supportdoc.url%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Download Receipt'><i class="icon-arrow-down"></i></a>
+								</td>
 								<td>
 								<%if (status == 9 && c.amount <= 750) || status == 21%>
-								<a href="/payments/endorsecbdmc?id=<%= c.id%>" class="btn btn-sm btn-primary">Endorse</a>
-								<a href="/payments/addremark?id=<%= c.id%>&status=7" class="btn btn-sm btn-primary">Reject</a>
+									<a href="/payments/endorsecbdmc?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Endorse'><i class="icon-thumbs-up-alt"></i></a>
+									<a href="/payments/addremark?id=<%= c.id%>&status=7" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a> 
 								<%elsif status == 9 && c.amount > 750%>
-								<a href="/payments/submitosl?id=<%= c.id%>" class="btn btn-sm btn-primary">Submit to OSL</a>
-								<a href="/payments/addremark?id=<%= c.id%>&status=7" class="btn btn-sm btn-primary">Reject</a>
+									<a href="/payments/submitosl?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Submit to OSL'><i class="icon-share-alt"> OSL</i></a>
+									<a href="/payments/addremark?id=<%= c.id%>&status=7" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a> 
 								<%elsif status == 10%>
-								<a href="/payments/endorsecbdmc?id=<%= c.id%>" class="btn btn-sm btn-primary">Endorsed. View form</a>
-								<a href="/payments/addremark?id=<%= c.id%>&status=7" class="btn btn-sm btn-primary">Reject</a>
-								<a href="/payments/completepayment?id=<%= c.id%>" class="btn btn-sm btn-primary">Complete payment</a>
+									<a href="/payments/endorsecbdmc?id=<%= c.id%>" class="btn btn-warning btn-xs has-tooltip" data-placement='top' title='View Endorsed Form'><i class="icon-eye-open"></i></a>
+									<a href="/payments/addremark?id=<%= c.id%>&status=7" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a> 
+									<a href="/payments/completepayment?id=<%= c.id%>" class="btn btn-success btn-xs">Complete payment</a>
 								<%elsif status == 11%>
-								<span class="label label-success">Completed</span>
+									<span class="label label-success">Completed</span>
 								<%end%>
 							</td></tr>
 							<%end%>
@@ -520,60 +526,59 @@
 
 								<th>Event</th>
 
-								<th>Details</th>
+								<th>Date</th>
 								<th>Status</th>
-								<th>Attached Receipt</th>
+								<th>Details</th>
 								<th>Action</th>
 
 							</thead>
 							<tbody>
-							<% @smusasecpayments.each do |c|%>
-							<% status = c.status%>
-							<%if c.remark.nil?%>
-							<tr>
-								<%else%>
-							<tr class = 'warning'>
-								<%end%>
-								<td><%= c.id%></td>
-								<td><%= c.userid%></td>
-								<td><%= c.clubid%></td>
-								<td>$<%= c.amount%></td>
-
-								<td><%= c.event%></td>
-
-								<td>
-								<div class="bs-example-tooltips">
-									<button type="button" class="btn btn-warning btn-xs" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
-										Details
-									</button>
-								</div></td>
-								<td><%= statuscode[c.status]%></td>
-								<td><a href="<%= c.supportdoc.url%>" class="btn btn-sm btn-primary">Download</td>
-								<td>
-								<%if (status == 14 && c.amount <= 750) || status == 24%>
-								<a href="/payments/endorsesmusasec?id=<%= c.id%>" class="btn btn-sm btn-primary">Endorse</a>
-								<a href="/payments/addremark?id=<%= c.id%>&status=12" class="btn btn-sm btn-primary">Reject</a>
-								<%elsif status == 14 && c.amount > 750%>
-								<a href="/payments/submitosl?id=<%= c.id%>" class="btn btn-sm btn-primary">Submit to OSL</a>
-								<a href="/payments/addremark?id=<%= c.id%>&status=12" class="btn btn-sm btn-primary">Reject</a>
-								<%elsif status == 15%>
-								<a href="/payments/endorsesmusasec?id=<%= c.id%>" class="btn btn-sm btn-primary">Endorsed. View form</a>
-								<a href="/payments/addremark?id=<%= c.id%>&status=12" class="btn btn-sm btn-primary">Reject</a>
-								<a href="/payments/completepayment?id=<%= c.id%>" class="btn btn-sm btn-primary">Complete payment</a>
-								<%elsif status == 16%>
-								<span class="label label-success">Completed</span>
-								<%end%>
-							</td></tr>
+								<% @smusasecpayments.each do |c|%>
+								<% status = c.status%>
+								<%if c.remark.nil?%>
+								<tr>
+									<%else%>
+								<tr class = 'warning'>
+									<%end%>
+									<td><%= c.id%></td>
+									<td><%= c.userid%></td>
+									<td><%= c.clubid%></td>
+									<td>$<%= c.amount%></td>
+	
+									<td><%= c.event%></td>
+									<td><%= c.created_at%></td>
+									<td><%= statuscode[c.status]%></td>
+									<td>
+										<button type="button" class="btn btn-warning btn-xs bs-example-tooltips" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
+											Details
+										</button>
+										<a href="<%= c.supportdoc.url%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Download Receipt'><i class="icon-arrow-down"></i></a>
+							        </td>
+									<td>
+										<%if (status == 14 && c.amount <= 750) || status == 24%>
+											<a href="/payments/endorsesmusasec?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Endorse'><i class="icon-thumbs-up-alt"></i></a>
+											<a href="/payments/addremark?id=<%= c.id%>&status=12" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a> 
+										<%elsif status == 14 && c.amount > 750%>
+											<a href="/payments/submitosl?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Submit to OSL'><i class="icon-share-alt"> OSL</i></a>
+											<a href="/payments/addremark?id=<%= c.id%>&status=12" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a> 
+										<%elsif status == 15%>
+											<a href="/payments/endorsesmusasec?id=<%= c.id%>" class="btn btn-warning btn-xs has-tooltip" data-placement='top' title='View Endorsed Form'><i class="icon-eye-open"></i></a>
+											<a href="/payments/addremark?id=<%= c.id%>&status=12" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a> 
+											<a href="/payments/completepayment?id=<%= c.id%>" class="btn btn-success btn-xs">Complete payment</a>
+										<%elsif status == 16%>
+											<span class="label label-success">Completed</span>
+										<%end%>
+									</td>
+								</tr>
 							<%end%>
-</tbody>
-						</table>
-
-					</div>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
 	</div>
-
+</div>
+	
 </div>
 
 <%end%>

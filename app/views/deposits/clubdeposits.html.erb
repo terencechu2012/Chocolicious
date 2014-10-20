@@ -33,8 +33,8 @@
 
 						<table class="data-table table table-striped" style="margin-bottom:0;">
 							<thead>
-								<th>deposit ID</th>
-								<th>deposit By</th>
+								<th>ID</th>
+								<th>Deposit By</th>
 								<th>Club</th>
 								<th>Amount</th>
 								<th>Date</th>
@@ -76,12 +76,12 @@
 								<td><%= statuscode[c.status]%></td>
 								<td>
 								<%if status == 1%>
-								<a href="/deposits/editdeposit?id=<%= c.id%>" class="btn btn-sm btn-primary">Edit</a>
+								<a href="/deposits/editdeposit?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Edit'><i class="icon-pencil"></i></a> 
 								<%if c.remarks.nil?%>
-								<a href="/deposits/submitdeposit?id=<%= c.id%>" class="btn btn-sm btn-primary">Submit</a>
+								<a href="/deposits/submitdeposit?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Submit'><i class="icon-share-alt"></i></a> 
 								<%else%>
-								<a href="/deposits/resubmitdeposit?id=<%= c.id%>" class="btn btn-sm btn-primary">ReSubmit</a>
-								<a href="#", onclick="viewremark('<%= c.remarks%>')" class="btn btn-sm btn-primary">View Remarks</a>
+								<a href="/deposits/resubmitdeposit?id=<%= c.id%>" class="btn btn-info btn-xs has-tooltip" data-placement='top' title='Resubmit'><i class="icon-share-alt"></i></a>
+								<a href="#", onclick="viewremark('<%= c.remarks%>')" class="btn btn-warning btn-xs has-tooltip" data-placement='top' title='View Remarks'><i class="icon-eye-open"></i></a>
 								<%end%>
 								<%end%>
 							</td></tr>
@@ -119,8 +119,8 @@
 
 						<table class="data-table table table-striped" style="margin-bottom:0;">
 							<thead>
-								<th>deposit ID</th>
-								<th>deposit By</th>
+								<th>ID</th>
+								<th>Deposit By</th>
 								<th>Club</th>
 								<th>Amount</th>
 								<th>Date</th>
@@ -162,12 +162,12 @@
 								<td><%= statuscode[c.status]%></td>
 								<td>
 								<%if status == 3%>
-								<a href="/deposits/endorseclub?id=<%= c.id%>" class="btn btn-sm btn-primary">Endorse</a>
-								<a href="/deposits/addremark?id=<%= c.id%>&status=1" class="btn btn-sm btn-primary">Reject</a>
+								<a href="/deposits/endorseclub?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Endorse'><i class="icon-thumbs-up-alt"></i></a>
+								<a href="/deposits/addremark?id=<%= c.id%>&status=1" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a>
 								<%elsif status == 4%>
-								<a href="/deposits/endorseclub?id=<%= c.id%>" class="btn btn-sm btn-primary">Endorsed. View form</a>
-								<a href="/deposits/addremark?id=<%= c.id%>&status=1" class="btn btn-sm btn-primary">Reject</a>
-								<a href="/deposits/completedeposit?id=<%= c.id%>" class="btn btn-sm btn-primary">Deposit Complete</a>
+								<a href="/deposits/endorseclub?id=<%= c.id%>" class="btn btn-warning btn-xs has-tooltip" data-placement='top' title='View Endorsed Form'><i class="icon-eye-open"></i></a>
+								<a href="/deposits/addremark?id=<%= c.id%>&status=1" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a>
+								<a href="/deposits/completedeposit?id=<%= c.id%>" class="btn btn-success btn-xs">Deposit Complete</a>
 								<%elsif status == 5%>
 								<span class="label label-success">Deposit Completed</span>
 								<%end%>
@@ -204,8 +204,8 @@
 
 						<table class="data-table table table-striped" style="margin-bottom:0;">
 							<thead>
-								<th>deposit ID</th>
-								<th>deposit By</th>
+								<th>ID</th>
+								<th>Deposit By</th>
 								<th>Club</th>
 								<th>Amount</th>
 								<th>Date</th>
@@ -246,12 +246,12 @@
 								<td><%= statuscode[c.status]%></td>
 								<td>
 								<%if status == 7%>
-								<a href="/deposits/editdeposit?id=<%= c.id%>" class="btn btn-sm btn-primary">Edit</a>
+								<a href="/deposits/editdeposit?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Edit'><i class="icon-pencil"></i></a>
 								<%if c.remarks.nil?%>
-								<a href="/deposits/submitdeposit?id=<%= c.id%>" class="btn btn-sm btn-primary">Submit</a>
+								<a href="/deposits/submitdeposit?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Submit'><i class="icon-share-alt"></i></a>
 								<%else%>
-								<a href="/deposits/resubmitdeposit?id=<%= c.id%>" class="btn btn-sm btn-primary">ReSubmit</a>
-								<a href="#", onclick="viewremark('<%= c.remarks%>')" class="btn btn-sm btn-primary">View Remarks</a>
+								<a href="/deposits/resubmitdeposit?id=<%= c.id%>" class="btn btn-info btn-xs has-tooltip" data-placement='top' title='Resubmit'><i class="icon-share-alt"></i></a>
+								<a href="#", onclick="viewremark('<%= c.remarks%>')" class="btn btn-warning btn-xs has-tooltip" data-placement='top' title='View Remarks'><i class="icon-eye-open"></i></a>
 								<%end%>
 								<%end%>
 							</td></tr>
@@ -287,7 +287,7 @@
 
 						<table class="data-table table table-striped" style="margin-bottom:0;">
 							<thead>
-								<th>Deposit ID</th>
+								<th>ID</th>
 								<th>Deposit By</th>
 								<th>Club</th>
 								<th>Amount</th>
@@ -329,13 +329,13 @@
 								<td><%= statuscode[c.status]%></td>
 								<td>
 								<%if status == 2 || status == 8 || status == 13%>
-								<a href="#", onclick="pres(<%= c.id%>)" class="btn btn-sm btn-primary">Acknowledge</a>
+								<a href="#", onclick="pres(<%= c.id%>)" class="btn btn-success btn-xs">Acknowledge</a>
 								<%if status == 2%>
-								<a href="/deposits/addremark?id=<%=c.id%>&status=1" class="btn btn-sm btn-primary">Reject</a>
+								<a href="/deposits/addremark?id=<%=c.id%>&status=1" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a> 
 								<%elsif status == 8%>
-								<a href="/deposits/addremark?id=<%=c.id%>&status=7" class="btn btn-sm btn-primary">Reject</a>
+								<a href="/deposits/addremark?id=<%=c.id%>&status=7" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a> 
 								<%elsif status == 13%>
-								<a href="/deposits/addremark?id=<%=c.id%>&status=12" class="btn btn-sm btn-primary">Reject</a>
+								<a href="/deposits/addremark?id=<%=c.id%>&status=12" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a> 
 								<%end%>
 								<p id ="pres"></p>
 								<%end%>
@@ -372,8 +372,8 @@
 
 						<table class="data-table table table-striped" style="margin-bottom:0;">
 							<thead>
-								<th>deposit ID</th>
-								<th>deposit By</th>
+								<th>ID</th>
+								<th>Deposit By</th>
 								<th>Club</th>
 								<th>Amount</th>
 								<th>Date</th>
@@ -414,12 +414,12 @@
 								<td><%= statuscode[c.status]%></td>
 								<td>
 								<%if status == 9%>
-								<a href="/deposits/endorsecbdmc?id=<%= c.id%>" class="btn btn-sm btn-primary">Endorse</a>
-								<a href="/deposits/addremark?id=<%= c.id%>&status=7" class="btn btn-sm btn-primary">Reject</a>
+								<a href="/deposits/endorsecbdmc?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Endorse'><i class="icon-thumbs-up-alt"></i></a>
+								<a href="/deposits/addremark?id=<%= c.id%>&status=7" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a> 
 								<%elsif status == 10%>
-								<a href="/deposits/endorsecbdmc?id=<%= c.id%>" class="btn btn-sm btn-primary">Endorsed. View form</a>
-								<a href="/deposits/addremark?id=<%= c.id%>&status=7" class="btn btn-sm btn-primary">Reject</a>
-								<a href="/deposits/completedeposit?id=<%= c.id%>" class="btn btn-sm btn-primary">deposit complete</a>
+								<a href="/deposits/endorsecbdmc?id=<%= c.id%>" class="btn btn-warning btn-xs has-tooltip" data-placement='top' title='View Endorsed Form'><i class="icon-eye-open"></i></a>
+								<a href="/deposits/addremark?id=<%= c.id%>&status=7" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a> 
+								<a href="/deposits/completedeposit?id=<%= c.id%>" class="btn btn-success btn-xs">deposit complete</a>
 								<%elsif status == 11%>
 								<span class="label label-success">Deposit Completed</span>
 								<%end%>
@@ -456,8 +456,8 @@
 
 						<table class="data-table table table-striped" style="margin-bottom:0;">
 							<thead>
-								<th>deposit ID</th>
-								<th>deposit By</th>
+								<th>ID</th>
+								<th>Deposit By</th>
 								<th>Club</th>
 								<th>Amount</th>
 								<th>Date</th>
@@ -498,12 +498,12 @@
 								<td><%= statuscode[c.status]%></td>
 								<td>
 								<%if status == 14%>
-								<a href="/deposits/endorsesmusasec?id=<%= c.id%>" class="btn btn-sm btn-primary">Endorse</a>
-								<a href="/deposits/addremark?id=<%= c.id%>&status=12" class="btn btn-sm btn-primary">Reject</a>
+								<a href="/deposits/endorsesmusasec?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Endorse'><i class="icon-thumbs-up-alt"></i></a>
+								<a href="/deposits/addremark?id=<%= c.id%>&status=12" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a>
 								<%elsif status == 15%>
-								<a href="/deposits/endorsesmusasec?id=<%= c.id%>" class="btn btn-sm btn-primary">Endorsed. View form</a>
-								<a href="/deposits/addremark?id=<%= c.id%>&status=12" class="btn btn-sm btn-primary">Reject</a>
-								<a href="/deposits/completedeposit?id=<%= c.id%>" class="btn btn-sm btn-primary">deposit complete</a>
+								<a href="/deposits/endorsesmusasec?id=<%= c.id%>" class="btn btn-warning btn-xs has-tooltip" data-placement='top' title='View Endorsed Form'><i class="icon-eye-open"></i></a>
+								<a href="/deposits/addremark?id=<%= c.id%>&status=12" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a>
+								<a href="/deposits/completedeposit?id=<%= c.id%>" class="btn btn-success btn-xs">Deposit complete</a>
 								<%elsif status == 16%>
 								<span class="label label-success">Deposit Completed</span>
 								<%end%>
