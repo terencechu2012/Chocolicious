@@ -1,0 +1,8 @@
+<%if session[:role].include? 'smusafinsec'%>
+<h2>Batch reconciliation</h2>
+Upload the student club report here:
+<%= form_tag '/chief/autoreconcile', :multipart => true do %>
+<%= file_field_tag :file, :required=> true %>
+<%= submit_tag "Import" %>
+<%end%>
+<%end%>

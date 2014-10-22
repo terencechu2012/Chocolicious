@@ -1,0 +1,19 @@
+<h2>Reconciled Items</h2>
+<table>
+	<tr>
+		<th>Fund</th>
+		<th>Post date</th>
+		<th>Doc Num</th>
+		<th>Item Text</th>
+		<th>GL Balance</th>
+		<th>Expenses</th>
+		<th>Revenue</th>
+	</tr>
+	<% @superarray.each do |s|%>
+		<tr>
+			<% for i in 0..s.size-1%>
+			<td><%=s[i]%></td>
+			<%end%>
+		</tr>
+	<%end%>
+</table>

@@ -39,6 +39,8 @@ get 'payments/completepayment'
   get 'chief/calculation'
   post 'chief/calculation'
   get 'chief/allocationreports'
+  get 'chief/reconcile'
+  post 'chief/autoreconcile'
   
   get 'deposits/viewrejecteddeposit'
   get 'deposits/editdeposit'
