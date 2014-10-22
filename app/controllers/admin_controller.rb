@@ -200,18 +200,26 @@ class AdminController < ApplicationController
     if role.include? 'clubfinsec'
       @normalclaims = Claim.where(:clubid => session[:club], :status => 1)
       @normaldeposits = Deposit.where(:clubid => session[:club], :status => 1)
+      @normalpayments = Payment.where(:clubid => session[:club], :status => [1..5, 17..19])
     elsif role.include? 'cbdfinsec'
       @normalclaims = Claim.where(['clubid in (select clubid from clubs where clubtype = ?) and status = 3', session[:club]])
       @cbdmcclaims = Claim.where(clubid:session[:club], status: 7)
       @normaldeposits = Deposit.where(['clubid in (select clubid from clubs where clubtype = ?) and status = 3', session[:club]])
       @cbdmcdeposits = Deposit.where(clubid:session[:club], status: 7)
+      @normalpayments = Payment.where(['clubid in (select clubid from clubs where clubtype = ?) and ((status > 2 and status < 6) or (status>16 and status<20))', session[:club]])
+      @cbdmcpayments = Payment.where(clubid:session[:club], status: [7..11, 20..22])
     elsif role.include? 'president'
       @normalclaims = Claim.where(clubid:session[:club], status: 2)
       @cbdmcclaims = Claim.where(clubid:session[:club], status: 8)
       @claims = @normalclaims + @cbdmcclaims
+      @normalpayments = Payment.where(clubid:session[:club], status: [2..5, 17..19])
+      @cbdmcpayments = Payment.where(clubid:session[:club], status: [8..11, 20..22])
+      @payments = @normalpayments + @cbdmcpayments
       if session[:club] == 'smusa'
         @thirdclaims = Claim.where(['clubid in (select clubid from clubs where clubtype = ?) and status = 13', 'smusa'])
         @claims = @normalclaims + @cbdmcclaims + @thirdclaims
+        @thirdpayments = Payment.where(['clubid in (select clubid from clubs where clubtype = ?) and ((status > 12 and status < 17) or (status > 22 and status < 26))', 'smusa'])
+        @payments = @normalpayments + @cbdmcpayments + @thirdpayments
       end
       @normaldeposits = Deposit.where(clubid:session[:club], status: 2)
       @cbdmcdeposits = Deposit.where(clubid:session[:club], status: 8)
@@ -222,6 +230,11 @@ class AdminController < ApplicationController
       @smusasecclaims = Claim.where(status: 14)
       @cbdmcdeposits = Deposit.where(status: 9)
       @smusasecdeposits = Deposit.where(status: 14)
+      @cbdmcpayments = Payment.where(status: [9..11, 20..22])
+      @smusasecpayments = Payment.where(status: [14..16, 23..25])
+    elsif role.include? 'osl'
+      @oslpayments = Payment.where(status: [17..25])
+      @oslclaims = Claim.where(status: [17..25])
     end
   end
 

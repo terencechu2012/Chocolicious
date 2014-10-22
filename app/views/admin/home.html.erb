@@ -30,26 +30,21 @@
 		</div>
 	</div>
 </div>
-<div class='alert alert-info alert-dismissable'>
-	<a class='close' data-dismiss='alert' href='#'>&times;</a>
-	Welcome to
-	<strong>AIS</strong>
-	- We are still working on the project to serve you better. <span class="pull-right"><i class='icon-wrench'></i> ~ Chocolicious, IS480'2014  Term 1</span>
-</div>
-<% role = session[:role]%>
 
+<% role = session[:role]%>
+<div class="row">
 <%if role.include? 'clubfinsec'%>
 
-	<div class='col-sm-12 col-md-6'>
+	<div class='col-sm-12 col-md-4'>
 		<div class='box'>
-			<div class='box-header'>
+			<div class='box-header orange-background'>
 				<div class='title'>
 					<div class='icon-inbox'></div>
 					Pending your approval
 				</div>
 			</div>
 			<div class='row'>
-				<div class='col-sm-6'>
+				<div class='col-sm-12'>
 					<a href='/claims/clubclaims'>
 					<div class='box-content box-statistic'>
 						<h3 class='title text-error'><%= @normalclaims.size%></h3>
@@ -58,9 +53,15 @@
 					</div></a>
 					<a href='/deposits/clubdeposits'>
 					<div class='box-content box-statistic'>
-						<h3 class='title text-warning'><%= @normaldeposits.size%></h3>
+						<h3 class='title text-info'><%= @normaldeposits.size%></h3>
 						<small>Deposits</small>
-						<div class='text-warning icon-book align-right'></div>
+						<div class='text-info icon-book align-right'></div>
+					</div></a>
+					<a href='/payments/clubpayments'>
+					<div class='box-content box-statistic'>
+						<h3 class='title text-muted'><%= @normalpayments.size%></h3>
+						<small>Payments</small>
+						<div class='text-muted icon-money align-right'></div>
 					</div></a>
 				</div>
 			</div>
@@ -70,16 +71,16 @@
 <%end%>
 <%if role.include? 'cbdfinsec'%>
 
-	<div class='col-sm-12 col-md-6'>
+	<div class='col-sm-12 col-md-4'>
 		<div class='box'>
-			<div class='box-header'>
+			<div class='box-header orange-background'>
 				<div class='title'>
 					<div class='icon-inbox'></div>
 					Pending your approval
 				</div>
 			</div>
 			<div class='row'>
-				<div class='col-sm-6'>
+				<div class='col-sm-12'>
 					<a href='/claims/clubclaims'>
 					<div class='box-content box-statistic'>
 						<h3 class='title text-error'><%= @normalclaims.size%></h3>
@@ -88,9 +89,9 @@
 					</div></a>
 					<a href='/claims/clubclaims'>
 					<div class='box-content box-statistic'>
-						<h3 class='title text-warning'><%= @cbdmcclaims.size%></h3>
+						<h3 class='title text-error'><%= @cbdmcclaims.size%></h3>
 						<small>CBd MC Claims</small>
-						<div class='text-warning icon-copy align-right'></div>
+						<div class='text-error icon-copy align-right'></div>
 					</div></a>
 					<a href='/deposits/clubdeposits'>
 					<div class='box-content box-statistic'>
@@ -100,9 +101,21 @@
 					</div></a>
 					<a href='/deposits/clubdeposits'>
 					<div class='box-content box-statistic'>
-						<h3 class='title text-muted'><%= @cbdmcdeposits.size%></h3>
+						<h3 class='title text-info'><%= @cbdmcdeposits.size%></h3>
 						<small>CBd MC Deposits</small>
-						<div class='text-muted icon-briefcase align-right'></div>
+						<div class='text-info icon-briefcase align-right'></div>
+					</div></a>
+					<a href='/payments/clubpayments'>
+					<div class='box-content box-statistic'>
+						<h3 class='title text-muted'><%= @normalpayments.size%></h3>
+						<small>Payments</small>
+						<div class='text-muted icon-money align-right'></div>
+					</div></a>
+					<a href='/payments/clubpayments'>
+					<div class='box-content box-statistic'>
+						<h3 class='title text-muted'><%= @cbdmcpayments.size%></h3>
+						<small>CBd MC Payments</small>
+						<div class='text-muted icon-money align-right'></div>
 					</div></a>
 				</div>
 			</div>
@@ -112,16 +125,16 @@
 <%end%>
 <%if role.include? 'president'%>
 
-	<div class='col-sm-12 col-md-6'>
+	<div class='col-sm-12 col-md-4'>
 		<div class='box'>
-			<div class='box-header'>
+			<div class='box-header orange-background'>
 				<div class='title'>
 					<div class='icon-inbox'></div>
 					Pending your approval
 				</div>
 			</div>
 			<div class='row'>
-				<div class='col-sm-6'>
+				<div class='col-sm-12'>
 					<a href='/claims/clubclaims'>
 					<div class='box-content box-statistic'>
 						<h3 class='title text-error'><%= @claims.size%></h3>
@@ -131,9 +144,15 @@
 					
 					<a href='/deposits/clubdeposits'>
 					<div class='box-content box-statistic'>
-						<h3 class='title text-warning'><%= @deposits.size%></h3>
+						<h3 class='title text-info'><%= @deposits.size%></h3>
 						<small>Deposits</small>
-						<div class='text-warning icon-book align-right'></div>
+						<div class='text-info icon-book align-right'></div>
+					</div></a>
+					<a href='/payments/clubpayments'>
+					<div class='box-content box-statistic'>
+						<h3 class='title text-muted'><%= @payments.size%></h3>
+						<small>Payments</small>
+						<div class='text-muted icon-money align-right'></div>
 					</div></a>
 				</div>
 			</div>
@@ -143,16 +162,16 @@
 <%end%>
 <%if role.include? 'smusafinsec'%>
 
-	<div class='col-sm-12 col-md-6'>
+	<div class='col-sm-12 col-md-4'>
 		<div class='box'>
-			<div class='box-header'>
+			<div class='box-header orange-background'>
 				<div class='title'>
 					<div class='icon-inbox'></div>
 					Pending your approval
 				</div>
 			</div>
 			<div class='row'>
-				<div class='col-sm-6'>
+				<div class='col-sm-12'>
 					<a href='/claims/clubclaims'>
 					<div class='box-content box-statistic'>
 						<h3 class='title text-error'><%= @smusasecclaims.size%></h3>
@@ -161,9 +180,9 @@
 					</div></a>
 					<a href='/claims/clubclaims'>
 					<div class='box-content box-statistic'>
-						<h3 class='title text-warning'><%= @cbdmcclaims.size%></h3>
+						<h3 class='title text-error'><%= @cbdmcclaims.size%></h3>
 						<small>CBd MC Claims</small>
-						<div class='text-warning icon-copy align-right'></div>
+						<div class='text-error icon-copy align-right'></div>
 					</div></a>
 					<a href='/deposits/clubdeposits'>
 					<div class='box-content box-statistic'>
@@ -173,9 +192,21 @@
 					</div></a>
 					<a href='/deposits/clubdeposits'>
 					<div class='box-content box-statistic'>
-						<h3 class='title text-muted'><%= @cbdmcdeposits.size%></h3>
+						<h3 class='title text-info'><%= @cbdmcdeposits.size%></h3>
 						<small>CBd MC Deposits</small>
-						<div class='text-muted icon-briefcase align-right'></div>
+						<div class='text-info icon-briefcase align-right'></div>
+					</div></a>
+					<a href='/payments/clubpayments'>
+					<div class='box-content box-statistic'>
+						<h3 class='title text-muted'><%= @smusasecpayments.size%></h3>
+						<small>SMUSA Payments</small>
+						<div class='text-muted icon-money align-right'></div>
+					</div></a>
+					<a href='/payments/clubpayments'>
+					<div class='box-content box-statistic'>
+						<h3 class='title text-muted'><%= @cbdmcpayments.size%></h3>
+						<small>CBd MC Payments</small>
+						<div class='text-muted icon-money align-right'></div>
 					</div></a>
 				</div>
 			</div>
@@ -183,3 +214,66 @@
 	</div>
 
 <%end%>
+<%if role.include? 'osl'%>
+
+	<div class='col-sm-12 col-md-4'>
+		<div class='box'>
+			<div class='box-header orange-background'>
+				<div class='title'>
+					<div class='icon-inbox'></div>
+					Pending your approval
+				</div>
+			</div>
+			<div class='row'>
+				<div class='col-sm-12'>
+					<a href='/claims/clubclaims'>
+					<div class='box-content box-statistic'>
+						<h3 class='title text-error'><%= @oslclaims.size%></h3>
+						<small>Claims</small>
+						<div class='text-error icon-file-text align-right'></div>
+					</div></a>
+					<a href='/payments/clubpayments'>
+					<div class='box-content box-statistic'>
+						<h3 class='title text-muted'><%= @oslpayments.size%></h3>
+						<small>Payment</small>
+						<div class='text-muted icon-money align-right'></div>
+					</div></a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<%end%>
+<div class='col-sm-12 col-md-8 box' style='margin-bottom:0'>
+	<div class='box-header purple-background'>
+		<div class='title'>Introucing AIS</div>
+	</div>
+	<div class='box-content'>
+		<div class='carousel slide' id='myCarousel' style='margin-bottom:0;'>
+			<ol class='carousel-indicators'>
+				<li data-slide-to='0' data-target='#myCarousel'></li>
+				<li data-slide-to='1' data-target='#myCarousel'></li>
+				<li class='active' data-slide-to='2' data-target='#myCarousel'></li>
+			</ol>
+			<div class='carousel-inner'>
+				<div class='active item'>
+					<img src="<%= image_path 'carousel_pics/aisIntro.png' %>" />
+				</div>
+				<div class='item'>
+					<img src="<%= image_path 'carousel_pics/claimsInfo.png' %>" />
+				</div>
+				<div class='item'>
+					<img src="<%= image_path 'carousel_pics/vendorIntro.png' %>" />
+				</div>
+			</div>
+			<a class='left carousel-control' data-slide='prev' href='#myCarousel'>
+				<span class='icon-angle-left icon-prev'></span>
+			</a>
+			<a class='right carousel-control' data-slide='next' href='#myCarousel'>
+				<span class='icon-angle-right icon-next'></span>
+			</a>
+		</div>
+	</div>
+</div>
+</div>
+<hr />
