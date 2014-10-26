@@ -652,60 +652,65 @@ class ChiefController < ApplicationController
     file = params[:file]
     @superarray = []
     acceptedstatuses = [4,19,10,22,15,25]
-    spreadsheet = open_spreadsheet(file).sheet('Others')
-    (1..spreadsheet.last_row).each do |i|
-      row = spreadsheet.row(i)
-      if !row.include?nil
-        desc = row[3]
-        
-        start = desc.index('#')
-        if !start.nil?
-          last = desc.index('#',start+1)
-        else
-          last = nil
-        end
-        if !start.nil? && !last.nil?
-          id = desc[start+1..last-1].to_i
-          amount = row[4].to_d
-          if amount > 0
-            c = Deposit.find_by_id(id)
-            if !c.nil? && acceptedstatuses.include?(c.status) && c.amount == (amount)
-              newstatus = c.status + 1
-
-              c.update_attribute(:status, newstatus)
-              # redirect_to :action => 'viewclaim'
-              club = c.clubid
-              amount = c.amount
-              account = ExpenditureAccount.find_by_clubid(club)
-              balance = account.Category1Balance
-              balance += amount
-              account.update_attribute(:Category1Balance, balance)
-              balance2 = account.Category2Balance
-              balance2 += amount
-              account.update_attribute(:Category2Balance, balance2)
-              @superarray << row
-            end 
+    begin
+      spreadsheet = open_spreadsheet(file).sheet('Others')
+      (1..spreadsheet.last_row).each do |i|
+        row = spreadsheet.row(i)
+        if !row.include?nil
+          desc = row[3]
+          
+          start = desc.index('#')
+          if !start.nil?
+            last = desc.index('#',start+1)
           else
-            c = Claim.find_by_id(id)
-            if !c.nil? && acceptedstatuses.include?(c.status) && c.amount == (amount * -1)
-              newstatus = c.status + 1
-              ClaimTime.create(claimid: c.id, status: newstatus,date: Date.today)
-              c.update_attribute(:status, newstatus)
-              # redirect_to :action => 'viewclaim'
-              club = c.clubid
-              amount = c.amount
-              account = ExpenditureAccount.find_by_clubid(club)
-              balance = account.Category1Balance
-              balance -= amount
-              account.update_attribute(:Category1Balance, balance)
-              @superarray << row
+            last = nil
+          end
+          if !start.nil? && !last.nil?
+            id = desc[start+1..last-1].to_i
+            amount = row[4].to_d
+            if amount > 0
+              c = Deposit.find_by_id(id)
+              if !c.nil? && acceptedstatuses.include?(c.status) && c.amount == (amount)
+                newstatus = c.status + 1
+  
+                c.update_attribute(:status, newstatus)
+                # redirect_to :action => 'viewclaim'
+                club = c.clubid
+                amount = c.amount
+                account = ExpenditureAccount.find_by_clubid(club)
+                balance = account.Category1Balance
+                balance += amount
+                account.update_attribute(:Category1Balance, balance)
+                balance2 = account.Category2Balance
+                balance2 += amount
+                account.update_attribute(:Category2Balance, balance2)
+                @superarray << row
+              end 
+            else
+              c = Claim.find_by_id(id)
+              if !c.nil? && acceptedstatuses.include?(c.status) && c.amount == (amount * -1)
+                newstatus = c.status + 1
+                ClaimTime.create(claimid: c.id, status: newstatus,date: Date.today)
+                c.update_attribute(:status, newstatus)
+                # redirect_to :action => 'viewclaim'
+                club = c.clubid
+                amount = c.amount
+                account = ExpenditureAccount.find_by_clubid(club)
+                balance = account.Category1Balance
+                balance -= amount
+                account.update_attribute(:Category1Balance, balance)
+                @superarray << row
+              end
+              
             end
-            
           end
         end
+        
       end
-      
+    rescue
+      flash[:error] = 'Invalid file. Please ensure that file is of type xls or xlsx and there is a sheet named "Others"'
     end
+    
   end
   
   def open_spreadsheet(file)

@@ -1,7 +1,15 @@
 class ReserveLimitController < ApplicationController 
   def viewreservelimit
     @new_request = ReserveLimit.new
-    clubid = session[:clubid]
+    clubid = session[:club]
+    r = ReserveLimit.find_by_clubid(clubid)
+    p clubid
+    p r
+    if r.nil?
+      @test = true
+    else
+      @ReserveRequest = r
+    end
   end
   
   

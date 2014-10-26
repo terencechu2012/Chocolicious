@@ -8,6 +8,7 @@
 	</div>
 </div>
 <% role = session[:role]%>
+<%if @test%>
 <div class='row'>
 	<div class='col-sm-12 col-lg-12'>
 		<div class='box bordered-box'>
@@ -45,3 +46,42 @@
 		</div>
 	</div>
 </div>
+<%else%>
+Your previous request has not been processed.
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='box bordered-box blue-border' style='margin-bottom:0;'>
+			<div class='box-header blue-background'>
+				<div class='title'>
+					View Change Requests 
+				</div>
+				<div class='actions'>
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class='box-content box-no-padding'>
+				<div class='responsive-table'>
+					<div class='scrollable-area'>
+						<table class='table' style='margin-bottom:0;'>
+							<tr>
+								<td><th>Club ID</th></td> 
+								<td><th>Amount</th></td> 
+								<td><th>Remarks</th></td>	
+											
+							</tr>
+							<% x = @ReserveRequest %>
+							<tr>
+								<td><th><%= x.clubid%></th></td>
+								<td><th><%= x.amount%></th></td>
+								<td><th><%= x.remarks%></th></td>
+								</tr>
+							
+						</table>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<%end%>
