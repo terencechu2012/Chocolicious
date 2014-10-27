@@ -11,9 +11,11 @@ class VendorsController < ApplicationController
 
   def add 
     companyname = params[:vendor][:name]
+    v = Vendor.find_by_name(companyname)
     
-    if companyname.nil?
-      flash[:error] = "Please enter the vendor's name (company name)"
+    if !v.nil?
+      flash[:error] = "This vendor has been previously entered. Please go to 'Add rating for existing vendor' instead."
+      redirect_to :controller => 'admin', :action => 'home'
     else
       Vendor.create(vendor_params).valid?
       redirect_to :controller => 'admin', :action => 'home'
