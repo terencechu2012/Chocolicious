@@ -121,13 +121,30 @@ class ClaimsController < ApplicationController
 
   def edit
     c = Claim.find_by_id(params[:claim][:id])
-    c.update_attributes(claim_params)
+    oldamount = c.amount
+    balance = ExpenditureAccount.find_by_clubid(session[:club]).Category1Balance
+    amount = params[:claim][:amount]
+    if amount.to_d > balance
+      flash[:error] = 'There are insufficient funds in the expenditure account'
+    else
+      c.update_attributes(claim_params)
+    end
+    
     redirect_to :action => 'clubclaims'
   end
   
   def editown
     c = Claim.find_by_id(params[:claim][:id])
-    c.update_attributes(claim_params)
+    oldamount = c.amount
+    balance = ExpenditureAccount.find_by_clubid(session[:club]).Category1Balance
+    amount = params[:claim][:amount]
+    if amount.to_d > balance
+      flash[:error] = 'There are insufficient funds in the expenditure account'
+    else
+      c.update_attributes(claim_params)
+    end
+    
+    
     redirect_to :action => 'viewclaim'
   end
 

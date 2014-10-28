@@ -40,7 +40,10 @@ class DepositsController < ApplicationController
     @normaldeposits = Deposit.where(userid:session[:userid], clubid:session[:club])
   end
   def add
-    Deposit.create(deposit_params)
+    test = Deposit.create(deposit_params).valid?
+    if !test
+      flash[:error] = 'There was a problem adding your deposit. Have you attached a supporting document?'
+    end
 
     if session[:role].include? 'clubfinsec'
       redirect_to :action => 'clubdeposits'

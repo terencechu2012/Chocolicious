@@ -63,7 +63,13 @@
 							<br />
 							<%= f.text_field :receipts, :class=>"form-control",:required => true%>
 						</div>
-						
+						<div class='form-group'>
+							<label>Attach Receipt*</label>
+							<br />
+							<%= f.file_field(:supportdoc)%>
+
+							
+						</div>
 						<hr />
 						<h3>Donor Information (Only for sponsorships and donations)</h3>
 						<div class='form-group'>

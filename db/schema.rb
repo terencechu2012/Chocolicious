@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141018015547) do
+ActiveRecord::Schema.define(version: 20141028121507) do
 
   create_table "allocation_reports", force: true do |t|
     t.datetime "created_at"
@@ -278,7 +278,7 @@ ActiveRecord::Schema.define(version: 20141018015547) do
   create_table "deposits", force: true do |t|
     t.string   "userid"
     t.string   "clubid"
-    t.decimal  "amount",     precision: 10, scale: 2
+    t.decimal  "amount",                  precision: 10, scale: 2
     t.integer  "status"
     t.string   "remarks"
     t.date     "date"
@@ -289,6 +289,10 @@ ActiveRecord::Schema.define(version: 20141018015547) do
     t.string   "purpose"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "supportdoc_file_name"
+    t.string   "supportdoc_content_type"
+    t.integer  "supportdoc_file_size"
+    t.datetime "supportdoc_updated_at"
   end
 
   create_table "ereceipts", force: true do |t|

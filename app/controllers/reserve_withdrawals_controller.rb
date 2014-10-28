@@ -25,7 +25,16 @@ class ReserveWithdrawalsController < ApplicationController
 
   def edit
     r = ReserveWithdrawal.find_by_id(params[:reserve_withdrawal][:id])
-    r.update_attributes(withdrawal_params)
+    balance = ReserveAccount.find_by_clubid(r.clubid).balance
+    amount = params[:reserve_withdrawal][:amount].to_d
+    if balance < amount
+      flash.alert = 'There are insufficient funds in the reserve account!'
+    else
+      
+      r.update_attributes(withdrawal_params)
+    end
+    
+    
     redirect_to :action => 'viewrequest'
   end
 
@@ -111,7 +120,7 @@ class ReserveWithdrawalsController < ApplicationController
 
     e = ExpenditureAccount.find_by_clubid(rclubid)
 
-    if t.balance > ramount 
+    if t.balance >= ramount 
       newstatus = status + 1
 
       r.update_attribute(:status, newstatus)
