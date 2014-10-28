@@ -6,7 +6,7 @@
 	</div>
 </div>
 
-<% role = session[:role]%>
+<% if !session[:role].nil?%>
 <div class='row'>
 	<div class='col-sm-12 col-lg-12'>
 		<div class='box bordered-box'>
@@ -75,3 +75,4 @@
 		</div>
 	</div>
 </div>
+<%end%>

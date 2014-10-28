@@ -13,7 +13,17 @@ class EreceiptsController < ApplicationController
   end
   
   def viewsentreceipt
-     @receipt = Ereceipt.all
+    role = session[:role]
+    @receipt = []
+    if (role.include? 'smusafinsec') || (role.include? 'osl')
+      @receipt = Ereceipt.all
+    elsif role.include? 'cbdfinsec'
+      @receipt = Ereceipt.where(['clubid in (select clubid from clubs where clubtype = ?)', session[:club]])
+      @receipt += Ereceipt.where(clubid: session[:club])
+    else
+      @receipt = Ereceipt.where(clubid: session[:club])
+    end
+     
   end
   
   def ereceipt_params
