@@ -47,9 +47,9 @@
 								<% total = x.Category1Balance + x.Category2Balance%>
 								<td><%= x.clubid%></td>
 							
-								<td><%= x.Category1Balance%></td>
+								<td>$<%= x.Category1Balance%></td>
 
-								<td><%= x.Category2Balance%></td>
+								<td>$<%= x.Category2Balance%></td>
 								<%if false%>
 								<!-- <td><%= x.Category3Balance%></td>
 								<td><%= x.Category4Balance%></td>
@@ -67,7 +67,7 @@
 								<td> <%= form_tag("/accounts/editaccount", :method => "get") do %>
 								<%= hidden_field_tag(:id, x.clubid) %>
 								<%= hidden_field_tag(:destination, "viewsecaccount") %>
-								<%= submit_tag("Edit", :class=>"btn blue-background") %>
+								<%= submit_tag("Edit", class:"btn btn-success") %>
 								<% end %> </td>
 							</tr>
 							<%end%>

@@ -1,16 +1,14 @@
 <%if session[:role].include? 'smusafinsec'%>
 
 <div class='row'>
-                            <div class='col-sm-12'>
-                                <div class='page-header'>
-                                    <h1 class='pull-left'>
-                      <i class='icon-dollar'></i>
-                      <span>SAC Account Management</span>
-                    </h1>
-                                    
-                                </div>
-                            </div>
-                        </div>
+	<div class='col-sm-12'>
+    	<div class='page-header'>
+        	<h1 class='pull-left'>
+            	<i class='icon-dollar'></i><span> SAC Account Management</span>
+            </h1>                            
+        </div>
+    </div>
+</div>
 
 <div class='row'>
 	<div class='col-sm-12'>
@@ -28,7 +26,7 @@
 					<div class='scrollable-area'>
 						<table class='table' style='margin-bottom:0;'>
 							<tr><th>Account balance</th></tr>
-							<tr><td><%=@sac.Category1Balance%></td></tr>
+							<tr><td>$<%=@sac.Category1Balance%></td></tr>
 						</table>
 
 					</div>
@@ -64,23 +62,23 @@ Amount to inject:
 							<tr><th>Account number</th><th>Account balance</th></tr>
 							<tr>
 								<td>ACF R002</td>
-								<td><%=@acfreserves%></td>
+								<td>$<%=@acfreserves%></td>
 							</tr>
 							<tr>
 								<td>SICS R003</td>
-								<td><%=@sicsreserves%></td>
+								<td>$<%=@sicsreserves%></td>
 							</tr>
 							<tr>
 								<td>SMUX R004</td>
-								<td><%=@smuxreserves%></td>
+								<td>$<%=@smuxreserves%></td>
 							</tr>
 							<tr>
 								<td>SSU R005</td>
-								<td><%=@ssureserves%></td>
+								<td>$<%=@ssureserves%></td>
 							</tr>
 							<tr>
 								<td>SCHOOLS R006</td>
-								<td><%=@schoolreserves%></td>
+								<td>$<%=@schoolreserves%></td>
 							</tr>
 						</table>
 

@@ -56,9 +56,9 @@
 									<td><%= b.enddate%></td>
 									<td><%= b.estnopar%></td>
 									<td><%= b.category%></td>
-									<td><%= b.requestsac%></td>
-									<td><%= b.requestreserves%></td>
-									<td><%= b.projectedincome%></td>
+									<td>$<%= b.requestsac%></td>
+									<td>$<%= b.requestreserves%></td>
+									<td>$<%= b.projectedincome%></td>
 									<td><a href="#", onclick="alert('<%= b.explanation%>')" class="btn btn-success btn-xs blue-background has-tooltip" data-placement="top" title="Explanation"><i class="icon-eye-open"></i></a>
 										<a href='<%= b.poster.url%>'class="btn btn-success btn-xs green-background has-tooltip" data-placement="top" title="Download Attachments"><i class="icon-download-alt"></i></a>
 										<a href='/budgets/managebreakdown?id=<%= b.id%>' class="btn btn-success btn-xs orange-background has-tooltip" data-placement="top" title="Manage Breakdown"><i class="icon-edit"></i></a>

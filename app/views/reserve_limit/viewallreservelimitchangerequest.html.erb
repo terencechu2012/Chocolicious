@@ -32,10 +32,10 @@
 							<% @ReserveRequest.each do|x| %>
 							<tr>
 								<td><th><%= x.clubid%></th></td>
-								<td><th><%= x.amount%></th></td>
+								<td><th>$<%= x.amount%></th></td>
 								<td><th><%= x.remarks%></th></td>
-								<td><th><a href="/reserve_limit/accept?clubid=<%= x.clubid%>" class="btn btn-warning btn-xs"><i class="icon-pencil"></i>Accept</a>
-								<a href="/reserve_limit/reject?clubid=<%= x.clubid%>" class="btn btn-warning btn-xs"><i class="icon-pencil"></i>Reject</a></th></td>
+								<td><th><a href="/reserve_limit/accept?clubid=<%= x.clubid%>" class="btn btn-success btn-small">Accept</a>
+								<a href="/reserve_limit/reject?clubid=<%= x.clubid%>" class="btn btn-danger">Reject</a></th></td>
 							</tr>
 							<%end%>
 						</table>

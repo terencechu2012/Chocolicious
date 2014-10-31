@@ -1,12 +1,11 @@
 <div class='row'>
 	<div class='col-sm-12'>
 		<div class='page-header'>
-			<h1 class='pull-left'><i class='icon-dollar'></i> <!-- span has to be on next line to create that space between the logo and the words --><span>View Account</span></h1>
+			<h1 class='pull-left'><i class='icon-dollar'></i><span> View Account</span></h1>
 		</div>
 	</div>
 </div>
 <% if (session[:role].include?"clubfinsec") || (session[:role].include?'president') || (session[:role].include?'smusasec')%>
-
 <div class='row'>
 	<div class='col-sm-12'>
 		<div class='box bordered-box blue-border' style='margin-bottom:0;'>
@@ -27,31 +26,15 @@
 								
 								<th>Cat 1</th>
 								<th>Cat 2</th>
-								<!-- <th>Cat 3</th>
-								<th>Cat 4</th>
-								<th>Cat 5</th>
-								<th>Cat 6</th>
-								<th>Cat 7</th>
-								<th>Cat 8</th>
-								<th>Cat 9</th>
-								<th>Cat 10</th>
-								<th>Cat 11</th>
-								<th>Cat 12</th>
-								<th>Cat 13</th>
-								<th>Misc</th> -->
-
 							</tr>
-
 							<tr>
 								<% x = @club%>
 								<% total = x.Category1Balance + x.Category2Balance%>
 								<td><%= @club.clubid%></td>
 								
-								<td><%= @club.Category1Balance%></td>
-								<td><%= @club.Category2Balance%></td>
-
+								<td>$<%= @club.Category1Balance%></td>
+								<td>$<%= @club.Category2Balance%></td>
 							</tr>
-
 						</table>
 					</div>
 				</div>
@@ -83,8 +66,8 @@
 
 							</tr>
 							<tr>
-								<td><%= @reserve.balance%></td>
-								<td><%= @reserve.limit%></td>
+								<td>$<%= @reserve.balance%></td>
+								<td>$<%= @reserve.limit%></td>
 
 							</tr>
 

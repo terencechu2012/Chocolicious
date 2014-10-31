@@ -51,7 +51,7 @@
 								<%end%>
 								<td><%= c.id%></td>
 								<td><%= c.clubid%></td>
-								<td><%= c.amount%></td>
+								<td>$<%= c.amount%></td>
 								<td><%= c.purpose%></td>
 								<td><%= c.created_at%></td>
 								<td><%= c.updated_at%></td>
@@ -61,7 +61,7 @@
 								<td><a href="/reserve_withdrawals/editrequest?id=<%= c.id%>&own=true" class="btn btn-sm btn-primary blue-background">Edit</a> 
 										<%if c.remarks.nil?%> 
 											<a href="/reserve_withdrawals/submitrequest?id=<%= c.id%>" class="btn btn-sm btn-primary green-background">Submit</a>
-											<a href="/reserve_withdrawals/deleterequest?id=<%= c.id%>" class="btn btn-sm btn-primary red-background">X</a></td>
+											<a href="/reserve_withdrawals/deleterequest?id=<%= c.id%>" class="btn btn-sm btn-primary red-background">Delete</a></td>
 										
 								<%end%>
 								<%end%>
@@ -124,7 +124,7 @@
 								<%end%>
 								<td><%= c.id%></td>
 								<td><%= c.clubid%></td>
-								<td><%= c.amount%></td>
+								<td>$<%= c.amount%></td>
 								<td><%= c.purpose%></td>
 								<td><%= c.created_at%></td>
 								<td><%= c.updated_at%></td>

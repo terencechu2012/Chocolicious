@@ -2,8 +2,8 @@
 	<div class='col-sm-12'>
 		<div class='page-header'>
 			<h1 class='pull-left'><i class='icon-dollar'></i>
-				<!-- span has to be on next line to create that space between the logo and the words -->
-				<span>View CBd Expenditure Accounts</span></h1>
+				<span> View CBd Expenditure Accounts</span>
+			</h1>
 		</div>
 	</div>
 </div>
@@ -32,9 +32,9 @@
 								<%end%>
 							</tr>
 							<tr>
-								<td><%= @totalBdgt%></td>
+								<td>$<%= @totalBdgt%></td>
 								<% @budgetArr.each do|x| %>
-								<td><%= x%></td>
+								<td>$<%= x%></td>
 								<%end%>
 							</tr>
 						</table>
@@ -76,7 +76,7 @@
 						<%= select_tag(:choice, options_from_collection_for_select(@CBD, "clubid", "clubid"), prompt:"Select CBd")%>
 					</fieldset>
 					<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
-						<%= submit_tag("Go!", :class=>"btn blue-background") %>
+						<%= submit_tag("Go!", class:"btn btn-primary") %>
 					</div>
 					<%end%>
 					<%end%>
@@ -91,18 +91,6 @@
 								
 									<th>Cat 1</th>
 									<th>Cat 2</th>
-									<!-- <th>Cat 3</th>
-									<th>Cat 4</th>
-									<th>Cat 5</th>
-									<th>Cat 6</th>
-									<th>Cat 7</th>
-									<th>Cat 8</th>
-									<th>Cat 9</th>
-									<th>Cat 10</th>
-									<th>Cat 11</th>
-									<th>Cat 12</th>
-									<th>Cat 13</th>
-									<th>Misc</th> -->
 									<th>Options</th>
 								</tr>
 								<% @choiceofCBD.each do|x| %>
@@ -110,8 +98,8 @@
 									<% total = x.Category1Balance + x.Category2Balance%>
 									<td><%= x.clubid%></td>
 									
-									<td><%= x.Category1Balance%></td>
-									<td><%= x.Category2Balance%></td>
+									<td>$<%= x.Category1Balance%></td>
+									<td>$<%= x.Category2Balance%></td>
 									<%if false%>
 									<!-- <td><%= x.Category3Balance%></td>
 									<td><%= x.Category4Balance%></td>
@@ -129,7 +117,7 @@
 									<td> <%= form_tag("/accounts/editaccount", :method => "get") do %>
 									<%= hidden_field_tag(:id, x.clubid) %>
 									<%= hidden_field_tag(:destination, "viewcbdaccounts") %>
-									<%= submit_tag("Edit", :class=>"btn") %>
+									<%= submit_tag("Edit", class:"btn btn-success") %>
 									<% end %> </td>
 								</tr>
 								<%end%>
@@ -165,9 +153,9 @@
 									<% total = x.Category1Balance + x.Category2Balance%>
 									<td><%= x.clubid%></td>
 									
-									<td><%= x.Category1Balance%></td>
+									<td>$<%= x.Category1Balance%></td>
 
-									<td><%= x.Category2Balance%></td>
+									<td>$<%= x.Category2Balance%></td>
 									<%if false%>
 									<!-- <td><%= x.Category3Balance%></td>
 									<td><%= x.Category4Balance%></td>
@@ -185,7 +173,7 @@
 									<td> <%= form_tag("/accounts/editaccount", :method => "get") do %>
 									<%= hidden_field_tag(:id, x.clubid) %>
 									<%= hidden_field_tag(:destination, "viewcbdaccounts") %>
-									<%= submit_tag("Edit", :class=>"btn") %>
+									<%= submit_tag("Edit", class:"btn btn-success") %>
 									<% end %> </td>
 								</tr>
 								<%end%>

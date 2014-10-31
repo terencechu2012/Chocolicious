@@ -31,7 +31,7 @@
 						<table class="data-table table table-striped" style="margin-bottom:0;">
 							<thead>
 								<th>ID</th>
-								<th>Payment By</th>
+								<th>Requested By</th>
 
 								<th>Amount</th>
 
@@ -59,7 +59,7 @@
 								<td><%= c.created_at%></td>
 								<td><%= statuscode[c.status]%></td>
 								<td>
-									<button type="button" class="btn btn-warning btn-xs bs-example-tooltips" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
+									<button type="button" class="btn btn-warning btn-xs bs-example-tooltips" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Pay To:</b><br/><%= c.vendorpayeename%><br/><b>Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
 										Details
 									</button>
 									<a href="<%= c.supportdoc.url%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Download Receipt'><i class="icon-arrow-down"></i></a>
@@ -109,7 +109,7 @@
 						<table class="data-table table table-striped" style="margin-bottom:0;">
 							<thead>
 								<th>ID</th>
-								<th>Payment By</th>
+								<th>Requested By</th>
 								<th>Club</th>
 								<th>Amount</th>
 
@@ -137,7 +137,7 @@
 								<td><%= c.created_at%></td>
 								<td><%= statuscode[c.status]%></td>
 								<td>
-									<button type="button" class="btn btn-warning btn-xs bs-example-tooltips" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
+									<button type="button" class="btn btn-warning btn-xs bs-example-tooltips" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Pay To:</b><br/><%= c.vendorpayeename%><br/><b>Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
 										Details
 									</button>
 									<a href="<%= c.supportdoc.url%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Download Receipt'><i class="icon-arrow-down"></i></a>
@@ -190,7 +190,7 @@
 						<table class="data-table table table-striped" style="margin-bottom:0;">
 							<thead>
 								<th>ID</th>
-								<th>Payment By</th>
+								<th>Requested By</th>
 								<th>Club</th>
 								<th>Amount</th>
 
@@ -220,7 +220,7 @@
 
 								<td><%= statuscode[c.status]%></td>
 								<td>
-									<button type="button" class="btn btn-warning btn-xs bs-example-tooltips" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
+									<button type="button" class="btn btn-warning btn-xs bs-example-tooltips" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Pay To:</b><br/><%= c.vendorpayeename%><br/><b>Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
 										Details
 									</button>
 									<a href="<%= c.supportdoc.url%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Download Receipt'><i class="icon-arrow-down"></i></a>
@@ -270,7 +270,7 @@
 						<table class="data-table table table-striped" style="margin-bottom:0;">
 							<thead>
 								<th>ID</th>
-								<th>Payment By</th>
+								<th>Requested By</th>
 
 								<th>Amount</th>
 
@@ -300,7 +300,7 @@
 
 								<td><%= statuscode[c.status]%></td>
 								<td>
-									<button type="button" class="btn btn-warning btn-xs bs-example-tooltips" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
+									<button type="button" class="btn btn-warning btn-xs bs-example-tooltips" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Pay To:</b><br/><%= c.vendorpayeename%><br/><b>Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
 										Details
 									</button>
 									<a href="<%= c.supportdoc.url%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Download Receipt'><i class="icon-arrow-down"></i></a>
@@ -354,8 +354,8 @@
 
 						<table class="data-table table table-striped" style="margin-bottom:0;">
 							<thead>
-								<th>Payment ID</th>
-								<th>Payment By</th>
+								<th>ID</th>
+								<th>Requested By</th>
 
 								<th>Amount</th>
 
@@ -384,7 +384,7 @@
 								<td><%= c.created_at%></td>
 								<td><%= statuscode[c.status]%></td>
 								<td>
-									<button type="button" class="btn btn-warning btn-xs bs-example-tooltips" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
+									<button type="button" class="btn btn-warning btn-xs bs-example-tooltips" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Pay To:</b><br/><%= c.vendorpayeename%><br/><b>Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
 										Details
 									</button>
 									<a href="<%= c.supportdoc.url%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Download Receipt'><i class="icon-arrow-down"></i></a>
@@ -439,8 +439,8 @@
 
 						<table class="data-table table table-striped" style="margin-bottom:0;">
 							<thead>
-								<th>Payment ID</th>
-								<th>Payment By</th>
+								<th>ID</th>
+								<th>Requested By</th>
 								<th>Club</th>
 								<th>Amount</th>
 
@@ -468,7 +468,7 @@
 								<td><%= c.created_at%></td>
 								<td><%= statuscode[c.status]%></td>
 								<td>
-									<button type="button" class="btn btn-warning btn-xs bs-example-tooltips" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
+									<button type="button" class="btn btn-warning btn-xs bs-example-tooltips" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Pay To:</b><br/><%= c.vendorpayeename%><br/><b>Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
 										Details
 									</button>
 									<a href="<%= c.supportdoc.url%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Download Receipt'><i class="icon-arrow-down"></i></a>
@@ -519,8 +519,8 @@
 
 						<table class="data-table table table-striped" style="margin-bottom:0;">
 							<thead>
-								<th>Payment ID</th>
-								<th>Payment By</th>
+								<th>ID</th>
+								<th>Requested By</th>
 								<th>Department</th>
 								<th>Amount</th>
 
@@ -549,7 +549,7 @@
 									<td><%= c.created_at%></td>
 									<td><%= statuscode[c.status]%></td>
 									<td>
-										<button type="button" class="btn btn-warning btn-xs bs-example-tooltips" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
+										<button type="button" class="btn btn-warning btn-xs bs-example-tooltips" data-container="body" data-toggle="popover-with-html" data-placement="top" data-content="<b>Pay To:</b><br/><%= c.vendorpayeename%><br/><b>Category:</b><br /><%= c.category%><br /><b>Expense:</b><br /><%= c.expense%><br /><b>Created:</b><br /><%= c.created_at%><br /><b>Last Updated:</b><br /><%= c.updated_at%>" data-original-title="" title="Details (<%= c.clubid%>)">
 											Details
 										</button>
 										<a href="<%= c.supportdoc.url%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Download Receipt'><i class="icon-arrow-down"></i></a>

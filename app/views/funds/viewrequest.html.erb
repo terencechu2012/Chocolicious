@@ -52,20 +52,26 @@
 								<td><%= c.id%></td>
 								<td><%= c.clubidfrom%></td>
 								<td><%= c.clubidto%></td>
-								<td><%= c.amount%></td>
+								<td>$<%= c.amount%></td>
 								<td><%= c.purpose%></td>
 								<td><%= c.created_at%></td>
 								<td><%= c.updated_at%></td>
 								<td><%= statuscode[c.status]%></td>
-
+								<td>
 								<%if status == 0%>
-								<td><a href="/funds/editrequest?id=<%= c.id%>&own=true" class="btn btn-sm btn-primary blue-background">Edit</a> <%if c.remarks.nil?%> <a href="/funds/submitrequest?id=<%= c.id%>" class="btn btn-sm btn-primary green-background">Submit</a><a href="/funds/deleterequest?id=<%= c.id%>" class="btn btn-sm btn-primary red-background">X</a></td>
-								<%end%>
+									<a href="/funds/editrequest?id=<%= c.id%>&own=true" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Edit'><i class="icon-pencil"></i></a> 
+									<%if c.remarks.nil?%> 
+										<a href="/funds/submitrequest?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Submit'><i class="icon-share-alt"></i></a> 
+										<a href="/funds/deleterequest?id=<%= c.id%>" class="btn btn-danger btn-xs has-tooltip" data-placement='top' title='Delete'><i class="icon-remove"></i></a>
+									<%end%>
 								<%end%>
 
 								<%if (status == 0)&& !c.remarks.nil? %>
-								<td><a href="#", onclick="viewremark('<%= c.remarks%>')" class="btn btn-sm btn-primary">View Remarks</a><a href="/funds/resubmitrequest?id=<%= c.id%>" class="btn btn-sm btn-primary green-background">ReSubmit</a><a href="/funds/deleterequest?id=<%= c.id%>" class="btn btn-sm btn-primary red-background">X</a></td>
+									<a href="#", onclick="viewremark('<%= c.remarks%>')" class="btn btn-warning btn-xs has-tooltip" data-placement='top' title='View Remarks'><i class="icon-eye-open"></i></a>
+									<a href="/funds/resubmitrequest?id=<%= c.id%>"  class="btn btn-info btn-xs has-tooltip" data-placement='top' title='Resubmit'><i class="icon-share-alt"></i></a>
+									<a href="/funds/deleterequest?id=<%= c.id%>" class="btn btn-danger btn-xs has-tooltip" data-placement='top' title='Delete'><i class="icon-remove"></i></a>
 								<%end%>
+								</td>
 							</tr>
 							<%end%>
 
@@ -121,14 +127,16 @@
 								<td><%= c.id%></td>
 								<td><%= c.clubidfrom%></td>
 								<td><%= c.clubidto%></td>
-								<td><%= c.amount%></td>
+								<td>$<%= c.amount%></td>
 								<td><%= c.purpose%></td>
 								<td><%= c.created_at%></td>
 								<td><%= c.updated_at%></td>
 								<td><%= statuscode[c.status]%></td>
-								<%if status == 4%>
-								<td><a href="#", onclick="smuasaapprove(<%= c.id%>)" class="btn btn-sm btn-primary green-background">Approve</a><a href="#", onclick="smusareject(<%= c.id%>)" class="btn btn-sm btn-primary red-background">Reject</a><p id ="smusa"></p> <%end%>
-								<%end%>
+								<td>
+									<%if status == 4%>
+										<a href="#", onclick="smuasaapprove(<%= c.id%>)" class="btn btn-xs btn-success has-tooltip" data-placement='top' title='Approve'><i class="icon-thumbs-up-alt"></i></a> <a href="#", onclick="smusareject(<%= c.id%>)" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a> <p id ="smusa"></p> <%end%>
+									<%end%>
+								</td>
 							</tr>
 						</table>
 					</div>

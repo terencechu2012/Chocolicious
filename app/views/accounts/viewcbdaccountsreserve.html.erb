@@ -32,9 +32,9 @@
 								<%end%>
 							</tr>
 							<tr>
-								<td><%= @totalBdgt%></td>
+								<td>$<%= @totalBdgt%></td>
 								<% @budgetArr.each do|x| %>
-								<td><%= x%></td>
+								<td>$<%= x%></td>
 								<%end%>
 							</tr>
 						</table>
@@ -75,7 +75,7 @@
 						<%= select_tag(:choice, options_from_collection_for_select(@CBD, "clubid", "clubid"), prompt:"Select CBd")%>
 					</fieldset>
 					<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>
-						<%= submit_tag("Go!", :class=>"btn blue-background") %>
+						<%= submit_tag("Go!", class:"btn btn-primary") %>
 					</div>
 					<%end%>
 					<%end%>
@@ -96,13 +96,13 @@
 								<tr>
 
 									<td><%= x.clubid%></td>
-									<td><%= x.balance%></td>
-									<td><%= x.limit%></td>
+									<td>$<%= x.balance%></td>
+									<td>$<%= x.limit%></td>
 
 									<td> <%= form_tag("/accounts/editaccountreserve", :method => "get") do %>
 									<%= hidden_field_tag(:id, x.clubid) %>
 									<%= hidden_field_tag(:destination, "viewcbdaccountsreserve") %>
-									<%= submit_tag("Edit", :class=>"btn blue-background") %>
+									<%= submit_tag("Edit", class:"btn btn-success btn-small") %>
 									<% end %> </td>
 								</tr>
 								<%end%>
@@ -125,13 +125,13 @@
 								<tr>
 
 									<td><%= x.clubid%></td>
-									<td><%= x.balance%></td>
-									<td><%= x.limit%></td>
+									<td>$<%= x.balance%></td>
+									<td>$<%= x.limit%></td>
 
 									<td> <%= form_tag("/accounts/editaccountreserve", :method => "get") do %>
 									<%= hidden_field_tag(:id, x.clubid) %>
 									<%= hidden_field_tag(:destination, "viewcbdaccountsreserve") %>
-									<%= submit_tag("Edit", :class=>"btn blue-background") %>
+									<%= submit_tag("Edit", class:"btn btn-success btn-small") %>
 									<% end %> </td>
 								</tr>
 								<%end%>

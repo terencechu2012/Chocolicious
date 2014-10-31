@@ -39,9 +39,9 @@
 								<%@expenditures.each do |e|%>
 								<tr>
 									<td><%= e.item%></td>
-									<td><%= e.requestsac%></td>
-									<td><%= e.requestreserves%></td>
-									<td><%= e.unitcost%></td>
+									<td>$<%= e.requestsac%></td>
+									<td>$<%= e.requestreserves%></td>
+									<td>$<%= e.unitcost%></td>
 									<td><%= e.quantity%></td>
 									<td><%= e.justification%></td>
 									<td><%= e.quotation%></td>
@@ -202,7 +202,7 @@
 								<%@incomes.each do |i|%>
 								<tr>
 									<td><%= i.item%></td>
-									<td><%= i.income%></td>
+									<td>$<%= i.income%></td>
 									<td><%= i.incomebreakdown%></td>
 									<td><a href='/budgets/deleteincome?id=<%= i.id%>' class="btn btn-danger btn-xs"><i class="icon-remove"></i></a></td>
 								</tr>
