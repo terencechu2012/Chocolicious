@@ -17,6 +17,7 @@ class AdminController < ApplicationController
     list2 = Clubusers.where(clubid: 'smusa', role: 'president')
     @smusasecList = @smusasecList + list2
     @departments = Club.where(clubtype: 'smusa')
+    @oslList = Clubusers.where(role: 'osl')
   end
 
   def requestClub

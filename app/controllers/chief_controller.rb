@@ -461,7 +461,10 @@ class ChiefController < ApplicationController
         balance = reserveaccount.balance
         newbalance = balance - requestreserves
         contributionrate = Contribution.find_by_id(1).rate
-        amounttocontribute = (contributionrate/100*requestsac).round(2)
+        amounttocontribute = (contributionrate/100*newbalance).round(2)
+        if requestsac < amounttocontribute
+          amounttocontribute = requestsac
+        end
         if amounttocontribute <= newbalance && clubid != 'ise' && clubid != 'eurhythmix' && clubid != 'sambam'
           requestsac -= amounttocontribute
           requestreserves += amounttocontribute

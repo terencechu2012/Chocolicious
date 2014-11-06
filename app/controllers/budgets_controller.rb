@@ -295,7 +295,10 @@ class BudgetsController < ApplicationController
           balance = r.balance
           newbalance = balance - d.sum2
           contributionrate = Contribution.find_by_id(1).rate
-          amounttocontribute = (contributionrate/100*d.sum1).round(2)
+          amounttocontribute = (contributionrate/100*newbalance).round(2)
+          if sum1 < amounttocontribute
+            amounttocontribute = sum1
+          end
           if amounttocontribute <= newbalance && clubid != 'ise' && clubid != 'eurhythmix' && clubid != 'sambam'
             sum1 -= amounttocontribute
             
