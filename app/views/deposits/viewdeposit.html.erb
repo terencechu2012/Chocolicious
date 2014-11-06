@@ -81,9 +81,10 @@
 		<%if c.remarks.nil?%>
 		<a href="/deposits/submitdeposit?id=<%=c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Submit'><i class="icon-share-alt"></i></a>
 		<%else%>
-		<a href="/deposits/resubmitdeposit?id=<%=c.id%>" class="btn btn-info btn-xs has-tooltip" data-placement='top' title='Resubmit'><i class="icon-share-alt"></i></a>
+		<a href="/deposits/submitdeposit?id=<%=c.id%>" class="btn btn-info btn-xs has-tooltip" data-placement='top' title='Resubmit'><i class="icon-share-alt"></i></a>
 		<a href="#", onclick="viewremark('<%=c.remarks%>')" class="btn btn-warning btn-xs has-tooltip" data-placement='top' title='View Remarks'><i class="icon-eye-open"></i></a>
 		<%end%>
+		<a href="/deposits/deletedeposit?id=<%=c.id%>&own=true" class="btn btn-danger btn-xs has-tooltip" data-placement='top' title='Delete'><i class="icon-remove"></i></a>
 		<%end%>
 	</td></tr>
 	<%end%>

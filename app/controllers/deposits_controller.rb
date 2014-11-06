@@ -404,4 +404,10 @@ class DepositsController < ApplicationController
     redirect_to '/toprint.pdf'
   end
   
+  def deletedeposit
+    c = Deposit.find_by_id(params[:id])
+    c.delete
+    redirect_to :back
+  end
+  
 end

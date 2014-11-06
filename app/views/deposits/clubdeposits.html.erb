@@ -82,9 +82,10 @@
 								<%if c.remarks.nil?%>
 								<a href="/deposits/submitdeposit?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Submit'><i class="icon-share-alt"></i></a> 
 								<%else%>
-								<a href="/deposits/resubmitdeposit?id=<%= c.id%>" class="btn btn-info btn-xs has-tooltip" data-placement='top' title='Resubmit'><i class="icon-share-alt"></i></a>
+								<a href="/deposits/submitdeposit?id=<%= c.id%>" class="btn btn-info btn-xs has-tooltip" data-placement='top' title='Resubmit'><i class="icon-share-alt"></i></a>
 								<a href="#", onclick="viewremark('<%= c.remarks%>')" class="btn btn-warning btn-xs has-tooltip" data-placement='top' title='View Remarks'><i class="icon-eye-open"></i></a>
 								<%end%>
+								<a href="/deposits/deletedeposit?id=<%=c.id%>&own=true" class="btn btn-danger btn-xs has-tooltip" data-placement='top' title='Delete'><i class="icon-remove"></i></a>
 								<%end%>
 							</td></tr>
 							<%end%>
@@ -342,7 +343,7 @@
 								<%if status == 2%>
 								<a href="/deposits/addremark?id=<%=c.id%>&status=1" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a> 
 								<%elsif status == 8%>
-								<a href="/deposits/addremark?id=<%=c.id%>&status=7" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a> 
+								<a href="/deposits/addremark?id=<%=c.id%>&status=6" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a> 
 								<%elsif status == 13%>
 								<a href="/deposits/addremark?id=<%=c.id%>&status=12" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a> 
 								<%end%>
@@ -426,10 +427,10 @@
 								<td>
 								<%if status == 9%>
 								<a href="/deposits/endorsecbdmc?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Endorse'><i class="icon-thumbs-up-alt"></i></a>
-								<a href="/deposits/addremark?id=<%= c.id%>&status=7" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a> 
+								<a href="/deposits/addremark?id=<%= c.id%>&status=6" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a> 
 								<%elsif status == 10%>
 								<a href="/deposits/endorsecbdmc?id=<%= c.id%>" class="btn btn-warning btn-xs has-tooltip" data-placement='top' title='View Endorsed Form'><i class="icon-eye-open"></i></a>
-								<a href="/deposits/addremark?id=<%= c.id%>&status=7" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a> 
+								<a href="/deposits/addremark?id=<%= c.id%>&status=6" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a> 
 								<a href="/deposits/completedeposit?id=<%= c.id%>" class="btn btn-success btn-xs">deposit complete</a>
 								<%elsif status == 11%>
 								<span class="label label-success">Deposit Completed</span>
@@ -539,7 +540,7 @@
 
 function pres(a){
 var x;
-if (confirm("You have acknowleged the deposit!")==true){
+if (confirm("You are going to acknowlege the deposit!")==true){
 window.location = "/deposits/submitdeposit?id="+a;
 }
 

@@ -71,7 +71,7 @@
 											<%if c.remarks.nil?%> 
 												<a href="/claims/submitclaim?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Submit'><i class="icon-share-alt"></i></a>
 											<%else%> 
-												<a href="/claims/resubmitclaim?id=<%= c.id%>" class="btn btn-info btn-xs has-tooltip" data-placement='top' title='Resubmit'><i class="icon-share-alt"></i></a>
+												<a href="/claims/submitclaim?id=<%= c.id%>" class="btn btn-info btn-xs has-tooltip" data-placement='top' title='Resubmit'><i class="icon-share-alt"></i></a>
 												<a href="#", onclick="viewremark('<%= c.remarks%>')" class="btn btn-warning btn-xs has-tooltip" data-placement='top' title='View Remarks'><i class="icon-eye-open"></i></a>
 											<%end%>
 										<%end%>
@@ -150,13 +150,13 @@
 									<td> 
 										<%if (status == 3 && c.amount <= 750) || status == 18%> 
 											<a href="/claims/endorseclub?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Endorse'><i class="icon-thumbs-up-alt"></i></a>
-											<a href="/claims/addremark?id=<%= c.id%>&status=1" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a>
+											<a href="/claims/addremark?id=<%= c.id%>&status=0" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a>
 										<%elsif status == 3 && c.amount > 750%> 
 											<a href="/claims/submitosl?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Submit to OSL'><i class="icon-share-alt"> OSL</i></a>
-											<a href="/claims/addremark?id=<%= c.id%>&status=1" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a>
+											<a href="/claims/addremark?id=<%= c.id%>&status=0" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a>
 										<%elsif status == 4%> 
 											<a href="/claims/endorseclub?id=<%= c.id%>" class="btn btn-warning btn-xs has-tooltip" data-placement='top' title='View Endorsed Form'><i class="icon-eye-open"></i></a>
-											<a href="/claims/addremark?id=<%= c.id%>&status=1" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a>
+											<a href="/claims/addremark?id=<%= c.id%>&status=0" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a>
 											<a href="/claims/completeclaim?id=<%= c.id%>" class="btn btn-success btn-xs">Claim complete</a>  
 										<%elsif status == 5%> 
 											<span class="label label-success">Claim Completed</span> 
@@ -239,7 +239,7 @@
 											<%if c.remarks.nil?%> 
 												<a href="/claims/submitclaim?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Submit'><i class="icon-share-alt"></i></a>
 											<%else%> 
-												<a href="/claims/resubmitclaim?id=<%= c.id%>" class="btn btn-info btn-xs has-tooltip" data-placement='top' title='Resubmit'><i class="icon-share-alt"></i></a>
+												<a href="/claims/submitclaim?id=<%= c.id%>" class="btn btn-info btn-xs has-tooltip" data-placement='top' title='Resubmit'><i class="icon-share-alt"></i></a>
 												<a href="#", onclick="viewremark('<%= c.remarks%>')" class="btn btn-warning btn-xs has-tooltip" data-placement='top' title='View Remarks'><i class="icon-eye-open"></i></a>
 											<%end%>
 										<%end%> 
@@ -319,9 +319,9 @@
 										<%if status == 2 || status == 8 || status == 13%> 
 											<a href="#", onclick="pres(<%= c.id%>)" class="btn btn-success btn-xs">Acknowledge</a>  
 											<%if status == 2%> 
-												<a href="/claims/addremark?id=<%= c.id%>&status=1" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a> 
+												<a href="/claims/addremark?id=<%= c.id%>&status=0" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a> 
 											<%elsif status == 8%> 
-												<a href="/claims/addremark?id=<%= c.id%>&status=7" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a> 
+												<a href="/claims/addremark?id=<%= c.id%>&status=6" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a> 
 											<%elsif status == 13%> 
 												<a href="/claims/addremark?id=<%= c.id%>&status=12" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a>
 											<%end%> 
@@ -401,9 +401,9 @@
 										<%if status == 17 || status == 20 || status == 23%> 
 											<a href="#", onclick="pres(<%= c.id%>)" class="btn btn-success btn-xs">Acknowledge</a> 
 											<%if status == 17%> 
-												<a href="/claims/addremark?id=<%= c.id%>&status=1" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a> 
+												<a href="/claims/addremark?id=<%= c.id%>&status=0" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a> 
 											<%elsif status == 20%> 
-												<a href="/claims/addremark?id=<%= c.id%>&status=7" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a>
+												<a href="/claims/addremark?id=<%= c.id%>&status=6" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a>
 											<%elsif status == 23%> 
 												<a href="/claims/addremark?id=<%= c.id%>&status=12" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a> 
 											<%end%> 
@@ -480,13 +480,13 @@
 									<td> 
 										<%if (status == 9 && c.amount <= 750) || status == 21%> 
 											<a href="/claims/endorsecbdmc?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Endorse'><i class="icon-thumbs-up-alt"></i></a>
-											<a href="/claims/addremark?id=<%= c.id%>&status=7" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a> 
+											<a href="/claims/addremark?id=<%= c.id%>&status=6" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a> 
 										<%elsif status == 9 && c.amount > 750%> 
 											<a href="/claims/submitosl?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Submit to OSL'><i class="icon-share-alt"> OSL</i></a>
-											<a href="/claims/addremark?id=<%= c.id%>&status=7" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a>
+											<a href="/claims/addremark?id=<%= c.id%>&status=6" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a>
 										<%elsif status == 10%> 
 											<a href="/claims/endorsecbdmc?id=<%= c.id%>" class="btn btn-warning btn-xs has-tooltip" data-placement='top' title='View Endorsed Form'><i class="icon-eye-open"></i></a>
-											<a href="/claims/addremark?id=<%= c.id%>&status=7" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a>
+											<a href="/claims/addremark?id=<%= c.id%>&status=6" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a>
 											<a href="/claims/completeclaim?id=<%= c.id%>" class="btn btn-success btn-xs">Claim complete</a> 
 										<%elsif status == 11%> 
 											<span class="label label-success">Claim Completed</span> 

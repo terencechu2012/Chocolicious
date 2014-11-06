@@ -29,6 +29,7 @@ get 'payments/completepayment'
   get 'ereceipts/viewsentreceipt'
 
   get 'deposits/addremark'
+  get 'deposits/deletedeposit'
   post 'deposits/addremark'
   get 'deposits/clubdeposits'
   get 'deposits/completedeposit'

@@ -98,10 +98,16 @@ class ClaimsController < ApplicationController
     test = false
    
     balance = ExpenditureAccount.find_by_clubid(session[:club]).Category1Balance
+    clubclaims = Claim.where(clubid: session[:club])
+    pendingclaims = clubclaims.where.not(status:[5,11,16])
+    total = 0
+    pendingclaims.each do |p|
+      total += p.amount
+    end
     amount = params[:claim][:amount]
     if current_user.nric.nil? || current_user.nric.empty?
       flash[:error] = 'There was a problem adding your claim. Have you updated your NRIC?'
-    elsif amount.to_d > balance
+    elsif amount.to_d + total > balance
       flash[:error] = 'There are insufficient funds in the expenditure account'
     else
       p 'Hellos!!'
