@@ -315,7 +315,8 @@ class BudgetsController < ApplicationController
           @totalcontribute += amounttocontribute
           smallarray << [d.clubid, sum1, sum2, r.balance, r.justification, amounttocontribute]
         end
-        if (session[:role].include? 'cbdfinsec') && (session[:club].include? c.clubid)
+       
+        if (session[:role].include? 'cbdfinsec') && (session[:club].casecmp(c.clubid)==0)
           @superhash[c.clubid] = smallarray
         elsif session[:role].include? 'smusafinsec'
           @superhash[c.clubid] = smallarray

@@ -15,3 +15,5 @@
 /log/*.log
 /tmp
 Gemfile.lock
+/public/system
+/public/toprint.pdf
