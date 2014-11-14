@@ -121,7 +121,7 @@ class AdminController < ApplicationController
     # flash[:error] = "Wrong password"
     # redirect_to :action => 'login'
     user = current_user.userid
-    if user.nil? || user == ""
+    if (user.nil? || user == "")&& user.confirmation_token.nil?
       user = current_user.email
       location = user.index('@')
       temp = user.slice(0,location)
