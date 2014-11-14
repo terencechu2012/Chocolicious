@@ -126,7 +126,10 @@ class BudgetsController < ApplicationController
     requestreserves = b.requestreserves
     requestsac += params[:budget_expense][:requestsac].to_f
     requestreserves += params[:budget_expense][:requestreserves].to_f
-    if !params[:budget_expense][:requestreserves].nil?
+    reservetemp = ReserveAccount.find_by_clubid(b.clubid)
+    if !params[:budget_expense][:requestreserves].nil? && !reservetemp.nil?
+      
+      
       reservebalance = ReserveAccount.find_by_clubid(b.clubid).balance
       if reservebalance < requestreserves
         flash.alert = 'Not enough funds in reserve account'
@@ -134,7 +137,9 @@ class BudgetsController < ApplicationController
         BudgetExpense.create(budget_expense_params)
         b.update_attribute(:requestsac, requestsac)
         b.update_attribute(:requestreserves, requestreserves)
-      end
+        end
+      
+      
     else
         BudgetExpense.create(budget_expense_params)
         b.update_attribute(:requestsac, requestsac)

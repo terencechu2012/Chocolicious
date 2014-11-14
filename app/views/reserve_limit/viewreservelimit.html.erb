@@ -31,7 +31,7 @@
 							<br />
 							<%= f.number_field(:amount, :step => 0.01, :min => 0, :max => 99999999, :class=>"form-control", :required => true, ) %><br /><br />
 							<label>Enter remarks </label><br />
-							<%= f.text_area :remarks, :class=>"autosize form-control", :required => true%>
+							<%= f.text_area :remarks, :class=>"autosize form-control", :required => true, :maxlength => 255%>
 						</div>
 						
 
