@@ -25,12 +25,12 @@
 						<div class='form-group'>
 							<label>Category 1 Balance</label>
 							<br />
-							<%= number_field_tag(:cat1, @clubexpAcc.Category1Balance, :step => 0.01, :min => 0, :max => 99999999, class:"form-control") %>
+							<%= number_field_tag(:cat1, @clubexpAcc.Category1Balance, :step => 0.01, :min => -99999999, :max => 99999999, class:"form-control") %>
 						</div>
 						<div class='form-group'>
 							<label>Category 2 Balance</label>
 							<br />
-							<%= number_field_tag(:cat2, @clubexpAcc.Category2Balance, :step => 0.01, :min => 0, :max => 99999999, class:"form-control") %>
+							<%= number_field_tag(:cat2, @clubexpAcc.Category2Balance, :step => 0.01, :min => -99999999, :max => 99999999, class:"form-control") %>
 						 
 							<%= hidden_field_tag(:id, @clubexpAcc.clubid)%>
 							<%= hidden_field_tag(:destination, @destination)%>
