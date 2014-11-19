@@ -127,7 +127,7 @@ class BudgetsController < ApplicationController
     requestsac += params[:budget_expense][:requestsac].to_f
     requestreserves += params[:budget_expense][:requestreserves].to_f
     reservetemp = ReserveAccount.find_by_clubid(b.clubid)
-    if !params[:budget_expense][:requestreserves].nil? && !reservetemp.nil?
+    if !params[:budget_expense][:requestreserves].nil? && !reservetemp.nil? && params[:budget_expense][:requestreserves].to_d != 0
       
       
       reservebalance = ReserveAccount.find_by_clubid(b.clubid).balance
