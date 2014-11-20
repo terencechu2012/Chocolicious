@@ -1,0 +1,22 @@
+<%role = session[:role]%>
+
+<a href='/UserManual/Claim/Make To Submit Claims/Make To Submit Claims.html'>  <span>Make and Submit Claims</span> </a><br>
+<a href='/UserManual/IssueE-receipt/IssueE-receipt.html'>  <span>Issue E-Receipts</span> </a><br>
+<a href='/UserManual/SignUp_UserManagement/index.html'>  <span>Sign Up and Manage Users</span> </a><br>
+<a href='/UserManual/Change user profile, password and user role/index.html'>  <span>Manage Your Profile</span> </a><br>
+<a href='/UserManual/Add rating for vendor_Get vendor recommendation/index.html'>  <span>Rate Vendors and Get Recommendations</span> </a><br>
+<%if (role.include?'osl')||(role.include?'smusafinsec') || (role.include?'cbdfinsec')||(role.include?'clubfinsec')||(role.include?'president')||(role.include?'smusasec')%>
+<a href='/UserManual/AccountManagement/AccountManagementcamproj.html'>  <span>Manage Club Accounts</span> </a><br>
+
+<a href='/UserManual/Budget/Budget.html'>  <span>Propose Budget</span> </a><br>
+
+<a href='/UserManual/Claim/Acknowledge_RejectClaim/Acknowledge_RejectClaim.html'>  <span>Approve or Reject Claims</span> </a><br>
+<a href='/UserManual/Claim/Endorse_RejectClaim/Endorse_RejectClaim.html'>  <span>Endorse Claims</span> </a><br>
+
+
+<a href='/UserManual/RequestWithdrawal/RequestWithdrawal.html'>  <span>Request for Reserves Withdrawal</span> </a><br>
+
+<%end%>
+<%if role.include?'smusafinsec'%>
+<a href='/UserManual/Track cliams_onlySMUSAFinsec/index.html'>  <span>Track Claims</span> </a><br>
+<%end%>

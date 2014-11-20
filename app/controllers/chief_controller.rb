@@ -465,6 +465,9 @@ class ChiefController < ApplicationController
         if requestsac < amounttocontribute
           amounttocontribute = requestsac
         end
+        if amounttocontribute < 0
+          amounttocontribute = 0
+        end
         if amounttocontribute <= newbalance && clubid != 'ise' && clubid != 'eurhythmix' && clubid != 'sambam'
           requestsac -= amounttocontribute
           requestreserves += amounttocontribute

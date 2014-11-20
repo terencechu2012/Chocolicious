@@ -70,7 +70,7 @@ get 'payments/completepayment'
   post 'admin/setnric2'
   post 'admin/addLeader'
   get 'admin/selectClub'
-  
+  get 'admin/guides'
   post 'admin/requestClub'
   
   post 'admin/deleteclub'

@@ -17,3 +17,5 @@
 Gemfile.lock
 /public/system
 /public/toprint.pdf
+/public/allocate.pdf
+/public/hello.pdf
