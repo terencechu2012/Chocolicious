@@ -328,7 +328,7 @@ class ChiefController < ApplicationController
       else
         returnr6 += balance1
         ra.update_attribute(:balance, ra.balance + balance1)
-        bigarray<<[Club.find_by_clubid(a.clubid).clubcode, 'R006', '$'+(balance1).to_s]
+        bigarray<<[Club.find_by_clubid(a.clubid).clubcode, 'R006', '$'+(balance1.round(2)).to_s]
       end
       a.update_attribute(:Category1Balance, 0)
       a.update_attribute(:Category2Balance, 0)
@@ -337,7 +337,7 @@ class ChiefController < ApplicationController
     acfclubs = ExpenditureAccount.where(["clubid in (SELECT clubid from clubs where clubtype = ?)", "smusa"])
     acfclubs.each do |a|
       returnr1 += a.Category1Balance
-      bigarray<<[Club.find_by_clubid(a.clubid).clubcode, 'R001', '$'+(a.Category1Balance).to_s]
+      bigarray<<[Club.find_by_clubid(a.clubid).clubcode, 'R001', '$'+(a.Category1Balance.round(2)).to_s]
       
       
       a.update_attribute(:Category1Balance, 0)
@@ -364,12 +364,12 @@ class ChiefController < ApplicationController
       text 'Pullback done on '+Date.today.to_s
       move_down 20
       text 'Total to:'
-      text 'R001: '+returnr1.to_s
-      text 'R002: '+returnr2.to_s
-      text 'R003: '+returnr3.to_s
-      text 'R004: '+returnr4.to_s
-      text 'R005: '+returnr5.to_s
-      text 'R006: '+returnr6.to_s
+      text 'R001: '+returnr1.round(2).to_s
+      text 'R002: '+returnr2.round(2).to_s
+      text 'R003: '+returnr3.round(2).to_s
+      text 'R004: '+returnr4.round(2).to_s
+      text 'R005: '+returnr5.round(2).to_s
+      text 'R006: '+returnr6.round(2).to_s
       move_down 20
       #Body
       #Applicant Data
@@ -444,7 +444,7 @@ class ChiefController < ApplicationController
     uniqbudgets.each do |u|
       clubid = u
       clubtype = Club.find_by_clubid(clubid).clubtype
-      reservecode = {'ACF'=>'R002', 'SICS' => 'R003', 'SMUX' => 'R004', 'SSU' => 'R005', 'ASOC'=>'R006', 'BONDUE'=>'R006', 'ICON'=>'R006', 'OIKOS'=>'R006', 'SISS'=>'R006', 'SOSCIETY'=>'R006', 'THE BAR'=>'R006'}
+      reservecode = {'ACF'=>'R002', 'SICS' => 'R003', 'SMUX' => 'R004', 'SSU' => 'R005', 'ASOC'=>'R006', 'BONDUE'=>'R006', 'ICON'=>'R006', 'OIKOS'=>'R006', 'SISS'=>'R006', 'SOSCIETY'=>'R006', 'THE BAR'=>'R006', 'smusa'=>'R001'}
       tocode = Club.find_by_clubid(clubid).clubcode
       budgets = Budget.where(year: params[:year], semester: params[:semester], clubid: clubid)
       reserveaccount = ReserveAccount.find_by_clubid(clubid)
@@ -478,18 +478,20 @@ class ChiefController < ApplicationController
         originalcat2 = expenditureaccount.Category2Balance
         expenditureaccount.update_attribute(:Category2Balance, originalcat2 + requestreserves)
         if clubtype == 'cbd'
-          fromcode = reservecode[clubid]
+          fromcode = reservecode[clubid.upcase]
+          
         else
           fromcode = reservecode[clubtype]
+          
         end
-        bigarray<<[fromcode, tocode, '$'+requestreserves.to_s]
+        bigarray<<[fromcode, tocode, '$'+requestreserves.round(2).to_s]
         summaryhash[fromcode] += requestreserves
       end
       originalcat1 = expenditureaccount.Category1Balance
       expenditureaccount.update_attribute(:Category1Balance, originalcat1 + requestsac)
       originalsmusa = smusaaccount.Category1Balance
       smusaaccount.update_attribute(:Category1Balance, originalsmusa - requestsac)
-      bigarray<<['R001', tocode, '$'+requestsac.to_s]
+      bigarray<<['R001', tocode, '$'+requestsac.round(2).to_s]
       summaryhash['R001'] += requestsac
     end
     require 'prawn'
@@ -512,12 +514,12 @@ class ChiefController < ApplicationController
       text 'Allocation done on '+Date.today.to_s
       move_down 20
       text 'Total from:'
-      text 'R001: ' + summaryhash['R001'].to_s 
-      text 'R002: ' + summaryhash['R002'].to_s 
-      text 'R003: ' + summaryhash['R003'].to_s 
-      text 'R004: ' + summaryhash['R004'].to_s 
-      text 'R005: ' + summaryhash['R005'].to_s 
-      text 'R006: ' + summaryhash['R006'].to_s 
+      text 'R001: ' + summaryhash['R001'].round(2).to_s 
+      text 'R002: ' + summaryhash['R002'].round(2).to_s 
+      text 'R003: ' + summaryhash['R003'].round(2).to_s 
+      text 'R004: ' + summaryhash['R004'].round(2).to_s 
+      text 'R005: ' + summaryhash['R005'].round(2).to_s 
+      text 'R006: ' + summaryhash['R006'].round(2).to_s 
       #Body
       #Applicant Data
       move_down 20

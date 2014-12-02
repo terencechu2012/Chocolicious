@@ -50,13 +50,13 @@
 				<div class="box-content box-double-padding">
 					<div class='col-sm-12'>
 						<p>
-							<b>Total request from SAC: </b>$<%= @totalsac%>
+							<b>Total request from SAC: </b>$<%= @totalsac.round(2)%>
 						</p>
 						<p>
-							<b>Total request from reserves: </b>$<%= @totalreserves%>
+							<b>Total request from reserves: </b>$<%= @totalreserves.round(2)%>
 						</p>
 						<p>
-							<b>Total from contributions: </b>$<%= @totalcontribute%>
+							<b>Total from contributions: </b>$<%= @totalcontribute.round(2)%>
 						</p>
 					</div>
 					<hr class='hr-normal'>
