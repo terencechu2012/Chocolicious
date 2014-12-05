@@ -122,9 +122,31 @@ class BudgetsController < ApplicationController
   def addexpenditure
     
     b = Budget.find_by_id(params[:budget_expense][:budget_id])
+    budgetid = params[:budget_expense][:budget_id]
     requestsac = b.requestsac
     requestreserves = b.requestreserves
-    requestsac += params[:budget_expense][:requestsac].to_f
+    budgetexpenses = BudgetExpense.where(budget_id: budgetid)
+    budgetincomes = BudgetIncome.where(budget_id: budgetid)
+    sumexpenses = 0
+    sumincomes = 0
+    if !budgetexpenses.nil?
+      budgetexpenses.each do |x|
+        sumexpenses += x.requestsac
+      end
+      
+    end
+    sumexpenses += params[:budget_expense][:requestsac].to_f
+    if !budgetincomes.nil?
+      budgetincomes.each do |x|
+        sumincomes += x.income
+      end
+    end
+    finalvalue = sumexpenses - sumincomes
+    if finalvalue < 0
+      finalvalue = 0
+    end
+    # requestsac += params[:budget_expense][:requestsac].to_f
+    requestsac = finalvalue
     requestreserves += params[:budget_expense][:requestreserves].to_f
     reservetemp = ReserveAccount.find_by_clubid(b.clubid)
     if !params[:budget_expense][:requestreserves].nil? && !reservetemp.nil? && params[:budget_expense][:requestreserves].to_d != 0
@@ -171,6 +193,9 @@ class BudgetsController < ApplicationController
     requestsac = b.requestsac
     requestreserves = b.requestreserves
     requestsac -= be.requestsac
+    if requestsac < 0
+      requestsac = 0
+    end
     requestreserves -= be.requestreserves
     b.update_attribute(:requestsac, requestsac)
     b.update_attribute(:requestreserves, requestreserves)
