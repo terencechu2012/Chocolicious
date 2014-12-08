@@ -190,13 +190,17 @@ class BudgetsController < ApplicationController
   def deleteexpenditure
     be = BudgetExpense.find_by_id(params[:id])
     b = Budget.find_by_id(be.budget_id)
+    expenserequestsac = be.requestsac
+    expenserequestsac = 0 if expenserequestsac.nil?
+    expenserequestreserves = be.requestreserves
+    expenserequestreserves = 0 if expenserequestreserves.nil?
     requestsac = b.requestsac
     requestreserves = b.requestreserves
-    requestsac -= be.requestsac
+    requestsac -= expenserequestsac
     if requestsac < 0
       requestsac = 0
     end
-    requestreserves -= be.requestreserves
+    requestreserves -= expenserequestreserves
     b.update_attribute(:requestsac, requestsac)
     b.update_attribute(:requestreserves, requestreserves)
     be.delete
@@ -206,9 +210,30 @@ class BudgetsController < ApplicationController
   def deleteincome
     be = BudgetIncome.find_by_id(params[:id])
     b = Budget.find_by_id(be.budget_id)
-    requestsac = b.requestsac
+    budgetexpenses = BudgetExpense.where(budget_id: be.budget_id)
+    budgetincomes = BudgetIncome.where(budget_id: be.budget_id)
+    
+    sumexpenses = 0
+    sumincomes = 0
+    if !budgetexpenses.nil?
+      budgetexpenses.each do |x|
+        sumexpenses += x.requestsac
+      end
+      
+    end
+   
+    if !budgetincomes.nil?
+      budgetincomes.each do |x|
+        sumincomes += x.income
+      end
+    end
+    sumincomes -= be.income
+    finalvalue = sumexpenses - sumincomes
+    
+    
+    requestsac = finalvalue
     projectedincome = b.projectedincome
-    requestsac += be.income
+    
     projectedincome -= be.income
     b.update_attribute(:requestsac, requestsac)
     b.update_attribute(:projectedincome, projectedincome)

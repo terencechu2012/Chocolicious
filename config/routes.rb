@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  get 'clubusers/new2'
+  post 'clubusers/create2'
+  resources :clubusers do
+    
+  end
   get 'payments/newpayment'  
   get 'payments/editpayment'
   get 'payments/viewpayment'

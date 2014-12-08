@@ -50,13 +50,14 @@
 				<div class="box-content box-double-padding">
 					<div class='col-sm-12'>
 						<p>
-							<b>Total request from SAC: </b>$<%= @totalsac.round(2)%>
+							<!-- <b>Total request from SAC: </b>$<%= @totalsac.round(2)%> -->
+							<b>Total request from SAC: </b><%= number_to_currency(@totalsac.round(2))%>
 						</p>
 						<p>
-							<b>Total request from reserves: </b>$<%= @totalreserves.round(2)%>
+							<b>Total request from reserves: </b><%= number_to_currency(@totalreserves.round(2))%>
 						</p>
 						<p>
-							<b>Total from contributions: </b>$<%= @totalcontribute.round(2)%>
+							<b>Total from contributions: </b><%= number_to_currency(@totalcontribute.round(2))%>
 						</p>
 					</div>
 					<hr class='hr-normal'>
@@ -126,9 +127,9 @@
 								<%@cbdtotal.each do |c|%>
 								<tr>
 									<td><a href='#<%= c["name"]%>'><%= c["name"]%></a></td>
-									<td>$<%= c["totalsac"]%></td>
-									<td>$<%= c["totalreserves"]%></td>
-									<td>$<%= c["totalcontribute"]%></td>
+									<td><%= number_to_currency(c["totalsac"])%></td>
+									<td><%= number_to_currency(c["totalreserves"])%></td>
+									<td><%= number_to_currency(c["totalcontribute"])%></td>
 								</tr>
 								<%end%>
 							</table>
@@ -164,7 +165,7 @@
 								<%@departmenttotal.each do |c|%>
 								<tr>
 									<td><a href='/budgets/reviewmain?clubid=<%= c["name"]%>&year=<%= @year%>&semester=<%= @semester%>'><%= c["name"]%></a></td>
-									<td>$<%= c["totalsac"]%></td>
+									<td><%= number_to_currency(c["totalsac"])%></td>
 
 								</tr>
 								<%end%>
@@ -209,11 +210,11 @@
 								<%value.each do |c|%>
 								<tr>
 									<td><a href='/budgets/reviewmain?clubid=<%= c[0]%>&year=<%= @year%>&semester=<%= @semester%>'><%= c[0]%></a></td>
-									<td>$<%= c[1]%></td>
-									<td>$<%= c[2]%></td>
-									<td>$<%= c[5]%></td>
-									<td>$<%= c[3]%></td>
-									<td><%= c[4]%></td>
+									<td><%= number_to_currency(c[1])%></td>
+									<td><%= number_to_currency(c[2])%></td>
+									<td><%= number_to_currency(c[5])%></td>
+									<td><%= number_to_currency(c[3])%></td>
+									<td><%= (c[4])%></td>
 								</tr>
 								<%end%>
 							</table>

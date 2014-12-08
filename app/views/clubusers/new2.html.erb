@@ -1,0 +1,36 @@
+<%if session[:role].include? 'smusafinsec'%>
+
+<h1>New clubuser</h1>
+
+<%= form_for @clubuser, :url => {:action => 'create2'} do |f| %>
+  <% if @clubuser.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@clubuser.errors.count, "error") %> prohibited this clubuser from being saved:</h2>
+
+      <ul>
+      <% @clubuser.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :userid %><br>
+    <%= f.text_field :userid %>
+  </div>
+  <div class="field">
+    <%= f.label :clubid %><br>
+    <%= f.text_field :clubid %>
+  </div>
+  <div class="field">
+    <%= f.label :role %><br>
+    <%= f.text_field :role %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<%= link_to 'Back', clubusers_path %>
+<%end%>
