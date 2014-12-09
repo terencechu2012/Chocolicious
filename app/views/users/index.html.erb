@@ -1,0 +1,36 @@
+<%if session[:role].include? 'smusafinsec'%>
+<h1>Listing users</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Userid</th>
+      <th>Nric</th>
+      <th>Email</th>
+      <th>Fullname</th>
+      <th>Contactno</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.userid %></td>
+        <td><%= user.nric %></td>
+        <td><%= user.email %></td>
+        <td><%= user.fullname %></td>
+        <td><%= user.contactno %></td>
+        <!-- <td><%= link_to 'Show', user %></td>
+        <td><%= link_to 'Edit', edit_user_path(user) %></td> -->
+        <td><%= link_to 'Destroy', {:action=>'delete', :id => user.userid}, data: { confirm: 'Are you sure?' } %></td>
+      
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New User', new_user_path %>
+<%end%>

@@ -4,6 +4,11 @@ Rails.application.routes.draw do
   resources :clubusers do
     
   end
+  get 'users/delete'
+  resources :users do
+    
+  end
+  
   get 'payments/newpayment'  
   get 'payments/editpayment'
   get 'payments/viewpayment'
