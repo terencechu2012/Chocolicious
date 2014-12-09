@@ -5,9 +5,6 @@ Rails.application.routes.draw do
     
   end
   get 'users/delete'
-  resources :users do
-    
-  end
   
   get 'payments/newpayment'  
   get 'payments/editpayment'
@@ -71,6 +68,10 @@ get 'payments/completepayment'
     patch "/confirm" => "confirmations#confirm"
     root 'devise/sessions#new'
   end
+  resources :users do
+    
+  end
+  
   post 'admin/addclub'
   get 'admin/registerclub'
   post 'admin/add'
