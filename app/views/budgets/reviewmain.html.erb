@@ -56,7 +56,8 @@
 									<td><a href="#", onclick="viewremark('<%= b.explanation%>')" class="btn btn-danger btn-xs blue-background has-tooltip" data-placement="top" title="Explanation"><i class="icon-eye-open"></i></a>
 										<a href='<%= b.poster.url%>' class="btn btn-success btn-xs has-tooltip" data-placement="top" title="Download Attachments"><i class="icon-download"></i></a>
 										<a href='/budgets/reviewmanagebreakdown?id=<%= b.id%>'class="btn btn-warning btn-xs has-tooltip" data-placement="top" title="Edit"><i class="icon-pencil"></i></a>
-										<a href='/budgets/delete?id=<%= b.id%>' class="btn btn-danger btn-xs has-tooltip" data-placement="top" title="Delete"><i class="icon-remove"></i></a></td>
+										<a href='#', onclick="pres(<%= b.id%>)" class="btn btn-danger btn-xs has-tooltip" data-placement="top" title="Delete"><i class="icon-remove"></i></a></td>
+										<!-- <a href='/budgets/delete?id=<%= b.id%>' class="btn btn-danger btn-xs has-tooltip" data-placement="top" title="Delete"><i class="icon-remove"></i></a></td> -->
 								</tr>
 								<%end%>
 								<%end%>
@@ -284,3 +285,14 @@
 
 	}
 </script>
+<%=javascript_tag do%>
+
+function pres(a){
+<!-- var x; -->
+if (confirm("You are going to delete the entry!")==true){
+window.location = "/budgets/delete?id="+a;
+}
+<!-- document.getElementById("pres").innerHTML = x; -->
+}
+
+<%end%>
