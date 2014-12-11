@@ -68,6 +68,7 @@
 									<td> 
 										<%if status == 1%> 
 											<a href="/claims/editclaim?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Edit'><i class="icon-pencil"></i></a> 
+											<a href="/claims/addremark?id=<%= c.id%>&status=0" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a>
 											<%if c.remarks.nil?%> 
 												<a href="/claims/submitclaim?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Submit'><i class="icon-share-alt"></i></a>
 											<%else%> 
@@ -236,6 +237,7 @@
 									<td> 
 										<%if status == 7%> 
 											<a href="/claims/editclaim?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Edit'><i class="icon-pencil"></i></a>
+											<a href="/claims/addremark?id=<%= c.id%>&status=6" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a>
 											<%if c.remarks.nil?%> 
 												<a href="/claims/submitclaim?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Submit'><i class="icon-share-alt"></i></a>
 											<%else%> 
