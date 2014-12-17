@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     
   end
   get 'users/delete'
-  
+  get 'claims/oslprocess'
   get 'payments/newpayment'  
   get 'payments/editpayment'
   get 'payments/viewpayment'

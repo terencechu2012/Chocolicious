@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141028121507) do
+ActiveRecord::Schema.define(version: 20141217122631) do
 
   create_table "allocation_reports", force: true do |t|
     t.datetime "created_at"
@@ -245,6 +245,8 @@ ActiveRecord::Schema.define(version: 20141028121507) do
     t.string   "nric"
     t.string   "event"
     t.string   "expense"
+    t.string   "claimtype"
+    t.string   "approvedby"
   end
 
   create_table "clubs", primary_key: "clubid", force: true do |t|

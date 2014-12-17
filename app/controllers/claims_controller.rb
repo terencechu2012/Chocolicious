@@ -73,13 +73,13 @@ class ClaimsController < ApplicationController
   def clubclaims
     role = session[:role]
     if role.include? 'clubfinsec'
-      @normalclaims = Claim.where(:clubid => session[:club], :status => [1..5, 17..19])
+      @normalclaims = Claim.where(:clubid => session[:club], :status => [1..5, 17..19, 26..28])
     elsif role.include? 'cbdfinsec'
-      @normalclaims = Claim.where(['clubid in (select clubid from clubs where clubtype = ?) and ((status > 2 and status < 6) or (status>16 and status<20))', session[:club]])
-      @cbdmcclaims = Claim.where(clubid:session[:club], status: [7..11, 20..22])
+      @normalclaims = Claim.where(['clubid in (select clubid from clubs where clubtype = ?) and ((status > 2 and status < 6) or (status>16 and status<20) or (status>25 and status<29))', session[:club]])
+      @cbdmcclaims = Claim.where(clubid:session[:club], status: [7..11, 20..22, 26..28])
     elsif role.include? 'president'
-      @normalclaims = Claim.where(clubid:session[:club], status: [2..5, 17..19])
-      @cbdmcclaims = Claim.where(clubid:session[:club], status: [8..11, 20..22]) 
+      @normalclaims = Claim.where(clubid:session[:club], status: [2..5, 17..19, 26..28])
+      @cbdmcclaims = Claim.where(clubid:session[:club], status: [8..11, 20..22, 26..28]) 
       @claims = @normalclaims + @cbdmcclaims
       if session[:club] == 'smusa'
         @thirdclaims = Claim.where(['clubid in (select clubid from clubs where clubtype = ?) and ((status > 12 and status < 17) or (status > 22 and status < 26))', 'smusa'])
@@ -87,10 +87,17 @@ class ClaimsController < ApplicationController
       end
       
     elsif role.include? 'smusafinsec'
-      @cbdmcclaims = Claim.where(status: [9..11, 20..22])
-      @smusasecclaims = Claim.where(status: [14..16, 23..25])
-    elsif role.include? 'osl'
-      @oslclaims = Claim.where(status: [17..25])
+      @cbdmcclaims = Claim.where(status: [9..11, 20..22, 26..28])
+      @smusasecclaims = Claim.where(status: [14..16, 23..25, 26..28])
+    elsif role == 'osl'
+      @oslclaims = Claim.where(status: [17,20,23,26,27,28])
+      p 'yes'
+    elsif role =='oslad'
+      @oslclaims = Claim.where(status: [26,27,28])
+    elsif role == 'osld'
+      @oslclaims = Claim.where(status: [27,28])
+    elsif role == 'dos'
+      @oslclaims = Claim.where(status: [28])
     end
   end
 
@@ -163,6 +170,50 @@ class ClaimsController < ApplicationController
     redirect_to :back
   end
   
+  def oslprocess
+    c = Claim.find_by_id(params[:id])
+    amount = c.amount
+    status = c.status
+    if status == 17
+      c.update_attribute(:claimtype, 'club')
+    elsif status == 20
+      c.update_attribute(:claimtype, 'cbd')
+    elsif status == 23
+      c.update_attribute(:claimtype, 'smusasec')
+    end
+    hash2 = {'club'=>18, 'cbd'=>21, 'smusasec'=>24}
+    approvedby = c.approvedby
+    user = session[:userid]
+    role = session[:role]
+    hash = {'osl'=>'OSL Manager', 'oslad' => 'OSL Associate Director', 'osld' => 'OSL Director', 'dos' => 'Dean of Students'}
+    person = user + ', '+hash[role] 
+    if approvedby.nil?
+      c.update_attribute(:approvedby, person)
+    else
+      c.update_attribute(:approvedby, approvedby + ', ' + person)
+    end
+    
+    if status == 17 || status == 20 || status == 23
+      
+      c.update_attribute(:status, 26)
+    elsif status == 26
+      if amount <= 7500
+        c.update_attribute(:status, hash2[c.claimtype])
+      else
+        c.update_attribute(:status, 27)
+      end
+    elsif status == 27
+       if amount <= 10000
+        c.update_attribute(:status, hash2[c.claimtype])
+      else
+        c.update_attribute(:status, 28)
+      end
+    elsif status == 28
+       c.update_attribute(:status, hash2[c.claimtype])
+    end
+    redirect_to :back
+  end
+  
   def completeclaim
     c = Claim.find_by_id(params[:id])
     newstatus = c.status + 1
@@ -208,6 +259,7 @@ class ClaimsController < ApplicationController
 
     c.update_attribute(:remarks, params[:claim][:remarks])
     c.update_attribute(:status, params[:claim][:status])
+    c.update_attribute(:approvedby, nil)
     
     # --
     
@@ -245,6 +297,10 @@ class ClaimsController < ApplicationController
     claimid = claim.id
     clubname = Club.find_by_clubid(claim.clubid).clubname
     cbdname = session[:club]
+    approvedby = claim.approvedby
+    if approvedby.nil?
+      approvedby = "No OSL staff approval needed"
+    end
     date = Date.today
     Prawn::Document.generate("public/toprint.pdf",
                              :page_size => "EXECUTIVE",
@@ -298,6 +354,11 @@ class ClaimsController < ApplicationController
                     [clubname.to_s+", Club Finance Secretary",clubname.to_s+", Club President", cbdname.to_s+", CBd Finance Secretary"]
                   ]
         table(approval, :width => bounds.width, :cell_style => { :border_color => "FFFFFF", :padding => 6, :size=>10, :inline_format => true})
+        move_down 30
+        newapprove = [
+          ['<b>Approved by</b>'],[approvedby.to_s]
+        ]
+        table(newapprove, :width => bounds.width, :cell_style => { :border_color => "FFFFFF", :padding => 6, :size=>10, :inline_format => true})
       end
       grid([2,5],[7,7]).bounding_box do
         #Payment Approval
@@ -361,6 +422,10 @@ class ClaimsController < ApplicationController
     smusafinsec = current_user.userid
     claimid = claim.id
     clubname = Club.find_by_clubid(claim.clubid).clubname
+    approvedby = claim.approvedby
+    if approvedby.nil?
+      approvedby = "No OSL staff approval needed"
+    end
     cbdname = session[:club]
     date = Date.today
     Prawn::Document.generate("public/toprint.pdf",
@@ -415,6 +480,11 @@ class ClaimsController < ApplicationController
                     [clubname.to_s+", CBd Finance Secretary",clubname.to_s+", CBd President", cbdname.to_s+", SMUSA Finance Secretary"]
                   ]
         table(approval, :width => bounds.width, :cell_style => { :border_color => "FFFFFF", :padding => 6, :size=>10,  :inline_format => true})
+        move_down 30
+        newapprove = [
+          ['<b>Approved by</b>'],[approvedby.to_s]
+        ]
+        table(newapprove, :width => bounds.width, :cell_style => { :border_color => "FFFFFF", :padding => 6, :size=>10, :inline_format => true})
       end
       grid([2,5],[7,7]).bounding_box do
         #Payment Approval
@@ -480,6 +550,10 @@ class ClaimsController < ApplicationController
     clubname = Club.find_by_clubid(claim.clubid).clubname
     cbdname = session[:club]
     date = Date.today
+    approvedby = claim.approvedby
+    if approvedby.nil?
+      approvedby = "No OSL staff approval needed"
+    end
     Prawn::Document.generate("public/toprint.pdf",
                              :page_size => "EXECUTIVE",
                              :page_layout => :landscape) do
@@ -531,6 +605,11 @@ class ClaimsController < ApplicationController
                     [clubname.to_s+", SMUSA Honourary Secretary",cbdname.to_s+", SMUSA President", cbdname.to_s+", SMUSA Finance Secretary"]
                   ]
         table(approval, :width => bounds.width, :cell_style => { :border_color => "FFFFFF", :padding => 6, :size=>10, :inline_format => true})
+        move_down 30
+        newapprove = [
+          ['<b>Approved by</b>'],[approvedby.to_s]
+        ]
+        table(newapprove, :width => bounds.width, :cell_style => { :border_color => "FFFFFF", :padding => 6, :size=>10, :inline_format => true})
       end
       
       grid([2,5],[7,7]).bounding_box do
