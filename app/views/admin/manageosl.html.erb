@@ -1,0 +1,69 @@
+<%if session[:role].include? 'smusafinsec'%>
+
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='page-header'>
+			<h1 class='pull-left'><i class='icon-flag-checkered'></i><span>Manage OSL Staff For Clubs</span></h1>
+		</div>
+	</div>
+</div>
+
+<div class='row'>
+
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='box bordered-box orange-border' style='margin-bottom:0;'>
+			<div class='box-header orange-background'>
+				<div class='title'>
+					<i class='icon-flag-checkered'></i>
+					Manage OSL Managers
+				</div>
+				<div class='actions'>
+					<a class="btn box-collapse btn-xs btn-link" href="#"><i></i> </a>
+				</div>
+			</div>
+			<div class='box-content box-no-padding'>
+				<div class='responsive-table'>
+					<div class='scrollable-area'>
+						<%=form_tag '/admin/editosl', :method => 'post' do%>
+						<table class="data-table table table-striped" style="margin-bottom:0;">
+							<thead>
+								<tr>
+									<th>Club ID</th>
+									<th>Club Code</th>
+									<th>Club Type</th>
+									<th>Club Name</th>
+									<th>OSL Manager</th>
+									<th>Choose OSL Manager</th>
+								</tr>
+							</thead>
+							<tbody>
+								
+								
+								<%@clubs.each do |c|%>
+								<tr>
+									<td><%= c.clubid%></td>
+									<td><%=c.clubcode%></td>
+									<td><%= c.clubtype%></td>
+									<td><%= c.clubname%></td>
+									<td><%= c.oslstaff%></td>
+									<td><%= select_tag c.clubid, options_from_collection_for_select(@oslstaff, 'userid', 'userid')+content_tag(:option,'remove',:value=>"remove"), :include_blank => 'true'%></td>
+								</tr>
+								<%end%>
+								
+							</tbody>
+						</table>
+						
+					</div>
+					<%= submit_tag 'Go', :class=>"btn btn-primary btn-lg"%>
+					<%end%>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>
+
+	
+</div>
+<%end%>

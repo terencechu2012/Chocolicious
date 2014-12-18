@@ -87,13 +87,16 @@ class ClaimsController < ApplicationController
       end
       
     elsif role.include? 'smusafinsec'
-      @cbdmcclaims = Claim.where(status: [9..11, 20..22, 26..28])
-      @smusasecclaims = Claim.where(status: [14..16, 23..25, 26..28])
+      @cbdmcclaims = Claim.where(status: [9..11, 20..22]) + Claim.where(status: [26..28], claimtype: 'cbd')
+      @smusasecclaims = Claim.where(status: [14..16, 23..25])+ Claim.where(status: [26..28], claimtype: 'smusasec')
     elsif role == 'osl'
-      @oslclaims = Claim.where(status: [17,20,23,26,27,28])
-      p 'yes'
+      clubs = Club.where(oslstaff: session[:userid]).pluck(:clubid)
+      @oslclaims = Claim.where(status: [17,20,23,26,27,28], clubid: clubs)
+      
     elsif role =='oslad'
-      @oslclaims = Claim.where(status: [26,27,28])
+      cbds = Club.where(oslstaff: session[:userid]).pluck(:clubid)
+      clubs = Club.where(clubtype: cbds).pluck(:clubid) + cbds
+      @oslclaims = Claim.where(status: [26,27,28], clubid: clubs)
     elsif role == 'osld'
       @oslclaims = Claim.where(status: [27,28])
     elsif role == 'dos'
@@ -656,9 +659,9 @@ class ClaimsController < ApplicationController
     if status == 3
       newstatus = 17
     elsif status == 9
-      newstatus = 20
+      newstatus = 26
     elsif status == 14
-      newstatus = 23
+      newstatus = 26
     end
 
     c.update_attribute(:status, newstatus)

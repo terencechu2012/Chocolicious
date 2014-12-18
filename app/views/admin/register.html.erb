@@ -452,7 +452,7 @@ $(document).ready(function() {
 									<% @oslList.each do |user| %>
 									<tr>
 										<td><%= user.userid %></td>
-										<td><%= user.clubid%></td>
+										<td><%= user.role%></td>
 										<td> <%if session[:userid]!=user.userid%><%= check_box_tag("toDelete[]",user.userid+","+user.clubid)%>
 										<%else%><font color=red><i>You are not able to delete yourself</i><%end%> </td>
 										<%= hidden_field_tag(:club, user.clubid)%>
@@ -487,9 +487,14 @@ $(document).ready(function() {
 										<br />
 										<%= select_tag(:userid, options_from_collection_for_select(@users, "userid", "userid"), class:"select2 form-control")%>
 										<br />
+										<br>
+										<label>Select Role</label>
+										<br />
+										<%= select_tag(:role, options_for_select(['osl','oslad','osld','dos']), class:"select2 form-control")%>
+										<br />
 										<br />
 										<%= hidden_field_tag(:club,'OSL')%>
-										<%= hidden_field_tag(:role,'osl')%>
+										
 									</div>
 							</fieldset>
 							<div class='form-actions form-actions-padding' style='margin-bottom: 0;'>

@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   end
   get 'users/delete'
   get 'claims/oslprocess'
+  post 'admin/editosl'
+  get 'admin/manageosl'
+  get 'admin/manageoslcbd'
   get 'payments/newpayment'  
   get 'payments/editpayment'
   get 'payments/viewpayment'

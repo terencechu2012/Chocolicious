@@ -17,7 +17,7 @@ class AdminController < ApplicationController
     list2 = Clubusers.where(clubid: 'smusa', role: 'president')
     @smusasecList = @smusasecList + list2
     @departments = Club.where(clubtype: 'smusa')
-    @oslList = Clubusers.where(role: 'osl')
+    @oslList = Clubusers.where(clubid: 'OSL')
   end
 
   def requestClub
@@ -235,7 +235,16 @@ class AdminController < ApplicationController
       @smusasecpayments = Payment.where(status: [14..16, 23..25])
     elsif role.include? 'osl'
       @oslpayments = Payment.where(status: [17..25])
-      @oslclaims = Claim.where(status: [17..25])
+      clubs = Club.where(oslstaff: session[:userid]).pluck(:clubid)
+      @oslclaims = Claim.where(status: [17,20,23,26,27,28], clubid: clubs)
+    elsif role =='oslad'
+      cbds = Club.where(oslstaff: session[:userid]).pluck(:clubid)
+      clubs = Club.where(clubtype: cbds).pluck(:clubid) + cbds
+      @oslclaims = Claim.where(status: [26,27,28], clubid: clubs)
+    elsif role == 'osld'
+      @oslclaims = Claim.where(status: [27,28])
+    elsif role == 'dos'
+      @oslclaims = Claim.where(status: [28])
     end
   end
 
@@ -372,5 +381,33 @@ class AdminController < ApplicationController
     c = Club.find_by_clubid(params[:club][:clubid])
     c.update_attributes(club_params)
     redirect_to :action => 'registerclub'
+  end
+  
+  def manageosl
+    @clubs = Club.where.not(clubtype: ['cbd', 'smusa'])
+    @oslstaff = Clubusers.where(role: 'osl').uniq
+  end
+  def manageoslcbd
+    @clubs = Club.where(clubtype: ['cbd', 'smusa'])
+    @oslstaff = Clubusers.where(role: 'oslad').uniq
+  end
+  
+  def editosl
+    
+    params.each do |key, value|
+      
+      c = Club.find_by_clubid(key)
+      if !c.nil?
+        if !(value.nil? || value.empty?)
+          c.update_attribute(:oslstaff, value)
+          
+        end
+        if value == 'remove'
+          c.update_attribute(:oslstaff, nil)
+        end
+      end
+      
+    end
+    redirect_to :back
   end
 end
