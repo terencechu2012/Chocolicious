@@ -120,7 +120,7 @@ class BudgetsController < ApplicationController
   end
   
   def addexpenditure
-    
+    schoolcbds = ['ASOC','BONDUE','OIKOS','SISS','SOSCIETY','THE BAR']
     b = Budget.find_by_id(params[:budget_expense][:budget_id])
     budgetid = params[:budget_expense][:budget_id]
     requestsac = b.requestsac
@@ -153,7 +153,7 @@ class BudgetsController < ApplicationController
       
       
       reservebalance = ReserveAccount.find_by_clubid(b.clubid).balance
-      if reservebalance < requestreserves
+      if reservebalance < requestreserves && !(schoolcbds.include?b.clubid)
         flash.alert = 'Not enough funds in reserve account'
       else
         BudgetExpense.create(budget_expense_params)
