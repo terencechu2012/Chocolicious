@@ -1,5 +1,5 @@
 class ReceiptMailer < ActionMailer::Base
-  default from: "from@example.com"
+  default from: "terence.chu.2012@sis.smu.edu.sg"
   
   def send_email(ereceipt)
     @ereceipt = ereceipt

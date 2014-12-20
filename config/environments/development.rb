@@ -15,16 +15,17 @@ Rails.application.configure do
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
    config.action_mailer.delivery_method = :smtp
 
 config.action_mailer.smtp_settings = {
-address: "smtp.gmail.com",
+address: "pod51003.outlook.com",
 port: 587,
-authentication: "plain",
-:openssl_verify_mode  => 'none',
-user_name: 'smuais2012@gmail.com',
-password: '2012smuais'
+authentication: "login",
+:enable_starttls_auto => 'true',
+# domain: "smtp.office365.com",
+user_name: 'terence.chu.2012@sis.smu.edu.sg',
+password: 'Raikkonen06'
 }
 
   # Print deprecation notices to the Rails logger.
