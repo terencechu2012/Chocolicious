@@ -284,12 +284,14 @@ class ClaimsController < ApplicationController
     fullname = claimant.fullname
     contact = claimant.contactno
     nric = claim.nric
+    item = claim.item
     eventname = claim.event
     if eventname.nil?
       eventname = '#'+claim.id.to_s+'#'
     else
       eventname = eventname+'#'+claim.id.to_s+'#'
     end
+    eventname = item + ', ' + eventname if !item.nil?
     amount = claim.amount
     category = claim.category
     expense = claim.expense
@@ -367,8 +369,7 @@ class ClaimsController < ApplicationController
         #Payment Approval
         paymentapprove = [
                             [{:content=>"<b>Payment Approval for Official Use</b>", :colspan=>3}],
-                            ["<b>Purchase Order</b>", {:content=>" ", :colspan=>2}],
-                            ["<b>SAP Vendor No.</b>", {:content=>" ", :colspan=>2}],
+                           
                             ["<b>Cost Center</b>", {:content=>"C110 ", :colspan=>2}],
                             ["<b>Amount Code</b>","<b>Amount (S$)</b>","<b>GST (S$)</b>"],
                             ["1800020", " ", " "],
@@ -377,7 +378,7 @@ class ClaimsController < ApplicationController
                             [" ", " ", " "],
                             [" ", " ", " "],
                             ["<b>Total Amount Payable</b>", {:content=>" ", :colspan=>2}],
-                            ["<b>Approval</b>", {:content=>" ", :colspan=>2}],
+                            
                             ["<b>Document No.</b>", {:content=>" ", :colspan=>2}],
                             ["<b>Posting Date</b>", {:content=>" ", :colspan=>2}],
                             ["<b>Cheque No.</b>", {:content=>" ", :colspan=>2}]
@@ -405,6 +406,7 @@ class ClaimsController < ApplicationController
     require 'prawn'
     claim = Claim.find_by_id(params[:id])
     claim.update_attribute(:status, 10)
+    item = claim.item
     ClaimTime.create(claimid: claim.id, status: 10,date: Date.today)
     claimant = User.find_by_userid(claim.userid)
     fullname = claimant.fullname
@@ -416,6 +418,7 @@ class ClaimsController < ApplicationController
     else
       eventname = eventname+'#'+claim.id.to_s+'#'
     end
+    eventname = item + ', '+ eventname if !item.nil?
     amount = claim.amount
     category = claim.category
     expense = claim.expense
@@ -493,8 +496,7 @@ class ClaimsController < ApplicationController
         #Payment Approval
         paymentapprove = [
                             [{:content=>"<b>Payment Approval for Official Use</b>", :colspan=>3}],
-                            ["<b>Purchase Order</b>", {:content=>" ", :colspan=>2}],
-                            ["<b>SAP Vendor No.</b>", {:content=>" ", :colspan=>2}],
+                            
                             ["<b>Cost Center</b>", {:content=>"C110 ", :colspan=>2}],
                             ["<b>Amount Code</b>","<b>Amount (S$)</b>","<b>GST (S$)</b>"],
                             ["1800020", " ", " "],
@@ -503,7 +505,7 @@ class ClaimsController < ApplicationController
                             [" ", " ", " "],
                             [" ", " ", " "],
                             ["<b>Total Amount Payable</b>", {:content=>" ", :colspan=>2}],
-                            ["<b>Approval</b>", {:content=>" ", :colspan=>2}],
+                           
                             ["<b>Document No.</b>", {:content=>" ", :colspan=>2}],
                             ["<b>Posting Date</b>", {:content=>" ", :colspan=>2}],
                             ["<b>Cheque No.</b>", {:content=>" ", :colspan=>2}]
@@ -531,6 +533,7 @@ class ClaimsController < ApplicationController
     require 'prawn'
     claim = Claim.find_by_id(params[:id])
     claim.update_attribute(:status, 15)
+    item = claim.item
     ClaimTime.create(claimid: claim.id, status: 15,date: Date.today)
     claimant = User.find_by_userid(claim.userid)
     fullname = claimant.fullname
@@ -542,6 +545,7 @@ class ClaimsController < ApplicationController
     else
       eventname = eventname+'#'+claim.id.to_s+'#'
     end
+    eventname = item + ', ' + eventname if !item.nil?
     amount = claim.amount
     category = claim.category
     expense = claim.expense
@@ -619,8 +623,7 @@ class ClaimsController < ApplicationController
         #Payment Approval
         paymentapprove = [
                             [{:content=>"<b>Payment Approval for Official Use</b>", :colspan=>3}],
-                            ["<b>Purchase Order</b>", {:content=>" ", :colspan=>2}],
-                            ["<b>SAP Vendor No.</b>", {:content=>" ", :colspan=>2}],
+                            
                             ["<b>Cost Center</b>", {:content=>"C110 ", :colspan=>2}],
                             ["<b>Amount Code</b>","<b>Amount (S$)</b>","<b>GST (S$)</b>"],
                             ["1800020", " ", " "],
@@ -629,7 +632,7 @@ class ClaimsController < ApplicationController
                             [" ", " ", " "],
                             [" ", " ", " "],
                             ["<b>Total Amount Payable</b>", {:content=>" ", :colspan=>2}],
-                            ["<b>Approval</b>", {:content=>" ", :colspan=>2}],
+                          
                             ["<b>Document No.</b>", {:content=>" ", :colspan=>2}],
                             ["<b>Posting Date</b>", {:content=>" ", :colspan=>2}],
                             ["<b>Cheque No.</b>", {:content=>" ", :colspan=>2}]

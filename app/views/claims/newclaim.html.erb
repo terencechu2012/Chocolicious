@@ -46,7 +46,11 @@
 						<%elsif role.include? 'smusasec'%>
 						<%= f.hidden_field(:status, :value => 12)%>
 						<%end%>
-
+						<div class='form-group'>
+							<label>Item</label>
+							<br />
+							<%= f.text_field(:item, :class=>"select2 form-control", :required => 'true')%>
+						</div>
 						<div class='form-group'>
 							<label>Select Category</label>
 							<br />

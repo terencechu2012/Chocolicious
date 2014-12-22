@@ -402,7 +402,7 @@
 									<td> 
 										<%claimtype = c.claimtype%>
 										<%if (status == 26 && (role.include?'oslad')) || (status == 27 && (role.include?'osld')) ||(status == 28 && (role.include?'dos'))%> 
-											<a href="#", onclick="pres(<%= c.id%>)" class="btn btn-success btn-xs">Acknowledge</a> 
+											<a href="#", onclick="pres2(<%= c.id%>)" class="btn btn-success btn-xs">Acknowledge</a> 
 											<%if claimtype == 'club'%> 
 												<a href="/claims/addremark?id=<%= c.id%>&status=0" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a> 
 											<%elsif claimtype == 'cbd'%> 
@@ -869,6 +869,13 @@
 <%=javascript_tag do%>
 
 function pres(a){
+<!-- var x; -->
+if (confirm("You are going to acknowledge the claim!")==true){
+window.location = "/claims/submitclaim?id="+a;
+}
+<!-- document.getElementById("pres").innerHTML = x; -->
+}
+function pres2(a){
 <!-- var x; -->
 if (confirm("You are going to acknowledge the claim!")==true){
 window.location = "/claims/oslprocess?id="+a;
