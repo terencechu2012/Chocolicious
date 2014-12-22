@@ -296,9 +296,18 @@ class ClaimsController < ApplicationController
     category = claim.category
     expense = claim.expense
     clubfinsec = Club.find_by_clubid(claim.clubid).finsecid
+    if !clubfinsec.nil?
+      clubfinsec = User.find_by_userid(clubfinsec).fullname
+    end
     clubcode = Club.find_by_clubid(claim.clubid).clubcode
     clubpres = Club.find_by_clubid(claim.clubid).presidentid
+    if !clubpres.nil?
+      clubpres = User.find_by_userid(clubpres).fullname
+    end
     cbdfinsec = current_user.userid
+    if !cbdfinsec.nil?
+      cbdfinsec = User.find_by_userid(cbdfinsec).fullname
+    end
     claimid = claim.id
     clubname = Club.find_by_clubid(claim.clubid).clubname
     cbdname = session[:club]
@@ -423,9 +432,18 @@ class ClaimsController < ApplicationController
     category = claim.category
     expense = claim.expense
     cbdfinsec = Club.find_by_clubid(claim.clubid).finsecid
+    if !cbdfinsec.nil?
+      cbdfinsec = User.find_by_userid(cbdfinsec).fullname
+    end
     clubcode = Club.find_by_clubid(claim.clubid).clubcode
     cbdpres = Club.find_by_clubid(claim.clubid).presidentid
+    if !cbdpres.nil?
+      cbdpres = User.find_by_userid(cbdpres).fullname
+    end
     smusafinsec = current_user.userid
+    if !smusafinsec.nil?
+      smusafinsec = User.find_by_userid(smusafinsec).fullname
+    end
     claimid = claim.id
     clubname = Club.find_by_clubid(claim.clubid).clubname
     approvedby = claim.approvedby
@@ -550,8 +568,17 @@ class ClaimsController < ApplicationController
     category = claim.category
     expense = claim.expense
     smusasec = claimant.userid
+    if !smusasec.nil?
+      smusasec = User.find_by_userid(smusasec).fullname
+    end
     smusafinsec = current_user.userid
+    if !smusafinsec.nil?
+      smusafinsec = User.find_by_userid(smusafinsec).fullname
+    end
     smusapres = Club.find_by_clubid('smusa').presidentid
+    if !smusapres.nil?
+      smusapres = User.find_by_userid(smusapres).fullname
+    end
     clubcode = Club.find_by_clubid(claim.clubid).clubcode
     claimid = claim.id
     clubname = Club.find_by_clubid(claim.clubid).clubname
