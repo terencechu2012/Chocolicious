@@ -688,10 +688,13 @@ class ClaimsController < ApplicationController
     status = c.status
     if status == 3
       newstatus = 17
+      c.update_attribute(:claimtype, 'club')
     elsif status == 9
       newstatus = 26
+      c.update_attribute(:claimtype, 'cbd')
     elsif status == 14
       newstatus = 26
+      c.update_attribute(:claimtype, 'smusasec')
     end
 
     c.update_attribute(:status, newstatus)

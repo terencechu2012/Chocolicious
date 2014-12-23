@@ -483,7 +483,7 @@
 									</td>
 									<td> 
 										<%if status == 17 || status == 20 || status == 23%> 
-											<a href="#", onclick="pres(<%= c.id%>)" class="btn btn-success btn-xs">Acknowledge</a> 
+											<a href="#", onclick="pres2(<%= c.id%>)" class="btn btn-success btn-xs">Acknowledge</a> 
 											<%if status == 17%> 
 												<a href="/claims/addremark?id=<%= c.id%>&status=0" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a> 
 											<%elsif status == 20%> 
