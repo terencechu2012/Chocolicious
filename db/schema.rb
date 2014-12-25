@@ -192,7 +192,7 @@ ActiveRecord::Schema.define(version: 20141222123830) do
   create_table "budget_incomes", force: true do |t|
     t.integer  "budget_id"
     t.string   "item"
-    t.decimal  "income",          precision: 10, scale: 2
+    t.decimal  "income",          precision: 10, scale: 2, default: 0.0
     t.string   "incomebreakdown"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -434,12 +434,12 @@ ActiveRecord::Schema.define(version: 20141222123830) do
     t.datetime "updated_at"
   end
 
-  create_table "users", primary_key: "userid", force: true do |t|
+  create_table "users", primary_key: "email", force: true do |t|
+    t.string   "userid",                 default: "", null: false
     t.string   "passwordhash"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "nric"
-    t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"

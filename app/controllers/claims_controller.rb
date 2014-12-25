@@ -186,7 +186,10 @@ class ClaimsController < ApplicationController
     end
     hash2 = {'club'=>18, 'cbd'=>21, 'smusasec'=>24}
     approvedby = c.approvedby
-    user = session[:userid]
+    user = User.find_by_userid(session[:userid]).fullname
+    if user.nil?
+      user = session[:userid]
+    end
     role = session[:role]
     hash = {'osl'=>'OSL Manager', 'oslad' => 'OSL Associate Director', 'osld' => 'OSL Director', 'dos' => 'Dean of Students'}
     person = user + ', '+hash[role] 
