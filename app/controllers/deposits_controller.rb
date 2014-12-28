@@ -153,9 +153,18 @@ class DepositsController < ApplicationController
     donoradd = deposit.donoradd
     donoric = deposit.donoric
     clubfinsec = Club.find_by_clubid(deposit.clubid).finsecid
+    if !clubfinsec.nil?
+      clubfinsec = User.find_by_userid(clubfinsec).fullname
+    end
     clubcode = Club.find_by_clubid(deposit.clubid).clubcode
     clubpres = Club.find_by_clubid(deposit.clubid).presidentid
+    if !clubpres.nil?
+      clubpres = User.find_by_userid(clubpres).fullname
+    end
     cbdfinsec = current_user.userid
+    if !cbdfinsec.nil?
+      cbdfinsec = User.find_by_userid(cbdfinsec).fullname
+    end
     depositid = deposit.id
     clubname = Club.find_by_clubid(deposit.clubid).clubname
     cbdname = session[:club]
@@ -242,9 +251,18 @@ class DepositsController < ApplicationController
     donoradd = deposit.donoradd
     donoric = deposit.donoric
     cbdfinsec = Club.find_by_clubid(deposit.clubid).finsecid
+    if !cbdfinsec.nil?
+      cbdfinsec = User.find_by_userid(cbdfinsec).fullname
+    end
     clubcode = Club.find_by_clubid(deposit.clubid).clubcode
     cbdpres = Club.find_by_clubid(deposit.clubid).presidentid
+    if !cbdpres.nil?
+      cbdpres = User.find_by_userid(cbdpres).fullname
+    end
     smusafinsec = current_user.userid
+    if !smusafinsec.nil?
+      smusafinsec = User.find_by_userid(smusafinsec).fullname
+    end
     depositid = deposit.id
     clubname = Club.find_by_clubid(deposit.clubid).clubname
     cbdname = session[:club]
@@ -331,8 +349,17 @@ class DepositsController < ApplicationController
     donoradd = deposit.donoradd
     donoric = deposit.donoric
     smusasec = claimant.userid
+    if !smusasec.nil?
+      smusasec = User.find_by_userid(smusasec).fullname
+    end
     smusafinsec = current_user.userid
+    if !smusafinsec.nil?
+      smusafinsec = User.find_by_userid(smusafinsec).fullname
+    end
     smusapres = Club.find_by_clubid('smusa').presidentid
+    if !smusapres.nil?
+      smusapres = User.find_by_userid(smusapres).fullname
+    end
     clubcode = Club.find_by_clubid(deposit.clubid).clubcode
     depositid = deposit.id
     clubname = Club.find_by_clubid(deposit.clubid).clubname

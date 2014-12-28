@@ -91,16 +91,20 @@ class ClaimsController < ApplicationController
       @smusasecclaims = Claim.where(status: [14..16, 23..25])+ Claim.where(status: [26..28], claimtype: 'smusasec')
     elsif role == 'osl'
       clubs = Club.where(oslstaff: session[:userid]).pluck(:clubid)
-      @oslclaims = Claim.where(status: [17,20,23,26,27,28], clubid: clubs)
+      u = User.find_by_userid(session[:userid]).fullname
+      @oslclaims = Claim.where(status: [17,20,23,26,27,28], clubid: clubs) | Claim.where(["approvedby LIKE ?", "%"+u+"%"])
       
     elsif role =='oslad'
       cbds = Club.where(oslstaff: session[:userid]).pluck(:clubid)
+      u = User.find_by_userid(session[:userid]).fullname
       clubs = Club.where(clubtype: cbds).pluck(:clubid) + cbds
-      @oslclaims = Claim.where(status: [26,27,28], clubid: clubs)
+      @oslclaims = Claim.where(status: [26,27,28], clubid: clubs) | Claim.where(["approvedby LIKE ?", "%"+u+"%"])
     elsif role == 'osld'
-      @oslclaims = Claim.where(status: [27,28])
+      u = User.find_by_userid(session[:userid]).fullname
+      @oslclaims = Claim.where(status: [27,28]) | Claim.where(["approvedby LIKE ?", "%"+u+"%"])
     elsif role == 'dos'
-      @oslclaims = Claim.where(status: [28])
+      u = User.find_by_userid(session[:userid]).fullname
+      @oslclaims = Claim.where(status: [28]) | Claim.where(["approvedby LIKE ?", "%"+u+"%"])
     end
   end
 

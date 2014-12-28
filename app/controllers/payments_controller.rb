@@ -74,13 +74,13 @@ class PaymentsController < ApplicationController
   def clubpayments
     role = session[:role]
     if role.include? 'clubfinsec'
-      @normalpayments = Payment.where(:clubid => session[:club], :status => [1..5, 17..19])
+      @normalpayments = Payment.where(:clubid => session[:club], :status => [1..5, 17..19, 26..28])
     elsif role.include? 'cbdfinsec'
-      @normalpayments = Payment.where(['clubid in (select clubid from clubs where clubtype = ?) and ((status > 2 and status < 6) or (status>16 and status<20))', session[:club]])
-      @cbdmcpayments = Payment.where(clubid:session[:club], status: [7..11, 20..22])
+      @normalpayments = Payment.where(['clubid in (select clubid from clubs where clubtype = ?) and ((status > 2 and status < 6) or (status>16 and status<20) or (status>25 and status<29))', session[:club]])
+      @cbdmcpayments = Payment.where(clubid:session[:club], status: [7..11, 20..22, 26..28])
     elsif role.include? 'president'
-      @normalpayments = Payment.where(clubid:session[:club], status: [2..5, 17..19])
-      @cbdmcpayments = Payment.where(clubid:session[:club], status: [8..11, 20..22])
+      @normalpayments = Payment.where(clubid:session[:club], status: [2..5, 17..19, 26..28])
+      @cbdmcpayments = Payment.where(clubid:session[:club], status: [8..11, 20..22, 26..28])
       @payments = @normalpayments + @cbdmcpayments
       
       if session[:club] == 'smusa'
@@ -89,10 +89,23 @@ class PaymentsController < ApplicationController
       end
       
     elsif role.include? 'smusafinsec'
-      @cbdmcpayments = Payment.where(status: [9..11, 20..22])
-      @smusasecpayments = Payment.where(status: [14..16, 23..25])
-    elsif role.include? 'osl'
-      @oslpayments = Payment.where(status: [17..25])
+      @cbdmcpayments = Payment.where(status: [9..11, 20..22]) + Payment.where(status: [26..28], claimtype: 'cbd')
+      @smusasecpayments = Payment.where(status: [14..16, 23..25])+ Payment.where(status: [26..28], claimtype: 'smusasec')
+    elsif role == 'osl'
+      clubs = Club.where(oslstaff: session[:userid]).pluck(:clubid)
+      u = User.find_by_userid(session[:userid]).fullname
+      @oslpayments = Payment.where(status: [17,20,23,26,27,28], clubid: clubs) | Payment.where(["approvedby LIKE ?", "%"+u+"%"])
+    elsif role =='oslad'
+      cbds = Club.where(oslstaff: session[:userid]).pluck(:clubid)
+      clubs = Club.where(clubtype: cbds).pluck(:clubid) + cbds
+      u = User.find_by_userid(session[:userid]).fullname
+      @oslpayments = Payment.where(status: [26,27,28], clubid: clubs) | Payment.where(["approvedby LIKE ?", "%"+u+"%"])
+    elsif role == 'osld'
+      u = User.find_by_userid(session[:userid]).fullname
+      @oslpayments = Payment.where(status: [27,28]) | Payment.where(["approvedby LIKE ?", "%"+u+"%"])
+    elsif role == 'dos'
+      u = User.find_by_userid(session[:userid]).fullname
+      @oslpayments = Payment.where(status: [28]) | Payment.where(["approvedby LIKE ?", "%"+u+"%"])
     end
   end
 
@@ -177,7 +190,7 @@ class PaymentsController < ApplicationController
 
     c.update_attribute(:remark, params[:payment][:remark])
     c.update_attribute(:status, params[:payment][:status])
-       
+    c.update_attribute(:approvedby, nil)   
     redirect_to :action => 'clubpayments'
   end
 
@@ -192,21 +205,37 @@ class PaymentsController < ApplicationController
     nric = payment.nric
     address = payment.address
     eventname = payment.event
+    item = payment.item
     if eventname.nil?
       eventname = '#'+payment.id.to_s+'PM#'
     else
       eventname = eventname+'#'+payment.id.to_s+'PM#'
     end
+    eventname = item + ', ' + eventname if !item.nil?
     amount = payment.amount
     category = payment.category
     expense = payment.expense
     clubfinsec = Club.find_by_clubid(payment.clubid).finsecid
+    if !clubfinsec.nil?
+      clubfinsec = User.find_by_userid(clubfinsec).fullname
+    end
     clubcode = Club.find_by_clubid(payment.clubid).clubcode
+    
     clubpres = Club.find_by_clubid(payment.clubid).presidentid
+    if !clubpres.nil?
+      clubpres = User.find_by_userid(clubpres).fullname
+    end
     cbdfinsec = current_user.userid
+    if !cbdfinsec.nil?
+      cbdfinsec = User.find_by_userid(cbdfinsec).fullname
+    end
     paymentid = payment.id
     clubname = Club.find_by_clubid(payment.clubid).clubname
     cbdname = session[:club]
+    approvedby = payment.approvedby
+    if approvedby.nil?
+      approvedby = "No OSL staff approval needed"
+    end
     date = Date.today
     Prawn::Document.generate("public/toprint.pdf",
                              :page_size => "EXECUTIVE",
@@ -260,13 +289,17 @@ class PaymentsController < ApplicationController
                     [clubname.to_s+", Club Finance Secretary",clubname.to_s+", Club President", cbdname.to_s+", CBd Finance Secretary"]
                   ]
         table(approval, :width => bounds.width, :cell_style => { :border_color => "FFFFFF", :padding => 6, :size=>10, :inline_format => true})
+        move_down 30
+        newapprove = [
+          ['<b>Approved by</b>'],[approvedby.to_s]
+        ]
+        table(newapprove, :width => bounds.width, :cell_style => { :border_color => "FFFFFF", :padding => 6, :size=>10, :inline_format => true})
       end
       grid([2,5],[7,7]).bounding_box do
         #Payment Approval
         paymentapprove = [
                             [{:content=>"<b>Payment Approval for Official Use</b>", :colspan=>3}],
-                            ["<b>Purchase Order</b>", {:content=>" ", :colspan=>2}],
-                            ["<b>SAP Vendor No.</b>", {:content=>" ", :colspan=>2}],
+                            
                             ["<b>Cost Center</b>", {:content=>"C110 ", :colspan=>2}],
                             ["<b>Amount Code</b>","<b>Amount (S$)</b>","<b>GST (S$)</b>"],
                             ["1800020", " ", " "],
@@ -275,7 +308,7 @@ class PaymentsController < ApplicationController
                             [" ", " ", " "],
                             [" ", " ", " "],
                             ["<b>Total Amount Payable</b>", {:content=>" ", :colspan=>2}],
-                            ["<b>Approval</b>", {:content=>" ", :colspan=>2}],
+                           
                             ["<b>Document No.</b>", {:content=>" ", :colspan=>2}],
                             ["<b>Posting Date</b>", {:content=>" ", :colspan=>2}],
                             ["<b>Cheque No.</b>", {:content=>" ", :colspan=>2}]
@@ -389,20 +422,35 @@ class PaymentsController < ApplicationController
     nric = payment.nric
     address = payment.address
     eventname = payment.event
+    item = payment.item
     if eventname.nil?
       eventname = '#'+payment.id.to_s+'PM#'
     else
       eventname = eventname+'#'+payment.id.to_s+'PM#'
     end
+    eventname = item + ', ' + eventname if !item.nil?
     amount = payment.amount
     category = payment.category
     expense = payment.expense
     cbdfinsec = Club.find_by_clubid(payment.clubid).finsecid
+    if !cbdfinsec.nil?
+      cbdfinsec = User.find_by_userid(cbdfinsec).fullname
+    end
     clubcode = Club.find_by_clubid(payment.clubid).clubcode
     cbdpres = Club.find_by_clubid(payment.clubid).presidentid
+    if !cbdpres.nil?
+      cbdpres = User.find_by_userid(cbdpres).fullname
+    end
     smusafinsec = current_user.userid
+    if !smusafinsec.nil?
+      smusafinsec = User.find_by_userid(smusafinsec).fullname
+    end
     paymentid = payment.id
     clubname = Club.find_by_clubid(payment.clubid).clubname
+    approvedby = payment.approvedby
+    if approvedby.nil?
+      approvedby = "No OSL staff approval needed"
+    end
     cbdname = session[:club]
     date = Date.today
     Prawn::Document.generate("public/toprint.pdf",
@@ -457,13 +505,17 @@ class PaymentsController < ApplicationController
                     [clubname.to_s+", CBd Finance Secretary",clubname.to_s+", CBd President", cbdname.to_s+", SMUSA Finance Secretary"]
                   ]
         table(approval, :width => bounds.width, :cell_style => { :border_color => "FFFFFF", :padding => 6, :size=>10,  :inline_format => true})
+         move_down 30
+        newapprove = [
+          ['<b>Approved by</b>'],[approvedby.to_s]
+        ]
+        table(newapprove, :width => bounds.width, :cell_style => { :border_color => "FFFFFF", :padding => 6, :size=>10, :inline_format => true})
       end
       grid([2,5],[7,7]).bounding_box do
         #Payment Approval
         paymentapprove = [
                             [{:content=>"<b>Payment Approval for Official Use</b>", :colspan=>3}],
-                            ["<b>Purchase Order</b>", {:content=>" ", :colspan=>2}],
-                            ["<b>SAP Vendor No.</b>", {:content=>" ", :colspan=>2}],
+                            
                             ["<b>Cost Center</b>", {:content=>"C110 ", :colspan=>2}],
                             ["<b>Amount Code</b>","<b>Amount (S$)</b>","<b>GST (S$)</b>"],
                             ["1800020", " ", " "],
@@ -472,7 +524,7 @@ class PaymentsController < ApplicationController
                             [" ", " ", " "],
                             [" ", " ", " "],
                             ["<b>Total Amount Payable</b>", {:content=>" ", :colspan=>2}],
-                            ["<b>Approval</b>", {:content=>" ", :colspan=>2}],
+                          
                             ["<b>Document No.</b>", {:content=>" ", :colspan=>2}],
                             ["<b>Posting Date</b>", {:content=>" ", :colspan=>2}],
                             ["<b>Cheque No.</b>", {:content=>" ", :colspan=>2}]
@@ -586,22 +638,37 @@ class PaymentsController < ApplicationController
     nric = payment.nric
     address = payment.address
     eventname = payment.event
+    item = payment.item
     if eventname.nil?
       eventname = '#'+payment.id.to_s+'PM#'
     else
       eventname = eventname+'#'+payment.id.to_s+'PM#'
     end
+    eventname = item + ', ' + eventname if !item.nil?
     amount = payment.amount
     category = payment.category
     expense = payment.expense
     smusasec = payment.userid
+    if !smusasec.nil?
+      smusasec = User.find_by_userid(smusasec).fullname
+    end
     smusafinsec = current_user.userid
+    if !smusafinsec.nil?
+      smusafinsec = User.find_by_userid(smusafinsec).fullname
+    end
     smusapres = Club.find_by_clubid('smusa').presidentid
+    if !smusapres.nil?
+      smusapres = User.find_by_userid(smusapres).fullname
+    end
     clubcode = Club.find_by_clubid(payment.clubid).clubcode
     paymentid = payment.id
     clubname = Club.find_by_clubid(payment.clubid).clubname
     cbdname = session[:club]
     date = Date.today
+    approvedby = claim.approvedby
+    if approvedby.nil?
+      approvedby = "No OSL staff approval needed"
+    end
     Prawn::Document.generate("public/toprint.pdf",
                              :page_size => "EXECUTIVE",
                              :page_layout => :landscape) do
@@ -653,14 +720,18 @@ class PaymentsController < ApplicationController
                     [clubname.to_s+", SMUSA Honourary Secretary",cbdname.to_s+", SMUSA President", cbdname.to_s+", SMUSA Finance Secretary"]
                   ]
         table(approval, :width => bounds.width, :cell_style => { :border_color => "FFFFFF", :padding => 6, :size=>10, :inline_format => true})
+        move_down 30
+        newapprove = [
+          ['<b>Approved by</b>'],[approvedby.to_s]
+        ]
+        table(newapprove, :width => bounds.width, :cell_style => { :border_color => "FFFFFF", :padding => 6, :size=>10, :inline_format => true})
       end
       
       grid([2,5],[7,7]).bounding_box do
         #Payment Approval
         paymentapprove = [
                             [{:content=>"<b>Payment Approval for Official Use</b>", :colspan=>3}],
-                            ["<b>Purchase Order</b>", {:content=>" ", :colspan=>2}],
-                            ["<b>SAP Vendor No.</b>", {:content=>" ", :colspan=>2}],
+                            
                             ["<b>Cost Center</b>", {:content=>"C110 ", :colspan=>2}],
                             ["<b>Amount Code</b>","<b>Amount (S$)</b>","<b>GST (S$)</b>"],
                             ["1800020", " ", " "],
@@ -669,7 +740,7 @@ class PaymentsController < ApplicationController
                             [" ", " ", " "],
                             [" ", " ", " "],
                             ["<b>Total Amount Payable</b>", {:content=>" ", :colspan=>2}],
-                            ["<b>Approval</b>", {:content=>" ", :colspan=>2}],
+                         
                             ["<b>Document No.</b>", {:content=>" ", :colspan=>2}],
                             ["<b>Posting Date</b>", {:content=>" ", :colspan=>2}],
                             ["<b>Cheque No.</b>", {:content=>" ", :colspan=>2}]
@@ -775,14 +846,65 @@ class PaymentsController < ApplicationController
     status = c.status
     if status == 3
       newstatus = 17
+      c.update_attribute(:claimtype, 'club')
     elsif status == 9
-      newstatus = 20
+      newstatus = 26
+      c.update_attribute(:claimtype, 'cbd')
     elsif status == 14
-      newstatus = 23
+      newstatus = 26
+      c.update_attribute(:claimtype, 'smusasec')
     end
 
     c.update_attribute(:status, newstatus)
     # redirect_to :action => 'viewpayment'
+    redirect_to :back
+  end
+  
+  
+  def oslprocess
+    c = Payment.find_by_id(params[:id])
+    amount = c.amount
+    status = c.status
+    if status == 17
+      c.update_attribute(:claimtype, 'club')
+    elsif status == 20
+      c.update_attribute(:claimtype, 'cbd')
+    elsif status == 23
+      c.update_attribute(:claimtype, 'smusasec')
+    end
+    hash2 = {'club'=>18, 'cbd'=>21, 'smusasec'=>24}
+    approvedby = c.approvedby
+    user = User.find_by_userid(session[:userid]).fullname
+    if user.nil?
+      user = session[:userid]
+    end
+    role = session[:role]
+    hash = {'osl'=>'OSL Manager', 'oslad' => 'OSL Associate Director', 'osld' => 'OSL Director', 'dos' => 'Dean of Students'}
+    person = user + ', '+hash[role] 
+    if approvedby.nil?
+      c.update_attribute(:approvedby, person)
+    else
+      c.update_attribute(:approvedby, approvedby + ', ' + person)
+    end
+    
+    if status == 17 || status == 20 || status == 23
+      
+      c.update_attribute(:status, 26)
+    elsif status == 26
+      if amount <= 7500
+        c.update_attribute(:status, hash2[c.claimtype])
+      else
+        c.update_attribute(:status, 27)
+      end
+    elsif status == 27
+       if amount <= 10000
+        c.update_attribute(:status, hash2[c.claimtype])
+      else
+        c.update_attribute(:status, 28)
+      end
+    elsif status == 28
+       c.update_attribute(:status, hash2[c.claimtype])
+    end
     redirect_to :back
   end
 

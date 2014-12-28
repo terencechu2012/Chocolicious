@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141222123830) do
+ActiveRecord::Schema.define(version: 20141228125103) do
 
   create_table "allocation_reports", force: true do |t|
     t.datetime "created_at"
@@ -177,11 +177,11 @@ ActiveRecord::Schema.define(version: 20141222123830) do
   create_table "budget_expenses", force: true do |t|
     t.integer  "budget_id"
     t.string   "item"
-    t.decimal  "requestsac",      precision: 10, scale: 2, default: 0.0
-    t.decimal  "requestreserves", precision: 10, scale: 2, default: 0.0
-    t.decimal  "unitcost",        precision: 10, scale: 2, default: 0.0
-    t.integer  "quantity",                                 default: 0
-    t.string   "justification"
+    t.decimal  "requestsac",                         precision: 10, scale: 2, default: 0.0
+    t.decimal  "requestreserves",                    precision: 10, scale: 2, default: 0.0
+    t.decimal  "unitcost",                           precision: 10, scale: 2, default: 0.0
+    t.integer  "quantity",                                                    default: 0
+    t.text     "justification",   limit: 2147483647
     t.string   "quotation"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -192,7 +192,7 @@ ActiveRecord::Schema.define(version: 20141222123830) do
   create_table "budget_incomes", force: true do |t|
     t.integer  "budget_id"
     t.string   "item"
-    t.decimal  "income",          precision: 10, scale: 2, default: 0.0
+    t.decimal  "income",          precision: 10, scale: 2
     t.string   "incomebreakdown"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -354,6 +354,9 @@ ActiveRecord::Schema.define(version: 20141222123830) do
     t.string   "address"
     t.string   "vendorpayeename"
     t.string   "vendorcontact"
+    t.string   "item"
+    t.string   "claimtype"
+    t.string   "approvedby"
   end
 
   create_table "rejected_claims", force: true do |t|
@@ -434,12 +437,12 @@ ActiveRecord::Schema.define(version: 20141222123830) do
     t.datetime "updated_at"
   end
 
-  create_table "users", primary_key: "email", force: true do |t|
-    t.string   "userid",                 default: "", null: false
+  create_table "users", primary_key: "userid", force: true do |t|
     t.string   "passwordhash"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "nric"
+    t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
