@@ -94,17 +94,29 @@ class PaymentsController < ApplicationController
     elsif role == 'osl'
       clubs = Club.where(oslstaff: session[:userid]).pluck(:clubid)
       u = User.find_by_userid(session[:userid]).fullname
+      if u.nil?
+        u = session[:userid]
+      end
       @oslpayments = Payment.where(status: [17,20,23,26,27,28], clubid: clubs) | Payment.where(["approvedby LIKE ?", "%"+u+"%"])
     elsif role =='oslad'
       cbds = Club.where(oslstaff: session[:userid]).pluck(:clubid)
       clubs = Club.where(clubtype: cbds).pluck(:clubid) + cbds
       u = User.find_by_userid(session[:userid]).fullname
+      if u.nil?
+        u = session[:userid]
+      end
       @oslpayments = Payment.where(status: [26,27,28], clubid: clubs) | Payment.where(["approvedby LIKE ?", "%"+u+"%"])
     elsif role == 'osld'
       u = User.find_by_userid(session[:userid]).fullname
+      if u.nil?
+        u = session[:userid]
+      end
       @oslpayments = Payment.where(status: [27,28]) | Payment.where(["approvedby LIKE ?", "%"+u+"%"])
     elsif role == 'dos'
       u = User.find_by_userid(session[:userid]).fullname
+      if u.nil?
+        u = session[:userid]
+      end
       @oslpayments = Payment.where(status: [28]) | Payment.where(["approvedby LIKE ?", "%"+u+"%"])
     end
   end
