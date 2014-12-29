@@ -677,7 +677,7 @@ class PaymentsController < ApplicationController
     clubname = Club.find_by_clubid(payment.clubid).clubname
     cbdname = session[:club]
     date = Date.today
-    approvedby = claim.approvedby
+    approvedby = payment.approvedby
     if approvedby.nil?
       approvedby = "No OSL staff approval needed"
     end
