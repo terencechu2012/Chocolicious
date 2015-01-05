@@ -1,22 +1,81 @@
 <%role = session[:role]%>
-
-<a href='/UserManual/Claim/Make To Submit Claims/Make To Submit Claims.html'>  <span>Make and Submit Claims</span> </a><br>
-<a href='/UserManual/IssueE-receipt/IssueE-receipt.html'>  <span>Issue E-Receipts</span> </a><br>
-<a href='/UserManual/SignUp_UserManagement/index.html'>  <span>Sign Up and Manage Users</span> </a><br>
-<a href='/UserManual/Change user profile, password and user role/index.html'>  <span>Manage Your Profile</span> </a><br>
-<a href='/UserManual/Add rating for vendor_Get vendor recommendation/index.html'>  <span>Rate Vendors and Get Recommendations</span> </a><br>
-<%if (role.include?'osl')||(role.include?'smusafinsec') || (role.include?'cbdfinsec')||(role.include?'clubfinsec')||(role.include?'president')||(role.include?'smusasec')%>
-<a href='/UserManual/AccountManagement/AccountManagementcamproj.html'>  <span>Manage Club Accounts</span> </a><br>
-
-<a href='/UserManual/Budget/Budget.html'>  <span>Propose Budget</span> </a><br>
-
-<a href='/UserManual/Claim/Acknowledge_RejectClaim/Acknowledge_RejectClaim.html'>  <span>Approve or Reject Claims</span> </a><br>
-<a href='/UserManual/Claim/Endorse_RejectClaim/Endorse_RejectClaim.html'>  <span>Endorse Claims</span> </a><br>
-
-
-<a href='/UserManual/RequestWithdrawal/RequestWithdrawal.html'>  <span>Request for Reserves Withdrawal</span> </a><br>
-
-<%end%>
-<%if role.include?'smusafinsec'%>
-<a href='/UserManual/Track cliams_onlySMUSAFinsec/index.html'>  <span>Track Claims</span> </a><br>
-<%end%>
+<div class='row'>
+	<div class='col-sm-12'>
+		<div class='page-header'>
+			<h1 class='pull-left'><i class='icon-book'></i><span> User Guides</span></h1>
+		</div>
+	</div>
+</div>
+<div class='row pricing-tables'>
+	<div class='col-sm-6 col-md-3'>
+    	<div class='pricing-table'>
+        	<div class='header'>Admin</div>
+            	<a class="price blue-background" disabled="true"><i class='icon-user'></i></a>
+                	<ul class='list-unstyled features'>
+                    	<li>
+                        	<a href='/UserManual/SignUp_UserManagement/index.html'>  <span><strong>Sign Up</strong> and <strong>Manage</strong> Users</span> </a>
+                      	</li>
+                      	<li>
+                        	<a href='/UserManual/Change user profile, password and user role/index.html'>  <span>Manage<strong> Your Profile</strong></span> </a>
+                      	</li>
+                    </ul>
+		</div>
+	</div>
+	<div class='col-sm-6 col-md-3'>
+    	<div class='pricing-table'>
+        	<div class='header'>Claims</div>
+            	<a class="price orange-background" disabled="true"><i class='icon-file-text'></i></a>
+                	<ul class='list-unstyled features'>
+                    	<li>
+                        	<a href='/UserManual/Claim/Make To Submit Claims/Make To Submit Claims.html'>  <span><strong>Make and Submit</strong> Claims</span> </a>
+                      	</li>
+                      	<%if (role.include?'osl')||(role.include?'smusafinsec') || (role.include?'cbdfinsec')||(role.include?'clubfinsec')||(role.include?'president')||(role.include?'smusasec')%>
+	                    	<li>
+	                    		<a href='/UserManual/Claim/Acknowledge_RejectClaim/Acknowledge_RejectClaim.html'>  <span><strong>Approve or Reject</strong> Claims</span> </a>
+	                    	</li>
+	                    	<li>
+	                    		<a href='/UserManual/Claim/Endorse_RejectClaim/Endorse_RejectClaim.html'>  <span><strong>Endorse</strong> Claims</span> </a>
+	                    	</li>
+                      	<%end%>
+                      	<%if role.include?'smusafinsec'%>
+                      		<li>
+	                    		<a href='/UserManual/Track cliams_onlySMUSAFinsec/index.html'>  <span><strong>Track</strong> Claims</span> </a>
+	                    	</li>
+						<%end%>
+                    </ul>
+		</div>
+	</div>
+	<%if (role.include?'osl')||(role.include?'smusafinsec') || (role.include?'cbdfinsec')||(role.include?'clubfinsec')||(role.include?'president')||(role.include?'smusasec')%>
+		<div class='col-sm-6 col-md-3'>
+	    	<div class='pricing-table'>
+	        	<div class='header'>Budget and Accounts</div>
+	            	<a class="price red-background" disabled="true"><i class='icon-dollar'></i></a>
+	                	<ul class='list-unstyled features'>
+	                    	<li>
+	                        	<a href='/UserManual/Budget/Budget.html'>  <span>Propose <strong>Budget</strong></span> </a>
+	                      	</li>
+	                      	<li>
+		                    	<a href='/UserManual/RequestWithdrawal/RequestWithdrawal.html'>  <span>Request for <strong>Reserves Withdrawal</strong></span> </a>
+		                    </li>
+		                    <li>
+		                    	<a href='/UserManual/AccountManagement/AccountManagementcamproj.html'>  <span>Manage <strong>Club Accounts</strong></span> </a>
+		                    </li>
+	                    </ul>
+			</div>
+		</div>
+	<%end%>
+	<div class='col-sm-6 col-md-3'>
+    	<div class='pricing-table'>
+        	<div class='header'>Others</div>
+            	<a class="price purple-background" disabled="true"><i class='icon-archive'></i></a>
+                	<ul class='list-unstyled features'>
+                    	<li>
+                        	<a href='/UserManual/IssueE-receipt/IssueE-receipt.html'>  <span>Issue <strong>E-Receipts</strong></span> </a>
+                      	</li>
+                      	<li>
+                      		<a href='/UserManual/Add rating for vendor_Get vendor recommendation/index.html'>  <span>Rate <strong>Vendors</strong> and Get <strong>Recommendations</strong></span> </a>
+                      	</li>
+                    </ul>
+		</div>
+	</div>
+</div>
