@@ -5,8 +5,9 @@
 		</div>
 	</div>
 </div>
-<% role = session[:role]%>
-<%if (role.include? 'smusafinsec') %>
+<% role = session[:role]
+open = BudgetControl.find_by_id(1).open%>
+<%if (role.include? 'smusafinsec')|| (role.include? 'cbdfinsec') %>
 <div class='row'>
 	<div class='col-sm-12 box' style='margin-bottom: 0'>
 		<div class="box bordered-red red-border">
@@ -32,7 +33,9 @@
 									<th>Quantity</th>
 									<th>Justification</th>
 									<th>Quotation</th>
+									<%if (role.include? 'smusafinsec') || ((role.include? 'cbdfinsec') && open)%>
 									<th>Delete</th>
+									<%end%>
 								</tr>
 							</thead>
 							<tbody>
@@ -45,7 +48,9 @@
 									<td><%= e.quantity%></td>
 									<td><%= e.justification%></td>
 									<td><%= e.quotation%></td>
+									<%if (role.include? 'smusafinsec') || ((role.include? 'cbdfinsec') && open)%>
 									<td><a href='/budgets/deleteexpenditure?id=<%= e.id%>' class="btn btn-danger btn-xs"><i class="icon-remove"></i></a></td>
+									<%end%>
 								</tr>
 								<%end%>
 							</tbody>
@@ -57,6 +62,7 @@
 	</div>
 	
 </div>
+<%if (role.include? 'smusafinsec') || ((role.include? 'cbdfinsec') && open)%>
 <a class='btn btn-info btn-lg blue-background' data-toggle='modal' href='#modal-newexp' role='button'>Add new Expense</a>
 <div class='modal fade' id='modal-newexp' tabindex='-1'>
 	<div class='modal-dialog'>
@@ -173,7 +179,7 @@
 		</div>
 	</div>
 </div> -->
-
+<%end%>
 <div class='row'>
 	<div class='col-sm-12 box' style='margin-bottom: 0'>
 		<div class="box bordered-orange orange-border">
@@ -195,7 +201,9 @@
 									<th>Item</th>
 									<th>Income</th>
 									<th>Breakdown of income</th>
+									<%if (role.include? 'smusafinsec') || ((role.include? 'cbdfinsec') && open)%>
 									<th>Delete</th>
+									<%end%>
 								</tr>
 							</thead>
 							<tbody>
@@ -204,7 +212,9 @@
 									<td><%= i.item%></td>
 									<td>$<%= i.income%></td>
 									<td><%= i.incomebreakdown%></td>
+									<%if (role.include? 'smusafinsec') || ((role.include? 'cbdfinsec') && open)%>
 									<td><a href='/budgets/deleteincome?id=<%= i.id%>' class="btn btn-danger btn-xs"><i class="icon-remove"></i></a></td>
+									<%end%>
 								</tr>
 								<%end%>
 							</tbody>
@@ -215,6 +225,7 @@
 		</div>
 	</div>
 </div>
+<%if (role.include? 'smusafinsec') || ((role.include? 'cbdfinsec') && open)%>
 <a class='btn btn-info btn-lg blue-background' data-toggle='modal' href='#modal-newincome' role='button'>Add new Income</a>
 <div class='modal fade' id='modal-newincome' tabindex='-1'>
 	<div class='modal-dialog'>
@@ -301,6 +312,7 @@
 		</div>
 	</div>
 </div> -->
+<%end%>
 <a href='/budgets/reviewmain' class="btn btn-success btn-xs"><i class="icon-backward"></i> To main</a>
 
 <%end%>

@@ -5,8 +5,9 @@
 		</div>
 	</div>
 </div>
-<% role = session[:role]%>
-<%if (role.include? 'smusafinsec') %>
+<% role = session[:role]
+open = BudgetControl.find_by_id(1).open%>
+<%if (role.include? 'smusafinsec') || (role.include? 'cbdfinsec')%>
 
 <div class='row'>
 	<div class='col-sm-12 box' style='margin-bottom: 0'>
@@ -56,7 +57,9 @@
 									<td><a href="#", onclick="viewremark('<%= b.explanation%>')" class="btn btn-danger btn-xs blue-background has-tooltip" data-placement="top" title="Explanation"><i class="icon-eye-open"></i></a>
 										<a href='<%= b.poster.url%>' class="btn btn-success btn-xs has-tooltip" data-placement="top" title="Download Attachments"><i class="icon-download"></i></a>
 										<a href='/budgets/reviewmanagebreakdown?id=<%= b.id%>'class="btn btn-warning btn-xs has-tooltip" data-placement="top" title="Edit"><i class="icon-pencil"></i></a>
+										<%if (role.include? 'smusafinsec') || ((role.include? 'cbdfinsec') && open)%>
 										<a href='#', onclick="pres(<%= b.id%>)" class="btn btn-danger btn-xs has-tooltip" data-placement="top" title="Delete"><i class="icon-remove"></i></a></td>
+										<%end%> 
 										<!-- <a href='/budgets/delete?id=<%= b.id%>' class="btn btn-danger btn-xs has-tooltip" data-placement="top" title="Delete"><i class="icon-remove"></i></a></td> -->
 								</tr>
 								<%end%>
