@@ -334,6 +334,8 @@ class ClaimsController < ApplicationController
     if approvedby.nil?
       approvedby = "No OSL staff approval needed"
     end
+    approved2 = approvedby.split(',')
+    sectors = approved2.size
     date = Date.today
     Prawn::Document.generate("public/toprint.pdf",
                              :page_size => "EXECUTIVE",
@@ -387,11 +389,17 @@ class ClaimsController < ApplicationController
                     [clubname.to_s+", Club Finance Secretary",clubname.to_s+", Club President", cbdname.to_s+", CBd Finance Secretary"]
                   ]
         table(approval, :width => bounds.width, :cell_style => { :border_color => "FFFFFF", :padding => 6, :size=>10, :inline_format => true})
-        move_down 30
-        newapprove = [
-          ['<b>Approved by</b>'],[approvedby.to_s]
-        ]
-        table(newapprove, :width => bounds.width, :cell_style => { :border_color => "FFFFFF", :padding => 6, :size=>10, :inline_format => true})
+        if sectors != 1
+          
+          for i in 1..sectors/2
+            
+            newapprove = [
+              ['<b>Approved by</b>'],[approved2[2*i-2].to_s+', '+approved2[2*i-1]]
+            ]
+            table(newapprove, :width => bounds.width, :cell_style => { :border_color => "FFFFFF", :padding => 6, :size=>10, :inline_format => true})
+          end
+        end
+        
       end
       grid([2,5],[7,7]).bounding_box do
         #Payment Approval
@@ -415,16 +423,16 @@ class ClaimsController < ApplicationController
       end  
       #Footer
       bounding_box [bounds.left-40, bounds.bottom], :width  => bounds.width+80 do
-        cell :content => 'Generated Report using the SMUSA Accounting Information System',
+        cell :content => "Generated Report using the SMUSA Accounting Information System.\nThis is electronically approved. No physical signature is required.",
              :background_color => 'EEEEEE',
              :width => bounds.width,
-             :height => 40,
+             :height => 160,
              :align => :center,
              :text_color => "#202020",
              :borders => [:top],
              :border_width => 2,
              :border_color => "rgb(1, 99, 172)",
-             :padding => 12
+             :padding => 4
       end
     end
     redirect_to '/toprint.pdf'
@@ -469,6 +477,8 @@ class ClaimsController < ApplicationController
     if approvedby.nil?
       approvedby = "No OSL staff approval needed"
     end
+    approved2 = approvedby.split(',')
+    sectors = approved2.size
     cbdname = session[:club]
     date = Date.today
     Prawn::Document.generate("public/toprint.pdf",
@@ -523,11 +533,16 @@ class ClaimsController < ApplicationController
                     [clubname.to_s+", CBd Finance Secretary",clubname.to_s+", CBd President", cbdname.to_s+", SMUSA Finance Secretary"]
                   ]
         table(approval, :width => bounds.width, :cell_style => { :border_color => "FFFFFF", :padding => 6, :size=>10,  :inline_format => true})
-        move_down 30
-        newapprove = [
-          ['<b>Approved by</b>'],[approvedby.to_s]
-        ]
-        table(newapprove, :width => bounds.width, :cell_style => { :border_color => "FFFFFF", :padding => 6, :size=>10, :inline_format => true})
+        if sectors != 1
+          
+          for i in 1..sectors/2
+            
+            newapprove = [
+              ['<b>Approved by</b>'],[approved2[2*i-2].to_s+', '+approved2[2*i-1]]
+            ]
+            table(newapprove, :width => bounds.width, :cell_style => { :border_color => "FFFFFF", :padding => 6, :size=>10, :inline_format => true})
+          end
+        end
       end
       grid([2,5],[7,7]).bounding_box do
         #Payment Approval
@@ -551,16 +566,16 @@ class ClaimsController < ApplicationController
       end  
       #Footer
       bounding_box [bounds.left-40, bounds.bottom], :width  => bounds.width+80 do
-        cell :content => 'Generated Report using the SMUSA Accounting Information System',
+        cell :content => "Generated Report using the SMUSA Accounting Information System.\nThis is electronically approved. No physical signature is required.",
              :background_color => 'EEEEEE',
              :width => bounds.width,
-             :height => 40,
+             :height => 160,
              :align => :center,
              :text_color => "#202020",
              :borders => [:top],
              :border_width => 2,
              :border_color => "rgb(1, 99, 172)",
-             :padding => 12
+             :padding => 4
       end
     end
     redirect_to '/toprint.pdf'
@@ -607,6 +622,8 @@ class ClaimsController < ApplicationController
     if approvedby.nil?
       approvedby = "No OSL staff approval needed"
     end
+    approved2 = approvedby.split(',')
+    sectors = approved2.size
     Prawn::Document.generate("public/toprint.pdf",
                              :page_size => "EXECUTIVE",
                              :page_layout => :landscape) do
@@ -658,11 +675,16 @@ class ClaimsController < ApplicationController
                     [clubname.to_s+", SMUSA Honourary Secretary",cbdname.to_s+", SMUSA President", cbdname.to_s+", SMUSA Finance Secretary"]
                   ]
         table(approval, :width => bounds.width, :cell_style => { :border_color => "FFFFFF", :padding => 6, :size=>10, :inline_format => true})
-        move_down 30
-        newapprove = [
-          ['<b>Approved by</b>'],[approvedby.to_s]
-        ]
-        table(newapprove, :width => bounds.width, :cell_style => { :border_color => "FFFFFF", :padding => 6, :size=>10, :inline_format => true})
+        if sectors != 1
+          
+          for i in 1..sectors/2
+            
+            newapprove = [
+              ['<b>Approved by</b>'],[approved2[2*i-2].to_s+', '+approved2[2*i-1]]
+            ]
+            table(newapprove, :width => bounds.width, :cell_style => { :border_color => "FFFFFF", :padding => 6, :size=>10, :inline_format => true})
+          end
+        end
       end
       
       grid([2,5],[7,7]).bounding_box do
@@ -687,16 +709,16 @@ class ClaimsController < ApplicationController
       end
       #Footer
       bounding_box [bounds.left-40, bounds.bottom], :width  => bounds.width+80 do
-        cell :content => 'Generated Report using the SMUSA Accounting Information System',
+        cell :content => "Generated Report using the SMUSA Accounting Information System.\nThis is electronically approved. No physical signature is required.",
              :background_color => 'EEEEEE',
              :width => bounds.width,
-             :height => 40,
+             :height => 160,
              :align => :center,
              :text_color => "#202020",
              :borders => [:top],
              :border_width => 2,
              :border_color => "rgb(1, 99, 172)",
-             :padding => 12
+             :padding => 4
       end
     end
     redirect_to '/toprint.pdf'

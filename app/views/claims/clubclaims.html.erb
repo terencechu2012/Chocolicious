@@ -373,6 +373,7 @@
 								
 								<th>Status</th>
 								<th>Details</th>
+								<th>Approved By</th>
 								<th>Action</th>
 
 							</thead>
@@ -398,6 +399,9 @@
 											Details
 										</button>
 										<a href="<%= c.supportdoc.url%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Download Receipt'><i class="icon-arrow-down"></i></a>
+									</td>
+									<td>
+										<%= c.approvedby%>
 									</td>
 									<td> 
 										<%claimtype = c.claimtype%>
