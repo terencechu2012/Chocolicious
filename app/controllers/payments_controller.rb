@@ -229,17 +229,17 @@ class PaymentsController < ApplicationController
     expense = payment.expense
     clubfinsec = Club.find_by_clubid(payment.clubid).finsecid
     if !clubfinsec.nil?
-      clubfinsec = User.find_by_userid(clubfinsec).fullname
+      clubfinsec = User.find_by_userid(clubfinsec).fullname if !User.find_by_userid(clubfinsec).fullname.nil?
     end
     clubcode = Club.find_by_clubid(payment.clubid).clubcode
     
     clubpres = Club.find_by_clubid(payment.clubid).presidentid
     if !clubpres.nil?
-      clubpres = User.find_by_userid(clubpres).fullname
+      clubpres = User.find_by_userid(clubpres).fullname if !User.find_by_userid(clubpres).fullname.nil?
     end
     cbdfinsec = current_user.userid
     if !cbdfinsec.nil?
-      cbdfinsec = User.find_by_userid(cbdfinsec).fullname
+      cbdfinsec = User.find_by_userid(cbdfinsec).fullname if !User.find_by_userid(cbdfinsec).fullname.nil?
     end
     paymentid = payment.id
     clubname = Club.find_by_clubid(payment.clubid).clubname
@@ -453,16 +453,16 @@ class PaymentsController < ApplicationController
     expense = payment.expense
     cbdfinsec = Club.find_by_clubid(payment.clubid).finsecid
     if !cbdfinsec.nil?
-      cbdfinsec = User.find_by_userid(cbdfinsec).fullname
+      cbdfinsec = User.find_by_userid(cbdfinsec).fullname if !User.find_by_userid(cbdfinsec).fullname.nil?
     end
     clubcode = Club.find_by_clubid(payment.clubid).clubcode
     cbdpres = Club.find_by_clubid(payment.clubid).presidentid
     if !cbdpres.nil?
-      cbdpres = User.find_by_userid(cbdpres).fullname
+      cbdpres = User.find_by_userid(cbdpres).fullname if !User.find_by_userid(cbdpres).fullname.nil?
     end
     smusafinsec = current_user.userid
     if !smusafinsec.nil?
-      smusafinsec = User.find_by_userid(smusafinsec).fullname
+      smusafinsec = User.find_by_userid(smusafinsec).fullname if !User.find_by_userid(smusafinsec).fullname.nil?
     end
     paymentid = payment.id
     clubname = Club.find_by_clubid(payment.clubid).clubname
@@ -676,15 +676,15 @@ class PaymentsController < ApplicationController
     expense = payment.expense
     smusasec = payment.userid
     if !smusasec.nil?
-      smusasec = User.find_by_userid(smusasec).fullname
+      smusasec = User.find_by_userid(smusasec).fullname if !User.find_by_userid(smusasec).fullname.nil?
     end
     smusafinsec = current_user.userid
     if !smusafinsec.nil?
-      smusafinsec = User.find_by_userid(smusafinsec).fullname
+      smusafinsec = User.find_by_userid(smusafinsec).fullname if !User.find_by_userid(smusafinsec).fullname.nil?
     end
     smusapres = Club.find_by_clubid('smusa').presidentid
     if !smusapres.nil?
-      smusapres = User.find_by_userid(smusapres).fullname
+      smusapres = User.find_by_userid(smusapres).fullname if !User.find_by_userid(smusapres).fullname.nil?
     end
     clubcode = Club.find_by_clubid(payment.clubid).clubcode
     paymentid = payment.id
