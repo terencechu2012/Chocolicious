@@ -2,7 +2,7 @@ class AdminController < ApplicationController
   def register
     @userList=Clubusers.where(clubid:session[:club])
     # @users=User.where.not(userid: session[:userid])
-    @users=User.all
+    @users=User.where.not(confirmed_at: nil)
     @allexceptme = User.where.not(userid: session[:userid])
     @allClubs = Club.where("clubtype != 'cbd' and clubtype <> 'smusa' and clubtype != 'infinity'")
     @clubsUnderCbd = Club.where(clubtype: session[:club])
