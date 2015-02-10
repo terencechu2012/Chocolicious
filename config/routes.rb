@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   resources :clubusers do
     
   end
+  get 'deposits/submitosl'
+  get 'deposits/oslprocess'
   get 'users/delete'
   get 'payments/submitosl'
   get 'claims/oslprocess'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141228125103) do
+ActiveRecord::Schema.define(version: 20150206074558) do
 
   create_table "allocation_reports", force: true do |t|
     t.datetime "created_at"
@@ -297,6 +297,8 @@ ActiveRecord::Schema.define(version: 20141228125103) do
     t.string   "supportdoc_content_type"
     t.integer  "supportdoc_file_size"
     t.datetime "supportdoc_updated_at"
+    t.string   "deposittype"
+    t.string   "approvedby"
   end
 
   create_table "ereceipts", force: true do |t|

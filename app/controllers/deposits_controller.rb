@@ -7,23 +7,52 @@ class DepositsController < ApplicationController
   def clubdeposits
     role = session[:role]
     if role.include? 'clubfinsec'
-      @normaldeposits = Deposit.where(:clubid => session[:club], :status => 1..5)
+      @normaldeposits = Deposit.where(:clubid => session[:club], :status => [1..5, 17..19, 26..28])
     elsif role.include? 'cbdfinsec'
-      @normaldeposits = Deposit.where(['clubid in (select clubid from clubs where clubtype = ?) and status > 2 and status < 6', session[:club]])
-      @cbdmcdeposits = Deposit.where(clubid:session[:club], status: 7..11)
+      @normaldeposits = Deposit.where(['clubid in (select clubid from clubs where clubtype = ?) and ((status > 2 and status < 6) or (status>16 and status<20) or (status>25 and status<29))', session[:club]])
+      @cbdmcdeposits = Deposit.where(clubid:session[:club], status: [7..11, 20..22, 26..28])
     elsif role.include? 'president'
-      @normaldeposits = Deposit.where(clubid:session[:club], status: 2..5)
-      @cbdmcdeposits = Deposit.where(clubid:session[:club], status: 8..11)
+      @normaldeposits = Deposit.where(clubid:session[:club], status: [2..5, 17..19, 26..28])
+      @cbdmcdeposits = Deposit.where(clubid:session[:club], status: [8..11, 20..22, 26..28])
       @deposits = @normaldeposits+ @cbdmcdeposits
       if session[:club] == 'smusa'
-        @thirddeposits = Deposit.where(['clubid in (select clubid from clubs where clubtype = ?) and status > 12 and status < 17', 'smusa'])
+        @thirddeposits = Deposit.where(['clubid in (select clubid from clubs where clubtype = ?) and ((status > 12 and status < 17) or (status > 22 and status < 26))', 'smusa'])
         @deposits = @normaldeposits + @cbdmcdeposits + @thirddeposits
       end
       
     elsif role.include? 'smusafinsec'
-      @cbdmcdeposits = Deposit.where(status: 9..11)
-      @smusasecdeposits = Deposit.where(status: 14..16)
+      @cbdmcdeposits = Deposit.where(status: [9..11, 20..22]) + Deposit.where(status: [26..28], claimtype: 'cbd')
+      @smusasecdeposits = Deposit.where(status: [14..16, 23..25])+ Deposit.where(status: [26..28], claimtype: 'smusasec')
+    elsif role == 'osl'
+      clubs = Club.where(oslstaff: session[:userid]).pluck(:clubid)
+      u = User.find_by_userid(session[:userid]).fullname
+      if u.nil?
+        u = session[:userid]
+      end
+      @osldeposits = Deposit.where(status: [17,20,23,26,27,28], clubid: clubs) | Deposit.where(["approvedby LIKE ?", "%"+u+"%"])
+      
+    elsif role =='oslad'
+      cbds = Club.where(oslstaff: session[:userid]).pluck(:clubid)
+      u = User.find_by_userid(session[:userid]).fullname
+      if u.nil?
+        u = session[:userid]
+      end
+      clubs = Club.where(clubtype: cbds).pluck(:clubid) + cbds
+      @osldeposits = Deposit.where(status: [26,27,28], clubid: clubs) | Deposit.where(["approvedby LIKE ?", "%"+u+"%"])
+    elsif role == 'osld'
+      u = User.find_by_userid(session[:userid]).fullname
+      if u.nil?
+        u = session[:userid]
+      end
+      @osldeposits = Deposit.where(status: [27,28]) | Deposit.where(["approvedby LIKE ?", "%"+u+"%"])
+    elsif role == 'dos'
+      u = User.find_by_userid(session[:userid]).fullname
+      if u.nil?
+        u = session[:userid]
+      end
+      @osldeposits = Deposit.where(status: [28]) | Deposit.where(["approvedby LIKE ?", "%"+u+"%"])
     end
+    
   end
 
   def editdeposit
@@ -64,13 +93,24 @@ class DepositsController < ApplicationController
   
   def edit
     c = Deposit.find_by_id(params[:deposit][:id])
-    c.update_attributes(deposit_params)
+    begin
+      c.update_attributes(deposit_params)
+    rescue Exception => e
+      p e.backtrace
+      p 'HERE'
+    end
+    # Rails.logger.info(c.errors.messages.inspect)
     redirect_to :action => 'clubdeposits'
   end
   
   def editown
     c = Deposit.find_by_id(params[:deposit][:id])
-    c.update_attributes(deposit_params)
+    begin
+      c.update_attributes(deposit_params)
+    rescue Exception => e
+      p e.backtrace
+      p 'HERE'
+    end
     redirect_to :action => 'viewdeposit'
   end
   
@@ -168,6 +208,12 @@ class DepositsController < ApplicationController
     depositid = deposit.id
     clubname = Club.find_by_clubid(deposit.clubid).clubname
     cbdname = session[:club]
+    approvedby = deposit.approvedby
+    if approvedby.nil?
+      approvedby = "No OSL staff approval needed"
+    end
+    approved2 = approvedby.split(',')
+    sectors = approved2.size
     date = Date.today
     Prawn::Document.generate("public/toprint.pdf") do
       # header
@@ -219,6 +265,16 @@ class DepositsController < ApplicationController
                 ]
       table(approval, :width => bounds.width, :cell_style => { :border_color => "FFFFFF", :padding => 6, :size=>10, :inline_format => true})
       #Footer
+      if sectors != 1
+          
+        for i in 1..sectors/2
+          
+          newapprove = [
+            ['<b>Approved by</b>'],[approved2[2*i-2].to_s+', '+approved2[2*i-1]]
+          ]
+          table(newapprove, :width => bounds.width, :cell_style => { :border_color => "FFFFFF", :padding => 6, :size=>10, :inline_format => true})
+        end
+      end
       bounding_box [bounds.left-40, bounds.bottom], :width  => bounds.width+80 do
         cell :content => 'Generated Report using the SMUSA Accounting Information System',
              :background_color => 'EEEEEE',
@@ -265,6 +321,12 @@ class DepositsController < ApplicationController
     end
     depositid = deposit.id
     clubname = Club.find_by_clubid(deposit.clubid).clubname
+    approvedby = deposit.approvedby
+    if approvedby.nil?
+      approvedby = "No OSL staff approval needed"
+    end
+    approved2 = approvedby.split(',')
+    sectors = approved2.size
     cbdname = session[:club]
     date = Date.today
     Prawn::Document.generate("public/toprint.pdf") do
@@ -316,6 +378,16 @@ class DepositsController < ApplicationController
                   [clubname.to_s+", CBd Finance Secretary",clubname.to_s+", CBd President", cbdname.to_s+", SMUSA Finance Secretary"]
                 ]
       table(approval, :width => bounds.width, :cell_style => { :border_color => "FFFFFF", :padding => 6, :size=>10, :inline_format => true})
+      if sectors != 1
+          
+        for i in 1..sectors/2
+          
+          newapprove = [
+            ['<b>Approved by</b>'],[approved2[2*i-2].to_s+', '+approved2[2*i-1]]
+          ]
+          table(newapprove, :width => bounds.width, :cell_style => { :border_color => "FFFFFF", :padding => 6, :size=>10, :inline_format => true})
+        end
+      end
       #Footer
       bounding_box [bounds.left-40, bounds.bottom], :width  => bounds.width+80 do
         cell :content => 'Generated Report using the SMUSA Accounting Information System',
@@ -365,6 +437,12 @@ class DepositsController < ApplicationController
     clubname = Club.find_by_clubid(deposit.clubid).clubname
     cbdname = session[:club]
     date = Date.today
+    approvedby = deposit.approvedby
+    if approvedby.nil?
+      approvedby = "No OSL staff approval needed"
+    end
+    approved2 = approvedby.split(',')
+    sectors = approved2.size
     Prawn::Document.generate("public/toprint.pdf") do
       # header
       bounding_box [bounds.left - 40, bounds.top + 40], :width  => bounds.width + 80 do
@@ -415,6 +493,16 @@ class DepositsController < ApplicationController
                 ]
       table(approval, :width => bounds.width, :cell_style => { :border_color => "FFFFFF", :padding => 6, :size=>10, :inline_format => true})
       #Footer
+      if sectors != 1
+          
+        for i in 1..sectors/2
+          
+          newapprove = [
+            ['<b>Approved by</b>'],[approved2[2*i-2].to_s+', '+approved2[2*i-1]]
+          ]
+          table(newapprove, :width => bounds.width, :cell_style => { :border_color => "FFFFFF", :padding => 6, :size=>10, :inline_format => true})
+        end
+      end
       bounding_box [bounds.left-40, bounds.bottom], :width  => bounds.width+80 do
         cell :content => 'Generated Report using the SMUSA Accounting Information System',
              :background_color => 'EEEEEE',
@@ -437,4 +525,68 @@ class DepositsController < ApplicationController
     redirect_to :back
   end
   
+  def submitosl
+    c = Deposit.find_by_id(params[:id])
+    status = c.status
+    if status == 3
+      newstatus = 17
+      c.update_attribute(:deposittype, 'club')
+    elsif status == 9
+      newstatus = 26
+      c.update_attribute(:deposittype, 'cbd')
+    elsif status == 14
+      newstatus = 26
+      c.update_attribute(:deposittype, 'smusasec')
+    end
+
+    c.update_attribute(:status, newstatus)
+    # redirect_to :action => 'viewclaim'
+    redirect_to :back
+  end
+  def oslprocess
+    c = Deposit.find_by_id(params[:id])
+    amount = c.amount
+    status = c.status
+    if status == 17
+      c.update_attribute(:deposittype, 'club')
+    elsif status == 20
+      c.update_attribute(:deposittype, 'cbd')
+    elsif status == 23
+      c.update_attribute(:deposittype, 'smusasec')
+    end
+    hash2 = {'club'=>18, 'cbd'=>21, 'smusasec'=>24}
+    approvedby = c.approvedby
+    user = User.find_by_userid(session[:userid]).fullname
+    if user.nil?
+      user = session[:userid]
+    end
+    role = session[:role]
+    hash = {'osl'=>'OSL Manager', 'oslad' => 'OSL Associate Director', 'osld' => 'OSL Director', 'dos' => 'Dean of Students'}
+    person = user + ', '+hash[role] 
+    if approvedby.nil?
+      c.update_attribute(:approvedby, person)
+    else
+      c.update_attribute(:approvedby, approvedby + ', ' + person)
+    end
+    
+    if status == 17 || status == 20 || status == 23
+      
+      c.update_attribute(:status, 26)
+    elsif status == 26
+      if amount <= 7500
+        c.update_attribute(:status, hash2[c.deposittype])
+      else
+        c.update_attribute(:status, 27)
+      end
+    elsif status == 27
+       if amount <= 10000
+        c.update_attribute(:status, hash2[c.deposittype])
+      else
+        c.update_attribute(:status, 28)
+      end
+    elsif status == 28
+       c.update_attribute(:status, hash2[c.deposittype])
+    end
+    redirect_to :back
+  end
 end
