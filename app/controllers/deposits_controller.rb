@@ -21,8 +21,8 @@ class DepositsController < ApplicationController
       end
       
     elsif role.include? 'smusafinsec'
-      @cbdmcdeposits = Deposit.where(status: [9..11, 20..22]) + Deposit.where(status: [26..28], claimtype: 'cbd')
-      @smusasecdeposits = Deposit.where(status: [14..16, 23..25])+ Deposit.where(status: [26..28], claimtype: 'smusasec')
+      @cbdmcdeposits = Deposit.where(status: [9..11, 20..22]) + Deposit.where(status: [26..28], deposittype: 'cbd')
+      @smusasecdeposits = Deposit.where(status: [14..16, 23..25])+ Deposit.where(status: [26..28], deposittype: 'smusasec')
     elsif role == 'osl'
       clubs = Club.where(oslstaff: session[:userid]).pluck(:clubid)
       u = User.find_by_userid(session[:userid]).fullname
