@@ -727,6 +727,7 @@ class ClaimsController < ApplicationController
   def submitosl
     c = Claim.find_by_id(params[:id])
     status = c.status
+    newstatus = status
     if status == 3
       newstatus = 17
       c.update_attribute(:claimtype, 'club')
