@@ -224,7 +224,7 @@ class PaymentsController < ApplicationController
       eventname = eventname+'#'+payment.id.to_s+'PM#'
     end
     eventname = item + ', ' + eventname if !item.nil?
-    amount = payment.amount
+    amount = "%.2f" % payment.amount
     category = payment.category
     expense = payment.expense
     clubfinsec = Club.find_by_clubid(payment.clubid).finsecid
@@ -448,7 +448,8 @@ class PaymentsController < ApplicationController
       eventname = eventname+'#'+payment.id.to_s+'PM#'
     end
     eventname = item + ', ' + eventname if !item.nil?
-    amount = payment.amount
+    amount = "%.2f" % payment.amount
+    # amount = number_to_currency(amount)
     category = payment.category
     expense = payment.expense
     cbdfinsec = Club.find_by_clubid(payment.clubid).finsecid
@@ -492,7 +493,7 @@ class PaymentsController < ApplicationController
         move_down 10
         image "#{Rails.root}/app/assets/images/smusa-new-logo.png", :at => [35, cursor], :width => 90
       end
-      grid([0,0],[1,4]).bounding_box do
+      grid([0,0],[2,6]).bounding_box do
         move_down 30
         #Body
         #Applicant Data
@@ -500,16 +501,17 @@ class PaymentsController < ApplicationController
                   ["<b>Payment ID</b>"," : "+paymentid.to_s+"PM","<b>Date</b>"," : "+date.to_s],
                   ['<b>Club Code</b>'," : "+clubcode.to_s," "," "],
                   ['<b>Payee Name</b>'," : "+fullname.to_s,'<b>Contact Number</b>'," : "+contact.to_s],
-                  ['<b>Vendor Mailing Address</b>'," : "+address.to_s," "," "]
+                  ['<b>Vendor Mailing Address</b>'," : "+address.to_s,"<b>PVS No.</b>"," : _________"],
+                  [" "," ",'<b>Date</b>'," : _________"]
                 ]
         table(data, :cell_style => { :border_color => "FFFFFF", :padding => 2, :size=>10, :inline_format => true})
       end
-      grid([1,5],[1,7]).bounding_box do
+      grid([2,6],[2,7]).bounding_box do
         pvsNo = [
-                  ["<b>PVS No.</b>"," : _________________________"],
-                  ['<b>Date</b>'," : _________________________"]
+                  ["<b>PVS No.</b>"," : ________________"],
+                  ['<b>Date</b>'," : ________________"]
                 ]
-        table(pvsNo, :cell_style => { :border_color => "FFFFFF", :padding => 2, :size=>10, :inline_format => true})
+        # table(pvsNo, :cell_style => { :border_color => "FFFFFF", :padding => 2, :size=>10, :inline_format => true})
       end
       grid([2,0],[7,4]).bounding_box do
         #Application Details
@@ -537,7 +539,7 @@ class PaymentsController < ApplicationController
           end
         end
       end
-      grid([2,5],[7,7]).bounding_box do
+      grid([3,5],[7,7]).bounding_box do
         #Payment Approval
         paymentapprove = [
                             [{:content=>"<b>Payment Approval for Official Use</b>", :colspan=>3}],
@@ -671,7 +673,7 @@ class PaymentsController < ApplicationController
       eventname = eventname+'#'+payment.id.to_s+'PM#'
     end
     eventname = item + ', ' + eventname if !item.nil?
-    amount = payment.amount
+    amount = "%.2f" % payment.amount
     category = payment.category
     expense = payment.expense
     smusasec = payment.userid

@@ -311,7 +311,7 @@ class ClaimsController < ApplicationController
       eventname = eventname+'#'+claim.id.to_s+'#'
     end
     eventname = item + ', ' + eventname if !item.nil?
-    amount = claim.amount
+    amount = "%.2f" % claim.amount
     category = claim.category
     expense = claim.expense
     clubfinsec = Club.find_by_clubid(claim.clubid).finsecid
@@ -455,7 +455,7 @@ class ClaimsController < ApplicationController
       eventname = eventname+'#'+claim.id.to_s+'#'
     end
     eventname = item + ', '+ eventname if !item.nil?
-    amount = claim.amount
+    amount = "%.2f" % claim.amount
     category = claim.category
     expense = claim.expense
     cbdfinsec = Club.find_by_clubid(claim.clubid).finsecid
@@ -598,7 +598,7 @@ class ClaimsController < ApplicationController
       eventname = eventname+'#'+claim.id.to_s+'#'
     end
     eventname = item + ', ' + eventname if !item.nil?
-    amount = claim.amount
+    amount = "%.2f" % claim.amount
     category = claim.category
     expense = claim.expense
     smusasec = claimant.userid
