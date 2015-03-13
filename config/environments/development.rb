@@ -19,13 +19,13 @@ Rails.application.configure do
    config.action_mailer.delivery_method = :smtp
 
 config.action_mailer.smtp_settings = {
-address: "pod51003.outlook.com",
-port: 587,
+address: "email-smtp.us-east-1.amazonaws.com",
+port: 25,
 authentication: "login",
 :enable_starttls_auto => 'true',
 # domain: "smtp.office365.com",
-user_name: 'terence.chu.2012@sis.smu.edu.sg',
-password: 'Raikkonen06'
+user_name: 'AKIAJMVB4NMM3ZR4UC2A',
+password: 'AgHcn+qq8bavoZ3NnIN6VDJic4OrcWCh4cPdja27KACQ'
 }
 
   # Print deprecation notices to the Rails logger.
