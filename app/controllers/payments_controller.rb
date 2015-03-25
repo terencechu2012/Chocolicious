@@ -269,7 +269,7 @@ class PaymentsController < ApplicationController
         move_down 10
         image "#{Rails.root}/app/assets/images/smusa-new-logo.png", :at => [35, cursor], :width => 90
       end
-      grid([0,0],[1,4]).bounding_box do
+      grid([0,0],[1,7]).bounding_box do
         move_down 30
         #Body
         #Applicant Data
@@ -286,7 +286,7 @@ class PaymentsController < ApplicationController
                   ["<b>PVS No.</b>"," : _________________________"],
                   ['<b>Date</b>'," : _________________________"]
                 ]
-        table(pvsNo, :cell_style => { :border_color => "FFFFFF", :padding => 2, :size=>10, :inline_format => true})
+        # table(pvsNo, :cell_style => { :border_color => "FFFFFF", :padding => 2, :size=>10, :inline_format => true})
       end
       grid([2,0],[7,4]).bounding_box do
         #Application Details
@@ -493,7 +493,7 @@ class PaymentsController < ApplicationController
         move_down 10
         image "#{Rails.root}/app/assets/images/smusa-new-logo.png", :at => [35, cursor], :width => 90
       end
-      grid([0,0],[2,6]).bounding_box do
+      grid([0,0],[2,7]).bounding_box do
         move_down 30
         #Body
         #Applicant Data
@@ -501,8 +501,8 @@ class PaymentsController < ApplicationController
                   ["<b>Payment ID</b>"," : "+paymentid.to_s+"PM","<b>Date</b>"," : "+date.to_s],
                   ['<b>Club Code</b>'," : "+clubcode.to_s," "," "],
                   ['<b>Payee Name</b>'," : "+fullname.to_s,'<b>Contact Number</b>'," : "+contact.to_s],
-                  ['<b>Vendor Mailing Address</b>'," : "+address.to_s,"<b>PVS No.</b>"," : _________"],
-                  [" "," ",'<b>Date</b>'," : _________"]
+                  ['<b>Vendor Mailing Address</b>'," : "+address.to_s," "," "],
+                  [" "," ",' '," "]
                 ]
         table(data, :cell_style => { :border_color => "FFFFFF", :padding => 2, :size=>10, :inline_format => true})
       end
@@ -717,7 +717,7 @@ class PaymentsController < ApplicationController
         move_down 10
         image "#{Rails.root}/app/assets/images/smusa-new-logo.png", :at => [35, cursor], :width => 90
       end
-      grid([0,0],[1,4]).bounding_box do
+      grid([0,0],[1,7]).bounding_box do
         move_down 30
         #Body
         #Applicant Data
@@ -734,7 +734,7 @@ class PaymentsController < ApplicationController
                   ["<b>PVS No.</b>"," : _________________________"],
                   ['<b>Date</b>'," : _________________________"]
                 ]
-        table(pvsNo, :cell_style => { :border_color => "FFFFFF", :padding => 2, :size=>10, :inline_format => true})
+        # table(pvsNo, :cell_style => { :border_color => "FFFFFF", :padding => 2, :size=>10, :inline_format => true})
       end
       grid([2,0],[7,4]).bounding_box do
         #Application Details

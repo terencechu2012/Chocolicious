@@ -233,18 +233,22 @@ class AdminController < ApplicationController
       @smusasecdeposits = Deposit.where(status: 14)
       @cbdmcpayments = Payment.where(status: [9..11, 20..22])
       @smusasecpayments = Payment.where(status: [14..16, 23..25])
-    elsif role.include? 'osl'
-      @oslpayments = Payment.where(status: [17..25])
+    elsif role == 'osl'
       clubs = Club.where(oslstaff: session[:userid]).pluck(:clubid)
+      @oslpayments = Payment.where(status: [17,20,23,26,27,28], clubid: clubs)
+      
       @oslclaims = Claim.where(status: [17,20,23,26,27,28], clubid: clubs)
     elsif role =='oslad'
       cbds = Club.where(oslstaff: session[:userid]).pluck(:clubid)
       clubs = Club.where(clubtype: cbds).pluck(:clubid) + cbds
       @oslclaims = Claim.where(status: [26,27,28], clubid: clubs)
+      @oslpayments= Payment.where(status: [26,27,28], clubid: clubs)
     elsif role == 'osld'
       @oslclaims = Claim.where(status: [27,28])
+      @oslpayments = Payment.where(status: [27,28])
     elsif role == 'dos'
       @oslclaims = Claim.where(status: [28])
+      @oslpayments = Payment.where(status: [28])
     end
   end
 
