@@ -70,9 +70,12 @@
 											<a href="/claims/editclaim?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Edit'><i class="icon-pencil"></i></a> 
 											<a href="/claims/addremark?id=<%= c.id%>&status=0" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a>
 											<%if c.remarks.nil?%> 
-												<a href="/claims/submitclaim?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Submit'><i class="icon-share-alt"></i></a>
+												<a href="#", onclick="pres3(<%= c.id%>)" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Submit'><i class="icon-share-alt"></i></a>
+												<!-- <a href="/claims/submitclaim?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Submit'><i class="icon-share-alt"></i></a> -->
 											<%else%> 
-												<a href="/claims/submitclaim?id=<%= c.id%>" class="btn btn-info btn-xs has-tooltip" data-placement='top' title='Resubmit'><i class="icon-share-alt"></i></a>
+												<a href="#", onclick="pres3(<%= c.id%>)" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Resubmit'><i class="icon-share-alt"></i></a>
+												
+												<!-- <a href="/claims/submitclaim?id=<%= c.id%>" class="btn btn-info btn-xs has-tooltip" data-placement='top' title='Resubmit'><i class="icon-share-alt"></i></a> -->
 												<a href="#", onclick="viewremark('<%= c.remarks%>')" class="btn btn-warning btn-xs has-tooltip" data-placement='top' title='View Remarks'><i class="icon-eye-open"></i></a>
 											<%end%>
 										<%end%>
@@ -150,13 +153,20 @@
 									</td>
 									<td> 
 										<%if (status == 3 && c.amount <= 750) || status == 18%> 
-											<a href="/claims/endorseclub?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Endorse'><i class="icon-thumbs-up-alt"></i></a>
+											<!-- <a href="#", onclick="pres4(<%= c.id%>)" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Submit'><i class="icon-share-alt"></i></a> -->
+											<a href="#", onclick="pres4(<%= c.id%>)" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Endorse'><i class="icon-thumbs-up-alt"></i></a>
+												
+											<!-- <a href="/claims/endorseclub?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Endorse'><i class="icon-thumbs-up-alt"></i></a> -->
 											<a href="/claims/addremark?id=<%= c.id%>&status=0" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a>
 										<%elsif status == 3 && c.amount > 750%> 
-											<a href="/claims/submitosl?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Submit to OSL'><i class="icon-share-alt"> OSL</i></a>
+											<a href="#", onclick="pres5(<%= c.id%>)"class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Submit to OSL'><i class="icon-share-alt"> OSL</i></a>
+											
+											<!-- <a href="/claims/submitosl?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Submit to OSL'><i class="icon-share-alt"> OSL</i></a> -->
 											<a href="/claims/addremark?id=<%= c.id%>&status=0" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a>
 										<%elsif status == 4%> 
-											<a href="/claims/endorseclub?id=<%= c.id%>" class="btn btn-warning btn-xs has-tooltip" data-placement='top' title='View Endorsed Form'><i class="icon-eye-open"></i></a>
+											<a href="#", onclick="pres4(<%= c.id%>)" class="btn btn-warning btn-xs has-tooltip" data-placement='top' title='View Endorsed Form'><i class="icon-eye-open"></i></a>
+											
+											<!-- <a href="/claims/endorseclub?id=<%= c.id%>" class="btn btn-warning btn-xs has-tooltip" data-placement='top' title='View Endorsed Form'><i class="icon-eye-open"></i></a> -->
 											<a href="/claims/addremark?id=<%= c.id%>&status=0" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a>
 											<a href="/claims/completeclaim?id=<%= c.id%>" class="btn btn-success btn-xs">Claim complete</a>  
 										<%elsif status == 5%> 
@@ -239,9 +249,13 @@
 											<a href="/claims/editclaim?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Edit'><i class="icon-pencil"></i></a>
 											<a href="/claims/addremark?id=<%= c.id%>&status=6" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a>
 											<%if c.remarks.nil?%> 
-												<a href="/claims/submitclaim?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Submit'><i class="icon-share-alt"></i></a>
+												<a href="#", onclick="pres3(<%= c.id%>)" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Submit'><i class="icon-share-alt"></i></a>
+												
+												<!-- <a href="/claims/submitclaim?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Submit'><i class="icon-share-alt"></i></a> -->
 											<%else%> 
-												<a href="/claims/submitclaim?id=<%= c.id%>" class="btn btn-info btn-xs has-tooltip" data-placement='top' title='Resubmit'><i class="icon-share-alt"></i></a>
+												<a href="#", onclick="pres3(<%= c.id%>)" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Resubmit'><i class="icon-share-alt"></i></a>
+												
+												<!-- <a href="/claims/submitclaim?id=<%= c.id%>" class="btn btn-info btn-xs has-tooltip" data-placement='top' title='Resubmit'><i class="icon-share-alt"></i></a> -->
 												<a href="#", onclick="viewremark('<%= c.remarks%>')" class="btn btn-warning btn-xs has-tooltip" data-placement='top' title='View Remarks'><i class="icon-eye-open"></i></a>
 											<%end%>
 										<%end%> 
@@ -569,13 +583,20 @@
 									</td>
 									<td> 
 										<%if (status == 9 && c.amount <= 750) || status == 21%> 
-											<a href="/claims/endorsecbdmc?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Endorse'><i class="icon-thumbs-up-alt"></i></a>
+											
+											<a href="#", onclick="pres6(<%= c.id%>)" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Endorse'><i class="icon-thumbs-up-alt"></i></a>
+											
+											<!-- <a href="/claims/endorsecbdmc?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Endorse'><i class="icon-thumbs-up-alt"></i></a> -->
 											<a href="/claims/addremark?id=<%= c.id%>&status=6" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a> 
 										<%elsif status == 9 && c.amount > 750%> 
-											<a href="/claims/submitosl?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Submit to OSL'><i class="icon-share-alt"> OSL</i></a>
+											<a href="#", onclick="pres5(<%= c.id%>)" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Submit to OSL'><i class="icon-share-alt"> OSL</i></a>
+											
+											<!-- <a href="/claims/submitosl?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Submit to OSL'><i class="icon-share-alt"> OSL</i></a> -->
 											<a href="/claims/addremark?id=<%= c.id%>&status=6" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a>
 										<%elsif status == 10%> 
-											<a href="/claims/endorsecbdmc?id=<%= c.id%>" class="btn btn-warning btn-xs has-tooltip" data-placement='top' title='View Endorsed Form'><i class="icon-eye-open"></i></a>
+											<a href="#", onclick="pres6(<%= c.id%>)" class="btn btn-warning btn-xs has-tooltip" data-placement='top' title='View Endorsed Form'><i class="icon-eye-open"></i></a>
+											
+											<!-- <a href="/claims/endorsecbdmc?id=<%= c.id%>" class="btn btn-warning btn-xs has-tooltip" data-placement='top' title='View Endorsed Form'><i class="icon-eye-open"></i></a> -->
 											<a href="/claims/addremark?id=<%= c.id%>&status=6" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a>
 											<a href="/claims/completeclaim?id=<%= c.id%>" class="btn btn-success btn-xs">Claim complete</a> 
 										<%elsif status == 11%> 
@@ -654,13 +675,19 @@
 						            </td>
 									<td> 
 										<%if (status == 14 && c.amount <= 750) || status == 24%> 
-											<a href="/claims/endorsesmusasec?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Endorse'><i class="icon-thumbs-up-alt"></i></a>
+											<a href="#", onclick="pres7(<%= c.id%>)" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Endorse'><i class="icon-thumbs-up-alt"></i></a>
+											
+											<!-- <a href="/claims/endorsesmusasec?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Endorse'><i class="icon-thumbs-up-alt"></i></a> -->
 											<a href="/claims/addremark?id=<%= c.id%>&status=12" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a> 
 										<%elsif status == 14 && c.amount > 750%> 
-											<a href="/claims/submitosl?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Submit to OSL'><i class="icon-share-alt"> OSL</i></a>
+											<a href="#", onclick="pres5(<%= c.id%>)" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Submit to OSL'><i class="icon-share-alt"> OSL</i></a>
+											
+											<!-- <a href="/claims/submitosl?id=<%= c.id%>" class="btn btn-success btn-xs has-tooltip" data-placement='top' title='Submit to OSL'><i class="icon-share-alt"> OSL</i></a> -->
 											<a href="/claims/addremark?id=<%= c.id%>&status=12" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a>
 										<%elsif status == 15%> 
-											<a href="/claims/endorsesmusasec?id=<%= c.id%>" class="btn btn-warning btn-xs has-tooltip" data-placement='top' title='View Endorsed Form'><i class="icon-eye-open"></i></a>
+											<a href="#", onclick="pres7(<%= c.id%>)" class="btn btn-warning btn-xs has-tooltip" data-placement='top' title='View Endorsed Form'><i class="icon-eye-open"></i></a>
+											
+											<!-- <a href="/claims/endorsesmusasec?id=<%= c.id%>" class="btn btn-warning btn-xs has-tooltip" data-placement='top' title='View Endorsed Form'><i class="icon-eye-open"></i></a> -->
 											<a href="/claims/addremark?id=<%= c.id%>&status=12" class="btn btn-xs btn-danger has-tooltip" data-placement='top' title='Reject'><i class="icon-thumbs-down-alt"></i></a>
 											<a href="/claims/completeclaim?id=<%= c.id%>" class="btn btn-success btn-xs">Claim complete</a> 
 										<%elsif status == 16%> 
@@ -886,6 +913,46 @@ window.location = "/claims/oslprocess?id="+a;
 }
 <!-- document.getElementById("pres").innerHTML = x; -->
 }
+function pres3(a){
+<!-- var x; -->
+if (confirm("You are going to submit the claim!")==true){
+window.location = "/claims/submitclaim?id="+a;
+}
+<!-- document.getElementById("pres").innerHTML = x; -->
+}
+function pres4(a){
+<!-- var x; -->
+if (confirm("You are going to endorse the claim!")==true){
+window.location = "/claims/endorseclub?id="+a;
+}
+<!-- document.getElementById("pres").innerHTML = x; -->
+}
+function pres5(a){
+<!-- var x; -->
+if (confirm("You are going to submit the claim!")==true){
+window.location = "/claims/submitosl?id="+a;
+}
+<!-- document.getElementById("pres").innerHTML = x; -->
+}
+function pres6(a){
+<!-- var x; -->
+if (confirm("You are going to endorse the claim!")==true){
+window.location = "/claims/endorsecbdmc?id="+a;
+}
+<!-- document.getElementById("pres").innerHTML = x; -->
+}
+function pres7(a){
+<!-- var x; -->
+if (confirm("You are going to endorse the claim!")==true){
+window.location = "/claims/endorsesmusasec?id="+a;
+}
+<!-- document.getElementById("pres").innerHTML = x; -->
+}
+
+
+
+
+
 function viewremark(a){
 
 alert(a);
